@@ -118,7 +118,10 @@ function setChosen(cont) {
     }
 
     if (obj.length > 0) {
-        obj.chosen();
+        obj.chosen({
+            width: "95%",
+            no_results_text: "No result found. Press enter to add "
+        });
     }
 }
 

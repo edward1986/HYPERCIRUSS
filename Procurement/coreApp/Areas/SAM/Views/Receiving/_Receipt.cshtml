@@ -161,7 +161,11 @@
             <div class="form-group row">
                 <div class="col-md">
                     <label>P.O. No.</label>
-                    @Html.TextBox("SearchPONo", "", new { @class = "form-control" })
+
+                    @Html.DropDownList("SearchPONo", SelectItems.getPO(), new { @class = "form-control search-pono pc-selectpicker", data_pono_value = "-1", @id = "SearchPONo" })
+                    @*
+        @Html.TextBox("SearchPONo", "", new { @class = "form-control" })
+                    *@
                 </div>
             </div>
         }
@@ -198,7 +202,9 @@
             <div class="col-md">
                 <label>Office</label>
 
-                @{ int? dval;
+                @{
+                    
+                    int? dval;
                     if (Model._OfficeId != null)
                     {
                         dval = Model._OfficeId;

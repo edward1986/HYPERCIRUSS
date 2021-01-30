@@ -32,7 +32,6 @@ function filterDepartment() {
     var selectedOffice = office.options[office.selectedIndex].value.split(",")[1];
 
     department.value = -1;
-
     for (i = 0; i < department.length; i++) {
 
         if (department.options[i].value.split(",")[0] != selectedOffice) {

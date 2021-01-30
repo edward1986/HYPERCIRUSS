@@ -1,4 +1,6 @@
-﻿using coreApp.DAL;
+﻿using coreApp.Areas.Procurement.DAL;
+using coreApp.Areas.SAM;
+using coreApp.DAL;
 using coreApp.Enums;
 using Module.DB.Enums;
 using System;
@@ -248,6 +250,23 @@ namespace coreApp
                 );
 
             return _Positions;
+        }
+        public static List<SelectListItem> getPO()
+        {
+            using (samDataContext context = new samDataContext())
+            {
+
+                List<SelectListItem> _Positions = new List<SelectListItem>();
+
+                _Positions.AddRange(
+                context.tblPOs.ToList()
+                       .Select(x => new SelectListItem() { Text = x.Id.ToString(), Value = x.PONo.ToString() })
+                       .OrderBy(x => x.Text)
+                       .ToList()
+                );
+
+                return _Positions;
+            }
         }
 
         public static List<SelectListItem> getPayrollTypes()

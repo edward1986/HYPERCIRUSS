@@ -36,10 +36,39 @@
                     btnEdit.show();
                     btnDelete.show();
                 }
+
             }
 
             return e;
         }
+
+        $('#modalView').on('shown.bs.modal', function () {
+            var button = document.createElement('input');
+            button.setAttribute('type', 'submit');
+            button.setAttribute('ID', 'btnSendMailClone');
+            button.setAttribute('value', 'Submit');
+            button.setAttribute('onclick', 'btnSendMail_Click()');
+            button.setAttribute('form', 'myform');
+            @*document.body.appendChild(button);
+            button.setAttribute("class", "btn btn-primary");
+            $('#button').addClass('myClass');
+            $('#btnSendMailClone').addClass('center')*@
+
+            $('.chosen-select', this).chosen('destroy').chosen({
+                width: "95%",
+                no_results_text: "No result found. Press enter to add "
+            }).on('chosen:no_results', function (evt, data) {
+                jQuery(data.chosen.container).on('keydown', function (event) {
+                    if (13 == event.keyCode && !jQuery(data.chosen.form_field).find('option[value="' + data.chosen.get_search_text() + '"]').length) {
+                        event.preventDefault();
+                        jQuery(data.chosen.form_field).append('<option value="' + data.chosen.get_search_text() + '" selected>' + data.chosen.get_search_text() + '</option>');
+                        jQuery(data.chosen.form_field).trigger('chosen:updated');
+                        data.chosen.result_highlight = data.chosen.search_results.find('li.active-result').lasteturn;
+                        data.chosen.result_select(evt);
+                    }
+                });
+            });
+        });
     </script>
 }
 
