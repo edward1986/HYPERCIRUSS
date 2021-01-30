@@ -1,0 +1,147 @@
+﻿@model coreApp.Areas.SAM.tblContractor
+
+@{    
+    bool isReadOnly = (bool)ViewBag.uiIsReadOnly;
+    bool includeId = (bool)ViewBag.uiIncludeId;
+    
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+
+    if (isReadOnly)
+            {
+                <div class="form-row">
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.Id)
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-control">
+                            @Html.DisplayFor(model => model.Id)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.CompanyName)
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-control">
+                            @Html.DisplayFor(model => model.CompanyName)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.Address)
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-control">
+                            @Html.DisplayMultiLineFor(model => model.Address)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.TelephoneNo)
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-control">
+                            @Html.DisplayFor(model => model.TelephoneNo)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.Representative)
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-control">
+                            @Html.DisplayFor(model => model.Representative)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.Representative_MobileNo)
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-control">
+                            @Html.DisplayFor(model => model.Representative_MobileNo)
+                        </div>
+                    </div>
+                </div>
+                
+    }
+    else
+    {
+        @Html.HiddenFor(model => model.Id)
+
+        if (includeId)
+        {
+            <div class="form-row">
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.Id)
+                </div>
+                <div class="col-md-9">
+                    <div class="form-control dimmed">
+                        @Html.DisplayFor(model => model.Id)
+                    </div>
+                </div>
+            </div>
+        }
+
+        <div class="form-row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.CompanyName)
+            </div>
+            <div class="col-md-9">
+                @Html.TextBoxFor(model => model.CompanyName, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.Address)
+            </div>
+            <div class="col-md-9">
+                @Html.TextAreaFor(model => model.Address, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.TelephoneNo)
+            </div>
+            <div class="col-md-9">
+                @Html.TextBoxFor(model => model.TelephoneNo, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.Representative)
+            </div>
+            <div class="col-md-9">                
+                @Html.TextBoxFor(model => model.Representative, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.Representative_MobileNo)
+            </div>
+            <div class="col-md-9">
+                @Html.TextBoxFor(model => model.Representative_MobileNo, new { @class = "form-control" })
+            </div>
+        </div>
+        
+    }
+}

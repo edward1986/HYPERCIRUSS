@@ -1,0 +1,37 @@
+﻿
+
+@if (Session["area"] != null && Session["area"] == "Procurement")
+{
+    <li class="breadcrumb-item">
+        <a href="/Procurement/Main">Home</a>
+    </li>
+}
+else
+{
+    <li class="breadcrumb-item">
+        <a href="/SAM/Main">Home</a>
+    </li>
+}
+
+
+@if (Model != null)
+{
+
+    for (int i = 0; i < Model.Count; i++)
+    {
+        coreApp.Breadcrumb bc = Model[i];
+        if (i == Model.Count - 1)
+        {
+            <li class="active breadcrumb-item">
+                @bc.Description
+            </li>
+        }
+        else
+        {
+            <li class="breadcrumb-item">
+                <a href="@bc.Link">@bc.Description</a>
+            </li>
+        }
+
+    }
+}

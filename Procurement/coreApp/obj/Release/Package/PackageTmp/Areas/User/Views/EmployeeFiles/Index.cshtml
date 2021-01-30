@@ -1,0 +1,136 @@
+﻿@using coreLib.Extensions
+@{
+    Layout = "~/Areas/HRModule/Views/Shared/_EmployeeDetailsLayout.cshtml";
+
+    ViewBag.Title = "File Manager";
+    ViewBag.Subtitle = "List";
+    
+    Module.DB.tblEmployee employee = (Module.DB.tblEmployee)ViewBag.Employee;
+    
+}
+
+@section Breadcrumbs {
+    @Html.Partial("_Breadcrumbs", new List<Breadcrumb>()
+    {
+        new Breadcrumb { Description = "Employee List", Link = Url.Action("Index", "Employees", new { area = "HRModule" }) },
+        new Breadcrumb { Description = "Employee Main Record", Link = Url.Action("Details", "Employees", new { id = employee.EmployeeId, area = "HRModule" } ) },
+        new Breadcrumb { Description = ViewBag.Title }
+    })
+}
+
+@section SearchSection {
+    @Html.Action("Search", "EmployeeSearch", new { model = new coreApp.Models.EmployeeSearchModel { DataUrl = "/HRModule/Employee/Files/Index/{0}", MinimalView = true } })
+}
+
+@section Styles {
+    <link href="~/Assets/css/file-manager.less" rel="stylesheet">
+    <link href="~/Assets/plugins/bootstrap-fileinput-master/css/fileinput.min.css" rel="stylesheet">
+}
+
+@section Scripts {
+    <script type="text/javascript" src="~/Assets/js/file-manager.js"></script>
+    <script type="text/javascript" src="~/Assets/plugins/bootstrap-fileinput-master/js/fileinput.min.js"></script>
+    <script type="text/javascript" src="~/Assets/plugins/bootstrap-fileinput-master/themes/fa/theme.min.js"></script>
+
+    <script>
+        var fm;
+
+        $(document).ready(function () {
+            fm = $.extend({}, filemanager, {
+                obj: $('.file-manager'),
+                url_GetFiles: '@Url.Action("GetFiles", new { employeeId = employee.EmployeeId })',
+                url_CreateFolder: '@Url.Action("CreateFolder", new { employeeId = employee.EmployeeId })',
+                url_DeleteFolder: '@Url.Action("DeleteFolder", new { employeeId = employee.EmployeeId })',
+                url_RenameFolder: '@Url.Action("RenameFolder", new { employeeId = employee.EmployeeId })',
+                url_DeleteFile: '@Url.Action("DeleteFile", new { employeeId = employee.EmployeeId })',
+                url_PreviewFile: '@Url.Action("PreviewFile", new { employeeId = employee.EmployeeId })',
+                url_UploadFiles: '@Url.Action("UploadFiles", new { employeeId = employee.EmployeeId })',
+                url_RenameFile: '@Url.Action("RenameFile", new { employeeId = employee.EmployeeId })',
+                url_MoveToFolder: '@Url.Action("MoveToFolder", new { employeeId = employee.EmployeeId })',
+                fileSizeLimit: @FixedSettings.EmployeeFileSize
+            });
+
+            fm.init();
+        });
+
+        function allowDrop(ev) {
+            ev.preventDefault();
+        }
+
+        function drag(ev) {
+            ev.dataTransfer.setData("xpath", $(ev.target).parent().attr('xpath'));
+        }
+
+        function drop(ev) {
+            ev.preventDefault();
+            ev.stopPropagation();
+
+            var target = $(ev.target);
+            var dest = target.parent().attr('xpath');
+            var src = ev.dataTransfer.getData("xpath");
+
+            fm.moveToFolder(src, dest);
+        }
+    </script>
+}
+
+<div class="block">
+    <div class="head bg-default bg-light-ltr noradius">
+        <h2>@ViewBag.Title</h2>
+        <div class="side pull-right">
+            <ul class="buttons">
+                <li>
+
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="content">
+
+        <div class="file-manager">
+            <div class="fm-toolbar">
+                <button class="create-folder btn btn-clean btn-info">Create New Folder</button>
+                <button class="delete-folder btn btn-clean btn-danger">Delete Folder</button>
+                <button class="rename-folder btn btn-clean btn-info">Rename Folder</button>
+                <button class="delete-file btn btn-clean btn-danger">Delete File</button>
+                <button class="rename-file btn btn-clean btn-info">Rename File</button>
+            </div>
+            <label>Selected Path</label>
+            <div class="fm-path form-control">
+
+            </div>
+            <div class="fm-message">
+                <div class="alert alert-success"></div>
+                <div class="alert alert-danger"></div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="fm-expandcollapse-container">
+                        <a href="#" class="expand-all">Expand All</a> | 
+                        <a href="#" class="collapse-all">Collapse All</a>
+                    </div>
+                    <div class="fm-contents">
+
+                    </div>
+                </div>
+                <div class="col-sm-8">             
+                    <label>&nbsp;</label>
+                    <div class="fm-preview">
+                        <button class="btn btn-info view-in-newtab pull-right">View in new tab</button>
+                        <div class="contents"></div>
+                    </div>
+                    <div class="fm-upload">
+                        <label>Upload Files (jpg or pdf files only | Maximum File Size: @FixedSettings.EmployeeFileSize.ToBytes(true))</label>
+                        <input name="input-fa[]" type="file" multiple>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+
+    </div>
+</div>
+
+
+
+

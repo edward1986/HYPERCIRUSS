@@ -1,0 +1,42 @@
+﻿@using Module.Core
+@model List<coreApp.DAL.tblFin_DeductionDef>
+
+@{
+    bool readOnly = Convert.ToBoolean(ViewData["ReadOnly"]);
+
+    List<SelectListItem> CompleteList = coreApp.SelectItems.getDeductions(showEmptyItem: false);
+}
+
+
+<style>
+    .entry-ui ul {
+        list-style: none;
+    }
+</style>
+
+@if (readOnly)
+{
+    <ul>
+        @foreach (coreApp.DAL.tblFin_DeductionDef item in Model)
+        {
+            <li>
+                @item.Description
+            </li>
+        }
+    </ul>
+}
+else
+{
+    <div class="entry-ui select-all select-all-parent-inverse">
+        <ul>
+            @foreach (SelectListItem item in CompleteList)
+            {
+                bool selected = Model.Any(x => x.DeductionId == int.Parse(item.Value));
+
+                <li>
+                    @Html.Partial("_Helper_CheckBox", "Deductions", new ViewDataDictionary { { "value", selected }, { "text", item.Text }, { "input-value", item.Value } })
+                </li>
+            }
+        </ul>
+    </div>
+}

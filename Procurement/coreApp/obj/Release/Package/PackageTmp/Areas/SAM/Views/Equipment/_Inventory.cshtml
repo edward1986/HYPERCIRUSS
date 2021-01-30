@@ -1,0 +1,201 @@
+﻿@model coreApp.Areas.SAM.InventoryItemModel
+@{ 
+    coreApp.Areas.SAM.tblPO PO = Model.Tag.Receipt.GetPO();
+    coreApp.Areas.SAM.InventoryItemStatusModel status = Model.LatestInspection;
+
+}
+<div class="row">
+    <div class="col-sm-6">
+
+        <div class="form-row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.Item.PropertyNo)
+            </div>
+            <div class="col-md-9">
+                <div class="form-control">
+                    @Html.DisplayFor(model => model.Item.PropertyNo)
+                </div>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.Tag.POItem.ItemName)
+            </div>
+            <div class="col-md-9">
+                <div class="form-control">
+                    @Html.DisplayFor(model => model.Tag.POItem.ItemName)
+                </div>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.Item.Barcode)
+            </div>
+            <div class="col-md-9">
+                <div class="form-control">
+                    @Html.DisplayFor(model => model.Item.Barcode)
+                </div>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.Item.SerialNo)
+            </div>
+            <div class="col-md-9">
+                <div class="form-control">
+                    @Html.DisplayFor(model => model.Item.SerialNo)
+                </div>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.Item.ModelNo)
+            </div>
+            <div class="col-md-9">
+                <div class="form-control">
+                    @Html.DisplayFor(model => model.Item.ModelNo)
+                </div>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.Item.Brand)
+            </div>
+            <div class="col-md-9">
+                <div class="form-control">
+                    @Html.DisplayFor(model => model.Item.Brand)
+                </div>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.Item.Color)
+            </div>
+            <div class="col-md-9">
+                <div class="form-control">
+                    @Html.DisplayFor(model => model.Item.Color)
+                </div>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.Item.Remarks)
+            </div>
+            <div class="col-md-9">
+                <div class="form-control">
+                    @Html.DisplayMultiLineFor(model => model.Item.Remarks)
+                </div>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-md-3">
+                Last Issued To
+            </div>
+            <div class="col-md-9">
+                <div class="form-control">
+                    @Html.DisplayFor(model => model.Item.LastIssuedTo)
+                </div>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-md-3">
+                Semi-Expendable
+            </div>
+            <div class="col-md-9">
+                <div class="form-control">
+                    @Html.DisplayBooleanFor(model => model.Item._IsSemiExpendable)
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="form-row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => PO.PONo)
+            </div>
+            <div class="col-md-9">
+                <div class="form-control">
+                    @Html.DisplayFor(model => PO.PONo)
+                </div>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => PO.PODate)
+            </div>
+            <div class="col-md-9">
+                <div class="form-control">
+                    @Html.DisplayFor(model => PO.PODate)
+                </div>
+            </div>
+        </div>
+        
+        <div class="form-row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.Tag.Receipt.InvoiceNo)
+            </div>
+            <div class="col-md-9">
+                <div class="form-control">
+                    @Html.DisplayFor(model => model.Tag.Receipt.InvoiceNo)
+                </div>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.Tag.Receipt.InvoiceDate)
+            </div>
+            <div class="col-md-9">
+                <div class="form-control">
+                    @Html.DisplayFor(model => model.Tag.Receipt.InvoiceDate)
+                </div>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.Tag.Receipt.DRNo)
+            </div>
+            <div class="col-md-9">
+                <div class="form-control">
+                    @Html.DisplayFor(model => model.Tag.Receipt.DRNo)
+                </div>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.Tag.Receipt.ReceivedDate)
+            </div>
+            <div class="col-md-9">
+                <div class="form-control">
+                    @Html.DisplayFor(model => model.Tag.Receipt.ReceivedDate)
+                </div>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => status.Status)
+            </div>
+            <div class="col-md-9">
+                <div class="form-control @(status.Status == coreApp.Areas.SAM.Enums.InventoryItemStatus.Unusable ? "text-danger" : status.Status == coreApp.Areas.SAM.Enums.InventoryItemStatus.UnAccounted ? "text-warning" : "")">
+                    @Html.DisplayFor(modelItem => status.Status)
+                    <div class="small">
+                        As of @status.ReportDate.ToShortDateString()
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

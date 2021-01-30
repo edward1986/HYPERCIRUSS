@@ -1,0 +1,130 @@
+﻿@model coreApp.Areas.Procurement.Models.OfficeAllocationModel
+@using coreLib.Extensions
+@{
+    ViewBag.Title = "Office Allocations Details";
+
+    int Year = (int)ViewBag.Year;
+    Module.DB.tblOffice Office = (Module.DB.tblOffice)ViewBag.Office;
+}
+
+@section Breadcrumbs {
+
+    @Html.Partial("_Breadcrumbs", new List<Breadcrumb>()
+     {
+         new Breadcrumb { Description = "Source of funds" },
+          new Breadcrumb { Description = "Office Allocations", Link = Url.Action("Index", "OfficeAllocations", new { area = "Procurement", year = Year }) },
+        new Breadcrumb { Description = ViewBag.Title }
+     })
+}
+
+@section Styles{
+    <!-- data tables css -->
+        
+    <link href="~/Areas/Procurement/Assets/css/common.less" rel="stylesheet" type="text/css">
+}
+
+
+<div class="block">
+    <div class="card">
+        <div class="card-header">
+            <h5>@ViewBag.Title</h5>
+        </div>
+        <div class="card-body">
+            <div class="form-group row">
+                <label class="col-form-label col-lg-1 text-lg-right">For the year:</label>
+                <div class="col-sm-2">
+                    @Html.Partial("~/Areas/Procurement/Views/Shared/yearInfo.cshtml", "/Procurement/OfficeAllocations/OfficeIndex/{0}/" + Office.OfficeId)
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-form-label col-lg-1 text-lg-right">Office:</label>
+                <div class="col-sm-4">
+                    @Html.Partial("~/Areas/Procurement/Views/Shared/officeInfo.cshtml", "/Procurement/OfficeAllocations/OfficeIndex/" + Year + "/")
+                    <br />
+                </div>
+                <div class="col-sm-7" style="text-align:right">
+                    <table class="tblbalance">
+                        <tbody>
+                            <tr><td>Total Amount Allocated to Office:</td><td>@Model.TotalAmountAllocatedToOffice().ToCurrencyString()</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <table class="display table table-bordered table-striped table-list" cellspacing="0" width="100%"
+                   modal-target="#modalView" modal-start="edit" modal-no-cancel="true"
+                   modal-edit-url="/Procurement/OfficeAllocations/Edit/@Year/@Office.OfficeId/{0}">
+                <thead>
+                    <tr>
+                        <th>
+                            Fund
+                        </th>
+                        <th>
+                            Total Funds Received
+                        </th>
+                        <th>
+                            Total Amount Allocated to All Offices
+                        </th>
+                        <th>
+                            Amount Allocated to this Office
+                        </th>
+                        <th>
+                            Balance
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (coreApp.Areas.Procurement.Models.FundAllocationModel item in Model.Funds)
+                    {
+                        <tr record-id="@item.Fund.Id">
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Fund.Fund)
+                            </td>
+                            <td style="text-align:right">
+                                @item.TotalAmountReceived(Year).ToCurrencyString(altZero: "-")
+                            </td>
+                            <td style="text-align:right">
+                                @item.TotalAmountAllocatedToOffices(Year).ToCurrencyString(altZero: "-")
+                            </td>
+                            <td style="text-align:right">
+                                @item.Amount.ToCurrencyString(altZero: "-")
+                            </td>
+                            <td style="text-align: right">
+                                @item.Balance(Year).ToCurrencyString(negativeIsEncloseInParenthesis: true, altZero: "-")
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td style="text-align:center">TOTAL</td>
+                        <td style="text-align:right">
+                            @Model.Funds.Sum(x => x.TotalAmountReceived(Year)).ToCurrencyString(altZero: "-")
+                        </td>
+                        <td style="text-align:right">
+                            @Model.Funds.Sum(x => x.TotalAmountAllocatedToOffices(Year)).ToCurrencyString(altZero: "-")
+                        </td>
+                        <td style="text-align:right">
+                            @Model.Funds.Sum(x => x.Amount).ToCurrencyString(altZero: "-")
+                        </td>
+                        <td style="text-align:right">
+                            @Model.Funds.Sum(x => x.Balance(Year)).ToCurrencyString(altZero: "-")
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
+
+@Html.Partial("~/Views/Shared/modals/_ModalView.cshtml", "modalView")
+
+@section Scripts{
+    @*<script src="~/assets/nextro/assets/js/plugins/jquery.dataTables.min.js"></script>*@
+    <script src="~/assets/nextro/assets/js/plugins/dataTables.bootstrap4.min.js"></script>
+    <script src="~/assets/nextro/assets/js/plugins/bootstrap-select.min.js"></script>
+    <script>
+        $('.pc-selectpicker').selectpicker();
+        $(function () { });
+    </script>
+}

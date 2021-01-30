@@ -1,0 +1,13 @@
+﻿@model coreLib.Objects.PeriodModel
+@{ 
+    string clientCallback = Convert.ToString(ViewData["clientCallback"]);
+    string _class = Convert.ToString(ViewData["class"]);
+    string minDate = ViewData["minDate"] == null ? "" : Convert.ToString(ViewData["minDate"]);
+    string maxDate = ViewData["maxDate"] == null ? "" : Convert.ToString(ViewData["maxDate"]);
+}
+
+<div class="period-cont form-control @_class" data-start-date="@Model.StartDate.ToString("MM/dd/yyyy")" data-end-date="@Model.EndDate.ToString("MM/dd/yyyy")" 
+     data-min-date="@minDate" data-max-date="@maxDate" event-change="@clientCallback">
+    <i data-feather="calendar"></i>&nbsp;
+    <span></span> <b class="caret"></b>
+</div>

@@ -1,0 +1,18 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="UareU.Enrollment_Post.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="DatasourceFilename" Type="System.String" Scope="User">
+      <Value Profile="(Default)">enrollment-data.dat</Value>
+    </Setting>
+    <Setting Name="OfflineDataPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\KIOSK FILES\Datasource</Value>
+    </Setting>
+    <Setting Name="DataUrl" Type="System.String" Scope="User">
+      <Value Profile="(Default)">http://localhost:51397/Kiosk/GetData?forEnrollment=true</Value>
+    </Setting>
+    <Setting Name="PostDataUrl" Type="System.String" Scope="User">
+      <Value Profile="(Default)">http://localhost:51397/Kiosk/PostEnrollmentData</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

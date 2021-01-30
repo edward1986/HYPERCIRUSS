@@ -1,0 +1,47 @@
+﻿<div class="modal fade" id="modalConfirm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"></h5>
+            </div>
+            <div class="modal-body"></div>
+            <div class="modal-footer btn-group-sm">
+                <button type="button" class="btn btn-default btn-default" data-dismiss="modal">No</button>
+                <button type="button" class="btn btn-primary btn-success btn-yes">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>    
+
+<script>
+    function modalConfirm(msg, callback, showCallback) {
+        var ret = false;
+
+        var modal = $('#modalConfirm').clone();
+        modal.find('.modal-title').html('Confirm');
+        modal.find('.modal-body').html(msg);
+
+        modal.find('.btn-yes').unbind().bind('click', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            ret = true;
+            modal.modal('hide');
+        });
+
+        modal
+            .unbind('hide.bs.modal')
+            .unbind('show.bs.modal')
+            .on('hide.bs.modal', function () {
+                if (callback) callback(ret, modal);
+            })
+            .on('show.bs.modal', function () {
+                if (showCallback) showCallback(modal);
+            })
+            .modal({
+                backdrop: 'static',
+                show: true
+            });
+    }
+
+</script>

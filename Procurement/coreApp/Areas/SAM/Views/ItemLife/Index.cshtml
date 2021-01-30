@@ -1,0 +1,76 @@
+﻿@model List<coreApp.Areas.Procurement.DAL.tblItem>
+@{
+    ViewBag.Title = "Item Life";
+
+    int Year = (int)ViewBag.Year;
+
+}
+
+@section Breadcrumbs {
+    @Html.Partial("_Breadcrumbs", new List<Breadcrumb>()
+        {
+            new Breadcrumb { Description = "Supply/Asset Management", Link = Url.Action("Index", "Main", new { area = "SAM" }) },
+            new Breadcrumb { Description = ViewBag.Title }
+        })
+}
+
+@section Scripts {
+    <script>
+        function load(e) {
+
+            if (e.viewType == 'edit') {
+
+                e.modal.find('.modal-footer .btn-cancel').hide();
+            }
+
+            return e;
+        }
+    </script>
+}
+
+<div class="block">
+    <div class="card">
+        <div class="card-header">
+            <h5>@ViewBag.Title</h5>
+        </div>
+        <div class="card-body">
+            <div class="form-group row">
+                <div class="col-sm-3">
+                    <label class="col-form-label text-lg-right">For the year:</label>
+                    @Html.Partial("~/Areas/Procurement/Views/Shared/yearInfo.cshtml", "/SAM/ItemLife/Index/{0}")
+                </div>
+            </div>
+            <div class="dt-responsive table-responsive">
+                <table class="display table table-bordered table-striped table-list" cellspacing="0" width="100%"
+                       modal-target="#modalView" modal-start="edit" modal-load-callback="load"
+                       modal-edit-url="/SAM/ItemLife/Edit/@Year/{0}">
+                    <thead>
+                        <tr>
+                            <th>
+                                Item Name
+                            </th>
+                            <th>
+                                No. of Months
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (coreApp.Areas.Procurement.DAL.tblItem item in Model)
+                        {
+                            <tr record-id="@item.Id">
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Name)
+                                </td>
+                                <td>
+                                    @item.GetItemLife()
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@Html.Partial("~/Views/Shared/modals/_ModalView.cshtml", "modalView")

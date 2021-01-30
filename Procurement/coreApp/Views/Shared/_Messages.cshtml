@@ -1,0 +1,121 @@
+﻿@using coreLib.Extensions
+<div id="messages-container">
+
+    @if (TempData["GlobalMessage"] != null)
+    {
+        <div class="alert alert-success gm">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">
+                    &times;
+                </span>
+            </button>
+
+            @Html.Raw(TempData["GlobalMessage"].ToString())
+        </div>
+
+
+    }
+
+    @if (TempData["GlobalError"] != null)
+    {
+        <div class="alert alert-danger gm">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">
+                    &times;
+                </span>
+            </button>
+
+            @Html.Raw(TempData["GlobalError"].ToString())
+        </div>
+
+    }
+
+    @if (ViewData.ModelState.Values.ToArray().Any(x => x.Errors.Count > 0))
+    {
+<div class="alert alert-danger">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">
+            &times;
+        </span>
+    </button>
+
+    <ul>
+        @for (int i = ViewData.ModelState.Values.Count - 1; i >= 0; i--)
+        {
+            foreach (var err in ViewData.ModelState.Values.ToArray()[i].Errors)
+            {
+                if (string.IsNullOrEmpty(err.ErrorMessage))
+                {
+                    continue;
+                }
+
+                <li>@err.ErrorMessage</li>
+            }
+        }
+    </ul>
+</div>
+
+    }
+
+    @{
+        if (TempData["GlobalDestination"] != null)
+        {
+            RouteData route = (RouteData)TempData["GlobalDestination"];
+            RouteData pageRoute = HttpContext.Current.Request.RequestContext.RouteData;
+
+            if (route.DataTokens["area"].ToCleanString() == pageRoute.DataTokens["area"].ToCleanString() &&
+                route.Values["controller"].ToCleanString() == pageRoute.Values["controller"].ToCleanString() &&
+                route.Values["action"].ToCleanString() == pageRoute.Values["action"].ToCleanString())
+            {
+                TempData["GlobalMessage"] = null;
+                TempData["GlobalError"] = null;
+                ViewData.ModelState.Clear();
+
+                TempData["GlobalDestination"] = null;
+            }
+        }
+        else
+        {
+            TempData["GlobalMessage"] = null;
+            TempData["GlobalError"] = null;
+            ViewData.ModelState.Clear();
+        }
+    }
+
+    <div class="clientMessage alert alert-success" style="display:none"></div>
+    <div class="clientErrorMessage alert alert-danger" style="display:none"></div>
+</div>
+
+<script>
+    function showClientMessage(msg) {
+        var alert = $('#messages-container .clientMessage');
+        alert.empty().html(msg).show();
+    }
+
+    function showClientErrorMessage(msg) {
+        var alert = $('#messages-container .clientErrorMessage');
+        alert.empty().html(msg).show();
+    }
+
+    function hideClientMessage() {
+        var alert = $('#messages-container .clientMessage');
+        alert.empty().hide();
+    }
+
+    function hideClientErrorMessage() {
+        var alert = $('#messages-container .clientErrorMessage');
+        alert.empty().hide();
+    }
+
+    $(document).ready(function () {
+        if (sessionStorage.clientMessage) {
+            showClientMessage(sessionStorage.clientMessage);
+            sessionStorage.removeItem('clientMessage');
+        }
+
+        if (sessionStorage.clientErrorMessage) {
+            showClientErrorMessage(sessionStorage.clientErrorMessage);
+            sessionStorage.removeItem('clientErrorMessage');
+        }
+    });
+</script>

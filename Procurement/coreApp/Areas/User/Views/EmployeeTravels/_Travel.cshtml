@@ -1,0 +1,148 @@
+﻿@model Module.DB.tblEmployee_Travel
+
+@{    
+    bool isReadOnly = (bool)ViewBag.uiIsReadOnly;
+    bool includeId = (bool)ViewBag.uiIncludeId;
+
+    Module.DB.tblTravelApplication application = Model.GetApplication();
+}
+
+@Html.Hidden("FromApplication", application != null)
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    if (isReadOnly)
+    {
+        <div class="form-row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.Id)
+            </div>
+            <div class="col-md-9">
+                <div class="form-control">
+                    @Html.DisplayFor(model => model.Id)
+                </div>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.InclusiveDays)
+            </div>
+            <div class="col-md-9">
+                <div class="form-control">
+                    @Html.DisplayFor(model => model.InclusiveDays)
+                </div>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.Purpose)
+            </div>
+            <div class="col-md-9">
+                <div class="form-control">
+                    @Html.DisplayMultiLineFor(model => model.Purpose)
+                </div>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.Destination)
+            </div>
+            <div class="col-md-9">
+                <div class="form-control">
+                    @Html.DisplayFor(model => model.Destination)
+                </div>
+            </div>
+        </div>
+
+        if (application == null)
+        {
+            <div class="form-row">
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.CreateDate)
+                </div>
+                <div class="col-md-9">
+                    <div class="form-control">
+                        @Html.DisplayFor(model => model.CreateDate)
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="form-row">
+                <div class="col-md-3">
+                    @Html.LabelFor(model => application.ApprovedBy)
+                </div>
+                <div class="col-md-9">
+                    <div class="form-control">
+                        @Html.DisplayFor(model => application.ApprovedBy)
+                    </div>
+                </div>
+            </div>
+
+                <div class="form-row">
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => application.ApproveDate)
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-control">
+                            @Html.DisplayFor(model => application.ApproveDate)
+                        </div>
+                    </div>
+                </div>
+        }
+    }
+    else
+    {
+        @Html.HiddenFor(model => model.Id)
+        @Html.HiddenFor(model => model.EmployeeId)
+        @Html.Hidden("StartDate")
+        @Html.Hidden("EndDate")
+
+        if (includeId)
+        {
+            <div class="form-row">
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.Id)
+                </div>
+                <div class="col-md-9">
+                    <div class="form-control dimmed">
+                        @Html.DisplayFor(model => model.Id)
+                    </div>
+                </div>
+            </div>
+        }
+
+        <div class="form-row">
+            <div class="col-md-3">
+                Period
+            </div>
+            <div class="col-md-9">
+                @Html.Partial("_Helper_Period", new coreLib.Objects.PeriodModel(Model.StartDate, Model.EndDate), new ViewDataDictionary { { "clientCallback", "applyPeriod" }, { "class", "form-control" } })
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.Purpose)
+            </div>
+            <div class="col-md-9">
+                @Html.TextAreaFor(m => m.Purpose, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.Destination)
+            </div>
+            <div class="col-md-9">
+                @Html.TextBoxFor(m => m.Destination, new { @class = "form-control" })
+            </div>
+        </div>
+    }
+}

@@ -1,0 +1,15 @@
+D:\Procurement\coreLib\coreLib\obj\Release\coreLib.csprojAssemblyReference.cache
+D:\Procurement\coreLib\coreLib\obj\Release\coreLib.csproj.CoreCompileInputs.cache
+D:\Procurement\coreLib\coreLib\bin\Release\coreLib.dll
+D:\Procurement\coreLib\coreLib\bin\Release\coreLib.pdb
+D:\Procurement\coreLib\coreLib\bin\Release\Newtonsoft.Json.dll
+D:\Procurement\coreLib\coreLib\bin\Release\System.Web.Mvc.dll
+D:\Procurement\coreLib\coreLib\bin\Release\System.Web.Razor.dll
+D:\Procurement\coreLib\coreLib\bin\Release\System.Web.WebPages.Razor.dll
+D:\Procurement\coreLib\coreLib\bin\Release\System.Web.WebPages.dll
+D:\Procurement\coreLib\coreLib\bin\Release\Microsoft.Web.Infrastructure.dll
+D:\Procurement\coreLib\coreLib\bin\Release\System.Web.WebPages.Deployment.dll
+D:\Procurement\coreLib\coreLib\bin\Release\Newtonsoft.Json.xml
+D:\Procurement\coreLib\coreLib\obj\Release\coreLib.csproj.CopyComplete
+D:\Procurement\coreLib\coreLib\obj\Release\coreLib.dll
+D:\Procurement\coreLib\coreLib\obj\Release\coreLib.pdb

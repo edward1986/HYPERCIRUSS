@@ -1,0 +1,20 @@
+﻿@using coreApp.DAL
+@model string
+@{
+    tblPayrollSummary_Employee PEmployee = (tblPayrollSummary_Employee)ViewBag.PEmployee;
+
+    List<tblPayrollSummary_Employee> PEmployees = (List<tblPayrollSummary_Employee>)ViewBag.PEmployees;
+}
+
+<select onchange="itemSelected(this)">
+    @foreach (tblPayrollSummary_Employee o in PEmployees)
+            {
+        <option value="@o.PSEmployeeId" @(PEmployee.PSEmployeeId == o.PSEmployeeId ? "selected" : "")>@o.FullName.ToUpper()</option>
+    }
+</select>
+<br />  
+<script>
+    function itemSelected(sel) {
+        window.location = '@Model' + $(sel).val();
+    }
+</script>

@@ -1,0 +1,97 @@
+﻿@model coreApp.Areas.SAM.tblReturnItem
+
+@{    
+    bool isReadOnly = (bool)ViewBag.uiIsReadOnly;
+    bool includeId = (bool)ViewBag.uiIncludeId;
+
+    coreApp.Areas.SAM.tblReturn ret = (coreApp.Areas.SAM.tblReturn)ViewBag.Return;
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    if (isReadOnly)
+    {
+        <div class="form-group row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.Id)
+            </div>
+            <div class="col-md-9">
+                <div class="form-control">
+                    @Html.DisplayFor(model => model.Id)
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model._PropertyNo)
+            </div>
+            <div class="col-md-9">
+                <div class="form-control">
+                    @Html.DisplayFor(model => model._PropertyNo)
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model._ItemName)
+            </div>
+            <div class="col-md-9">
+                <div class="form-control">
+                    @Html.DisplayFor(model => model._ItemName)
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model._Unit)
+            </div>
+            <div class="col-md-9">
+                <div class="form-control">
+                    @Html.DisplayFor(model => model._Unit)
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model._Life)
+            </div>
+            <div class="col-md-9">
+                <div class="form-control">
+                    @Model.RemainingLife(Model.GetReturn().ReturnDate) months
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        @Html.HiddenFor(model => model.Id)
+        @Html.HiddenFor(model => model.ReturnId)
+
+        if (includeId)
+        {
+            <div class="form-group row">
+                <div class="col-md-2">
+                    @Html.LabelFor(model => model.Id)
+                </div>
+                <div class="col-md-10">
+                    <div class="form-control dimmed">
+                        @Html.DisplayFor(model => model.Id)
+                    </div>
+                </div>
+            </div>
+        }
+
+
+        <div class="form-group row">
+            <div class="col-md-2">
+                @Html.LabelFor(model => model.InventoryItemId)
+            </div>
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.InventoryItemId, coreApp.Areas.SAM.SelectItems.getAllInventoryItems(ret.EmployeeId), new { @class = "form-control" })
+            </div>
+        </div>
+    }
+
+}

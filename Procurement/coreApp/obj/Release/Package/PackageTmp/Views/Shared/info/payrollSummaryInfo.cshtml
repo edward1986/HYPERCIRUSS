@@ -1,0 +1,24 @@
+﻿@using coreApp.DAL
+@model string
+@{
+    tblPayrollSummary ps = (tblPayrollSummary)ViewBag.PS;
+
+    List<tblPayrollSummary> pSummaries = (List<tblPayrollSummary>)ViewBag.PSummaries;
+}
+
+<select onchange="itemSelected(this)">
+    @foreach (tblPayrollSummary o in pSummaries)
+            {
+        <option value="@o.PSId" @(ps.PSId == o.PSId ? "selected" : "")>@o.Description.ToUpper()</option>
+    }
+</select>
+<div class="subtitle" style="padding-left: 15px;">
+    @ps.DateFrom.ToString("MM/dd/yyyy") - @ps.DateTo.ToString("MM/dd/yyyy") [@ps.Status_Desc]
+</div>
+<br />
+
+<script>
+    function itemSelected(sel) {
+        window.location = '@Model' + $(sel).val();
+    }
+</script>

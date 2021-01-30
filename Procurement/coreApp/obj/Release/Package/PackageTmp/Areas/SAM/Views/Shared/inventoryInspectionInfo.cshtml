@@ -1,0 +1,24 @@
+﻿@using coreApp.Areas.SAM
+@model string
+@{
+    tblInventoryInspection inventoryInspection = (tblInventoryInspection)ViewBag.InventoryInspection;
+
+    List<tblInventoryInspection> inventoryInspections = (List<tblInventoryInspection>)ViewBag.InventoryInspections;
+
+}
+
+Inventory Item:
+<select onchange="inspectionSelected(this)">
+    @foreach (tblInventoryInspection inspection in inventoryInspections)
+    {
+        <option value="@inspection.Id" @(inspection.Id == inventoryInspection.Id ? "selected" : "")>@string.Format("{0} | {1}", inspection.ReportDate.ToShortDateString(), inspection.InspectedBy)</option>
+    }
+</select>
+
+<br />
+
+<script>
+    function inspectionSelected(sel) {
+        window.location = '@Model' + $(sel).val();
+    }
+</script>

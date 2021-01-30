@@ -1,0 +1,290 @@
+﻿@model coreApp.Areas.Procurement.DAL.tblAPR
+@using coreLib.Extensions
+@{
+    ViewBag.Title = "APR Items";
+
+    coreApp.Areas.Procurement.Models.CompanyAPRModel companyAPRModel = new coreApp.Areas.Procurement.Models.CompanyAPRModel(Model.Year);
+    coreApp.Areas.Procurement.Models.APRModel aprModel = new coreApp.Areas.Procurement.Models.APRModel(Model.Id);
+
+
+    var consolidatedItems = aprModel.ConsolidatedItems;
+
+    double totalAmount = consolidatedItems.Sum(x => x.Amount);
+
+}
+
+
+<div class="block">
+    <div class="card">
+        <div class="card-header">
+            <h5>@Model.Description Item</h5>
+            <div class="card-header-right">
+                <div class="btn-group card-option">
+                    <div class="btn-group-sm header-button">
+                        <button class="btn btn-warning btn-clean btn-importitems" data-forapr="true">Add/Remove Agency APPs (For Consolidation)</button>
+                        <button class="btn btn-info btn-clean btn-print" data-printmsg="@Module.Core.ModuleConstants.PRINT_OPTIONS">Print</button>
+                        <button class="btn btn-primary btn-clean btn-submit">Submit</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            @if (Model.HasBeenSubmitted)
+            {
+                <div class="alert alert-info">
+                    Submitted by: @Model.SubmittedBy |
+                    <small>@Html.DisplayFor(x => Model.SubmitDate)</small>
+                </div>
+            }
+
+            <div class="row">
+                <div class="col-sm-4">
+                    <table class="tblinfo">
+                        <tbody>
+                            <tr>
+                                <td>Year</td>
+                                <td>:</td>
+                                <td>@Model.Year</td>
+                            </tr>
+                            @*<tr class="title">
+                                    <td>Agency</td>
+                                    <td>:</td>
+                                    <td>@FixedSettings.AgencyName</td>
+                                </tr>*@
+                        </tbody>
+                    </table>
+
+
+                    @Html.Partial("~/Areas/Procurement/Views/Shared/aprInfo.cshtml", "/Procurement/CompanyAPR/Items/Index/",
+                         new ViewDataDictionary { { "year", Model.Year }, { "apr", Model } })
+                    <br />
+                </div>
+                <div class="col-sm-4">
+
+                    <ul class="nav nav-tabs mb-3" id="myTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active text-uppercase" id="ppmp-tab" data-toggle="tab" href="#tab1" role="tab" aria-controls="home" aria-selected="true">Consolidated APPs</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-uppercase" data-toggle="tab" href="#tab2" role="tab" aria-controls="profile" aria-selected="false">Categories</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-uppercase" data-toggle="tab" href="#tab3" role="tab" aria-controls="profile" aria-selected="false">Months</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-uppercase" data-toggle="tab" href="#tab4" role="tab" aria-controls="profile" aria-selected="false">Funds</a>
+                        </li>
+                    </ul>
+
+
+                    <div class="content tab-content">
+                        <div class="tab-pane active" id="tab1">
+                            <div class="consolidated-list" style="max-height:200px;overflow-x:hidden;overflow-y:auto">
+                                <table class="table static-table" style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @{
+                                            int i = 1;
+                                        }
+                                        @foreach (var app in Model.ConsolidatedAPPs().OrderBy(x => x.Description))
+                                        {
+                                            <tr>
+                                                <td style="width:50px;">@i.</td>
+                                                <td>@app.Description</td>
+                                            </tr>
+
+                                            i++;
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="tab2">
+                            <div class="category-list" style="max-height:200px;overflow-x:hidden;overflow-y:auto">
+                                <table class="table static-table" style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th>Category</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @{
+                                            i = 1;
+                                        }
+                                        @foreach (var cat in Model.Categories().OrderBy(x => x.Category))
+                                        {
+                                            <tr>
+                                                <td style="width:50px;">@i.</td>
+                                                <td>@cat.Category</td>
+                                            </tr>
+
+                                            i++;
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="tab3">
+                            <div class="month-list" style="max-height:200px;overflow-x:hidden;overflow-y:auto">
+                                <table class="table static-table" style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th>Month</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @{
+                                            i = 1;
+                                        }
+                                        @foreach (var month in Model.GetMonths())
+                                        {
+                                            <tr>
+                                                <td style="width:50px;">@i.</td>
+                                                <td>@month.Text</td>
+                                            </tr>
+
+                                            i++;
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="tab4">
+                            <div class="fund-list" style="max-height:200px;overflow-x:hidden;overflow-y:auto">
+                                <table class="table static-table" style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th>Fund</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @{
+                                            i = 1;
+                                        }
+                                        @foreach (var f in Model.Funds().OrderBy(x => x.Fund))
+                                        {
+                                            <tr>
+                                                <td style="width:50px;">@i.</td>
+                                                <td>@f.Fund</td>
+                                            </tr>
+
+                                            i++;
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4" style="text-align:right">
+                    <table class="tblbalance">
+                        <tbody>
+                            <tr><td>Total Amount of Items:</td><td>@totalAmount.ToCurrencyString()</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="dt-responsive table-responsive">
+                <table class="display table maintable table-bordered table-striped table-list skiptable" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th>
+                                Item Name
+                            </th>
+                            <th>
+                                Description
+                            </th>
+                            <th>
+                                Category
+                            </th>
+                            <th>
+                                Q1
+                            </th>
+                            <th>
+                                Q2
+                            </th>
+                            <th>
+                                Q3
+                            </th>
+                            <th>
+                                Q4
+                            </th>
+                            <th>
+                                Qty
+                            </th>
+                            <th>
+                                Price
+                            </th>
+                            <th>
+                                Amount
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in consolidatedItems)
+                        {
+                            <tr record-id="@item.Id" data-item="@item.Stringify()">
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ItemName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ItemDescription)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ItemCategory)
+                                </td>
+                                <td class="qtr">
+                                    @(item.Q1 == 0 ? "" : item.Q1.ToString("#,##0"))
+                                </td>
+                                <td class="qtr">
+                                    @(item.Q2 == 0 ? "" : item.Q2.ToString("#,##0"))
+                                </td>
+                                <td class="qtr">
+                                    @(item.Q3 == 0 ? "" : item.Q3.ToString("#,##0"))
+                                </td>
+                                <td class="qtr">
+                                    @(item.Q4 == 0 ? "" : item.Q4.ToString("#,##0"))
+                                </td>
+                                <td class="qtr">
+                                    @(item.Qty == 0 ? "" : item.Qty.ToString("#,##0"))
+                                </td>
+                                <td class="amnt">
+                                    @if (item.DBMPrice != null)
+                                    {
+                                        @item.DBMPrice.Value.ToCurrencyString()
+                                    }
+                                    else if (item.CPR_NewPrice != null)
+                                    {
+                                        @item.CPR_NewPrice.Value.ToCurrencyString()
+                                    }
+                                    else
+                                    {
+                                        @item.ItemPrice.ToCurrencyString()
+                                    }
+                                </td>
+                                <td class="amnt">
+                                    @Html.DisplayFor(modelItem => item.Amount)
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script>
+    $('.pc-selectpicker').selectpicker();
+    $(function () { });
+</script>

@@ -1,0 +1,98 @@
+﻿@model List<Module.DB.tblSalaryGrade>
+@{ 
+    bool isNew = (bool)ViewBag.IsNew;
+}
+
+<style>
+    .sg-cont {
+        max-width: 1200px;
+    }
+
+    .sg-edit-cont {
+        margin: 0 auto;
+        max-height: 500px;
+        overflow: auto;
+    }
+
+        .sg-edit-cont tbody td input {
+            text-align: right;
+        }
+
+        .sg-edit-cont tbody td:first-child {
+            text-align: left;
+            width: 100px;
+        }
+</style>
+
+
+
+@using (Html.BeginForm("Save", "SalaryGrades"))
+{
+    @Html.AntiForgeryToken()
+    @Html.Hidden("IsNew", isNew)
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="sg-cont">
+                <div class="row">
+                    <div class="col-sm-6">
+                        @if (isNew)
+                        {
+                            <div class="row">
+                                <div class="col-md-3">
+                                    @Html.Label("DateEffective", "Date Effective")
+                                </div>
+                                <div class="col-md-9">
+                                    @Html.TextBox("DateEffective", DateTime.Today, "{0:MM/dd/yyyy}", new { @class = "form-control datepicker" })
+                                </div>
+                            </div>
+                            <br />
+                        }
+                        else
+                        {
+                            @Html.Hidden("DateEffective", Model.First().DateEffective)
+                        }
+                    </div>
+                </div>
+                
+
+                <div class="sg-edit-cont">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Salary Grade</th>
+                                <th>Step 1</th>
+                                <th>Step 2</th>
+                                <th>Step 3</th>
+                                <th>Step 4</th>
+                                <th>Step 5</th>
+                                <th>Step 6</th>
+                                <th>Step 7</th>
+                                <th>Step 8</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (Module.DB.tblSalaryGrade item in Model)
+                {
+                                <tr>
+                                    <td>@item.SalaryGrade</td>
+                                    <td>@Html.TextBox(string.Format("SG_{0}_1", item.SalaryGrade), item.Step1, "{0: #,##0.00}", new { @class = "form-control" })</td>
+                                    <td>@Html.TextBox(string.Format("SG_{0}_2", item.SalaryGrade), item.Step2, "{0: #,##0.00}", new { @class = "form-control" })</td>
+                                    <td>@Html.TextBox(string.Format("SG_{0}_3", item.SalaryGrade), item.Step3, "{0: #,##0.00}", new { @class = "form-control" })</td>
+                                    <td>@Html.TextBox(string.Format("SG_{0}_4", item.SalaryGrade), item.Step4, "{0: #,##0.00}", new { @class = "form-control" })</td>
+                                    <td>@Html.TextBox(string.Format("SG_{0}_5", item.SalaryGrade), item.Step5, "{0: #,##0.00}", new { @class = "form-control" })</td>
+                                    <td>@Html.TextBox(string.Format("SG_{0}_6", item.SalaryGrade), item.Step6, "{0: #,##0.00}", new { @class = "form-control" })</td>
+                                    <td>@Html.TextBox(string.Format("SG_{0}_7", item.SalaryGrade), item.Step7, "{0: #,##0.00}", new { @class = "form-control" })</td>
+                                    <td>@Html.TextBox(string.Format("SG_{0}_8", item.SalaryGrade), item.Step8, "{0: #,##0.00}", new { @class = "form-control" })</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    
+}

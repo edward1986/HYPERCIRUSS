@@ -1,0 +1,241 @@
+﻿
+@{
+    ViewBag.Title = "Attendance Monitoring";
+    ViewBag.Subtitle = "List";
+
+    DateTime dt = DateTime.Today;
+
+    int myOfficeId = coreApp.Cache.Get().userAccess.career.Office.OfficeId;
+}
+
+@section Breadcrumbs {
+    @Html.Partial("_Breadcrumbs", new List<Breadcrumb>() { new Breadcrumb { Description = ViewBag.Title } })
+}
+
+@section Styles {
+    <style>
+        .result-section {
+            display: none;
+        }
+    </style>
+
+}
+
+@section Scripts {
+
+    <script>
+        var myOfficeId = @myOfficeId;
+
+        var searchType;
+        var sessionId;
+        var errors;
+
+        var criteria = {
+            lastName: '',
+            firstName: '',
+            mfoId: -1,
+            officeId: -1,
+            departmentId: -1,
+            positionId: -1,
+            groupId: -1,
+            employmentType: -1,
+            employmentType_Desc: '',
+            active: '',
+            date: '@dt.ToString("MM-dd-yyyy")',
+            searchType: 'present'
+        };
+
+        var cont = $('.cont-ui');
+        var search = $('.search');
+
+        var searchPresent = $('.btn-search-present');
+        var searchAbsent = $('.btn-search-absent');
+        var searchLate = $('.btn-search-late');
+        var searchScheduled = $('.btn-search-scheduled');
+
+        $(document).ready(function () {
+            cont.keypress(function (e) {
+                if (e.which == 13) {
+                    searchPresent.click();
+                }
+            });
+
+            searchPresent.click(function () {
+                criteria.searchType = 'present';
+                goSearch();
+            });
+
+            searchAbsent.click(function () {
+                criteria.searchType = 'absent';
+                goSearch();
+            });
+
+            searchLate.click(function () {
+                criteria.searchType = 'late';
+                goSearch();
+            });
+
+            searchScheduled.click(function () {
+                criteria.searchType = 'scheduled';
+                goSearch();
+            });
+
+            var officeParam = search.find('.search-officeid');
+            officeParam.val(myOfficeId);
+            officeParam.change();
+        });
+
+        function getCriteria() {
+
+            criteria.lastName = search.find('.search-lastname').val();
+            criteria.firstName = search.find('.search-firstname').val();
+
+            var mfo = search.find('.search-mfoid');
+            criteria.mfoId = mfo.val();
+
+            var office = search.find('.search-officeid');
+            criteria.officeId = office.val();
+
+            var department = search.find('.search-departmentid');
+            criteria.departmentId = department.val();
+
+            var position = search.find('.search-positionid');
+            criteria.positionId = position.val();
+
+            var group = search.find('.search-groupid');
+            criteria.groupId = group.val();
+
+            var empType = search.find('.search-employmenttype');
+            criteria.employmentType = empType.val();
+
+            var active = search.find('.search-active');
+            criteria.active = active.val();
+
+            criteria.date = $('#Date').val();
+        }
+
+        function goSearch() {
+            cont.addClass('loading-mask');
+
+            getCriteria();
+            loadTable();
+        }
+
+        function loadTable() {
+            var modal = $($('#progress-ui-template').prop('content')).find('.modal').clone();
+
+            modal.find('.modal-title').html('Searching');
+
+            var pui = modal.find('.progress-ui');
+
+            pui.progressUI([{
+                text: 'searching employees...'
+            }]);
+            pui.css('display', 'block');
+
+            var url = '@Url.Action("GenerateList")' +
+                '?date=' + criteria.date +
+                '&lastName=' + criteria.lastName +
+                '&firstName=' + criteria.firstName +
+                '&mfoId=' + criteria.mfoId +
+                '&officeId=' + criteria.officeId +
+                '&departmentId=' + criteria.departmentId +
+                '&positionId=' + criteria.positionId +
+                '&groupId=' + criteria.groupId +
+                '&employmentType=' + criteria.employmentType +
+                '&employmentType_Desc=' + criteria.employmentType_Desc +
+                '&active=' + criteria.active +
+                '&searchType=' + criteria.searchType;
+
+            var progress = new Progress(
+                url,
+                function (res) {
+                    if (res.IsSuccessful) {
+                        var data = res.Data;
+
+                        searchType = data.searchType;
+                        sessionId = data.sessionId;
+                        errors = data.errors;
+
+                        viewList();
+                    } else {
+                        modalMessage(res.Err.split('\n'), 'Generate List', true, null, null, function (modal) {
+                            e.modal.find('.modal-content').removeClass('loading-mask');
+                        });
+                    }
+
+                    pui.css('display', 'none');
+                    modal.modal('hide');
+                },
+                function (data) {
+
+                    var perc = parseFloat(data.Percentage).toFixed(0) + '%'
+                    pui.progressUI('update', perc, 1);
+
+                },
+                function (err) {
+
+                }
+            );
+
+            modal.modal('show');
+        }
+
+        function viewList() {
+            var url = '@Url.Action("ViewList")';
+
+            var data = {
+                date: criteria.date,
+                sessionId: sessionId,
+                searchType: searchType
+            };
+
+            $('.selected-employees').load(url, data, function () {
+                cont.removeClass('loading-mask');
+
+                if (errors.length > 0) {
+                    modalMessage(errors, 'Notice', true, null, null);
+                }
+            });
+        }
+
+    </script>
+}
+
+<div class="block">
+    <div class="head bg-default bg-light-ltr noradius">
+        <h2>@ViewBag.Title</h2>
+    </div>
+    <div class="content">
+
+        <div class="con-ui">
+            <fieldset class="filters">
+                <legend>Filters</legend>
+
+                @Html.Action("Search", "EmployeeSearch", new { area = "HRModule", model = new coreApp.Models.EmployeeSearchModel { DataUrl = "", MultiSelect = true, ExcludeNoCareer = true, ExcludeNoOffice = true, EnableSearch = false } })
+
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="input-group">
+                            @Html.TextBox("Date", dt.ToString("MM/dd/yyyy"), new { @class = "form-control datepicker" })
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-9">
+                        <button class="btn btn-primary btn-search-present">Show Present</button>
+                        <button class="btn btn-primary btn-search-absent">Show Absent</button>
+                        <button class="btn btn-primary btn-search-late">Show Late</button>
+                        <button class="btn btn-primary btn-search-scheduled">Show Scheduled</button>
+                    </div>
+                </div>
+            </fieldset>
+
+            <br />
+            <div class="selected-employees"></div>
+        </div>
+
+    </div>
+</div>
+

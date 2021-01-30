@@ -1,0 +1,126 @@
+﻿@model List<Module.DB.tblBulletinBoard>
+
+@{
+    ViewBag.Title = "Bulletin Board";
+    ViewBag.Subtitle = "List";
+
+}
+
+@section Breadcrumbs {
+    @Html.Partial("_Breadcrumbs", new List<Breadcrumb>() { new Breadcrumb { Description = ViewBag.Title } })
+}
+
+@section Scripts {
+    <script type='text/javascript' src='~/Assets/taurus/html/js/plugins/tinymce/tinymce.min.js'></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($("textarea.tmce").length > 0) {
+                tinymce.init({
+                    selector: "textarea.tmce",
+                    height: 400
+                });
+            }
+            if ($("textarea.stmce").length > 0) {
+                tinymce.init({
+                    selector: "textarea.stmce",
+                    toolbar: "bold italic | alignleft aligncenter alignright alignjustify | undo redo",
+                    menu: [],
+                    height: 200
+                });
+            }        
+        });
+
+        function preSubmit(proc, e) {
+            try {
+                e.modal.find('textarea.tmce').val(
+                    tinymce.get('Contents').getContent()
+                );
+            } catch (err) { }
+            return true;
+        }
+    </script>
+}
+
+<div class="block">
+    <div class="head bg-default bg-light-ltr noradius">
+        <h2>@ViewBag.Title</h2>
+    </div>
+    <div class="content">
+        <div class="table-actions">
+            <button class="btn btn-success btn-create" onclick="$.fn.list('modalCreate', this)">Create</button>
+        </div>
+        
+        <table class="display table table-bordered table-striped table-list" cellspacing="0" width="100%"
+               modal-target="#modalView" modal-start="view" modal-create-width="most-wide"  modal-view-width="most-wide" modal-edit-width="most-wide" modal-presubmit-callback="preSubmit"
+               modal-view-url="/HRModule/BulletinBoard/Details/{0}" modal-edit-url="/HRModule/BulletinBoard/Edit/{0}" modal-delete-url="/HRModule/BulletinBoard/Delete" modal-create-url="/HRModule/BulletinBoard/Create">
+            <thead>
+                <tr>
+                    <th class="idcol">
+                        Id
+                    </th>
+                    <th>
+                        Title
+                    </th>
+                    <th>
+                        Created By
+                    </th>
+                    <th>
+                        Date Created
+                    </th>
+                    <th>
+                        Date of Posting
+                    </th>
+                    <th>
+                        End of Posting (Applicable in Kiosk)
+                    </th>
+                    <th>
+                        Enabled
+                    </th>
+                    <th>
+                        For Dashboard
+                    </th>
+                    <th>
+                        For Kiosk
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Module.DB.tblBulletinBoard item in Model)
+                {
+                    <tr record-id="@item.Id">
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Id)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Title)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CreatedBy)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DateCreated)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DateOfPosting)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EndOfPosting)
+                        </td>
+                        <td>
+                            @Html.DisplayBooleanFor(modelItem => item.Enabled)
+                        </td>
+                        <td>
+                            @Html.DisplayBooleanFor(modelItem => item.ShowInDashboard)
+                        </td>
+                        <td>
+                            @Html.DisplayBooleanFor(modelItem => item.ShowInKiosk)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@Html.Partial("~/Views/Shared/modals/_ModalView.cshtml", "modalView")

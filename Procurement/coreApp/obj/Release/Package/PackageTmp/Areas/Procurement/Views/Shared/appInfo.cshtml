@@ -1,0 +1,22 @@
+﻿@using coreApp.Areas.Procurement.DAL
+@model string
+@{
+    int year = Convert.ToInt32(ViewData["year"]);
+    
+    tblAPP app = (tblAPP)ViewData["app"];
+
+    List<SelectListItem> apps = coreApp.Areas.Procurement.SelectItems.getAPPs(year: year, showEmptyItem: false);
+}
+
+<select onchange="appItemSelected(this)" class="form-control pc-selectpicker" data-style="btn-success">
+    @foreach (SelectListItem o in apps)
+    {
+        <option value="@o.Value" @(app.Id.ToString() == o.Value ? "selected" : "")>@o.Text</option>
+    }
+</select>
+
+<script>
+    function appItemSelected(sel) {
+        window.location = '@Model' + $(sel).val();
+    }
+</script>

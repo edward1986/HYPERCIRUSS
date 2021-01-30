@@ -1,0 +1,123 @@
+﻿@model List<coreApp.Areas.Procurement.Models.GroupedConflictItems>
+@{ 
+    string active = "";
+    if (Model.Any())
+    {
+        active = Model.First().active;
+    }
+}
+<style>
+    .conflict-items {
+        padding: 5px;
+        background-color: rgba(255,0,0,0.2);
+        max-height: 240px;
+        overflow: auto;
+    }
+    
+    .conflict-items table {
+        max-width: 75%;
+        margin: 0px auto;
+    }
+</style>
+
+@if (Model.Any())
+{
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="conflict-items">
+                <table class="display table table-bordered table-striped table-list" border="1">
+                    <thead>
+                        <tr>
+                            <th colspan="3">
+                                Items In Conflict !!!
+                            </th>
+                        </tr>
+                        <tr>
+                            @if (active == "app")
+                            {
+                                <th>APP</th>
+                            }
+                            else if (active == "pr")
+                            {
+                                <th>PR</th>
+                            }
+                            else if (active == "cpr")
+                            {
+                                <th>Consolidated PR</th>
+                            }
+                            else if (active == "rfq")
+                            {
+                                <th>RFQ</th>
+                            }
+                            else if (active == "aob")
+                            {
+                                <th>AOB</th>
+                            }
+
+                            <th>Item</th>
+                            <th>Month(s)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            string desc = "";
+                            string ppmpDesc = "";
+                            string info = "";
+
+                            switch (active)
+                            {
+                                case "app":
+                                    desc = item.APP.Description;
+                                    info = string.Format("Id: {0} | Submitted by: {1} | {2}", item.APP.Id, item.APP.SubmittedBy, item.APP.SubmitDate);
+                                    break;
+                                case "pr":
+                                    desc = item.PR.Description;
+                                    ppmpDesc = item.PR.ppmpDescription;
+                                    info = string.Format("Id: {0} | Submitted by: {1} | {2}", item.PR.Id, item.PR.SubmittedBy, item.PR.SubmitDate);
+                                    break;
+                                case "cpr":
+                                    desc = item.CPR.Description;
+                                    info = string.Format("Id: {0} | Submitted by: {1} | {2}", item.CPR.Id, item.CPR.SubmittedBy, item.CPR.SubmitDate);
+                                    break;
+                                case "rfq":
+                                    desc = item.RFQ.Description;
+                                    info = string.Format("Id: {0} | Submitted by: {1} | {2}", item.RFQ.Id, item.RFQ.SubmittedBy, item.RFQ.SubmitDate);
+                                    break;
+                                case "aob":
+                                    desc = item.AOB.Description;
+                                    info = string.Format("Id: {0} | Submitted by: {1} | {2}", item.AOB.Id, item.AOB.SubmittedBy, item.AOB.SubmitDate);
+                                    break;
+                            }
+
+                            foreach (var ii in item.Items)
+                            {
+                                <tr locked>
+                                    <td>
+                                        @desc
+                                        @if (desc != "")
+                                        {
+                                            if (active == "pr")
+                                            {
+                                                <span>@ppmpDesc</span>
+                                            }
+                                            <div class="small">
+                                                @info
+                                            </div>
+                                        }
+                                    </td>
+
+                                    
+                                    <td>@ii.Item.ItemName</td>
+                                    <td style="text-align:center">@string.Join(", ", ii.strMonths)</td>
+                                </tr>
+
+                                desc = "";
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+}

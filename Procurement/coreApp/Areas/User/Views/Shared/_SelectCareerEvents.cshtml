@@ -1,0 +1,15 @@
+﻿@model Module.DB.tblEmployee_Career
+
+<div class="events-selection">
+    @{
+        int i = 0;
+    }
+    @foreach (var item in SelectItems.getCareerEvents().Where(x => x.Value != "-1"))
+    {
+        @Html.Partial("_Helper_CheckBox", "Event_" + i, new ViewDataDictionary { { "text", item.Text }, { "value", false }, { "style", "display:inline" } })
+
+        
+        i++;
+    }
+    @Html.HiddenFor(model => model.Events)
+</div>

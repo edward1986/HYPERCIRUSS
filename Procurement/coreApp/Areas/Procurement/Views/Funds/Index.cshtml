@@ -1,0 +1,90 @@
+﻿@model List<coreApp.Areas.Procurement.DAL.tblFund>
+@{
+    ViewBag.Title = "List of Funds";
+
+}
+
+
+
+@section Breadcrumbs {
+
+    @Html.Partial("_Breadcrumbs", new List<Breadcrumb>()
+      {
+          new Breadcrumb { Description = "Source of funds" },
+          new Breadcrumb { Description = ViewBag.Title }
+      })
+
+}
+
+@section Scripts {
+    <script src="~/assets/nextro/assets/js/plugins/bootstrap-select.min.js"></script>
+    <script src="~/assets/nextro/assets/js/plugins/dataTables.bootstrap4.min.js"></script>
+
+    <script>
+
+        function load(e) {
+            $('.pc-selectpicker').selectpicker();
+            $(function () { });
+        }
+
+    </script>
+    <script>
+        $('.pc-selectpicker').selectpicker();
+        $(function () { });
+    </script>
+}
+
+<div class="block">
+    <div class="card">
+        <div class="card-header">
+            <h5>@ViewBag.Title</h5>
+            <div class="card-header-right">
+                <div class="btn-group card-option">
+                    <button class="btn btn-success btn-create btn-sm" onclick="$.fn.list('modalCreate', this)">Create</button>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="dt-responsive table-responsive">
+                <table class="display table table-bordered table-striped table-list" cellspacing="0" width="100%"
+                       modal-target="#modalView" modal-start="view"
+                       modal-view-url="/Procurement/Funds/Details/{0}" modal-edit-url="/Procurement/Funds/Edit/{0}" modal-delete-url="/Procurement/Funds/Delete" modal-create-url="/Procurement/Funds/Create">
+                    <thead>
+                        <tr>
+                            <th>
+                                Fund Name
+                            </th>
+                            <th>
+                                Description
+                            </th>
+                            <th>
+                                Fund Cluster
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (coreApp.Areas.Procurement.DAL.tblFund item in Model)
+                        {
+                            <tr record-id="@item.Id">
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Fund)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Description)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Fund_Cluster)
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@Html.Partial("~/Views/Shared/modals/_ModalView.cshtml", "modalView")

@@ -1,0 +1,74 @@
+﻿
+@{
+
+    List<coreApp.Areas.Procurement.DAL.vTotalAllocation> allocations = (List<coreApp.Areas.Procurement.DAL.vTotalAllocation>)ViewBag.allocations;
+    ViewBag.Title = "Procurement";
+    coreApp.UserAccess userAccess = coreApp.Cache.Get().userAccess;
+    coreApp.Areas.Procurement.Models.OfficePPMPModel officeModel = (coreApp.Areas.Procurement.Models.OfficePPMPModel)ViewBag.OfficeModel;
+
+    Layout = "~/Views/Shared/_Taurus.cshtml";
+
+}
+
+@section Breadcrumbs {
+    @Html.Partial("_Breadcrumbs", new List<Breadcrumb>() { new Breadcrumb { Description = ViewBag.Title } })
+}
+
+
+<div class="row">
+    <div class="col-md-8">
+        @if (userAccess.HasAccess("procurement_allocate_funds"))
+        {
+            <div class="card social-res-card">
+                <div class="card-header">
+                    <h5>Fund Source</h5>
+                    <div class="card-header-right">
+
+                    </div>
+                </div>
+                <div class="card-body">
+                    @foreach (coreApp.Areas.Procurement.DAL.vTotalAllocation allocation in allocations)
+                    {
+                        <p class="m-b-10">@allocation.Fund</p>
+                        <div class="progress m-b-25">
+                            <div class="progress-bar bg-primary" style="width:@allocation.Percentage"></div>
+                        </div>
+
+                    }
+
+                </div>
+            </div>
+        }
+    </div>
+    @if (userAccess.HasAccess("procurement_access_office_ppmp"))
+    {
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Office Funds</h5>
+                </div>
+
+                <div id="stastic-slider-3" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner">
+
+                        @{string activated = "active";}
+
+                        @foreach (var item in officeModel.utility.Allocations)
+                        {
+                            <div class="carousel-item @activated" data-interval="2000">
+                                <div class="card-body">
+                                    <h6 class="d-inline-block m-0">@item.Fund.Fund</h6>
+                                    @{double amount = (double)item.Amount;}
+                                    <span class="float-right">@amount.ToString("#,##0.00")</span>
+
+                                </div>
+                            </div>
+
+                            activated = "";
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

@@ -1,0 +1,230 @@
+﻿@using coreApp
+@{
+    coreApp.UserAccess access = coreApp.Cache.Get().userAccess;
+
+    var _area = HttpContext.Current.Request.RequestContext.RouteData.DataTokens["area"];
+    string area = _area == null ? "" : _area.ToString().ToLower();
+}
+
+@if (access.HasAccess("procurement_settings") || access.HasAccess("procurement_item_settings"))
+{
+    <li class="dropdown @LayoutUtility.MenuSelector(true, "[NONE],Procurement", "Settings,Units,Categories,Items")">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <span class="fa fa-gears"></span>
+            System Settings
+            &nbsp;<i class="fa fa-angle-double-down"></i>
+        </a>
+
+        <ul class="dropdown-menu">
+
+            @if (access.HasAccess("procurement_settings"))
+            {
+                <li class="@LayoutUtility.MenuSelector(false, "Procurement", "Settings")">
+                    <a href="@Url.Action("Index", "ProcurementSettings", new { area = "Procurement" })">
+                        Settings
+                    </a>
+                </li>
+                <li class="@LayoutUtility.MenuSelector(false, "Procurement", "Campus")">
+                    <a href="@Url.Action("Index", "Campus", new { area = "Procurement" })">
+                        Office
+                    </a>
+                </li>
+                <li class="@LayoutUtility.MenuSelector(false, "Procurement", "Employees")">
+                    <a href="@Url.Action("Index", "Employees", new { area = "User" })">
+                        Employees
+                    </a>
+                </li>
+
+                <li class="@LayoutUtility.MenuSelector(false, "Procurement", "Units")">
+                    <a href="@Url.Action("Index", "Units", new { area = "Procurement" })">
+                        Units
+                    </a>
+                </li>
+                <li class="@LayoutUtility.MenuSelector(false, "Procurement", "Categories")">
+                    <a href="@Url.Action("Index", "Categories", new { area = "Procurement" })">
+                        Categories
+                    </a>
+                </li>
+            }
+            @if (access.HasAccess("procurement_item_settings"))
+            {
+                <li class="@LayoutUtility.MenuSelector(false, "Procurement", "Items")">
+                    <a href="@Url.Action("Index", "Items", new { area = "Procurement" })">
+                        Items
+                    </a>
+                </li>
+            }
+        </ul>
+    </li>
+}
+
+@if (access.HasAccess("procurement_allocate_funds"))
+{
+    <li class="dropdown @LayoutUtility.MenuSelector(true, "[NONE],Procurement", "Funds,SOF,OfficeAllocations")">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <span class="fa fa-money"></span>
+            Source of Funds
+            &nbsp;<i class="fa fa-angle-double-down"></i>
+        </a>
+
+        <ul class="dropdown-menu">
+            <li class="@LayoutUtility.MenuSelector(false, "Procurement", "Funds")">
+                <a href="@Url.Action("Index", "Funds", new { area = "Procurement" })">
+                    List of Funds
+                </a>
+            </li>
+            <li class="@LayoutUtility.MenuSelector(false, "Procurement", "SOF")">
+                <a href="@Url.Action("Index", "SOF", new { area = "Procurement" })">
+                    Received Funds
+                </a>
+            </li>
+            <li class="@LayoutUtility.MenuSelector(false, "Procurement", "OfficeAllocations")">
+                <a href="@Url.Action("Index", "OfficeAllocations", new { area = "Procurement" })">
+                    Office Allocations
+                </a>
+            </li>
+        </ul>
+    </li>
+}
+
+@*@if (!access.IsAdmin && access.HasAccess("procurement_access_department_ppmp"))*@
+@if (access.HasAccess("procurement_access_department_ppmp"))
+{
+    <li class="dropdown @LayoutUtility.MenuSelector(true, "[NONE],Procurement", "DepartmentPPMP")">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <span class="fa fa-building"></span>
+            Department
+            &nbsp;<i class="fa fa-angle-double-down"></i>
+        </a>
+
+        <ul class="dropdown-menu">
+            <li class="@LayoutUtility.MenuSelector(false, "Procurement", "DepartmentPPMP")">
+                <a href="@Url.Action("Index", "DepartmentPPMP", new { area = "Procurement" })">
+                    PPMP
+                </a>
+            </li>
+        </ul>
+    </li>
+}
+
+@*@if (!access.IsAdmin && access.HasAccess("procurement_access_office_ppmp"))*@
+@if (access.HasAccess("procurement_access_office_ppmp"))
+{
+    <li class="dropdown @LayoutUtility.MenuSelector(true, "[NONE],Procurement", "DepartmentAllocations,OfficePPMP,OfficePR")">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <span class="fa fa-building-o"></span>
+            Office
+            &nbsp;<i class="fa fa-angle-double-down"></i>
+        </a>
+
+        <ul class="dropdown-menu">
+            <li class="@LayoutUtility.MenuSelector(false, "Procurement", "DepartmentAllocations")">
+                <a href="@Url.Action("Index", "DepartmentAllocations", new { area = "Procurement" })">
+                    Department Allocations
+                </a>
+            </li>
+            <li class="@LayoutUtility.MenuSelector(false, "Procurement", "OfficePPMP")">
+                <a href="@Url.Action("Index", "OfficePPMP", new { area = "Procurement" })">
+                    PPMP
+                </a>
+            </li>
+            <li class="@LayoutUtility.MenuSelector(false, "Procurement", "OfficePR")">
+                <a href="@Url.Action("Index", "OfficePR", new { area = "Procurement" })">
+                    PR
+                </a>
+            </li>
+        </ul>
+    </li>
+}
+
+@if (access.HasAccess("procurement_ppmp_approver") || access.HasAccess("procurement_access_app"))
+{
+    <li class="dropdown @LayoutUtility.MenuSelector(true, "[NONE],Procurement", "ManagePPMP,ManagePR,CompanyAPP,CompanyAPR,CompanyPR,ConsolidatedPR,RFQ,Suppliers,AOB,PO")">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <span class="fa fa-building-o"></span>
+            Procurement
+            &nbsp;<i class="fa fa-angle-double-down"></i>
+        </a>
+
+        <ul class="dropdown-menu">
+
+            @if (access.HasAccess("procurement_ppmp_approver"))
+            {
+                <li class="@LayoutUtility.MenuSelector(false, "Procurement", "ManagePPMP")">
+                    <a href="@Url.Action("Index", "ManagePPMP", new { area = "Procurement" })">
+                        Manage PPMPs
+                    </a>
+                </li>
+                <li class="@LayoutUtility.MenuSelector(false, "Procurement", "ManagePR")">
+                    <a href="@Url.Action("Index", "ManagePR", new { area = "Procurement" })">
+                        Manage PRs
+                    </a>
+                </li>
+                <li>
+                    <hr style="margin:0" />
+                </li>
+            }
+
+            @if (access.HasAccess("procurement_access_app"))
+            {
+
+                if (FixedSettings.ProcurementForPrivate)
+                {
+                    <li class="@LayoutUtility.MenuSelector(false, "Procurement", "CompanyAPP")">
+                        <a href="@Url.Action("Index", "CompanyAPP", new { area = "Procurement" })">
+                            Consolidated Plans
+                        </a>
+                    </li>
+                }
+                else
+                {
+                    <li class="@LayoutUtility.MenuSelector(false, "Procurement", "CompanyAPP")">
+                        <a href="@Url.Action("Index", "CompanyAPP", new { area = "Procurement" })">
+                            APP
+                        </a>
+                    </li>
+                    <li class="@LayoutUtility.MenuSelector(false, "Procurement", "CompanyAPR")">
+                        <a href="@Url.Action("Index", "CompanyAPR", new { area = "Procurement" })">
+                            APR
+                        </a>
+                    </li>
+                    <li class="@LayoutUtility.MenuSelector(false, "Procurement", "CompanyPR")">
+                        <a href="@Url.Action("Index", "CompanyPR", new { area = "Procurement" })">
+                            PR (For Out-Of-Stock Items)
+                        </a>
+                    </li>
+                }
+
+                <li class="@LayoutUtility.MenuSelector(false, "Procurement", "ConsolidatedPR")">
+                    <a href="@Url.Action("Index", "ConsolidatedPR", new { area = "Procurement" })">
+                        Consolidated PR
+                    </a>
+                </li>
+                <li class="@LayoutUtility.MenuSelector(false, "Procurement", "RFQ")">
+                    <a href="@Url.Action("Index", "RFQ", new { area = "Procurement" })">
+                        RFQ
+                    </a>
+                </li>
+                <li class="@LayoutUtility.MenuSelector(false, "Procurement", "AOB")">
+                    <a href="@Url.Action("Index", "AOB", new { area = "Procurement" })">
+                        Abstract of Bids
+                    </a>
+                </li>
+                <li class="@LayoutUtility.MenuSelector(false, "Procurement", "PO")">
+                    <a href="@Url.Action("Index", "PO", new { area = "Procurement" })">
+                        Purchase Orders
+                    </a>
+                </li>
+                <li>
+                    <hr style="margin:0" />
+                </li>
+                <li class="@LayoutUtility.MenuSelector(false, "Procurement", "Suppliers")">
+                    <a href="@Url.Action("Index", "Suppliers", new { area = "Procurement" })">
+                        Suppliers
+                    </a>
+                </li>
+            }
+
+        </ul>
+    </li>
+}

@@ -1,0 +1,59 @@
+﻿@model Module.DB.tblEmployee_Info
+@{
+    Layout = "~/Areas/EmployeeModule/Views/Shared/_EmployeeDetailsLayout.cshtml";
+
+    Module.DB.tblEmployee employee = (Module.DB.tblEmployee)ViewBag.Employee;
+
+    ViewBag.Title = "Personal Information";
+    ViewBag.Subtitle = "Details";
+
+    ViewBag.uiIsReadOnly = true;
+    ViewBag.uiIncludeId = true;
+
+    ViewBag.EmployeeDetailsActiveTab = "personal-info";
+
+}
+
+@section Breadcrumbs {
+    @Html.Partial("_Breadcrumbs", new List<Breadcrumb>()
+    {
+        new Breadcrumb { Description = "Employee Main Record", Link = Url.Action("Details", "MyProfile", new { id = employee.EmployeeId, area = "EmployeeModule" } ) },
+        new Breadcrumb { Description = ViewBag.Title }
+    })
+}
+
+@section Scripts {
+    <script>
+         function print() {
+             modalPrint('@Module.Core.ModuleConstants.PRINT_OPTIONS', function (ret) {
+                 var dlWord = 'true';
+
+                 if (ret) {
+                     dlWord = 'false';
+                 }
+
+                 window.open('@Url.Action("Print")?dlWord=' + dlWord, '_blank');
+            });
+        }
+    </script>
+}
+
+<div class="block block-drop-shadow details" modal-target="#modalViewDetails" modal-width="wide">
+    <div class="head bg-default bg-light-ltr noradius">
+        <h2>@ViewBag.Title</h2>
+        <div class="side pull-right">
+            <ul class="buttons">
+                @if (coreApp.Cache.Get().userAccess.HasPermission("EmployeeInfo"))
+                {
+                    <li><a href="#" class="btn btn-primary btn-edit" data-url="@Url.Action("Edit")">Edit</a></li>                    
+                }      
+                <li><a href="#" class="btn btn-info btn-print" onclick="print()">Print</a></li>
+            </ul>
+        </div>
+
+    </div>
+    <div class="content">
+        @Html.Partial("~/Areas/HRModule/Views/EmployeeInfo/_Info.cshtml", Model)
+    </div>
+</div>
+@Html.Partial("~/Views/Shared/modals/_ModalView_FromDetails.cshtml", "modalViewDetails")

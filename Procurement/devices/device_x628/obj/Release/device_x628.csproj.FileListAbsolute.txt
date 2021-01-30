@@ -1,0 +1,9 @@
+C:\Users\renebert\Documents\Visual Studio 2013\Projects\hrms-eu\hrms-eu\devices\device_x628\bin\Release\device_x628.dll
+C:\Users\renebert\Documents\Visual Studio 2013\Projects\hrms-eu\hrms-eu\devices\device_x628\bin\Release\device_x628.pdb
+C:\Users\renebert\Documents\Visual Studio 2013\Projects\hrms-eu\hrms-eu\devices\device_x628\bin\Release\device_core.dll
+C:\Users\renebert\Documents\Visual Studio 2013\Projects\hrms-eu\hrms-eu\devices\device_x628\bin\Release\device_core.pdb
+C:\Users\renebert\Documents\Visual Studio 2013\Projects\hrms-eu\hrms-eu\devices\device_x628\obj\Release\device_x628.csprojResolveAssemblyReference.cache
+C:\Users\renebert\Documents\Visual Studio 2013\Projects\hrms-eu\hrms-eu\devices\device_x628\obj\Release\Interop.zkemkeeper.dll
+C:\Users\renebert\Documents\Visual Studio 2013\Projects\hrms-eu\hrms-eu\devices\device_x628\obj\Release\device_x628.csproj.ResolveComReference.cache
+C:\Users\renebert\Documents\Visual Studio 2013\Projects\hrms-eu\hrms-eu\devices\device_x628\obj\Release\device_x628.dll
+C:\Users\renebert\Documents\Visual Studio 2013\Projects\hrms-eu\hrms-eu\devices\device_x628\obj\Release\device_x628.pdb

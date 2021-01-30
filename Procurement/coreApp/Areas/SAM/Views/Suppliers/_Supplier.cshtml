@@ -1,0 +1,190 @@
+﻿@model coreApp.Areas.Procurement.DAL.tblSupplier
+
+@{
+    bool isReadOnly = (bool)ViewBag.uiIsReadOnly;
+    bool includeId = (bool)ViewBag.uiIncludeId;
+
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+
+    if (isReadOnly)
+    {
+        <div class="form-group row">
+            <div class="col-md">
+                @Html.LabelFor(model => model.Id)
+                <div class="form-control">
+                    @Html.DisplayFor(model => model.Id)
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md">
+                @Html.LabelFor(model => model.CompanyName)
+                <div class="form-control">
+                    @Html.DisplayFor(model => model.CompanyName)
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md">
+                @Html.LabelFor(model => model.Address)
+                <div class="form-control">
+                    @Html.DisplayMultiLineFor(model => model.Address)
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group row">
+                    <div class="col-md">
+                        @Html.LabelFor(model => model.TIN)
+                        <div class="form-control">
+                            @Html.DisplayFor(model => model.TIN)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group row">
+                    <div class="col-md">
+                        @Html.LabelFor(model => model.VAT)
+                        <div class="form-control">
+                            @Html.DisplayFor(model => model.VAT_Desc)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md">
+                @Html.LabelFor(model => model.Email)
+                <div class="form-control">
+                    @Html.DisplayFor(model => model.Email)
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group row">
+                    <div class="col-md">
+                        @Html.LabelFor(model => model.TelephoneNo)
+                        <div class="form-control">
+                            @Html.DisplayFor(model => model.TelephoneNo)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group row">
+                    <div class="col-md">
+                        @Html.LabelFor(model => model.MobileNo)
+                        <div class="form-control">
+                            @Html.DisplayFor(model => model.MobileNo)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md">
+                @Html.LabelFor(model => model.Notes)
+                <div class="form-control">
+                    @Html.DisplayMultiLineFor(model => model.Notes)
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        @Html.HiddenFor(model => model.Id)
+
+        @*if (includeId)
+            {
+                <div class="form-group row">
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.Id)
+                    </div>
+                    <div class="col-md">
+                        <div class="form-control dimmed">
+                            @Html.DisplayFor(model => model.Id)
+                        </div>
+                    </div>
+                </div>
+            }*@
+
+        <div class="form-group row">
+            <div class="col-md">
+                @Html.LabelFor(model => model.CompanyName)
+                @Html.TextBoxFor(model => model.CompanyName, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md">
+                @Html.LabelFor(model => model.Address)
+                @Html.TextAreaFor(model => model.Address, new { @class = "form-control" })
+            </div>
+        </div>
+
+       
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group row">
+                    <div class="col-md">
+                        @Html.LabelFor(model => model.TIN)
+                        @Html.TextBoxFor(model => model.TIN, new { @class = "form-control" })
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-6">
+                <div class="form-group row">
+                    <div class="col-md">
+                        @Html.LabelFor(model => model.VAT)
+                        @Html.DropDownListFor(model => model.VAT, coreApp.Areas.Procurement.SelectItems.getVAT("[NOT SET]"), new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md">
+                @Html.LabelFor(model => model.Email)
+                @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group row">
+                    <div class="col-md">
+                        @Html.LabelFor(model => model.TelephoneNo)
+                        @Html.TextBoxFor(model => model.TelephoneNo, new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group row">
+                    <div class="col-md">
+                        @Html.LabelFor(model => model.MobileNo)
+                        @Html.TextBoxFor(model => model.MobileNo, new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md">
+                @Html.LabelFor(model => model.Notes)
+                @Html.TextAreaFor(model => model.Notes, new { @class = "form-control" })
+            </div>
+        </div>
+    }
+}

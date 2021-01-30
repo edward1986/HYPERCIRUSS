@@ -1,0 +1,26 @@
+﻿@model int
+@{ 
+    bool showEmptyItem = true;
+
+    if (ViewData["ShowEmptyItem"] != null)
+    {
+        showEmptyItem = (bool)ViewData["ShowEmptyItem"];
+    }
+}
+<script>
+        $(document).ready(function () {
+            var url = '/SAM/Issuances_Cont/Details/{0}';
+            var contractor = $('#ContractorId');
+
+            var go = function (id) {
+                window.location = url.replace('{0}', id);
+            };
+
+            contractor.change(function () {
+                go($(this).val());
+            });
+        });
+</script>
+
+Select Contractor
+@Html.DropDownList("ContractorId", coreApp.Areas.SAM.SelectItems.getContractors("", Model, showEmptyItem), new { @class = "form-control" })

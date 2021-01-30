@@ -1,0 +1,133 @@
+﻿@{
+    ViewBag.Title = "Application License";
+    Licenses.License lic = MvcApplication.ApplicationLicense;
+
+    string sn = ViewBag.SN;
+
+    coreApp.UserAccess access = coreApp.Cache.Get().userAccess;
+}
+
+@section Breadcrumbs {
+    @Html.Partial("_Breadcrumbs")
+}
+
+<h3>
+    Application Name: @FixedSettings.ApplicationName
+    <br />Server S/N: @sn
+</h3>
+
+@if (lic.IsValid)
+{
+    <div class="alert alert-success">
+        This @lic.Info.ApplicationName application is licensed to <b>@lic.Info.Client</b>
+        <br />Registered Server S/N: @lic.Info.MotherboardSN
+
+        @if (lic.Info.ShowExpiry)
+        {
+            <br /><span>Expiry Date: @lic.Info.ExpiryString</span>
+        }
+    </div>
+
+    if (lic.AsposeLicenseSet.Any())
+    {
+        <div class="alert alert-info">
+            <h5>Aspose Licenses</h5>
+
+            <ul>
+                @foreach (Licenses.AsposeLicenseInfo info in lic.AsposeLicenseSet)
+                {
+                    <li>
+                        <span>@info.Type: </span>
+                        @if (info.IsSet)
+                        {
+                            <span class="text-success">Ok</span>
+                        }
+                        else
+                        {
+                            <span class="text-danger">Not set. @info.Error</span>
+                        }
+                    </li>
+                    
+                }
+            </ul>
+            
+        </div>
+    }
+
+    <div class="alert alert-info">
+        <h5>Integrated Modules</h5>
+
+        @if (lic.HasModule)
+        {
+            <ul>
+                @if (lic.Info.Modules_Procurement)
+                {
+                    <li>Procurement Module</li>
+                }
+                @if (lic.Info.Modules_SAM)
+                {
+                    <li>Supply/Asset Management Module</li>
+                }
+            </ul>
+            
+        }
+        else
+        {
+            <span>[None]</span>
+        }
+    </div>
+}
+else
+{
+
+    <div class="alert alert-danger">
+        @if (lic.HasLicenseFile)
+        {
+            int c = 0;
+
+            foreach (string err in lic.ValidationErrors)
+            {
+                if (c > 0)
+                {
+                    <br />
+                }
+                <span>@err</span>
+
+                c++;
+            }
+        }
+        else
+        {
+            <span>This application is unlicensed</span>
+        }
+    </div>
+    
+}
+
+@if (!lic.IsValid || (User.Identity.IsAuthenticated && access.IsAdmin))
+{
+    <hr />
+    <h3>Upload License File</h3>
+
+
+    using (Html.BeginForm("UploadLicenseFile", "License", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-row">
+            <div class="col-md-4">
+                <input type="file" class="form-control" name="LicenseFile" />
+            </div>
+            <div class="col-md-8">
+                <button type="submit" class="btn btn-default">Upload</button>
+            </div>
+        </div>
+
+    }
+}
+
+<br />
+<hr />
+<small class="text-info">
+    License ver. @(lic.GetType().Assembly.GetName().Version)
+</small>

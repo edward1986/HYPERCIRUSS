@@ -1,0 +1,189 @@
+﻿@model List<coreApp.Areas.SAM.tblARE>
+@{
+    ViewBag.Title = "Property Transfer Reports";
+
+    int Year = (int)ViewBag.Year;
+
+}
+
+@section Breadcrumbs {
+    @Html.Partial("_Breadcrumbs", new List<Breadcrumb>()
+        {
+            new Breadcrumb { Description = "Transactions" },
+            new Breadcrumb { Description = ViewBag.Title }
+        })
+}
+
+@section Scripts {
+    <script>
+        function load(e) {
+
+            if (e.viewType == 'view') {
+                var printBtn = e.modal.find('.btn-print');
+                var printlink = printBtn.attr('data-link-tmp');
+
+                printBtn.unbind('click').bind('click', function (ee) {
+                    ee.preventDefault();
+
+                    modalPrint('@Module.Core.ModuleConstants.PRINT_OPTIONS', function (ret) {
+                        var dlWord = 'true';
+
+                        if (ret) {
+                            dlWord = 'false';
+                        }
+
+                        window.open(printlink + '?dlWord=' + dlWord, '_blank');
+                    });
+                });
+
+            } else if (e.viewType == 'create' || e.viewType == 'edit') {
+
+                var fromTypeUI = e.modal.find('.fromtype-ui');
+                var fromTypes = e.modal.find('input[name="From_Type"]');
+
+                fromTypes.change(function () {
+
+                    fromTypeUI.removeClass('show-fromtype-employee show-fromtype-contractor');
+
+                    if ($(this).val() == '0') {
+                        fromTypeUI.addClass('show-fromtype-employee');
+                    } else {
+                        fromTypeUI.addClass('show-fromtype-contractor');
+                    }
+
+                });
+
+                var toTypeUI = e.modal.find('.totype-ui');
+                var toTypes = e.modal.find('input[name="To_Type"]');
+
+                toTypes.change(function () {
+
+                    toTypeUI.removeClass('show-totype-employee show-totype-contractor');
+
+                    if ($(this).val() == '0') {
+                        toTypeUI.addClass('show-totype-employee');
+                    } else {
+                        toTypeUI.addClass('show-totype-contractor');
+                    }
+
+                });
+            }
+
+            return e;
+        }
+    </script>
+
+    <script src="~/Assets/nextro/assets/js/plugins/bootstrap-datepicker.min.js"></script>
+
+}
+
+@section Styles {
+    <style>
+        .form-row:first-child {
+            margin-top: 0px;
+        }
+
+        .form-row:last-child {
+            margin-bottom: 10px;
+        }
+
+        .fromtype, .totype {
+            display: none;
+        }
+
+        div.show-fromtype-employee .fromtype-employee,
+        div.show-fromtype-contractor .fromtype-contractor,
+        div.show-totype-employee .totype-employee,
+        div.show-totype-contractor .totype-contractor {
+            display: block;
+        }
+    </style>
+
+    <link rel="stylesheet" href="~/Assets/nextro/assets/css/plugins/bootstrap-datepicker3.min.css">
+}
+
+<div class="block">
+    <div class="card">
+        <div class="card-header">
+            <h5>@ViewBag.Title</h5>
+            <div class="card-header-right">
+                <div class="btn-group-sm card-option">
+                    <button class="btn btn-success btn-create" onclick="$.fn.list('modalCreate', this)">Create</button>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="form-group row">
+                <div class="col-sm-3">
+                    <label class="col-form-label text-lg-right">For the year:</label>
+                    @Html.Partial("~/Areas/Procurement/Views/Shared/yearInfo.cshtml", "/SAM/PTR/Index/{0}")
+                    <br />
+                </div>
+            </div>
+            <div class="dt-responsive table-responsive">
+                <table class="display table table-bordered table-striped table-list" cellspacing="0" width="100%"
+                       modal-target="#modalView" modal-start="view" modal-load-callback="load"
+                       modal-view-url="/SAM/PTR/Details/@Year/{0}" modal-edit-url="/SAM/PTR/Edit/@Year/{0}" modal-delete-url="/SAM/PTR/Delete/@Year" modal-create-url="/SAM/PTR/Create/@Year">
+                    <thead>
+                        <tr>
+                            <th>
+                                Date
+                            </th>
+                            <th>
+                                PTR No.
+                            </th>
+                            <th>
+                                From
+                            </th>
+                            <th>
+                                To
+                            </th>
+                            <th>
+                                Position
+                            </th>
+                            <th>
+                                Fund Cluster
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (coreApp.Areas.SAM.tblARE item in Model)
+                        {
+                            <tr record-id="@item.Id">
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.AREDate)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.PTRNo)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item._From_Name)
+                                    @if (item.From_Type == (int)coreApp.Areas.SAM.Enums.iType.Contractor)
+                                    {
+                                        <span>&nbsp;[Contractor]</span>
+                                    }
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item._To_Name)
+                                    @if (item.To_Type == (int)coreApp.Areas.SAM.Enums.iType.Contractor)
+                                    {
+                                        <span>&nbsp;[Contractor]</span>
+                                    }
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item._To_Position)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.FundCluster)
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@Html.Partial("~/Views/Shared/modals/_ModalView.cshtml", "modalView")

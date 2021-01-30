@@ -1,0 +1,12 @@
+C:\Users\renebert\Documents\Visual Studio 2013\Projects\hrms-eu\hrms-eu\devices\device_zks_s5_ocx_wrapper\device_zks_s5_ocx_wrapper\bin\Release\device_zks_s5_ocx_wrapper.dll
+C:\Users\renebert\Documents\Visual Studio 2013\Projects\hrms-eu\hrms-eu\devices\device_zks_s5_ocx_wrapper\device_zks_s5_ocx_wrapper\bin\Release\device_zks_s5_ocx_wrapper.pdb
+C:\Users\renebert\Documents\Visual Studio 2013\Projects\hrms-eu\hrms-eu\devices\device_zks_s5_ocx_wrapper\device_zks_s5_ocx_wrapper\bin\Release\Interop.SB100BPCLib.dll
+C:\Users\renebert\Documents\Visual Studio 2013\Projects\hrms-eu\hrms-eu\devices\device_zks_s5_ocx_wrapper\device_zks_s5_ocx_wrapper\bin\Release\AxInterop.SB100BPCLib.dll
+C:\Users\renebert\Documents\Visual Studio 2013\Projects\hrms-eu\hrms-eu\devices\device_zks_s5_ocx_wrapper\device_zks_s5_ocx_wrapper\obj\Release\Interop.SB100BPCLib.dll
+C:\Users\renebert\Documents\Visual Studio 2013\Projects\hrms-eu\hrms-eu\devices\device_zks_s5_ocx_wrapper\device_zks_s5_ocx_wrapper\obj\Release\AxInterop.SB100BPCLib.dll
+C:\Users\renebert\Documents\Visual Studio 2013\Projects\hrms-eu\hrms-eu\devices\device_zks_s5_ocx_wrapper\device_zks_s5_ocx_wrapper\obj\Release\device_zks_s5_ocx_wrapper.csproj.ResolveComReference.cache
+C:\Users\renebert\Documents\Visual Studio 2013\Projects\hrms-eu\hrms-eu\devices\device_zks_s5_ocx_wrapper\device_zks_s5_ocx_wrapper\obj\Release\device_zks_s5_ocx_wrapper.Form1.resources
+C:\Users\renebert\Documents\Visual Studio 2013\Projects\hrms-eu\hrms-eu\devices\device_zks_s5_ocx_wrapper\device_zks_s5_ocx_wrapper\obj\Release\device_zks_s5_ocx_wrapper.csproj.GenerateResource.Cache
+C:\Users\renebert\Documents\Visual Studio 2013\Projects\hrms-eu\hrms-eu\devices\device_zks_s5_ocx_wrapper\device_zks_s5_ocx_wrapper\obj\Release\device_zks_s5_ocx_wrapper.dll
+C:\Users\renebert\Documents\Visual Studio 2013\Projects\hrms-eu\hrms-eu\devices\device_zks_s5_ocx_wrapper\device_zks_s5_ocx_wrapper\obj\Release\device_zks_s5_ocx_wrapper.pdb
+C:\Users\renebert\Documents\Visual Studio 2013\Projects\hrms-eu\hrms-eu\devices\device_zks_s5_ocx_wrapper\device_zks_s5_ocx_wrapper\obj\Release\device_zks_s5_ocx_wrapper.csprojResolveAssemblyReference.cache

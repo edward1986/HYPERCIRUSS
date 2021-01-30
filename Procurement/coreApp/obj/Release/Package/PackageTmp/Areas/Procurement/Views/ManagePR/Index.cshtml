@@ -1,0 +1,165 @@
+﻿@model List<coreApp.Areas.Procurement.DAL.tblPR>
+@using coreLib.Extensions
+@{
+    ViewBag.Title = "Manage PRs";
+
+    int Year = (int)ViewBag.Year;
+}
+
+@section Breadcrumbs {
+    @Html.Partial("_Breadcrumbs", new List<Breadcrumb>()
+    {
+        new Breadcrumb { Description = "Procurement", Link = Url.Action("Index", "Main", new { area = "Procurement" }) },
+        new Breadcrumb { Description = ViewBag.Title }
+    })
+}
+
+@section Styles {
+    <link href="~/Areas/Procurement/Assets/css/common.less" rel="stylesheet" type="text/css">
+}
+
+@section Scripts {
+    <script>
+        function load(e) {
+            if (e.viewType == 'view') {
+
+                var editBtn = e.modal.find('.btn-edit');
+                var deleteBtn = e.modal.find('.btn-delete');
+                var approveBtn = e.modal.find('.btn-approve');
+                var returnBtn = e.modal.find('.btn-return');
+
+                var approveLink = approveBtn.attr('data-link-tmp');
+
+                approveBtn.unbind('click').bind('click', function (ee) {
+                    ee.preventDefault();
+
+                    modalConfirm('Are you sure you want to approve this document?', function (ret) {
+                        if (ret) {
+                            $.post(approveLink, null, function (res) {
+                                if (res.IsSuccessful) {
+                                    sessionStorage.clientMessage = res.Remarks;
+                                    window.location.reload(true);
+                                } else {
+                                    modalMessage(res.Err.split('\n'), 'Office PPMP', true);
+                                }
+                            }, 'json');
+                        }
+                    });
+
+                });
+
+                var returnLink = returnBtn.attr('data-link-tmp');
+
+                returnBtn.unbind('click').bind('click', function (ee) {
+                    ee.preventDefault();
+
+                    modalInput('Are you sure you want to return this document?', 'Return Message:', function (ret, userInput) {
+                        if (ret) {
+                            var data = {
+                                returnMessage: userInput
+                            };
+
+                            $.post(returnLink, data, function (res) {
+                                if (res.IsSuccessful) {
+                                    sessionStorage.clientMessage = res.Remarks;
+                                    window.location.reload(true);
+                                } else {
+                                    modalMessage(res.Err.split('\n'), 'Office PR', true);
+                                }
+                            }, 'json');
+                        }
+                    }, 'textarea', function (modal) {
+                        modal.find('.modal-footer .btn-cancel').html('No');
+                        modal.find('.modal-footer .btn-ok').html('Yes');
+                    });
+
+                });
+
+                editBtn.hide();
+                deleteBtn.hide();
+
+                var hasBeenApproved = e.modal.find('[name="Approved"]').val() == 'True';
+                if (hasBeenApproved) {
+                    approveBtn.hide();
+                    returnBtn.hide();
+                } else {
+                    approveBtn.show();
+                    returnBtn.show();
+                }
+            }
+        }
+    </script>
+}
+
+<div class="block">
+    <div class="card">
+        <div class="card-header">
+            <h5>@ViewBag.Title</h5>
+        </div>
+        <div class="card-body">
+            <div class="form-group row">
+                <label class="col-form-label col-lg-1 text-lg-right">For the year:</label>
+                <div class="col-sm-2">
+                    @Html.Partial("~/Areas/Procurement/Views/Shared/yearInfo.cshtml", "/Procurement/ManagePR/Index/{0}")
+                    <br />
+                    <br />
+                </div>
+            </div>
+            <div class="dt-responsive table-responsive">
+
+                <table class="display table table-bordered table-striped table-list" cellspacing="0" width="100%"
+                       modal-target="#modalView" modal-start="view" modal-load-callback="load"
+                       modal-view-url="/Procurement/ManagePR/Details/@Year/{0}">
+                    <thead>
+                        <tr>
+                            <th>
+                                Description
+                            </th>
+                            <th>
+                                Office
+                            </th>
+                            <th>
+                                Status
+                            </th>
+                            <th>
+                                Submitted By
+                            </th>
+                            <th>
+                                Approved By
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+
+                            <tr record-id="@item.Id">
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Description)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Office.Office)<br />
+                                    <small>@Html.DisplayFor(modelItem => item.Office.OfficeAddress)</small>
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.DocStatus_Desc)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.SubmittedBy)<br />
+                                    @Html.DisplayFor(modelItem => item.SubmitDate)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ApprovedBy)<br />
+                                    @Html.DisplayFor(modelItem => item.ApproveDate)
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@Html.Partial("~/Views/Shared/modals/_ModalView.cshtml", "modalView")

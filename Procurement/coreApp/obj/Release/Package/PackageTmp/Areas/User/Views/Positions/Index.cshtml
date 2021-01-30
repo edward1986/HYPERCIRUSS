@@ -1,0 +1,74 @@
+﻿@model List<Module.DB.tblPosition>
+
+@{
+    ViewBag.Title = "Positions";
+    ViewBag.Subtitle = "List";
+
+}
+
+@section Breadcrumbs {
+    @Html.Partial("_Breadcrumbs", new List<Breadcrumb>() { new Breadcrumb { Description = ViewBag.Title } })
+}
+
+<div class="block">
+    <div class="head bg-default bg-light-ltr noradius">
+        <h2>@ViewBag.Title</h2>
+        <div class="side pull-right">
+            <ul class="buttons">
+                <li>
+                    <button class="btn btn-success btn-create" onclick="$.fn.list('modalCreate', this)">Create</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="content">        
+        <table class="display table table-bordered table-striped table-list" cellspacing="0" width="100%"
+               modal-target="#modalView" modal-start="view"
+               modal-view-url="/HRModule/Positions/Details/{0}" modal-edit-url="/HRModule/Positions/Edit/{0}" modal-delete-url="/HRModule/Positions/Delete" modal-create-url="/HRModule/Positions/Create">
+            <thead>
+                <tr>
+                    <th class="idcol">
+                        Id
+                    </th>
+                    <th>
+                        Position
+                    </th>
+                    <th>
+                        Code
+                    </th>
+                    <th>
+                        Faculty
+                    </th>
+                    <th>
+                        Confidential
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Module.DB.tblPosition item in Model)
+                {
+                    <tr record-id="@item.PositionId">
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PositionId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Position)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Code)
+                        </td>
+                        <td>
+                            @Html.DisplayBooleanFor(modelItem => item.IsFaculty)
+                        </td>
+                        <td>
+                            @Html.DisplayBooleanFor(modelItem => item.Confidential)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+    </div>
+</div>
+
+@Html.Partial("~/Views/Shared/modals/_ModalView.cshtml", "modalView")

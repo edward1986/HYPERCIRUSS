@@ -1,0 +1,21 @@
+﻿
+@{
+    ViewBag.Title = "Contractor Issuances";
+    ViewBag.Subtitle = "List";
+
+}
+
+@section Breadcrumbs {
+    @Html.Partial("_Breadcrumbs", new List<Breadcrumb>() { new Breadcrumb { Description = ViewBag.Title } })
+}
+
+<div class="block">
+    <div class="head bg-default bg-light-ltr noradius">
+        <h2>@ViewBag.Title</h2>
+    </div>
+</div>
+
+<br />
+@Html.Partial("_Contractors", -1)
+
+

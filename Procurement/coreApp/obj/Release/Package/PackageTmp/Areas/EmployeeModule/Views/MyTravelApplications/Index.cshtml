@@ -1,0 +1,199 @@
+﻿@model List<Module.DB.tblTravelApplication>
+
+@{
+    ViewBag.Title = "Travel Applications";
+    ViewBag.Subtitle = "List";
+
+    Module.DB.tblEmployee employee = (Module.DB.tblEmployee)ViewBag.Employee;
+
+}
+
+@section Breadcrumbs {
+    @Html.Partial("_Breadcrumbs", new List<Breadcrumb>() { new Breadcrumb { Description = ViewBag.Title } })
+}
+
+@section Scripts {
+    <script>
+        function load(e) {
+
+            var printCreate = e.modal.find('.btn-create');
+            e.modal.find('.modal-title').html('Travel Application Details');
+
+            if (e.viewType == 'view') {
+                var hasBeenSubmitted = $('#HasBeenSubmitted').val() == 'True';
+
+                var editBtn = e.modal.find('.btn-edit');
+                var deleteBtn = e.modal.find('.btn-delete');
+                var printBtn = e.modal.find('.btn-print');
+
+                var submitBtn = e.modal.find('.btn-submit');
+                var link = submitBtn.attr('data-link-tmp');
+
+                submitBtn.unbind('click').bind('click', function (ee) {
+                    ee.preventDefault();
+
+                    modalConfirm('Are you sure you want to submit this travel application?', function (ret) {
+                        if (ret) {
+                            $.post(link, null, function (res) {
+                                if (res.IsSuccessful) {
+                                    sessionStorage.clientMessage = res.Remarks;
+                                    window.location.reload(true);
+                                } else {
+                                    modalMessage(res.Err.split('\n'), 'Travel Application', true);
+                                }
+                            }, 'json');
+                        }
+                    });
+
+                });
+
+                var printlink = printBtn.attr('data-link-tmp');
+
+                printBtn.unbind('click').bind('click', function (ee) {
+                    ee.preventDefault();
+
+                    modalPrint('@Module.Core.ModuleConstants.PRINT_OPTIONS', function (ret) {
+                        var dlWord = 'true';
+
+                        if (ret) {
+                            dlWord = 'false';
+                        }
+
+                        window.open(printlink + '?dlWord=' + dlWord, '_blank');
+                    });
+                });
+
+                if (hasBeenSubmitted) {
+                    printBtn.show();
+                    editBtn.hide();
+                    deleteBtn.hide();
+                    submitBtn.hide();
+                } else {
+                    printBtn.hide();
+                    editBtn.show();
+                    deleteBtn.show();
+                    submitBtn.show();
+                }
+            } else {
+                printCreate.html('Submit');
+                printCreate.addClass('btn-success');
+            }
+
+            return e;
+        }
+
+        function applyPeriod(start, end) {
+            $('#StartDate').val(start);
+            $('#EndDate').val(end);
+        }
+    </script>
+}
+
+<div class="block">
+    <div class="head bg-default bg-light-ltr noradius">
+        <h2>@ViewBag.Title</h2>
+        <div class="side pull-right">
+            <ul class="buttons">
+                <li><button class="btn btn-success btn-create" onclick="$.fn.list('modalCreate', this)">Create</button></li>
+            </ul>
+        </div>
+    </div>
+    <div class="content">
+        <table class="display table table-bordered table-striped table-list" cellspacing="0" width="100%"
+               modal-target="#modalView" modal-start="view" modal-load-callback="load"
+               modal-view-url="/EmployeeModule/MyTravelApplications/Details/@employee.EmployeeId/{0}" modal-edit-url="/EmployeeModule/MyTravelApplications/Edit/@employee.EmployeeId/{0}" modal-delete-url="/EmployeeModule/MyTravelApplications/Delete/@employee.EmployeeId" modal-create-url="/EmployeeModule/MyTravelApplications/Create/@employee.EmployeeId">
+            <thead>
+                <tr>
+                    <th class="idcol">
+                        Id
+                    </th>
+                    <th>
+                        Period
+                    </th>
+                    <th>
+                        Purpose
+                    </th>
+                    <th>
+                        Destination
+                    </th>
+                    <th>
+                        Has Support File
+                    </th>
+                    <th>
+                        Submitted
+                    </th>
+                    <th>
+                        Served By
+                    </th>
+                    <th>
+                        Status
+                    </th>
+                    <th>
+                        Message
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Module.DB.tblTravelApplication item in Model)
+                {
+                    <tr record-id="@item.Id">
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Id)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Date_Desc)
+                        </td>
+                        <td>
+                            @Html.DisplayMultiLineFor(modelItem => item.Purpose)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Destination)
+                        </td>
+                        <td>
+                            @Html.DisplayBooleanFor(modelItem => item.HasSupportFile)
+                        </td>
+                        <td>
+                            @if (item.HasBeenSubmitted)
+                            {
+                                @Html.DisplayFor(modelItem => item.DateSubmitted)
+                            }
+                        </td>
+                        <td>
+                            @if (item.IsApproved)
+                            {
+                                @Html.DisplayFor(modelItem => item.ApprovedBy)<br />
+                                @Html.DisplayFor(modelItem => item.ApproveDate)
+                            }
+                            else if (item.IsDenied)
+                            {
+                                @Html.DisplayFor(modelItem => item.DeniedBy)<br />
+                                @Html.DisplayFor(modelItem => item.DenyDate)
+                            }
+                            else if (item.IsReturned)
+                            {
+                                @Html.DisplayFor(modelItem => item.ReturnedBy)<br />
+                                @Html.DisplayFor(modelItem => item.ReturnDate)
+                            }
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Application_Status_Desc)
+                        </td>
+                        <td>
+                            @if (item.IsDenied)
+                            {
+                                @Html.DisplayMultiLineFor(modelItem => item.DenyMessage)
+                            }
+                            else if (item.IsReturned)
+                            {
+                                @Html.DisplayMultiLineFor(modelItem => item.ReturnMessage)
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+    </div>
+</div>
+
+@Html.Partial("~/Views/Shared/modals/_ModalView.cshtml", "modalView")

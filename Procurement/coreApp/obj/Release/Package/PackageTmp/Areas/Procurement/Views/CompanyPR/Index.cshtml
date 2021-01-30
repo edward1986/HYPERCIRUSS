@@ -1,0 +1,307 @@
+﻿@model coreApp.Areas.Procurement.Models.CompanyPRModels
+@using coreLib.Extensions
+@{
+    ViewBag.Title = "Agency PRs (For Out-Of-Stock Items)";
+
+    int Year = (int)ViewBag.Year;
+
+    double totalAmountOfSubmittedPRs = Model.TotalAmountOfSubmittedPRs();
+
+}
+
+@section Breadcrumbs {
+    @Html.Partial("_Breadcrumbs", new List<Breadcrumb>()
+    {
+        new Breadcrumb { Description = "Procurement"},
+        new Breadcrumb { Description = ViewBag.Title }
+    })
+}
+
+@section Styles {
+    <link href="~/Areas/Procurement/Assets/css/common.less" rel="stylesheet" type="text/css">
+}
+
+@section Scripts {
+    <script>
+        function load(e) {
+            e.modal.children('.modal-dialog').css({ width: $(window).width() / 2, height: $(window).height(), 'padding-top': 15, 'padding-bottom': 15 });
+
+            if (e.viewType == 'view') {
+
+                var mopBtn = e.modal.find('.btn-mop');
+                var viewItemsBtn = e.modal.find('.btn-viewitems');
+                var editBtn = e.modal.find('.btn-edit');
+                var deleteBtn = e.modal.find('.btn-delete');
+                var submitBtn = e.modal.find('.btn-submit');
+                var printBtn = e.modal.find('.btn-print');
+                var returnBtn = e.modal.find('.btn-return');
+
+
+                var isAPR = e.modalViewUrl.indexOf('isapr=true') >= 0;
+                var controller = isAPR ? 'CompanyAPR' : 'CompanyPR';
+                var param = isAPR ? '?fromPR=true' : '';
+                var _href = '/Procurement/' + controller + '/Items/Index/' + e.recordId + param;
+                var _dataLink = '/Procurement/' + controller + '/Items/Index/{0}' + param;
+
+                viewItemsBtn
+                    .attr('href', _href)
+                    .attr('data-link', _dataLink);
+
+
+                var submitLink = submitBtn.attr('data-link-tmp');
+
+                submitBtn.unbind('click').bind('click', function (ee) {
+                    ee.preventDefault();
+
+                    modalConfirm('Are you sure you want to submit this document?', function (ret) {
+                        if (ret) {
+                            e.modal.modal('hide');
+                            var proc = modalProcessing();
+
+                            $.post(submitLink, null, function (res) {
+                                proc.modal('hide');
+
+                                if (res.IsSuccessful) {
+                                    sessionStorage.clientMessage = res.Remarks;
+                                    window.location.reload(true);
+                                } else {
+                                    modalMessage(res.Err.split('\n'), 'Agency PR', true);
+                                }
+                            }, 'json');
+                        }
+                    });
+
+                });
+
+                var returnLink = returnBtn.attr('data-link-tmp');
+
+                returnBtn.unbind('click').bind('click', function (ee) {
+                    ee.preventDefault();
+
+                    modalInput('Are you sure you want to return this document?', 'Return Message:', function (ret, userInput) {
+                        if (ret) {
+                            if (userInput == '') {
+                                modalMessage('Return message is required', 'Return APR', true);
+                                return;
+                            }
+
+                            var data = {
+                                returnMessage: userInput
+                            };
+
+                            $.post(returnLink, data, function (res) {
+                                if (res.IsSuccessful) {
+                                    sessionStorage.clientMessage = res.Remarks;
+                                    window.location.reload(true);
+                                } else {
+                                    modalMessage(res.Err.split('\n'), 'Return APR', true);
+                                }
+                            }, 'json');
+                        }
+                    }, 'textarea', function (modal) {
+                        modal.find('.modal-footer .btn-cancel').html('No');
+                        modal.find('.modal-footer .btn-ok').html('Yes');
+                    });
+
+                });
+
+                var printlink = printBtn.attr('data-link-tmp');
+
+                printBtn.unbind('click').bind('click', function (ee) {
+                    ee.preventDefault();
+
+                    modalPrint('@Module.Core.ModuleConstants.PRINT_OPTIONS', function (ret) {
+                        var dlWord = 'true';
+
+                        if (ret) {
+                            dlWord = 'false';
+                        }
+
+                        window.open(printlink + '?dlWord=' + dlWord, '_blank');
+                    });
+                });
+
+                var hasBeenSubmitted = e.modal.find('[name="Submitted"]').val() == 'True';
+
+                editBtn.hide();
+                deleteBtn.hide();
+                submitBtn.hide();
+                printBtn.hide();
+                returnBtn.hide();
+                mopBtn.hide();
+
+                if (!isAPR) {
+                    printBtn.show();
+                }
+
+                if (hasBeenSubmitted) {
+                    returnBtn.show();
+                    mopBtn.show();
+
+                } else {
+                    editBtn.show();
+                    deleteBtn.show();
+                    submitBtn.show();
+                }
+            }
+        }
+    </script>
+}
+
+<div class="block">
+    <div class="card">
+        <div class="card-header">
+            <h5>@ViewBag.Title</h5>
+
+        </div>
+        <div class="card-body">
+            <div class="form-group row">
+                <div class="col-sm-4">
+                    <div class="form-group row">
+                        <label class="col-form-label text-lg-right">For the year:</label>
+                        <div class="col-sm-4">
+                            @Html.Partial("~/Areas/Procurement/Views/Shared/yearInfo.cshtml", "/Procurement/CompanyPR/Index/{0}")
+                            <br />
+                            <br />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-8" style="text-align:right">
+                    <table class="tblbalance">
+                        <tbody>
+                            <tr>
+                                <td>Total Amount of Submitted PRs:</td>
+                                <td>@totalAmountOfSubmittedPRs.ToCurrencyString()</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+
+            <ul class="nav nav-tabs mb-3" id="myTab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active text-uppercase" data-toggle="tab" href="#tab1" role="tab" aria-controls="home" aria-selected="true">Agency PRs (For Out-Of-Stock Items)</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-uppercase" data-toggle="tab" href="#tab2" role="tab" aria-controls="profile" aria-selected="false">Submitted APRs</a>
+                </li>
+            </ul>
+
+            <div class="content tab-content">
+                <div class="tab-pane active" id="tab1">
+                    <div class="float-right">
+                        <button class="btn btn-sm btn-success btn-create" onclick="$.fn.list('modalCreate', this)">Create</button>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="dt-responsive table-responsive">
+                        <table id="table1" class="display table table-bordered table-striped table-list" cellspacing="0" width="100%"
+                               modal-target="#modalView" modal-start="view" modal-load-callback="load"
+                               modal-view-url="/Procurement/CompanyPR/Details/@Year/{0}" modal-edit-url="/Procurement/CompanyPR/Edit/@Year/{0}" modal-delete-url="/Procurement/CompanyPR/Delete/@Year" modal-create-url="/Procurement/CompanyPR/Create/@Year">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Description
+                                    </th>
+                                    <th>
+                                        Status
+                                    </th>
+                                    <th>
+                                        Submitted By
+                                    </th>
+                                    <th>
+                                        Total Amount
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.PRs)
+                                {
+
+                                    <tr record-id="@item.Id" data-tableid="table1">
+
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Description)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.DocStatus_Desc)
+
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.SubmittedBy)<br />
+                                            @Html.DisplayFor(modelItem => item.SubmitDate)
+                                        </td>
+                                        <td style="text-align:right">
+                                            @((item._TotalAmount ?? 0).ToCurrencyString())
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="tab-pane" id="tab2">
+                    <div class="dt-responsive table-responsive">
+                        <table id="table2" class="display table table-bordered table-striped table-list" cellspacing="0" width="100%"
+                               modal-target="#modalView" modal-start="view"
+                               modal-view-url="/Procurement/CompanyPR/Details/@Year/{0}?isapr=true">
+
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Description
+                                    </th>
+                                    <th>
+                                        Submitted By
+                                    </th>
+                                    <th>
+                                        Total Amount
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    double total = 0;
+                                }
+                                @foreach (var item in Model.APRs)
+                                {
+
+                                    double t = item._TotalAmount ?? 0;
+                                    total += t;
+
+                                    <tr record-id="@item.Id" data-tableid="table2">
+
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Description)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.SubmittedBy)<br />
+                                            @Html.DisplayFor(modelItem => item.SubmitDate)
+                                        </td>
+                                        <td style="text-align:right">
+                                            @t.ToCurrencyString()
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th class="nofilter" colspan="2" style="text-align:right">
+                                        TOTAL
+                                    </th>
+                                    <th class="nofilter" style="text-align:right">
+                                        @total.ToCurrencyString()
+                                    </th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@Html.Partial("~/Views/Shared/modals/_ModalView.cshtml", "modalView")

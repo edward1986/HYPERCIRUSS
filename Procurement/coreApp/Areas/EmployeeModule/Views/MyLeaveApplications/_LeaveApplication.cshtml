@@ -1,0 +1,212 @@
+﻿@model Module.DB.tblLeaveApplication
+
+@{
+    bool isReadOnly = (bool)ViewBag.uiIsReadOnly;
+    bool includeId = (bool)ViewBag.uiIncludeId;
+
+    bool isNew = !includeId;
+
+    bool isVL = false, isSL = false;
+
+    if (Model.LeaveType != null)
+    {
+        isVL = Model.LeaveType.Category == (int)Module.DB.Enums.LeaveTypeCategory.VL;
+        isSL = Model.LeaveType.Category == (int)Module.DB.Enums.LeaveTypeCategory.SL;
+    }
+
+    bool slInHospital = !string.IsNullOrEmpty(Model.SL_InHospital);
+
+    string cl = "";
+    if (isVL) { cl += (cl == "" ? "" : " ") + "show-for-vl"; }
+    if (isSL) { cl += (cl == "" ? "" : " ") + "show-for-sl"; }
+    if (!Model.VL_SeekEmployment) { cl += (cl == "" ? "" : " ") + "show-vl-others"; }
+    if (!Model.VL_WithinPH) { cl += (cl == "" ? "" : " ") + "show-vl-abroad"; }
+
+    cl += (cl == "" ? "" : " ") + (slInHospital ? "show-sl-inhospital" : "show-sl-others");
+}
+
+@Html.Hidden("HasBeenSubmitted", Model.HasBeenSubmitted)
+@Html.Hidden("HasBeenServed", Model.HasBeenServed)
+
+<style>
+
+    .for-vl, .for-sl,
+    .vl-others, .vl-abroad,
+    .sl-inhospital, .sl-others {
+        display: none;
+    }
+
+    .show-for-vl .for-vl,
+    .show-for-sl .for-sl,
+    .show-vl-others .vl-others,
+    .show-vl-abroad .vl-abroad,
+    .show-sl-inhospital .sl-inhospital,
+    .show-sl-others .sl-others {
+        display: block;
+    }
+</style>
+
+@using (Html.BeginForm(isNew ? "Create" : "Edit", "MyLeaveApplications", new { area = "EmployeeModule", employeeId = Model.EmployeeId }, FormMethod.Post, new { @class = cl, enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    if (isReadOnly)
+    {
+        @Html.Partial("~/Areas/EmployeeModule/Views/MyLeaveApplications/_LeaveApplicationView.cshtml")
+    }
+    else
+    {
+        @Html.HiddenFor(model => model.EmployeeId)
+        @Html.HiddenFor(model => model.Id)
+
+        <div>
+            @if (includeId)
+            {
+                <div class="form-group row">
+                    <div class="col-md-4">
+                        @Html.LabelFor(model => model.Id)
+                    </div>
+                    <div class="col-md-8">
+                        <div class="form-control dimmed">
+                            @Html.DisplayFor(model => model.Id)
+                        </div>
+                    </div>
+                </div>
+            }
+
+            <div class="form-group row">
+                <div class="col-md-4">
+                    Employee
+                </div>
+                <div class="col-md-8">
+                    <div class="form-control dimmed">
+                        @Html.DisplayFor(model => model.employee.FullName_FN)
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-4">
+                    @Html.LabelFor(model => model.LeaveType)
+                </div>
+                <div class="col-md-8">
+                    <select name="LeaveTypeId" class="form-control">
+                        @foreach (var item in coreApp.Areas.LeaveModule.SelectItems.getLeaveTypes(defaultValue: Model.LeaveTypeId))
+                        {
+                            <option data-category="@item.Data["Category"]" value="@item.Value" @(item.Value == Model.LeaveTypeId.ToString() ? "selected" : "")>@item.Text</option>
+                        }
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-12">
+                    <fieldset>
+                        <legend>Period</legend>
+                        @Html.Partial("_LeavePeriod", new coreApp.DAL.leaveEntryModel(Model))
+
+                        <hr />
+                    </fieldset>
+                </div>
+            </div>
+
+         
+            <div class="for-vl">
+                <div class="form-group row">
+                    <div class="col-md-4">
+                        Reason
+                    </div>
+                    <div class="col-md-8">
+                        <div class="form-control radiobox-inline">
+                            <label><input type="radio" name="VL_Reason" value="VL_SeekEmployment" @(Model.VL_SeekEmployment ? "checked" : "") /> @Html.DisplayNameFor(x => x.VL_SeekEmployment)</label>&nbsp;
+                            <label><input type="radio" name="VL_Reason" value="VL_Others" @(!Model.VL_SeekEmployment ? "checked" : "") /> @Html.DisplayNameFor(x => x.VL_Others)</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row vl-others">
+                    <div class="col-md-4"></div>
+                    <div class="col-md-8">
+                        Please specify
+                        @Html.TextAreaFor(model => model.VL_Others, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-4">
+                        Where will leave be spent
+                    </div>
+                    <div class="col-md-8">
+                        <div class="form-control radiobox-inline">
+                            <label><input type="radio" name="VL_Location" value="VL_WithinPH" @(Model.VL_WithinPH ? "checked" : "") /> @Html.DisplayNameFor(x => x.VL_WithinPH)</label>&nbsp;
+                            <label><input type="radio" name="VL_Location" value="VL_Abroad" @(!Model.VL_WithinPH ? "checked" : "") /> @Html.DisplayNameFor(x => x.VL_Abroad)</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row vl-abroad" style="margin-bottom:10px">
+                    <div class="col-md-4"></div>
+                    <div class="col-md-8">
+                        Please specify
+                        @Html.TextAreaFor(model => model.VL_Abroad, new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="for-sl">
+                <div class="form-group row">
+                    <div class="col-md-4">
+                        Reason
+                    </div>
+                    <div class="col-md-8">
+                        <div class="form-control radiobox-inline">
+                            <label><input type="radio" name="SL_Reason" value="SL_InHospital" @(slInHospital ? "checked" : "") /> @Html.DisplayNameFor(x => x.SL_InHospital)</label>&nbsp;
+                            <label><input type="radio" name="SL_Reason" value="SL_Others" @(!slInHospital ? "checked" : "") /> @Html.DisplayNameFor(x => x.SL_Others)</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row sl-inhospital">
+                    <div class="col-md-4"></div>
+                    <div class="col-md-8">
+                        Please specify
+                        @Html.TextAreaFor(model => model.SL_InHospital, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group row sl-others" style="margin-bottom:10px">
+                    <div class="col-md-4"></div>
+                    <div class="col-md-8">
+                        Please specify
+                        @Html.TextAreaFor(model => model.SL_Others, new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-4">
+                    @Html.LabelFor(model => model.Commutation_Requested)
+                </div>
+                <div class="col-md-8">
+                    @Html.Partial("_Helper_CheckBox", "Commutation_Requested", new ViewDataDictionary { { "value", Model.Commutation_Requested } })
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-4">
+                    Support File
+                </div>
+                <div class="col-md-8">
+                    @Html.Partial("_Helper_Photo", new ViewDataDictionary {
+                        { "url", "/Home/GetLeaveSupportFile/" + Model.Id },
+                        { "control-name", "SupportFilex" },
+                        { "readonly", false },
+                        { "no-remove", isNew }
+                    })
+                </div>
+            </div>
+        </div>
+
+    }
+}
+
+<script>
+    $(window).load(function () {
+        $('textarea').unbind();
+    });
+</script>

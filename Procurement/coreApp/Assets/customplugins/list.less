@@ -1,0 +1,123 @@
+@height: 33.6px;
+
+.table-actions {
+    position: absolute;
+    right: 10px;
+
+    button {
+        margin-left: 5px;
+    }
+}
+
+.table-list {
+    .fa {
+        margin-right: 5px;
+    }
+
+
+    thead {
+
+        th {
+            .fa-sort {
+                display: none;
+            }
+        }
+    }
+
+
+    tbody {
+        tr {
+            cursor: pointer;
+
+            td:last-child {
+                position: relative;
+            }
+        }
+
+        tr.selected {
+            background-color: #999;
+        }
+
+        tr[locked] {
+            cursor: default;
+        }
+
+        tr:hover {
+            .row-commands {
+                visibility: visible;
+            }
+        }
+    }
+
+    .row-commands {
+        visibility: hidden;
+        position: absolute;
+        top: 0;
+        right: 0;
+
+        .row-cmd {
+            display: inline-block;
+            width: 20px;
+            text-align: center;
+            border: 1px solid transparent;
+            padding: 1px;
+
+            i {
+                margin-right: initial;
+            }
+        }
+
+        .row-cmd:hover {
+            border-color: #0094ff;
+        }
+    }
+
+    .spl-cont {
+        white-space: nowrap;
+        text-align: center;
+
+        .fa {
+            margin: 0 !important;
+        }
+    }
+}
+
+.modal-view {
+    .modal-footer .btn {
+       display: none;
+    }
+}
+
+.modal-view.show-view {
+    .modal-footer .for-view {
+       display: inline-block;
+      
+    }
+}
+
+.modal-view.show-edit {
+    .modal-footer .for-edit {
+        display: inline-block;
+      
+    }
+}
+
+.modal-view.show-create {
+    .modal-footer .for-create {
+        display: inline-block;
+      
+    }
+}
+
+.modal-view.show-custom {
+    .modal-footer .for-custom {
+        display: inline-block;
+       
+    }
+}
+
+.modal-view.modal-noview {
+    .modal-footer .btn-cancel {
+        display: none;
+    }
+}

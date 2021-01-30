@@ -1,0 +1,285 @@
+﻿@model Module.DB.tblEmployee_Info
+
+@{    
+    bool isReadOnly = (bool)ViewBag.uiIsReadOnly;
+    bool includeId = (bool)ViewBag.uiIncludeId;
+
+    string q34 = "Are you related by consanguinity or affinity to the appointing or recommending authority, or to the chief of bureau or office or to the person who has immediate supervision over you in the Office, Bureau or Department where you will be appointed";
+    string q34a = "Within the third degree?";
+    string q34b = "Within the fourth degree (for Local Government Unit – Career Employees)?";
+    string q35a = "Have you ever been found guilty of any administrative offense?";
+    string q35b = "Have you been criminally charged before any court?";
+    string q36 = "Have you ever been convicted of any crime or violation of any law, decree, ordinance or regulation by any court or tribunal?";
+    string q37 = "Have you ever been separated from the service in any of the following modes: resignation, retirement, dropped from the rolls, dismissal, termination, end of term, finished contract or phased out (abolition) in the public or private sector?";
+    string q38a = "Have you ever been a candidate in a national or local election held within the last year (except Barangay election)?";
+    string q38b = "Have you resigned from the government service during the three (3)-month period before the last election to promote/ actively campaign for a national or local candidate?";
+    string q39 = "Have you acquired the status of an immigrant or permanent resident of another country?";
+    string q40 = "Pursuant to: (a) Indigenous People's Act (RA 8371); (b) Magna Carta for Disabled Persons (RA 7277); and (c) Solo Parents Welfare Act of 2000(RA 8972), please answer the following items:";
+    string q40a = "Are you a member of any indigenous group?";
+    string q40b = "Are you a person with disability?";
+    string q40c = "Are you a solo parent?";
+}
+
+<style>
+
+    ol.questions li textarea,
+    ol.questions li div.details {
+        display: none;
+    }
+
+    ol.questions li {
+        margin-bottom: 5px;
+        color: darkgray;
+    }
+
+        ol.questions li.value-yes textarea,
+        ol.questions li.value-yes div.details {
+            display: block;
+        }
+
+    ol.question {
+        list-style-type: lower-alpha;
+    }
+
+    .ans {
+        display: inline-block;
+        margin-left: 20px;
+        font-weight: bold;
+        color: #fff;
+        text-decoration: underline;
+    }
+</style>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    if (isReadOnly)
+    {
+        <ol class="questions" start="34">
+            <li>
+                @q34
+                <ol class="question">
+                    <li>
+                        @q34a
+                        <div class="ans">
+                            @(Model.PDSQ34a == true ? "Yes" : "No")
+                        </div>
+                    </li>
+                    <li>
+                        @q34b
+                        <div class="ans">
+                            @(Model.PDSQ34b == true ? "Yes" + (!string.IsNullOrEmpty(Model.PDSQ34b_Details) ? ", " + Model.PDSQ34b_Details : "") : "No")
+                        </div>
+                    </li>
+                </ol>
+            </li>
+            <li>
+                <ol class="question">
+                    <li>
+                        @q35a
+                        <div class="ans">
+                            @(Model.PDSQ35a == true ? "Yes" + (!string.IsNullOrEmpty(Model.PDSQ35a_Details) ? ", " + Model.PDSQ35a_Details : "") : "No")
+                        </div>
+                    </li>
+                    <li>
+                        @q35b
+                        <div class="ans">
+                            @(Model.PDSQ35b == true ? "Yes" : "No")
+                            @if (Model.PDSQ35b == true)
+                            {
+                                <div>
+                                    Date Filed: @(Model.PDSQ35b_DateFiled == null ? "" : Model.PDSQ35b_DateFiled.Value.ToString("MM/dd/yyyy"))<br />
+                                    Status: @Model.PDSQ35b_Status
+                                </div>
+                            }
+                        </div>
+                    </li>
+                </ol>
+            </li>
+            <li>
+                @q36
+                <div class="ans">
+                    @(Model.PDSQ36 == true ? "Yes" + (!string.IsNullOrEmpty(Model.PDSQ36_Details) ? ", " + Model.PDSQ36_Details : "") : "No")
+                </div>
+            </li>
+            <li>
+                @q37
+                <div class="ans">
+                    @(Model.PDSQ37 == true ? "Yes" + (!string.IsNullOrEmpty(Model.PDSQ37_Details) ? ", " + Model.PDSQ37_Details : "") : "No")
+                </div>
+            </li>
+            <li>
+                <ol class="question">
+                    <li>
+                        @q38a
+                        <div class="ans">
+                            @(Model.PDSQ38a == true ? "Yes" + (!string.IsNullOrEmpty(Model.PDSQ38a_Details) ? ", " + Model.PDSQ38a_Details : "") : "No")
+                        </div>
+                    </li>
+                    <li>
+                        @q38b
+                        <div class="ans">
+                            @(Model.PDSQ38b == true ? "Yes" + (!string.IsNullOrEmpty(Model.PDSQ38b_Details) ? ", " + Model.PDSQ38b_Details : "") : "No")
+                        </div>
+                    </li>
+                </ol>
+            </li>
+            <li>
+                @q39
+                <div class="ans">
+                    @(Model.PDSQ39 == true ? "Yes" + (!string.IsNullOrEmpty(Model.PDSQ39_Details) ? ", " + Model.PDSQ39_Details : "") : "No")
+                </div>
+            </li>
+            <li>
+                @q40
+                <ol class="question">
+                    <li>
+                        @q40a
+                        <div class="ans">
+                            @(Model.PDSQ40a == true ? "Yes" + (!string.IsNullOrEmpty(Model.PDSQ40a_Details) ? ", " + Model.PDSQ40a_Details : "") : "No")
+                        </div>
+                    </li>
+                    <li>
+                        @q40b
+                        <div class="ans">
+                            @(Model.PDSQ40b == true ? "Yes" + (!string.IsNullOrEmpty(Model.PDSQ40b_Details) ? ", " + Model.PDSQ40b_Details : "") : "No")
+                        </div>
+                    </li>
+                    <li>
+                        @q40c
+                        <div class="ans">
+                            @(Model.PDSQ40c == true ? "Yes" + (!string.IsNullOrEmpty(Model.PDSQ40c_Details) ? ", " + Model.PDSQ40c_Details : "") : "No")
+                        </div>
+                    </li>
+                </ol>
+            </li>
+        </ol>
+    }
+    else
+    {
+        @Html.HiddenFor(model => model.InfoId)
+        @Html.HiddenFor(model => model.EmployeeId)
+
+        <ol class="questions" start="34">
+            <li>
+                @q34
+                <ol class="question">
+                    <li class="@(Model.PDSQ34a == true ? "value-yes" : "")">
+                        @q34a
+                        <div class="radiobox-inline">
+                            <label><input type="radio" name="PDSQ34a" value="True" @(Model.PDSQ34a == true ? "checked" : "") /> Yes</label>
+                            <label><input type="radio" name="PDSQ34a" value="False" @(Model.PDSQ34a != true ? "checked" : "") /> No</label>
+                        </div>
+                    </li>
+                    <li class="@(Model.PDSQ34b == true ? "value-yes" : "")">
+                        @q34b
+                        <div class="radiobox-inline">
+                            <label><input type="radio" name="PDSQ34b" value="True" @(Model.PDSQ34b == true ? "checked" : "") /> Yes</label>
+                            <label><input type="radio" name="PDSQ34b" value="False" @(Model.PDSQ34b != true ? "checked" : "") /> No</label>
+                        </div>
+                        <textarea name="PDSQ34b_Details">@Model.PDSQ34b_Details</textarea>
+                    </li>
+                </ol>
+            </li>
+            <li>
+                <ol class="question">
+                    <li class="@(Model.PDSQ35a == true ? "value-yes" : "")">
+                        @q35a
+                        <div class="radiobox-inline">
+                            <label><input type="radio" name="PDSQ35a" value="True" @(Model.PDSQ35a == true ? "checked" : "") /> Yes</label>
+                            <label><input type="radio" name="PDSQ35a" value="False" @(Model.PDSQ35a != true ? "checked" : "") /> No</label>
+                        </div>
+                        <textarea name="PDSQ35a_Details">@Model.PDSQ35a_Details</textarea>
+                    </li>
+                    <li class="@(Model.PDSQ35b == true ? "value-yes" : "")">
+                        @q35b
+                        <div class="radiobox-inline">
+                            <label><input type="radio" name="PDSQ35b" value="True" @(Model.PDSQ35b == true ? "checked" : "") /> Yes</label>
+                            <label><input type="radio" name="PDSQ35b" value="False" @(Model.PDSQ35b != true ? "checked" : "") /> No</label>
+                        </div>
+                        <div class="details">
+                            Date Filed: <input type="text" name="PDSQ35b_DateFiled" class="datepicker" value="@(Model.PDSQ35b_DateFiled == null ? "" : Model.PDSQ35b_DateFiled.Value.ToString("MM/dd/yyyy"))" style="width:100px" />
+                            Status: <input type="text" name="PDSQ35b_Status" maxlength="50" value="@Model.PDSQ35b_Status" style="width:300px" />
+                        </div>
+                    </li>
+                </ol>
+            </li>
+            <li class="@(Model.PDSQ36 == true ? "value-yes" : "")">
+                @q36
+                <div class="radiobox-inline">
+                    <label><input type="radio" name="PDSQ36" value="True" @(Model.PDSQ36 == true ? "checked" : "") /> Yes</label>
+                    <label><input type="radio" name="PDSQ36" value="False" @(Model.PDSQ36 != true ? "checked" : "") /> No</label>
+                </div>
+                <textarea name="PDSQ36_Details">@Model.PDSQ36_Details</textarea>
+            </li>
+            <li class="@(Model.PDSQ37 == true ? "value-yes" : "")">
+                @q37
+                <div class="radiobox-inline">
+                    <label><input type="radio" name="PDSQ37" value="True" @(Model.PDSQ37 == true ? "checked" : "") /> Yes</label>
+                    <label><input type="radio" name="PDSQ37" value="False" @(Model.PDSQ37 != true ? "checked" : "") /> No</label>
+                </div>
+                <textarea name="PDSQ37_Details">@Model.PDSQ37_Details</textarea>
+            </li>
+            <li>
+                <ol class="question">
+                    <li class="@(Model.PDSQ38a == true ? "value-yes" : "")">
+                        @q38a
+                        <div class="radiobox-inline">
+                            <label><input type="radio" name="PDSQ38a" value="True" @(Model.PDSQ38a == true ? "checked" : "") /> Yes</label>
+                            <label><input type="radio" name="PDSQ38a" value="False" @(Model.PDSQ38a != true ? "checked" : "") /> No</label>
+                        </div>
+                        <textarea name="PDSQ38a_Details">@Model.PDSQ38a_Details</textarea>
+                    </li>
+                    <li class="@(Model.PDSQ38b == true ? "value-yes" : "")">
+                        @q38b
+                        <div class="radiobox-inline">
+                            <label><input type="radio" name="PDSQ38b" value="True" @(Model.PDSQ38b == true ? "checked" : "") /> Yes</label>
+                            <label><input type="radio" name="PDSQ38b" value="False" @(Model.PDSQ38b != true ? "checked" : "") /> No</label>
+                        </div>
+                        <textarea name="PDSQ38b_Details">@Model.PDSQ38b_Details</textarea>
+                    </li>
+                </ol>
+            </li>
+            <li class="@(Model.PDSQ39 == true ? "value-yes" : "")">
+                @q39
+                <div class="radiobox-inline">
+                    <label><input type="radio" name="PDSQ39" value="True" @(Model.PDSQ39 == true ? "checked" : "") /> Yes</label>
+                    <label><input type="radio" name="PDSQ39" value="False" @(Model.PDSQ39 != true ? "checked" : "") /> No</label>
+                </div>
+                <textarea name="PDSQ39_Details">@Model.PDSQ39_Details</textarea>
+            </li>
+            <li>
+                @q40
+                <ol class="question">
+                    <li class="@(Model.PDSQ40a == true ? "value-yes" : "")">
+                        @q40a
+                        <div class="radiobox-inline">
+                            <label><input type="radio" name="PDSQ40a" value="True" @(Model.PDSQ40a == true ? "checked" : "") /> Yes</label>
+                            <label><input type="radio" name="PDSQ40a" value="False" @(Model.PDSQ40a != true ? "checked" : "") /> No</label>
+                        </div>
+                        <textarea name="PDSQ40a_Details">@Model.PDSQ40a_Details</textarea>
+                    </li>
+                    <li class="@(Model.PDSQ40b == true ? "value-yes" : "")">
+                        @q40b
+                        <div class="radiobox-inline">
+                            <label><input type="radio" name="PDSQ40b" value="True" @(Model.PDSQ40b == true ? "checked" : "") /> Yes</label>
+                            <label><input type="radio" name="PDSQ40b" value="False" @(Model.PDSQ40b != true ? "checked" : "") /> No</label>
+                        </div>
+                        <textarea name="PDSQ40b_Details">@Model.PDSQ40b_Details</textarea>
+                    </li>
+                    <li class="@(Model.PDSQ40c == true ? "value-yes" : "")">
+                        @q40c
+                        <div class="radiobox-inline">
+                            <label><input type="radio" name="PDSQ40c" value="True" @(Model.PDSQ40c == true ? "checked" : "") /> Yes</label>
+                            <label><input type="radio" name="PDSQ40c" value="False" @(Model.PDSQ40c != true ? "checked" : "") /> No</label>
+                        </div>
+                        <textarea name="PDSQ40c_Details">@Model.PDSQ40c_Details</textarea>
+                    </li>
+                </ol>
+            </li>
+        </ol>
+        
+    }
+}

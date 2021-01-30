@@ -1,0 +1,37 @@
+﻿@using Module.Core
+@model string
+@{
+    bool showDefault = true;
+    if (ViewBag.ShowDefault != null)
+    {
+        showDefault = (bool)ViewBag.ShowDefault;
+    }
+
+    string effectivity = (string)ViewBag.Effectivity;
+
+    List<DateTime> effectivites = (List<DateTime>)ViewBag.Effectivities;
+
+    string e = effectivity ?? ModuleConstants.DEFAULT_EFFECTIVITY;
+}
+
+<select onchange="effectivitySelected(this)">
+    @foreach (DateTime dt in effectivites)
+    {
+        string d = dt.ToString("MM-dd-yyyy");
+        
+
+        <option value="@d" @(d == e ? "selected" : "")>@d</option>
+    }
+    @if (showDefault)
+    {
+        <option value="DEFAULT" @(e == ModuleConstants.DEFAULT_EFFECTIVITY ? "selected" : "")>[DEFAULT]</option>
+    }
+    
+</select>
+<br />
+
+<script>
+    function effectivitySelected(sel) {
+        window.location = '@Model' + $(sel).val();
+    }
+</script>

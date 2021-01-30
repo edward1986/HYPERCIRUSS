@@ -1,0 +1,20 @@
+﻿@using Module.DB
+@model string
+@{
+    tblOffice office = (tblOffice)ViewBag.Office;
+
+    List<SelectListItem> offices = SelectItems.getOffices(showAll: true, showEmptyItem: false);
+}
+
+<select onchange="itemSelected(this)" class="form-control pc-selectpicker" data-style="btn-success">
+    @foreach (SelectListItem o in offices)
+    {
+        <option value="@o.Value" @(office.OfficeId.ToString() == o.Value ? "selected" : "")>@o.Text</option>
+    }
+</select>
+
+<script>
+    function itemSelected(sel) {
+        window.location = '@Model' + $(sel).val();
+    }
+</script>

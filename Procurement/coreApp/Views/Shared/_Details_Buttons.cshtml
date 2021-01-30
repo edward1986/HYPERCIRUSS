@@ -1,0 +1,283 @@
+﻿@{
+    string area = "";
+    string controller = "";
+    string action = "";
+
+    RouteData rd = HttpContext.Current.Request.RequestContext.RouteData;
+
+    if (rd.DataTokens["area"] != null)
+    {
+        area = rd.DataTokens["area"].ToString().ToLower();
+    }
+
+    if (rd.Values["controller"] != null)
+    {
+        controller = rd.Values["controller"].ToString().ToLower();
+    }
+
+    if (rd.Values["action"] != null)
+    {
+        action = rd.Values["action"].ToString().ToLower();
+    }
+}
+
+@if (area == "procurement" && controller == "offices")
+{
+    <a href="#" data-link="/Procurement/Departments/Index/{0}" class="btn btn-success for-view">View Departments</a>
+}
+else if (area == "procurement" && controller == "campus")
+{
+    <a href="#" data-link="/Procurement/Offices/Index/{0}" class="btn btn-success for-view">View Offices</a>
+}
+else if (area == "hrmodule" && controller == "groups")
+{
+    <a href="#" data-link="/HRModule/Groups/Members/Index/{0}" class="btn btn-success for-view">View Members</a>
+}
+else if (area == "hrmodule" && controller == "positions")
+{
+    if (!FixedSettings.RatesBySalaryGrade)
+    {
+        <a href="#" data-link="/HRModule/Rates/Index/{0}" class="btn btn-info btn-clean for-view">View Rates</a>
+    }
+}
+else if (area == "hrmodule" && controller == "payrollsummary")
+{
+    @*<a href="#" data-link="/HRModule/PayrollSummary/Submit/{0}" data-link-custom class="btn btn-warning for-view">Submit</a>*@
+    <a href="#" data-link="/HRModule/PayrollSummaryEmployees/Index/{0}" class="btn btn-success for-view">View Employees</a>
+    <a href="#" data-link="/HRModule/PayrollSummary/Print/{0}" data-link-custom class="btn btn-info for-view btn-print">Print</a>
+}
+else if (area == "hrmodule" && controller == "payrollsummary_employees")
+{
+    coreApp.DAL.tblPayrollSummary ps = (coreApp.DAL.tblPayrollSummary)ViewBag.PS;
+
+    <a href="#" data-link="/HRModule/PayrollSummaryEmployees/AddEmployee_ById/@ps.PSId" data-link-custom class="btn btn-info btn-recalculate for-view">Recalculate</a>
+}
+else if (area == "hrmodule" && controller == "leaveapplications")
+{
+    <a href="#" data-link="/HRModule/LeaveApplications/Return/{0}" data-link-custom class="btn btn-warning for-view btn-return">Return</a>
+    <a href="#" data-link="/HRModule/LeaveApplications/Deny/{0}" data-link-custom class="btn btn-danger for-view btn-deny">Deny</a>
+    <a href="#" data-link="/HRModule/LeaveApplications/Approve/{0}" data-link-custom class="btn btn-success for-view btn-approve">Approve</a>
+    <a href="#" data-link="/HRModule/LeaveApplications/RevertApproval/{0}" data-link-custom class="btn btn-warning for-view btn-revert-approval">Revert Approval/Disapproval</a>
+    <a href="#" data-link="/HRModule/LeaveApplications/Print/{0}" data-link-custom class="btn btn-infofor-view btn-print">Print</a>
+}
+else if (area == "hrmodule" && controller == "travelapplications")
+{
+    <a href="#" data-link="/HRModule/TravelApplications/Return/{0}" data-link-custom class="btn btn-warning for-view btn-return">Return</a>
+    <a href="#" data-link="/HRModule/TravelApplications/Deny/{0}" data-link-custom class="btn btn-danger for-view btn-deny">Deny</a>
+    <a href="#" data-link="/HRModule/TravelApplications/Approve/{0}" data-link-custom class="btn btn-success for-view btn-approve">Approve</a>
+    <a href="#" data-link="/HRModule/TravelApplications/RevertApproval/{0}" data-link-custom class="btn btn-warning for-view btn-revert-approval">Revert Approval/Disapproval</a>
+    <a href="#" data-link="/HRModule/TravelApplications/Print/{0}" data-link-custom class="btn btn-info for-view btn-print">Print</a>
+}
+else if (area == "hrmodule" && controller == "otapplications")
+{
+    <a href="#" data-link="/HRModule/OTApplications/Return/{0}" data-link-custom class="btn btn-warning for-view btn-return">Return</a>
+    <a href="#" data-link="/HRModule/OTApplications/Deny/{0}" data-link-custom class="btn btn-danger for-view btn-deny">Deny</a>
+    <a href="#" data-link="/HRModule/OTApplications/Approve/{0}" data-link-custom class="btn btn-success for-view btn-approve">Approve</a>
+    <a href="#" data-link="/HRModule/OTApplications/RevertApproval/{0}" data-link-custom class="btn btn-warning for-view btn-revert-approval">Revert Approval/Disapproval</a>
+    <a href="#" data-link="/HRModule/OTApplications/Print/{0}" data-link-custom class="btn btn-info for-view btn-print">Print</a>
+}
+else if (area == "employeemodule" && controller == "myleaveapplications")
+{
+    Module.DB.tblEmployee employee = (Module.DB.tblEmployee)ViewBag.Employee;
+    <a href="#" data-link="/EmployeeModule/MyLeaveApplications/Submit/@employee.EmployeeId/{0}" data-link-custom class="btn btn-success for-view btn-submit">Submit</a>
+    <a href="#" data-link="/EmployeeModule/MyLeaveApplications/Print/@employee.EmployeeId/{0}" data-link-custom class="btn btn-info btn-clean for-view btn-print">Print</a>
+}
+else if (area == "employeemodule" && controller == "mytravelapplications")
+{
+    Module.DB.tblEmployee employee = (Module.DB.tblEmployee)ViewBag.Employee;
+    <a href="#" data-link="/EmployeeModule/MyTravelApplications/Submit/@employee.EmployeeId/{0}" data-link-custom class="btn btn-success for-view btn-submit">Submit</a>
+    <a href="#" data-link="/EmployeeModule/MyTravelApplications/Print/@employee.EmployeeId/{0}" data-link-custom class="btn btn-info btn-clean for-view btn-print">Print</a>
+}
+else if (area == "employeemodule" && controller == "myotapplications")
+{
+    Module.DB.tblEmployee employee = (Module.DB.tblEmployee)ViewBag.Employee;
+    <a href="#" data-link="/EmployeeModule/MyOTApplications/Submit/@employee.EmployeeId/{0}" data-link-custom class="btn btn-success for-view btn-submit">Submit</a>
+    <a href="#" data-link="/EmployeeModule/MyOTApplications/Print/@employee.EmployeeId/{0}" data-link-custom class="btn btn-info for-view btn-print">Print</a>
+}
+else if (area == "procurement" && controller == "departmentppmp")
+{
+    int Year = (int)ViewBag.Year;
+
+    <a href="#" data-link="/Procurement/DepartmentPPMP/Items/Index/{0}" class="btn btn-secondary for-view">View Items</a>
+    <a href="#" data-link="/Procurement/DepartmentPPMP/Submit/@Year/{0}" data-link-custom class="btn btn-success for-view btn-submit">Submit</a>
+    <a href="#" data-link="/Procurement/DepartmentPPMP/Print/@Year/{0}" data-link-custom class="btn btn-info btn-clean for-view btn-print">Print</a>
+}
+else if (area == "procurement" && controller == "officeppmp")
+{
+    int Year = (int)ViewBag.Year;
+
+    <a href="#" data-link="/Procurement/OfficePPMP/Items/Index/{0}" class="btn btn-secondary for-view">View Items</a>
+    <a href="#" data-link="/Procurement/OfficePPMP/Submit/@Year/{0}" data-link-custom class="btn btn-success for-view btn-submit">Submit</a>
+    <a href="#" data-link="/Procurement/OfficePPMP/Return/@Year/{0}" data-link-custom class="btn btn-warning for-view btn-return">Return</a>
+    <a href="#" data-link="/Procurement/OfficePPMP/Print/@Year/{0}" data-link-custom class="btn btn-info for-view btn-print">Print</a>
+
+}
+else if (area == "procurement" && controller == "officepr")
+{
+    int Year = (int)ViewBag.Year;
+
+    <a href="#" data-link="/Procurement/OfficePR/Items/Index/{0}" class="btn btn-secondary for-view btn-viewitems">View Items</a>
+    <a href="#" data-link="/Procurement/OfficePR/Submit/@Year/{0}" data-link-custom class="btn btn-success for-view btn-submit">Submit</a>
+    <a href="#" data-link="/Procurement/OfficePR/Print/@Year/{0}" data-link-custom class="btn btn-info btn-clean for-view btn-print">Print</a>
+}
+else if (area == "procurement" && controller == "companyapp")
+{
+    int Year = (int)ViewBag.Year;
+
+    <a href="#" data-link="/Procurement/CompanyAPP/Items/Index/{0}" class="btn btn-secondary for-view btn-viewitems">View Items</a>
+    <a href="#" data-link="/Procurement/CompanyAPP/Print/@Year/{0}" data-link-custom class="btn btn-info btn-clean for-view btn-print">Print</a>
+    <a href="#" data-link="/Procurement/CompanyAPP/Submit/@Year/{0}" data-link-custom class="btn btn-success for-view btn-submit">Submit</a>
+    <a href="#" data-link="/Procurement/CompanyAPP/Return/@Year/{0}" data-link-custom class="btn btn-danger for-view btn-return">Return</a>
+}
+else if (area == "procurement" && controller == "companyapr")
+{
+    int Year = (int)ViewBag.Year;
+
+    <a href="#" data-link="/Procurement/CompanyAPR/Items/Index/{0}" class="btn btn-secondary for-view btn-viewitems">View Items</a>
+    <a href="#" data-link="/Procurement/CompanyAPR/Print/@Year/{0}" data-link-custom class="btn btn-info btn-clean for-view btn-print">Print</a>
+    <a href="#" data-link="/Procurement/CompanyAPR/Submit/@Year/{0}" data-link-custom class="btn btn-success for-view btn-submit">Submit</a>
+    <a href="#" data-link="/Procurement/CompanyAPR/Return/@Year/{0}" data-link-custom class="btn btn-danger for-view btn-return">Return</a>
+    <a href="#" data-link="/Procurement/CompanyAPR/OutOfStock/@Year/{0}" class="btn btn-warning btn-clean for-view btn-setoos-items">View/Set Out-Of-Stock Items</a>
+}
+else if (area == "procurement" && controller == "companypr")
+{
+    int Year = (int)ViewBag.Year;
+
+    <a href="#" data-link="/Procurement/CompanyPR/Items/Index/{0}" class="btn btn-secondary for-view btn-viewitems">View Items</a>
+    <a href="#" data-link="/Procurement/CompanyPR/Print/@Year/{0}" data-link-custom class="btn btn-info btn-clean for-view btn-print">Print</a>
+    <a href="#" data-link="/Procurement/CompanyPR/Submit/@Year/{0}" data-link-custom class="btn btn-success for-view btn-submit">Submit</a>
+    <a href="#" data-link="/Procurement/CompanyPR/Return/@Year/{0}" data-link-custom class="btn btn-danger for-view btn-return">Return</a>
+}
+else if (area == "procurement" && controller == "consolidatedpr")
+{
+    int Year = (int)ViewBag.Year;
+
+    <a href="#" data-link="/Procurement/ConsolidatedPR/Items/Index/{0}" class="btn btn-secondary for-view btn-viewitems">View Items</a>
+    <a href="#" data-link="/Procurement/ConsolidatedPR/Print/@Year/{0}" data-link-custom class="btn btn-info btn-clean for-view btn-print">Print</a>
+    <a href="#" data-link="/Procurement/ConsolidatedPR/Submit/@Year/{0}" data-link-custom class="btn btn-success for-view btn-submit">Submit</a>
+    <a href="#" data-link="/Procurement/ConsolidatedPR/Return/@Year/{0}" data-link-custom class="btn btn-danger for-view btn-return">Return</a>
+    <a href="#" data-link="/Procurement/ConsolidatedPR/ReturnCompanyPR/@Year/{0}" data-link-custom class="btn btn-info btn-clean for-view btn-return-companypr">Return</a>
+    <a href="#" data-link="/Procurement/ConsolidatedPR/MOP/@Year/{0}" class="btn btn-warning btn-clean for-view btn-mop">Set Modes of Procurement</a>
+}
+else if (area == "procurement" && controller == "rfq")
+{
+    int Year = (int)ViewBag.Year;
+
+    <a href="#" data-link="/Procurement/RFQ/Items/Index/{0}" class="btn btn-secondary for-view btn-viewitems">View Items</a>
+    <a href="#" data-link="/Procurement/RFQ/Print/@Year/{0}" data-link-custom class="btn btn-info btn-clean for-view btn-print">Print</a>
+    <a href="#" data-link="/Procurement/RFQ/Submit/@Year/{0}" data-link-custom class="btn btn-success for-view btn-submit">Submit</a>
+    <a href="#" data-link="/Procurement/RFQ/Return/@Year/{0}" data-link-custom class="btn btn-danger for-view btn-return">Return</a>
+}
+else if (area == "procurement" && controller == "aob")
+{
+    int Year = (int)ViewBag.Year;
+
+    <a href="#" data-link="/Procurement/AOB/Items/Index/{0}" class="btn btn-secondary for-view btn-viewitems">View Items</a>
+    <a href="#" data-link="/Procurement/AOB/Print/@Year/{0}" data-link-custom class="btn btn-info btn-clean for-view btn-print">Print</a>
+    <a href="#" data-link="/Procurement/AOB/Submit/@Year/{0}" data-link-custom class="btn btn-success for-view btn-submit">Submit</a>
+    <a href="#" data-link="/Procurement/AOB/Return/@Year/{0}" data-link-custom class="btn btn-danger for-view btn-return">Return</a>
+    <a href="#" data-link="/Procurement/AOB/Bids/@Year/{0}" class="btn btn-warning btn-clean for-view btn-bids">View/Set Bids</a>
+}
+else if (area == "procurement" && controller == "po")
+{
+    int Year = (int)ViewBag.Year;
+
+    <a href="#" data-link="/Procurement/PO/Items/Index/{0}" class="btn btn-secondary for-view btn-viewitems">View Items</a>
+    <a href="#" data-link="/Procurement/PO/Print/@Year/{0}" data-link-custom class="btn btn-info btn-clean for-view btn-print">Print</a>
+    <a href="#" data-link="/Procurement/PO/Submit/@Year/{0}" data-link-custom class="btn btn-success for-view btn-submit">Submit</a>
+    <a href="#" data-link="/Procurement/PO/Return/@Year/{0}" data-link-custom class="btn btn-danger for-view btn-return">Return</a>
+}
+else if (area == "procurement" && controller == "noa")
+{
+    int Year = (int)ViewBag.Year;
+
+    <a href="#" data-link="/Procurement/NOA/Items/Index/{0}" class="btn btn-secondary for-view btn-viewitems">View Items</a>
+    <a href="#" data-link="/Procurement/NOA/Print/@Year/{0}" data-link-custom class="btn btn-info btn-clean for-view btn-print">Print</a>
+    <a href="#" data-link="/Procurement/NOA/Submit/@Year/{0}" data-link-custom class="btn btn-success for-view btn-submit">Submit</a>
+    @*<a href="#" data-link="/Procurement/PO/Return/@Year/{0}" data-link-custom class="btn btn-danger for-view btn-return">Return</a>*@
+}
+else if (area == "procurement" && controller == "manageppmp")
+{
+    int Year = (int)ViewBag.Year;
+
+    <a href="#" data-link="/Procurement/ManagePPMP/Approve/@Year/{0}" data-link-custom class="btn btn-info btn-clean for-view btn-approve">Approve</a>
+    <a href="#" data-link="/Procurement/ManagePPMP/Return/@Year/{0}" data-link-custom class="btn btn-danger for-view btn-return">Return</a>
+}
+else if (area == "procurement" && controller == "managepr")
+{
+    int Year = (int)ViewBag.Year;
+
+    <a href="#" data-link="/Procurement/ManagePR/Approve/@Year/{0}" data-link-custom class="btn btn-info for-view btn-approve">Approve</a>
+    <a href="#" data-link="/Procurement/ManagePR/Return/@Year/{0}" data-link-custom class="btn btn-danger for-view btn-return">Return</a>
+}
+else if (area == "sam" && controller == "po")
+{
+    int Year = (int)ViewBag.Year;
+
+    <a href="#" data-link="/SAM/PO/Items/Index/{0}" class="btn btn-secondary for-view btn-viewitems">View Items</a>
+    <a href="#" data-link="/SAM/PO/Print/@Year/{0}" data-link-custom class="btn btn-info btn-clean for-view btn-print">Print</a>
+
+}
+else if (area == "sam" && controller == "receiving")
+{
+    int Year = (int)ViewBag.Year;
+
+    <a href="#" data-link="/SAM/Receiving/Submit/@Year/{0}" data-link-custom class="btn btn-success for-view btn-submit">Submit</a>
+    <a href="#" data-link="/SAM/Receiving/Items/Index/{0}" class="btn btn-secondary for-view btn-viewitems">View Items</a>
+    <a href="#" data-link="/SAM/Receiving/Print/@Year/{0}" data-link-custom class="btn btn-info btn-clean for-view btn-print">Print Request for Inspection</a>
+}
+else if (area == "sam" && controller == "inspection")
+{
+    int Year = (int)ViewBag.Year;
+
+    <a href="#" data-link="/SAM/Inspection/Return/@Year/{0}" data-link-custom class="btn btn-warning btn-clean for-view btn-return">Return</a>
+    <a href="#" data-link="/SAM/Inspection/Items/Index/{0}" class="btn btn-secondary for-view btn-viewitems">View Items</a>
+    <a href="#" data-link="/SAM/Inspection/Print/@Year/{0}" data-link-custom class="btn btn-info btn-clean for-view btn-print">Print Inspection Report</a>
+}
+else if (area == "sam" && controller == "taggingentry")
+{
+    int Year = (int)ViewBag.Year;
+    coreApp.Areas.SAM.tblReceiptItem ReceiptItem = (coreApp.Areas.SAM.tblReceiptItem)ViewBag.ReceiptItem;
+
+    <a href="#" data-link="/SAM/Tagging/Entry/Print/@Year/@ReceiptItem.Id/{0}" data-link-custom class="btn btn-info btn-clean for-view btn-print">Print QR/Barcode</a>
+}
+else if (area == "sam" && controller == "inventoryinspection")
+{
+    <a href="#" data-link="/SAM/Inventory/Inspection/Items/Index/{0}" class="btn btn-secondary for-view btn-viewitems">View Items</a>
+}
+else if (area == "sam" && controller == "equipment")
+{
+    <a href="#" data-link="/SAM/Equipment/History/{0}" data-link-custom class="btn btn-info btn-clean for-view btn-history">View History</a>
+}
+else if (area == "sam" && controller == "are")
+{
+    int Year = (int)ViewBag.Year;
+
+    <a href="#" data-link="/SAM/ARE/Items/Index/{0}" class="btn btn-secondary for-view btn-viewitems">View Items</a>
+    <a href="#" data-link="/SAM/ARE/PrintICS/@Year/{0}" data-link-custom class="btn btn-info for-view btn-print-ics">Print ICS</a>
+    <a href="#" data-link="/SAM/ARE/Print/@Year/{0}" data-link-custom class="btn btn-info or-view btn-print">Print</a>
+}
+else if (area == "sam" && controller == "ptr")
+{
+    int Year = (int)ViewBag.Year;
+
+    <a href="#" data-link="/SAM/PTR/Items/Index/{0}" class="btn btn-secondary for-view btn-viewitems">View Items</a>
+    <a href="#" data-link="/SAM/PTR/Print/@Year/{0}" data-link-custom class="btn btn-info btn-clean for-view btn-print">Print</a>
+
+}
+else if (area == "sam" && controller == "ris")
+{
+    int Year = (int)ViewBag.Year;
+
+    <a href="#" data-link="/SAM/RIS/Items/Index/{0}" class="btn btn-secondary for-view btn-viewitems">View Items</a>
+    <a href="#" data-link="/SAM/RIS/Print/@Year/{0}" data-link-custom class="btn btn-info btn-clean for-view btn-print">Print</a>
+
+}
+else if (area == "sam" && controller == "return")
+{
+    int Year = (int)ViewBag.Year;
+
+    <a href="#" data-link="/SAM/Return/Items/Index/{0}" class="btn btn-secondary for-view btn-viewitems">View Items</a>
+<a href="#" data-link="/SAM/Return/Print/@Year/{0}" data-link-custom class="btn btn-info btn-clean for-view btn-print">Print</a>
+
+}

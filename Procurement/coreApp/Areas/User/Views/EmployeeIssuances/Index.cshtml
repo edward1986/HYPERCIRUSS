@@ -1,0 +1,29 @@
+﻿@model coreApp.Areas.SAM.IssuanceModel
+
+@{
+    Layout = "~/Areas/HRModule/Views/Shared/_EmployeeDetailsLayout.cshtml";
+
+    ViewBag.Title = "Issuances";
+    ViewBag.Subtitle = "List";
+
+    ViewBag.EmployeeDetailsActiveTab = "issuances";
+
+    Module.DB.tblEmployee employee = (Module.DB.tblEmployee)ViewBag.Employee;
+    
+}
+
+@section Breadcrumbs {
+    @Html.Partial("_Breadcrumbs", new List<Breadcrumb>()
+    {
+        new Breadcrumb { Description = "Employee List", Link = Url.Action("Index", "Employees", new { area = "HRModule" }) },
+        new Breadcrumb { Description = "Employee Main Record", Link = Url.Action("Details", "Employees", new { id = employee.EmployeeId, area = "HRModule" } ) },
+        new Breadcrumb { Description = ViewBag.Title }
+    })
+}
+
+@section SearchSection {
+    @Html.Action("Search", "EmployeeSearch", new { model = new coreApp.Models.EmployeeSearchModel { DataUrl = "/HRModule/Employee/Issuances/Index/{0}", MinimalView = true } })
+}
+
+@Html.Partial("~/Areas/SAM/Views/Issuances/_Issuances.cshtml")
+

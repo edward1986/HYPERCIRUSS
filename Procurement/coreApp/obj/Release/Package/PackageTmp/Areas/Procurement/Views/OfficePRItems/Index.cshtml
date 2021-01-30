@@ -1,0 +1,300 @@
+﻿@model coreApp.Areas.Procurement.DAL.tblPR
+@using coreLib.Extensions
+@using coreLib.Objects
+
+@{
+    ViewBag.Title = "Office PR Items";
+
+    bool fromCPR = false;
+    if (Session["FromCPR"] != null)
+    {
+        fromCPR = (bool)Session["FromCPR"];
+    }
+
+    List<SelectListItemExt> ppmps = (List<SelectListItemExt>)ViewBag.PPMPs;
+    List<SelectListItem> categories = (List<SelectListItem>)ViewBag.Categories;
+    List<SelectListItem> months = (List<SelectListItem>)ViewBag.Months;
+
+}
+
+@section Breadcrumbs {
+    @Html.Partial("_Breadcrumbs", new List<Breadcrumb>()
+    {
+        new Breadcrumb { Description = "Office" },
+        fromCPR ? new Breadcrumb { Description = "Consolidated PRs", Link = Url.Action("Index", "ConsolidatedPR", new { area = "Procurement", year = Model.Year }) } :
+        new Breadcrumb { Description = "Office PRs", Link = Url.Action("Index", "OfficePR", new { area = "Procurement", year = Model.Year }) },
+        new Breadcrumb { Description = ViewBag.Title }
+    })
+}
+
+@section Styles {
+    <link href="~/Areas/Procurement/Assets/css/common.less" rel="stylesheet" type="text/css">
+    <link href="~/Areas/Procurement/Assets/css/itemlist.less" rel="stylesheet" type="text/css">
+
+    <style>
+        .qtycol {
+            width: 150px;
+            text-align: center
+        }
+
+            .qtycol input {
+                text-align: center;
+            }
+    </style>
+
+}
+
+@section Scripts {
+
+    <script>
+        var prId = @Model.Id;
+        var isCompany = true;
+        var dialogIsReadOnly = true;
+        var mainListUrl = '@Url.Action("MainList_OfficePR", new { prId = Model.Id, year = Model.Year })';
+        var itemListUrl = '@Url.Action("ItemList", new { prId = Model.Id, year = Model.Year })';
+        var saveItemUrl = '@Url.Action("SaveItem", new { prId = Model.Id })';
+        var deleteItemUrl = '@Url.Action("DeleteItem", new { prId = Model.Id })';
+        var clearItemsUrl = '@Url.Action("ClearItems", new { prId = Model.Id })';
+        var submitUrl = '@Url.Action("Submit", "OfficePR", new { year = Model.Year, id = Model.Id })';
+        var printUrl = '@Url.Action("Print", "OfficePR", new { year = Model.Year, id = Model.Id })';
+
+        var importItemsUrl = '@Url.Action("ImportItems", new { prId = Model.Id })';
+        var removeConsolidatedItemUrl = '@Url.Action("RemoveConsolidatedItem", new { prId = Model.Id })';
+        var removeCategoryUrl = '@Url.Action("RemoveCategory", new { prId = Model.Id })';
+        var removeMonthUrl = '@Url.Action("RemoveMonth", new { prId = Model.Id })';
+
+        var oTable;
+
+        function prepDone(table) {
+            oTable = table;
+        }
+
+        function tableBind(obj) {
+            setItemUI();
+
+            obj.find('.tbreqqty')
+                .unbind()
+                .click(function (e) {
+                    e.stopPropagation();
+                })
+                .keypress(function (e) {
+                    return $.isNumeric(e.key);
+                });
+        }
+
+        function setItemUI() {
+            $('.main-list tr').unbind();
+
+            var printBtn = $('.btn-print');
+            var submitBtn = $('.btn-submit');
+            var deleteItemsBtn = $('.btn-deleteitems');
+
+            if (hasConflicts) {
+                printBtn.hide();
+                submitBtn.hide();
+                deleteItemsBtn.hide();
+            } else {
+                printBtn.show();
+                //submitBtn.show();
+            }
+        }
+
+        function getMonthDesc(month) {
+            var ret = '';
+            if (month == 1) ret = 'Jan';
+            if (month == 2) ret = 'Feb';
+            if (month == 3) ret = 'Mar';
+            if (month == 4) ret = 'Apr';
+            if (month == 5) ret = 'May';
+            if (month == 6) ret = 'Jun';
+            if (month == 7) ret = 'Jul';
+            if (month == 8) ret = 'Aug';
+            if (month == 9) ret = 'Sep';
+            if (month == 10) ret = 'Oct';
+            if (month == 11) ret = 'Nov';
+            if (month == 12) ret = 'Dec';
+            return ret;
+        }
+
+        function getModifiedQuantities() {
+            var ret = {
+                err: [],
+                data: []
+            };
+            var nodes = oTable.rows().nodes();
+
+
+
+            for (var i = 0; i < nodes.length; i++) {
+                var tr = $(nodes[i]);
+                var recordId = tr.attr('record-id');
+                var itemName = tr.attr('data-itemname');
+                var tb = tr.find('.tbqty');
+                var month = tb.attr('data-month');
+                var monthDesc = getMonthDesc(month);
+
+                var origValue = tb.attr('data-value');
+                var newValue = tb.val();
+
+                if (!SITE.Utility.isNumber(newValue)) {
+                    ret.err.push('Invalid ' + monthDesc + ' quantity in item \'' + itemName + '\'');
+                } else {
+                    var v0 = parseInt(origValue);
+                    var v1 = parseInt(newValue);
+
+                    if (v1 > v0) {
+                        ret.err.push('New ' + monthDesc + ' quantity in item \'' + itemName + '\' cannot be greater than the original value, ' + origValue);
+                    } else if (v1 < v0) {
+                        ret.data.push({
+                            id: recordId,
+                            month: month,
+                            value: v1
+                        })
+                    }
+                }
+            }
+
+            return ret;
+        }
+    </script>
+
+    <script type="text/javascript" src="~/Areas/Procurement/Assets/js/objects.js"></script>
+    <script type="text/javascript" src="~/Areas/Procurement/Assets/js/pagestart.js"></script>
+}
+
+<div class="mainlist-cont @(Model.HasBeenSubmitted ? "submitted" : "")"></div>
+
+@Html.Partial("_ItemQty")
+
+<div class="modal fade" id="modalImport" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title"></h6>
+            </div>
+            <div class="modal-body">
+                <div class="ppmp-select">
+                    @if (!Model.HasBeenSubmitted)
+                    {
+
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <table class="display table table-bordered table-striped table-list selection-list static-table table-xs">
+                                    <thead>
+                                        <tr>
+                                            <th>
+
+                                            </th>
+                                            <th>
+                                                Office
+                                            </th>
+                                            <th>
+                                                Description
+                                            </th>
+                                            <th>
+                                                Fund
+                                            </th>
+
+                                            <th>
+                                                Submitted By
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in ppmps)
+                                        {
+                                            coreApp.Areas.Procurement.DAL.tblPPMP ppmp = (coreApp.Areas.Procurement.DAL.tblPPMP)item.Data["ppmp"];
+
+                                            <tr locked>
+                                                <td style="text-align:center;width:50px">
+                                                    <div class="radiobox">
+                                                        <label>
+                                                            <input type="radio" name="PPMP" value="@ppmp.Id" @(item.Selected ? "checked" : "") />
+                                                        </label>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => ppmp.Office.Office)
+                                                </td>
+                                                <td>
+                                                    @ppmp.Description
+                                                </td>
+                                                <td>
+                                                    @ppmp.Fund.Fund
+                                                </td>
+                                                <td style="width:250px">
+                                                    @Html.DisplayFor(modelItem => ppmp.SubmittedBy)<br />
+                                                    @Html.DisplayFor(modelItem => ppmp.SubmitDate)
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="col-sm-4">
+                                <table class="display table table-bordered table-striped table-list category-list static-table table-xs">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                @Html.Partial("_Helper_CheckBox", null, new ViewDataDictionary { { "name", "CategorySelectAll" }, { "value", !categories.Any(x => !x.Selected) }, { "class", "selectall" } })
+                                            </th>
+                                            <th>
+                                                Category
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in categories)
+                                        {
+                                            <tr locked>
+                                                <td style="text-align:center;width:50px">
+                                                    @Html.Partial("_Helper_CheckBox", null, new ViewDataDictionary { { "name", "Category" }, { "value", item.Selected }, { "class", "selectitem" }, { "data-item", int.Parse(item.Value) } })
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.Text)
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="col-sm-2">
+                                <table class="display table table-bordered table-striped table-list period-list static-table table-xs">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                @Html.Partial("_Helper_CheckBox", null, new ViewDataDictionary { { "name", "PeriodSelectAll" }, { "value", !months.Any(x => !x.Selected) }, { "class", "selectall" } })
+                                            </th>
+                                            <th>
+                                                Month
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in months)
+                                        {
+                                            <tr locked>
+                                                <td style="text-align:center;width:50px">
+                                                    @Html.Partial("_Helper_CheckBox", null, new ViewDataDictionary { { "name", "Period" }, { "value", item.Selected }, { "class", "selectitem" }, { "data-item", int.Parse(item.Value) } })
+                                                </td>
+                                                <td>
+                                                    @item.Text
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+             <div class="modal-footer btn-group-sm">
+                <div class="btn-group-sm">
+                    <button type="button" class="btn btn-default btn-clean btn-cancel" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary btn-clean btn-ok">Ok</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>  

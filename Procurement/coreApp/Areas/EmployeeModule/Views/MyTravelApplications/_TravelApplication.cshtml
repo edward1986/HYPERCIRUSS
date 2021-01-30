@@ -1,0 +1,107 @@
+﻿@model Module.DB.tblTravelApplication
+
+@{    
+    bool isReadOnly = (bool)ViewBag.uiIsReadOnly;
+    bool includeId = (bool)ViewBag.uiIncludeId;
+
+    bool isNew = !includeId;
+    
+}
+
+@Html.Hidden("HasBeenSubmitted", Model.HasBeenSubmitted)
+@Html.Hidden("HasBeenServed", Model.HasBeenServed)
+
+
+@using (Html.BeginForm(isNew ? "Create" : "Edit", "MyTravelApplications", new { area = "EmployeeModule", employeeId = Model.EmployeeId }, FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    if (isReadOnly)
+    {
+        @Html.Partial("~/Areas/EmployeeModule/Views/MyTravelApplications/_TravelApplicationView.cshtml")
+    }
+    else
+    {
+        @Html.HiddenFor(model => model.EmployeeId)
+        @Html.HiddenFor(model => model.Id)
+        @Html.HiddenFor(model => model.StartDate)
+        @Html.HiddenFor(model => model.EndDate)
+
+        <div>
+            @if (includeId)
+            {
+                <div class="form-group row">
+                    <div class="col-md-4">
+                        @Html.LabelFor(model => model.Id)
+                    </div>
+                    <div class="col-md-8">
+                        <div class="form-control dimmed">
+                            @Html.DisplayFor(model => model.Id)
+                        </div>
+                    </div>
+                </div>
+            }
+
+            <div class="form-group row">
+                <div class="col-md-4">
+                    Employee
+                </div>
+                <div class="col-md-8">
+                    <div class="form-control dimmed">
+                        @Html.DisplayFor(model => model.employee.FullName_FN)
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-group row">
+                <div class="col-md-12">
+                    <fieldset>
+                        <legend>Period</legend>
+                        @Html.Partial("~/Views/Shared/_Helper_Period.cshtml", new coreLib.Objects.PeriodModel(Model.StartDate, Model.EndDate), new ViewDataDictionary { { "clientCallback", "applyPeriod" } })
+                        <hr />
+                    </fieldset>
+                   
+                </div>
+            </div>
+            
+            <div class="form-group row">
+                <div class="col-md-4">
+                    @Html.LabelFor(model => model.Purpose)
+                </div>
+                <div class="col-md-8">
+                    @Html.TextAreaFor(model => model.Purpose, new { @class = "form-control" })
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-4">
+                    @Html.LabelFor(model => model.Destination)
+                </div>
+                <div class="col-md-8">
+                    @Html.TextBoxFor(model => model.Destination, new { @class = "form-control" })
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-4">
+                    Support File
+                </div>
+                <div class="col-md-8">
+                    @Html.Partial("_Helper_Photo", new ViewDataDictionary {
+                        { "url", "/Home/GetTravelSupportFile/" + Model.Id },
+                        { "control-name", "SupportFilex" },
+                        { "readonly", false },
+                        { "no-remove", isNew }
+                    })
+                </div>
+            </div>
+        </div>
+        
+    }
+}
+
+<script>
+    $(window).load(function () {
+        $('textarea').unbind();
+    });
+</script>

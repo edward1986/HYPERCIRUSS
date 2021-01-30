@@ -1,0 +1,94 @@
+﻿@model List<Module.DB.tblEmployee_RD>
+
+@{
+    Layout = "~/Areas/HRModule/Views/Shared/_EmployeeDetailsLayout.cshtml";
+
+    ViewBag.Title = "Rest Days";
+    ViewBag.Subtitle = "List";
+
+    ViewBag.EmployeeDetailsActiveTab = "rd";
+
+    Module.DB.tblEmployee employee = (Module.DB.tblEmployee)ViewBag.Employee;
+}
+
+@section Breadcrumbs {
+    @Html.Partial("_Breadcrumbs", new List<Breadcrumb>()
+    {
+        new Breadcrumb { Description = "Employee List", Link = Url.Action("Index", "Employees", new { area = "HRModule" }) },
+        new Breadcrumb { Description = "Employee Main Record", Link = Url.Action("Details", "Employees", new { id = employee.EmployeeId, area = "HRModule" } ) },
+        new Breadcrumb { Description = ViewBag.Title }
+    })
+}
+
+@section Scripts {
+    <script>
+        function applyPeriod(start, end) {
+            $('#StartDate').val(start);
+            $('#EndDate').val(end);
+        }
+    </script>
+}
+
+@section SearchSection {
+    @Html.Action("Search", "EmployeeSearch", new { model = new coreApp.Models.EmployeeSearchModel { DataUrl = "/HRModule/Employee/Travels/Index/{0}", MinimalView = true } })
+}
+
+<div class="block">
+    <div class="head bg-default bg-light-ltr noradius">
+        <h2>@ViewBag.Title</h2>
+        <div class="side pull-right">
+            <ul class="buttons">
+                <li>
+                    <button class="btn btn-success btn-create" onclick="$.fn.list('modalCreate', this)">Create</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="content">
+        
+        <table class="display table table-bordered table-striped table-list" cellspacing="0" width="100%"
+               modal-target="#modalView" modal-start="view" modal-create-width="mid-wide" modal-edit-width="mid-wide"
+               modal-view-url="/HRModule/Employee/RD/Details/@employee.EmployeeId/{0}" modal-edit-url="/HRModule/Employee/RD/Edit/@employee.EmployeeId/{0}" modal-delete-url="/HRModule/Employee/RD/Delete/@employee.EmployeeId" modal-create-url="/HRModule/Employee/RD/Create/@employee.EmployeeId">
+            <thead>
+                <tr>
+                    <th class="idcol">
+                        Id
+                    </th>
+                    <th>
+                        Description
+                    </th>
+                    <th>
+                        Period
+                    </th>
+                    <th>
+                        Days
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Module.DB.tblEmployee_RD item in Model)
+                {
+
+                    <tr record-id="@item.Id">
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Id)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Description)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.InclusiveDays)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Days)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+    </div>
+</div>
+
+@Html.Partial("~/Views/Shared/modals/_ModalView.cshtml", "modalView")
+

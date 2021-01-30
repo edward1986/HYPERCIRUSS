@@ -1,0 +1,95 @@
+﻿@model Module.DB.tblEmployee
+
+@{    
+    bool isReadOnly = (bool)ViewBag.uiIsReadOnly;
+    bool includeId = (bool)ViewBag.uiIncludeId;
+
+    Module.DB.tblEmployee_Career career = new Module.DB.Procs.procs_tblEmployee(Model).LatestCareer();
+        
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-row">
+        <div class="col-md-3">
+            @Html.LabelFor(model => model.EmployeeId)
+        </div>
+        <div class="col-md-9">
+            <div class="form-control">
+                @Html.DisplayFor(model => model.EmployeeId)
+            </div>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="col-md-3">
+            @Html.LabelFor(model => model.IdNo)
+        </div>
+        <div class="col-md-9">
+            <div class="form-control">
+                @Html.DisplayFor(model => model.IdNo)
+            </div>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="col-md-3">
+            @Html.LabelFor(model => model.FullName)
+        </div>
+        <div class="col-md-9">
+            <div class="form-control">
+                @Html.DisplayFor(model => model.FullName)
+            </div>
+        </div>
+    </div>
+
+    if (career == null)
+    {
+        <span>[no career defined]</span>
+    }
+    else
+    {
+        if (career.Office == null)
+        {
+            <span>[no office defined]</span>
+        }
+        else
+        {
+            <div class="form-row">
+                <div class="col-md-3">
+                    @Html.LabelFor(model => career.Office.Office)
+                </div>
+                <div class="col-md-9">
+                    <div class="form-control">
+                        @Html.DisplayFor(model => career.Office.Office)
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="col-md-3">
+                    @Html.LabelFor(model => career.Department)
+                </div>
+                <div class="col-md-9">
+                    <div class="form-control">
+                        @Html.DisplayFor(model => career.Department)
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="col-md-3">
+                    @Html.LabelFor(model => career.Position.Position)
+                </div>
+                <div class="col-md-9">
+                    <div class="form-control">
+                        @Html.DisplayFor(model => career.Position.Position)
+                    </div>
+                </div>
+            </div>
+        }
+    }
+
+}

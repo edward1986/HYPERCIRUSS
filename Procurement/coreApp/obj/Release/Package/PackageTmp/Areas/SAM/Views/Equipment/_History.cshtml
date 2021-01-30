@@ -1,0 +1,86 @@
+﻿@model List<coreApp.Areas.SAM.tblARE>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Date
+            </th>
+            <th>
+                Reference No.
+            </th>
+            <th>
+                Issued To
+            </th>
+            <th>
+                Position
+            </th>
+            <th>
+                Office
+            </th>
+            <th>
+                Department
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (coreApp.Areas.SAM.tblARE item in Model)
+        {
+
+
+            <tr locked>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AREDate)
+                </td>
+
+                @if (item._AREType == (int)coreApp.Areas.SAM.Enums.AREType.Return)
+                {
+                    
+                    <td>
+                        @Html.DisplayFor(modelItem => item.RetNo)
+                    </td>
+                    <td colspan="4">
+                        RETURNED TO CUSTODIAN
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        @if (item._AREType == (int)coreApp.Areas.SAM.Enums.AREType.PTR)
+                        {
+                            @Html.DisplayFor(modelItem => item.PTRNo)
+                        }
+                        else
+                        {
+                            @Html.DisplayFor(modelItem => item._ARENo)
+                        }
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item._To_Name)
+                    </td>
+
+                    if (!item.ToContractor)
+                    {
+                        <td>
+                            @Html.DisplayFor(modelItem => item._To_Position)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item._To_Office)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item._To_Department)
+                        </td>
+                    }
+                    else
+                    {
+                        <td></td>
+                        <td>
+                            @Html.DisplayMultiLineFor(modelItem => item._To_Address)
+                        </td>
+                        <td></td>
+                    }
+                }
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,266 @@
+﻿@model Module.DB.tblEmployee
+
+@{
+    Layout = "~/Areas/Procurement/Views/Shared/_EmployeeDetailsLayout.cshtml";
+
+    ViewBag.Title = "Employee";
+    ViewBag.Subtitle = "Details";
+
+    ViewBag.uiIsReadOnly = true;
+    ViewBag.uiIncludeId = false;
+
+    ViewBag.EmployeeDetailsActiveTab = "main";
+
+    Module.DB.AspNetUser u = Module.DB.Procs.Account.GetUser(Model.UserId);
+
+    UserAccess userAccess = coreApp.Cache.Get().userAccess;
+    bool loginAccount = userAccess.HasAccess("hr_emp_login_account");
+    bool employeeAccess = userAccess.HasAccess("hr_emp_access");
+    bool permissions = userAccess.HasAccess("hr_permissions");
+}
+
+@section Breadcrumbs {
+    @Html.Partial("_Breadcrumbs", new List<Breadcrumb>()
+    {
+        new Breadcrumb { Description = "Employee List", Link = Url.Action("Index", "Employees", new { area = "HRModule" }) },
+        new Breadcrumb { Description = ViewBag.Title }
+    })
+}
+
+@section SearchSection {
+    @Html.Action("Search", "EmployeeSearch", new { model = new coreApp.Models.EmployeeSearchModel { DataUrl = "/HRModule/Employees/Details/{0}", MinimalView = true } })
+}
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            var ea = $('.employee-account');
+            var ea_enable = ea.find('.btn-enable-employee-account');
+            var ea_disable = ea.find('.btn-disable-employee-account');
+            var ea_resetpw = ea.find('.btn-reset-password');
+            var ea_delete = ea.find('.btn-delete-account');
+
+            ea_enable.click(function (e) {
+                e.preventDefault();
+
+                var url = '/HRModule/Employee/Account/EnableAccount/@Model.EmployeeId';
+
+                if (modalConfirm('Are you sure you want to enable this employee\'s login account?', function (res) {
+                    if (res) {
+                        $.post(url, { userId: '@Model.UserId' }, function (res) {
+                            if (res.IsSuccessful) {
+                                sessionStorage.clientMessage = res.Remarks;
+                                window.location.reload(true);
+                            } else {
+                                modalMessage(res.Err.split('\n'), 'Enable employee login account', true);
+                            }
+                        }, 'json');
+                    }
+                }));
+            });
+
+            ea_disable.click(function (e) {
+                e.preventDefault();
+
+                var url = '/HRModule/Employee/Account/DisableAccount/@Model.EmployeeId';
+
+                if (modalConfirm('Are you sure you want to disable this employee\'s login account?', function (res) {
+                    if (res) {
+                        $.post(url, { userId: '@Model.UserId' }, function (res) {
+                            if (res.IsSuccessful) {
+                                sessionStorage.clientMessage = res.Remarks;
+                                window.location.reload(true);
+                            } else {
+                                modalMessage(res.Err.split('\n'), 'Disable employee login account', true);
+                            }
+                        }, 'json');
+                    }
+                }));
+            });
+
+            ea_resetpw.click(function (e) {
+                e.preventDefault();
+
+                var url = '/HRModule/Employee/Account/ResetPassword/@Model.EmployeeId';
+
+                if (modalConfirm('Are you sure you want to reset this employee\'s login password to \'' + @FixedSettings.DefaultPassword + '\'?', function (res) {
+                    if (res) {
+                        $.post(url, { userId: '@Model.UserId' }, function (res) {
+                            if (res.IsSuccessful) {
+                                sessionStorage.clientMessage = res.Remarks;
+                                window.location.reload(true);
+                            } else {
+                                modalMessage(res.Err.split('\n'), 'Reset login password', true);
+                            }
+                        }, 'json');
+                    }
+                }));
+            });
+
+            ea_delete.click(function (e) {
+                e.preventDefault();
+
+                var url = '/HRModule/Employee/Account/DeleteAccount/@Model.EmployeeId';
+
+                if (modalConfirm('Are you sure you want to delete this employee\'s login account?', function (res) {
+                    if (res) {
+                        $.post(url, { userId: '@Model.UserId' }, function (res) {
+                            if (res.IsSuccessful) {
+                                sessionStorage.clientMessage = res.Remarks;
+                                window.location.reload(true);
+                            } else {
+                                modalMessage(res.Err.split('\n'), 'Delete login account', true);
+                            }
+                        }, 'json');
+                    }
+                }));
+            });
+        });
+    </script>
+}
+
+<div class="block block-drop-shadow details" modal-target="#modalViewDetails">
+    <div class="head bg-default bg-light-ltr">
+        <div style="text-align: right">
+            <ul class="buttons">
+                <li><a href="#" class="btn btn-primary btn-edit" data-url="@Url.Action("Edit", new { id = Model.EmployeeId })">Edit</a></li>
+                <li><a href="#" class="btn btn-danger btn-delete" data-url="@Url.Action("Delete")" data-redirect-url="@Url.Action("Index")" data-record-id="@Model.EmployeeId">Delete</a></li>
+            </ul>
+        </div>
+
+    </div>
+    <div class="content">
+        <div class="row">
+            <div class="col-sm-12">
+                <fieldset>
+                    <legend>Main Record</legend>
+
+                    @Html.Partial("_Employee", Model)
+                </fieldset>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="block block-drop-shadow">
+    <div class="content">
+        <div class="row">
+            @if (loginAccount)
+            {
+                <div class="col-sm-6">
+                    <fieldset>
+                        <legend>Login Account</legend>
+
+                        <div class="employee-account">
+                            @if (u == null)
+                            {
+                                <div class="text-danger details" modal-target="#modalViewDetails_CreateAccount" modal-title="Create Account">
+                                    <i class="fa fa-warning"></i>
+                                    Employee has no login account. Click <b><a href="#" data-url="@Url.Action("CreateAccount", "EmployeeAccount", new { area = "HRModule", employeeId = Model.EmployeeId })" class="btn-open">here</a></b> to create account.
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="text-info">
+                                    <i class="fa fa-user"></i>
+                                    Username: @u.UserName
+                                </div>
+                                <div class="text-warning">
+                                    <i class="fa fa-times"></i>
+                                    Click <b><a href="#" class="btn-delete-account">here</a></b> to delete login account.
+                                </div>
+                                <br />
+
+                                if (u.Disabled == true)
+                                {
+                                    <br />
+                                    <div class="text-warning">
+                                        <i class="fa fa-warning"></i>
+                                        Employee login account is <span class="font-red-pink">disabled</span>. Click <b><a href="#" class="btn-enable-employee-account">here</a></b> to enable account.
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="text-info">
+                                        <i class="fa fa-key"></i>
+                                        Click <b><a href="#" class="btn-reset-password">here</a></b> to reset password.
+                                    </div>
+                                    <br />
+                                    <div class="text-success">
+                                        <i class="fa fa-info-circle"></i>
+                                        Employee login account is enabled. Click <b><a href="#" class="btn-disable-employee-account">here</a></b> to disable account.
+                                    </div>
+                                }
+                            }
+                        </div>
+                    </fieldset>
+
+                </div>
+            }
+
+            @if (employeeAccess || permissions)
+            {
+                Module.DB.tblEmployee_Access _access = new Module.DB.Procs.procs_tblEmployee(Model).Access();
+                Module.DB._HRPermission _permissions = new Module.DB.Procs.procs_tblEmployee(Model).Permissions();
+
+                <div class="col-sm-6">
+                    @if (employeeAccess)
+                    {
+                        <fieldset>
+                            <legend>Office Scope</legend>
+
+                            <div class="pull-right details" modal-target="#modalViewDetails_OfficeScope" modal-title="Office Scope">
+                                <i class="fa fa-pencil"></i> <a href="#" data-url="/HRModule/Employee/Access/EditOffices/@Model.EmployeeId" class="btn-open">Edit</a>
+                            </div>
+
+                            <div>
+                                @Html.Partial("_OfficeList", _access.getOffices(), new ViewDataDictionary { { "ReadOnly", true } })
+                            </div>
+
+                        </fieldset>
+                        <fieldset>
+                            <legend>Access List</legend>
+
+                            <div class="pull-right details" modal-target="#modalViewDetails_AccessList" modal-title="Access List" style="margin-left:10px">
+                                <i class="fa fa-pencil"></i> <a href="#" data-url="/HRModule/Employee/Access/Edit/@Model.EmployeeId/0" class="btn-open">Edit</a>
+                            </div>
+
+                            <div>
+                                @Html.Partial("/Areas/HRModule/Views/EmployeeAccess/_AccessList.cshtml", _access, new ViewDataDictionary { { "ReadOnly", true } })
+                            </div>
+
+                        </fieldset>
+
+
+                    }
+
+                    @if (permissions)
+                    {
+                        <fieldset>
+                            <legend>Permissions</legend>
+
+                            <div class="pull-right details" modal-target="#modalViewDetails_Permissions" modal-title="Permissions" style="margin-left:10px">
+                                <i class="fa fa-pencil"></i> <a href="#" data-url="/HRModule/Employee/Permissions/Edit/@Model.EmployeeId" class="btn-open">Edit</a>
+                            </div>
+
+                            <div>
+                                @Html.Partial("/Areas/HRModule/Views/HRPermissions/_PermissionList.cshtml", _permissions, new ViewDataDictionary { { "ReadOnly", true } })
+                            </div>
+
+                        </fieldset>
+                    }
+                </div>
+            }
+        </div>
+
+
+    </div>
+
+</div>
+
+@Html.Partial("~/Views/Shared/modals/_ModalView_FromDetails.cshtml", "modalViewDetails_Permissions")
+@Html.Partial("~/Views/Shared/modals/_ModalView_FromDetails.cshtml", "modalViewDetails_OfficeScope")
+@Html.Partial("~/Views/Shared/modals/_ModalView_FromDetails.cshtml", "modalViewDetails_AccessList")
+@Html.Partial("~/Views/Shared/modals/_ModalView_FromDetails.cshtml", "modalViewDetails_CreateAccount")
+@Html.Partial("~/Views/Shared/modals/_ModalView_FromDetails.cshtml", "modalViewDetails")

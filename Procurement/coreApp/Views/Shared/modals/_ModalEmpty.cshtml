@@ -1,0 +1,57 @@
+﻿<div class="modal fade" id="modalEmpty" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title"></h6>
+            </div>
+            <div class="modal-body"></div>
+             <div class="modal-footer btn-group-sm">
+                <button type="button" class="btn btn-default btn-clean btn-cancel" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary btn-clean btn-ok">Ok</button>
+            </div>
+        </div>
+    </div>
+</div>    
+
+<script>
+    function modalEmpty(title, showCallback, doneCallback, modalClasses) {
+        var ret = false;
+
+        var modal = $('#modalEmpty').clone().addClass(modalClasses);
+        modal.find('.modal-title').html(title);
+
+        var body = modal.find('.modal-body');
+        
+        modal.find('.btn-ok').unbind().bind('click', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            ret = true;
+            modal.modal('hide');
+        });
+
+        modal
+            .unbind('show.bs.modal')
+            .unbind('hide.bs.modal')
+            .on('show.bs.modal', function () {
+                if (showCallback) showCallback(modal);
+
+                if (modal.hasClass('modal-wide')) {
+                    modal.children('.modal-dialog').css({ width: $(window).width() - 30, height: $(window).height(), 'padding-top': 15, 'padding-bottom': 15 });
+                } else if (modal.hasClass('modal-most-wide')) {
+                    modal.children('.modal-dialog').css({ width: $(window).width() * .75, height: $(window).height(), 'padding-top': 15, 'padding-bottom': 15 });
+                } else if (modal.hasClass('modal-mid-wide')) {
+                    modal.children('.modal-dialog').css({ width: $(window).width() / 2, height: $(window).height(), 'padding-top': 15, 'padding-bottom': 15 });
+                }
+
+            })
+            .on('hide.bs.modal', function () {
+                if (doneCallback) doneCallback(ret, modal);
+            })
+            .modal({
+                backdrop: 'static',
+                show: true
+            });
+    }
+
+</script>

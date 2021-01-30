@@ -1,0 +1,147 @@
+﻿@model coreApp.Areas.SAM.IssuanceModel
+
+<div class="card">
+    <div class="card-header">
+        <h5>@ViewBag.Title</h5>
+    </div>
+    <div class="card-body">
+       
+        <ul class="nav nav-tabs mb-3" id="myTab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active text-uppercase" id="ppmp-tab" data-toggle="tab" href="#tab101" role="tab" aria-controls="home" aria-selected="true">Equipment</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-uppercase" id="profile-tab" data-toggle="tab" href="#tab102" role="tab" aria-controls="profile" aria-selected="false">Semi-Expendables</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-uppercase" id="profile-tab" data-toggle="tab" href="#tab103" role="tab" aria-controls="profile" aria-selected="false">Supplies</a>
+            </li>
+        </ul>
+        <div class="content tab-content">
+            <div class="tab-pane active" id="tab101">
+                <table id="table1" class="display table table-bordered table-striped table-list use-each" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th>Date Issued</th>
+                            <th>PAR No.</th>
+                            <th>Property No.</th>
+                            <th>Item Name</th>
+                            <th>Status</th>
+                            <th>Warehouse</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (coreApp.Areas.SAM.InventoryItemModel item in Model.Equipment)
+                        {
+                            coreApp.Areas.SAM.tblWarehouse warehouse = DBProcs.get_WarehouseById(item.Tag.Receipt.WarehouseId);
+
+                            <tr record-id="@item.Item.Id" data-tableid="table1" locked>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.LatestLog.AREDate)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.LatestLog._ARENo)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Item.PropertyNo)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Item._ItemName)
+                                </td>
+                                <td>
+                                    @Html.Partial("_inventoryStatus", item.LatestInspection)
+                                </td>
+                                <td>
+                                    @(warehouse == null ? "" : warehouse.Description)
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="tab-pane" id="tab102">
+                <div class="dt-responsive table-responsive">
+                    <table id="table2" class="display table table-bordered table-striped table-list use-each" cellspacing="0" width="100%">
+                        <thead>
+                            <tr>
+                                <th>Date Issued</th>
+                                <th>ICS No.</th>
+                                <th>Property No.</th>
+                                <th>Item Name</th>
+                                <th>Warehouse</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (coreApp.Areas.SAM.InventoryItemModel item in Model.SemiExpendables)
+                            {
+                                coreApp.Areas.SAM.tblWarehouse warehouse = DBProcs.get_WarehouseById(item.Tag.Receipt.WarehouseId);
+
+                                <tr record-id="@item.Item.Id" data-tableid="table2" locked>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.LatestLog.AREDate)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.LatestLog._ARENo)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Item.PropertyNo)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Item._ItemName)
+                                    </td>
+                                    <td>
+                                        @(warehouse == null ? "" : warehouse.Description)
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="tab-pane" id="tab103">
+                <div class="dt-responsive table-responsive">
+                    <table id="table3" class="display table table-bordered table-striped table-list use-each" cellspacing="0" width="100%">
+                        <thead>
+                            <tr>
+                                <th>Date Issued</th>
+                                <th>RIS No.</th>
+                                <th>Item Name</th>
+                                <th>Unit</th>
+                                <th>Qty</th>
+                                <th>Warehouse</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (coreApp.Areas.SAM.RISItemModel item in Model.Supplies)
+                            {
+                                coreApp.Areas.SAM.tblWarehouse warehouse = DBProcs.get_WarehouseById(item.RIS.WarehouseId);
+
+                                <tr record-id="@item.Item.Id" data-tableid="table2" locked>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.RIS.RequisitionDate)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.RIS._RISNo)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Item._ItemName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Item._Unit)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Item.Approved_Qty)
+                                    </td>
+                                    <td>
+                                        @(warehouse == null ? "" : warehouse.Description)
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

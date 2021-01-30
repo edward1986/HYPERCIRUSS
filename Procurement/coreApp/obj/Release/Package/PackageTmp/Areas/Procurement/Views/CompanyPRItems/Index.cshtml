@@ -1,0 +1,124 @@
+﻿@model coreApp.Areas.Procurement.DAL.tblCompanyPR
+@using coreLib.Extensions
+@using coreLib.Objects
+@{
+    ViewBag.Title = "PR Items";
+
+    bool fromCPR = false;
+    if (Session["FromCPR"] != null)
+    {
+        fromCPR = (bool)Session["FromCPR"];
+    }
+
+    List<SelectListItemExt> aprs = (List<SelectListItemExt>)ViewBag.APRs;
+
+}
+
+@section Breadcrumbs {
+    @Html.Partial("_Breadcrumbs", new List<Breadcrumb>()
+    {
+        new Breadcrumb { Description = "Procurement" },
+        fromCPR ? new Breadcrumb { Description = "Consolidated PRs", Link = Url.Action("Index", "ConsolidatedPR", new { area = "Procurement", year = Model.Year }) } : 
+        new Breadcrumb { Description = "Agency PRs (For Out-Of-Stock Items)", Link = Url.Action("Index", "CompanyPR", new { area = "Procurement", year = Model.Year }) },
+        new Breadcrumb { Description = ViewBag.Title }
+    })
+}
+
+@section Styles {
+    <link href="~/Areas/Procurement/Assets/css/common.less" rel="stylesheet" type="text/css">
+    <link href="~/Areas/Procurement/Assets/css/itemlist.less" rel="stylesheet" type="text/css">
+}
+
+@section Scripts {
+    
+    <script>
+        var prId = @Model.Id;
+        var isCompany = true;
+        var dialogIsReadOnly = true;
+        var mainListUrl = '@Url.Action("MainList_CompanyPR", new { prId = Model.Id, year = Model.Year })';
+        var itemListUrl = '@Url.Action("ItemList", new { prId = Model.Id, year = Model.Year })';
+        var saveItemUrl = '@Url.Action("SaveItem", new { prId = Model.Id })';
+        var deleteItemUrl = '@Url.Action("DeleteItem", new { prId = Model.Id })';
+        var clearItemsUrl = '@Url.Action("ClearItems", new { prId = Model.Id })';
+        var submitUrl = '@Url.Action("Submit", "CompanyPR", new { year = Model.Year, id = Model.Id })';
+        var printUrl = '@Url.Action("Print", "CompanyPR", new { year = Model.Year, id = Model.Id })';
+        
+        var importItemsUrl = '@Url.Action("ImportItems", new { prId = Model.Id })';
+        var removeConsolidatedItemUrl = '@Url.Action("RemoveConsolidatedItem", new { prId = Model.Id })';
+        var removeCategoryUrl = '@Url.Action("RemoveCategory", new { prId = Model.Id })';
+        var removeMonthUrl = '@Url.Action("RemoveMonth", new { prId = Model.Id })';
+    </script>
+
+    <script type="text/javascript" src="~/Areas/Procurement/Assets/js/objects.js"></script>
+    <script type="text/javascript" src="~/Areas/Procurement/Assets/js/pagestart.js"></script>
+}
+
+<div class="mainlist-cont @(Model.HasBeenSubmitted ? "submitted" : "")"></div>
+
+@Html.Partial("_ItemQty")
+<div class="modal fade" id="modalImport" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title"></h6>
+            </div>
+            <div class="modal-body">
+                                
+                <div class="ppmp-select">
+                    
+                    @if (!Model.HasBeenSubmitted)
+                    {
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <table class="display table table-bordered table-striped table-list selection-list static-table">
+                                    <thead>
+                                        <tr>
+                                            <th>
+
+                                            </th>
+                                            <th>
+                                                Description
+                                            </th>
+                                            <th>
+                                                Submitted By
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in aprs)
+                                        {
+                                            coreApp.Areas.Procurement.DAL.tblAPR apr = (coreApp.Areas.Procurement.DAL.tblAPR)item.Data["apr"];
+
+                                            <tr locked>
+                                                <td style="text-align:center;width:50px">
+                                                    <div class="radiobox">
+                                                        <label>
+                                                            <input type="radio" name="APR" value="@apr.Id" @(item.Selected ? "checked" : "") />
+                                                        </label>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    @apr.Description
+                                                </td>
+                                                <td style="width:250px">
+                                                    @Html.DisplayFor(modelItem => apr.SubmittedBy)<br />
+                                                    @Html.DisplayFor(modelItem => apr.SubmitDate)
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    }
+
+                </div>
+
+            </div>
+             <div class="modal-footer btn-group-sm">
+                <button type="button" class="btn btn-default btn-clean btn-cancel" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary btn-clean btn-ok">Ok</button>
+            </div>
+        </div>
+    </div>
+</div>

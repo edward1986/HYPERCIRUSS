@@ -1,0 +1,15 @@
+﻿@model coreApp.Areas.SAM.IssuanceModel
+@{
+    ViewBag.Title = "My Issuances";
+    ViewBag.Subtitle = "";
+    
+}
+
+@section Breadcrumbs {
+    @Html.Partial("_Breadcrumbs", new List<Breadcrumb>()
+    {
+        new Breadcrumb { Description = ViewBag.Title }
+    })
+}
+
+@Html.Partial("~/Areas/SAM/Views/Issuances/_Issuances.cshtml")

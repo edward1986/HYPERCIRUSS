@@ -1,0 +1,42 @@
+﻿@model Module.Time.AttendanceModel
+
+@{
+    ViewBag.Title = "My Attendance";
+    ViewBag.Subtitle = "";
+
+
+    Module.DB.tblEmployee employee = (Module.DB.tblEmployee)ViewBag.Employee;
+}
+
+@section Breadcrumbs {
+    @Html.Partial("_Breadcrumbs", new List<Breadcrumb>()
+    {
+        new Breadcrumb { Description = ViewBag.Title }
+    })
+}
+
+@section Scripts {
+    <script>
+         function applyPeriod(start, end) {
+            window.location = '/EmployeeModule/MyAttendance/@employee.EmployeeId/' + start + '/' + end;
+        }
+
+        function printDTR() {
+            window.open('/HRModule/EmployeeAttendance/Print?employeeId=@employee.EmployeeId', '_blank');
+        }
+    </script>
+}
+
+<div class="block">
+    <div class="head bg-default bg-light-ltr noradius">
+        <h2>@ViewBag.Title</h2>
+        <div class="side pull-right">
+            <ul class="buttons">
+                <li><button class="btn btn-info btn-print" onclick="printDTR()">Print DTR</button></li>
+            </ul>
+        </div>
+    </div>
+    <div class="content">
+        @Html.Partial("~/Areas/TimeModule/Views/Shared/_AttendanceByPeriod.cshtml", Model, new ViewDataDictionary { { "clientCallback", "applyPeriod" } })
+    </div>
+</div>

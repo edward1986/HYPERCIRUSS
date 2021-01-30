@@ -1,0 +1,132 @@
+﻿@model List<Module.DB.tblOffice>
+@{
+    bool readOnly = Convert.ToBoolean(ViewData["ReadOnly"]);
+    bool showFullList = Convert.ToBoolean(ViewData["ShowFullList"]);
+    string readOnly_NoOfficeText = Convert.ToString(ViewData["readOnly_NoOfficeText"]);
+
+    List<SelectListItem> campus = SelectItems.getCampuses().Where(x => x.Value != "-1").ToList();
+    List<SelectListItem> offices = SelectItems.getOffices().Where(x => x.Value != "-1").ToList();
+    //List<SelectListItem> departments = SelectItems.getDepartments().Where(x => x.Value != "-1").ToList();
+
+
+}
+
+<style>
+    .office-list-disp tr td:first-child {
+        width: 30px;
+    }
+</style>
+
+@if (readOnly)
+{
+    if (Model.Any())
+    {
+        if (showFullList)
+        {
+            <table class="office-list-disp">
+                <tbody>
+                    @foreach (SelectListItem o in offices)
+                    {
+                        bool selected = Model.Any(x => x.OfficeId.ToString() == o.Value);
+
+                        <tr><td>@Html.DisplayBooleanFor(m => selected)</td><td>@o.Text</td></tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <ul>
+
+                @{
+                    List<string[]> myCampus = new List<string[]>();
+
+                    int? addedCampus = 0;
+                    int? campusId = 0;
+
+                }
+
+                @foreach (Module.DB.tblOffice o in Model.OrderBy(x => x.CampusID))
+                {
+                    if (addedCampus != o.CampusID)
+                    {
+                        myCampus.Add(new[] { o.CampusID.ToString(), o.Campus.Campus.ToString() });
+                    }
+
+                    addedCampus = o.CampusID;
+                }
+
+                @foreach (var item in myCampus)
+                {
+                    <li>
+
+                        @item[1]
+
+                        <ul>
+
+                            @foreach (Module.DB.tblOffice o in Model.Where(x => x.CampusID == Convert.ToInt32(@item[0])).OrderBy(x => x.CampusID))
+                            {
+
+                                <li>@o.Office</li>
+
+                                campusId = o.CampusID;
+                            }
+
+                        </ul>
+
+                    </li>
+
+                }
+
+            </ul>
+        }
+
+    }
+    else if (!string.IsNullOrEmpty(readOnly_NoOfficeText))
+    {
+        <span>@readOnly_NoOfficeText</span>
+    }
+}
+else
+{
+
+    <div class="entry-ui select-all select-all-parent-inverse treeview">
+        <ul style="list-style-type: none;">
+            <li>
+                @Html.Partial("_Helper_CheckBox", null, new ViewDataDictionary { { "value", offices.Count == Model.Count }, { "text", "Select All" }, { "input-value", "SelectAll" } })
+
+                <ul style="list-style-type: none;">
+
+                    @foreach (SelectListItem c in campus)
+                    {
+                        bool xselected = Model.Any(x => x.CampusID.ToString() == c.Value);
+
+                        <li>
+                            @Html.Partial("_Helper_CheckBox", "CampusScopeSelection", new ViewDataDictionary { { "value", xselected }, { "text", c.Text }, { "input-value", c.Value } })
+
+                            <br />
+                            <ul style="list-style-type: none;">
+
+                                @foreach (SelectListItem o in offices.Where(x => x.Value.Split(',')[0] == c.Value))
+                                {
+                                    bool selected = Model.Any(x => x.OfficeId.ToString() == o.Value.Split(',')[1]);
+
+                                    <li>
+                                        @Html.Partial("_Helper_CheckBox", "OfficeScopeSelection", new ViewDataDictionary { { "value", selected }, { "text", o.Text }, { "input-value", o.Value.Split(',')[1] } })
+                                        <br />
+
+                                    </li>
+
+                                }
+
+                            </ul>
+                        </li>
+                    }
+
+                </ul>
+
+            </li>
+        </ul>
+
+    </div>
+}

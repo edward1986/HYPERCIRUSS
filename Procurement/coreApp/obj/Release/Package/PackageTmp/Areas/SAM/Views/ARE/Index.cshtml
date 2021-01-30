@@ -1,0 +1,204 @@
+﻿@model List<coreApp.Areas.SAM.tblARE>
+@{
+    ViewBag.Title = "Property Acknowledgement Receipts";
+
+    int Year = (int)ViewBag.Year;
+
+}
+
+@section Breadcrumbs {
+@Html.Partial("_Breadcrumbs", new List<Breadcrumb>()
+    {
+        new Breadcrumb { Description = "Supply/Asset Management", Link = Url.Action("Index", "Main", new { area = "SAM" }) },
+        new Breadcrumb { Description = ViewBag.Title }
+    })
+}
+
+@section Scripts {
+    <script>
+        function load(e) {
+
+            if (e.viewType == 'view') {
+                var printBtn = e.modal.find('.btn-print');
+                var printlink = printBtn.attr('data-link-tmp');
+
+                printBtn.unbind('click').bind('click', function (ee) {
+                    ee.preventDefault();
+
+                    modalPrint('@Module.Core.ModuleConstants.PRINT_OPTIONS', function (ret) {
+                        var dlWord = 'true';
+
+                        if (ret) {
+                            dlWord = 'false';
+                        }
+
+                        window.open(printlink + '?dlWord=' + dlWord, '_blank');
+                    });
+                });
+
+                var printICSBtn = e.modal.find('.btn-print-ics');
+                var printICSlink = printICSBtn.attr('data-link-tmp');
+
+                printICSBtn.unbind('click').bind('click', function (ee) {
+                    ee.preventDefault();
+
+                    modalPrint('@Module.Core.ModuleConstants.PRINT_OPTIONS', function (ret) {
+                        var dlWord = 'true';
+
+                        if (ret) {
+                            dlWord = 'false';
+                        }
+
+                        window.open(printICSlink + '?dlWord=' + dlWord, '_blank');
+                    });
+                });
+
+            } else if (e.viewType == 'create' || e.viewType == 'edit') {
+
+                var toTypeUI = e.modal.find('.totype-ui');
+                var toTypes = e.modal.find('input[name="To_Type"]');
+
+                toTypes.change(function () {
+
+                    toTypeUI.removeClass('show-totype-employee show-totype-contractor');
+
+                    if ($(this).val() == '0') {
+                        toTypeUI.addClass('show-totype-employee');
+                    } else {
+                        toTypeUI.addClass('show-totype-contractor');
+                    }
+
+                });
+            }
+
+            return e;
+        }
+    </script>
+}
+
+@section Styles {
+    <style>
+        .form-row:first-child {
+            margin-top: 0px;
+        }
+
+        .form-row:last-child {
+            margin-bottom: 10px;
+        }
+
+        .totype {
+            display: none;
+        }
+
+        div.show-totype-employee .totype-employee,
+        div.show-totype-contractor .totype-contractor {
+            display: block;
+        }
+    </style>
+}
+
+<div class="row">
+    <div class="col-sm-12">
+        For the year:
+        @Html.Partial("~/Areas/Procurement/Views/Shared/yearInfo.cshtml", "/SAM/ARE/Index/{0}")
+        <br />
+    </div>
+</div>
+
+<div class="block">
+    <div class="head bg-default bg-light-ltr noradius">
+        <h2>@ViewBag.Title</h2>
+        <div class="side pull-right">
+            <ul class="buttons">
+                <li>
+                    <button class="btn btn-success btn-create" onclick="$.fn.list('modalCreate', this)">Create</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="content">
+        <table class="display table table-bordered table-striped table-list" cellspacing="0" width="100%"
+               modal-target="#modalView" modal-start="view" modal-load-callback="load"
+               modal-view-url="/SAM/ARE/Details/@Year/{0}" modal-edit-url="/SAM/ARE/Edit/@Year/{0}" modal-delete-url="/SAM/ARE/Delete/@Year" modal-create-url="/SAM/ARE/Create/@Year">
+            <thead>
+                <tr>
+                    <th>
+                        Date
+                    </th>
+                    <th>
+                        PAR No.
+                    </th>
+                    @if (FixedSettings.IncludeContractors)
+                    {
+                        <th>
+                            Employee/Contractor
+                        </th>
+                    }
+                    else
+                    {
+                        <th>
+                            Employee
+                        </th>
+                    }
+                    
+                    <th>
+                        Position
+                    </th>
+                    <th>
+                        Office
+                    </th>
+                    <th>
+                        Department
+                    </th>
+                    <th>
+                        Fund Cluster
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (coreApp.Areas.SAM.tblARE item in Model)
+                {
+                    <tr record-id="@item.Id">
+                        <td>
+                            @Html.DisplayFor(modelItem => item.AREDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item._ARENo)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item._To_Name)
+                        </td>
+
+                        @if (item.ToContractor)
+                        {
+                            <td></td>
+                            <td>
+                                @Html.DisplayMultiLineFor(modelItem => item._To_Address)
+                            </td>                            
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>
+                                @Html.DisplayFor(modelItem => item._To_Position)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item._To_Office)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item._To_Department)
+                            </td>
+                        }
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FundCluster)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+    </div>
+</div>
+
+@Html.Partial("~/Views/Shared/modals/_ModalView.cshtml", "modalView")

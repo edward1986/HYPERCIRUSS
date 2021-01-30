@@ -1,0 +1,63 @@
+﻿@using coreApp.Areas.SAM
+@model string
+@{
+    int Year = (int)ViewBag.Year;
+    tblReceiptItem receiptItem = (tblReceiptItem)ViewBag.ReceiptItem;
+
+    List<TagItemModel> items = (List<TagItemModel>)ViewBag.TagItems;
+    TagItemModel item = items.Where(x => x.ReceiptItem.Id == receiptItem.Id).SingleOrDefault();
+}
+
+@if (item != null)
+{
+
+    <label class="col-form-label text-lg-right">For item:</label>
+    <select onchange="receiptSelected(this)" class="form-control pc-selectpicker" data-style="btn-success">
+        @foreach (TagItemModel o in items)
+        {
+            <option value="@o.ReceiptItem.Id" @(receiptItem.Id == o.ReceiptItem.Id ? "selected" : "")>@string.Format("{0} (Received: {1})", o.POItem.ItemName, o.Receipt.ReceivedDate.ToString("MM/dd/yyyy"))</option>
+        }
+    </select>
+
+    <div class="alert alert-light m-b-0" role="alert">
+        <div style="padding:5px;">
+            <table>
+                <tbody>
+                    <tr>
+                        <td>P.O. No.</td>
+                        <td>&nbsp;:&nbsp;</td>
+                        <td>@item.Receipt._PONo</td>
+                    </tr>
+                    <tr>
+                        <td>Date Received</td>
+                        <td>&nbsp;:&nbsp;</td>
+                        <td>@Html.DisplayFor(model => item.Receipt.ReceivedDate)</td>
+                    </tr>
+                    <tr>
+                        <td>Received By</td>
+                        <td>&nbsp;:&nbsp;</td>
+                        <td>@item.Receipt.ReceivedBy</td>
+                    </tr>
+                    <tr>
+                        <td>Tagged</td>
+                        <td>&nbsp;:&nbsp;</td>
+                        <td>
+                            @string.Format("{0}/{1}", item.Tagged, item.ReceiptItem.Qty)
+                            @if (item.IsComplete)
+                            {
+                                <span class="text-success">&nbsp;[complete]</span>
+                            }
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        function receiptSelected(sel) {
+            window.location = '@Model' + $(sel).val();
+        }
+    </script>
+
+}

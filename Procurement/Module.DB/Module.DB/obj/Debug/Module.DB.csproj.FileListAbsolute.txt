@@ -1,0 +1,74 @@
+D:\Systems\SkyHR\Module.DB\Module.DB\bin\Debug\Module.DB.dll.config
+D:\Systems\SkyHR\Module.DB\Module.DB\bin\Debug\Module.DB.dll
+D:\Systems\SkyHR\Module.DB\Module.DB\bin\Debug\Module.DB.pdb
+D:\Systems\SkyHR\Module.DB\Module.DB\bin\Debug\coreLib.dll
+D:\Systems\SkyHR\Module.DB\Module.DB\bin\Debug\Newtonsoft.Json.dll
+D:\Systems\SkyHR\Module.DB\Module.DB\bin\Debug\System.Web.Mvc.dll
+D:\Systems\SkyHR\Module.DB\Module.DB\bin\Debug\_Encryption.dll
+D:\Systems\SkyHR\Module.DB\Module.DB\bin\Debug\System.Web.Razor.dll
+D:\Systems\SkyHR\Module.DB\Module.DB\bin\Debug\System.Web.WebPages.Razor.dll
+D:\Systems\SkyHR\Module.DB\Module.DB\bin\Debug\System.Web.WebPages.dll
+D:\Systems\SkyHR\Module.DB\Module.DB\bin\Debug\Microsoft.Web.Infrastructure.dll
+D:\Systems\SkyHR\Module.DB\Module.DB\bin\Debug\System.Web.WebPages.Deployment.dll
+D:\Systems\SkyHR\Module.DB\Module.DB\bin\Debug\coreLib.pdb
+D:\Systems\SkyHR\Module.DB\Module.DB\bin\Debug\Newtonsoft.Json.xml
+D:\Systems\SkyHR\Module.DB\Module.DB\obj\Debug\Module.DB.csprojAssemblyReference.cache
+D:\Systems\SkyHR\Module.DB\Module.DB\obj\Debug\Module.DB.csproj.CoreCompileInputs.cache
+D:\Systems\SkyHR\Module.DB\Module.DB\obj\Debug\Module.DB.csproj.CopyComplete
+D:\Systems\SkyHR\Module.DB\Module.DB\obj\Debug\Module.DB.dll
+D:\Systems\SkyHR\Module.DB\Module.DB\obj\Debug\Module.DB.pdb
+D:\Systems\Procurement\Module.DB\Module.DB\bin\Debug\Module.DB.dll.config
+D:\Systems\Procurement\Module.DB\Module.DB\bin\Debug\Module.DB.dll
+D:\Systems\Procurement\Module.DB\Module.DB\bin\Debug\Module.DB.pdb
+D:\Systems\Procurement\Module.DB\Module.DB\bin\Debug\coreLib.dll
+D:\Systems\Procurement\Module.DB\Module.DB\bin\Debug\Newtonsoft.Json.dll
+D:\Systems\Procurement\Module.DB\Module.DB\bin\Debug\System.Web.Mvc.dll
+D:\Systems\Procurement\Module.DB\Module.DB\bin\Debug\_Encryption.dll
+D:\Systems\Procurement\Module.DB\Module.DB\bin\Debug\System.Web.Razor.dll
+D:\Systems\Procurement\Module.DB\Module.DB\bin\Debug\System.Web.WebPages.Razor.dll
+D:\Systems\Procurement\Module.DB\Module.DB\bin\Debug\System.Web.WebPages.dll
+D:\Systems\Procurement\Module.DB\Module.DB\bin\Debug\Microsoft.Web.Infrastructure.dll
+D:\Systems\Procurement\Module.DB\Module.DB\bin\Debug\System.Web.WebPages.Deployment.dll
+D:\Systems\Procurement\Module.DB\Module.DB\bin\Debug\coreLib.pdb
+D:\Systems\Procurement\Module.DB\Module.DB\bin\Debug\Newtonsoft.Json.xml
+D:\Systems\Procurement\Module.DB\Module.DB\obj\Debug\Module.DB.csprojAssemblyReference.cache
+D:\Systems\Procurement\Module.DB\Module.DB\obj\Debug\Module.DB.csproj.CoreCompileInputs.cache
+D:\Systems\Procurement\Module.DB\Module.DB\obj\Debug\Module.DB.csproj.CopyComplete
+D:\Systems\Procurement\Module.DB\Module.DB\obj\Debug\Module.DB.dll
+D:\Systems\Procurement\Module.DB\Module.DB\obj\Debug\Module.DB.pdb
+D:\Procurement\Module.DB\Module.DB\bin\Debug\Module.DB.dll.config
+D:\Procurement\Module.DB\Module.DB\bin\Debug\Module.DB.dll
+D:\Procurement\Module.DB\Module.DB\bin\Debug\Module.DB.pdb
+D:\Procurement\Module.DB\Module.DB\bin\Debug\coreLib.dll
+D:\Procurement\Module.DB\Module.DB\bin\Debug\Newtonsoft.Json.dll
+D:\Procurement\Module.DB\Module.DB\bin\Debug\System.Web.Mvc.dll
+D:\Procurement\Module.DB\Module.DB\bin\Debug\System.Web.Razor.dll
+D:\Procurement\Module.DB\Module.DB\bin\Debug\System.Web.WebPages.Razor.dll
+D:\Procurement\Module.DB\Module.DB\bin\Debug\System.Web.WebPages.dll
+D:\Procurement\Module.DB\Module.DB\bin\Debug\Microsoft.Web.Infrastructure.dll
+D:\Procurement\Module.DB\Module.DB\bin\Debug\System.Web.WebPages.Deployment.dll
+D:\Procurement\Module.DB\Module.DB\bin\Debug\coreLib.pdb
+D:\Procurement\Module.DB\Module.DB\bin\Debug\Newtonsoft.Json.xml
+D:\Procurement\Module.DB\Module.DB\obj\Debug\Module.DB.csprojAssemblyReference.cache
+D:\Procurement\Module.DB\Module.DB\obj\Debug\Module.DB.csproj.CoreCompileInputs.cache
+D:\Procurement\Module.DB\Module.DB\obj\Debug\Module.DB.csproj.CopyComplete
+D:\Procurement\Module.DB\Module.DB\obj\Debug\Module.DB.dll
+D:\Procurement\Module.DB\Module.DB\obj\Debug\Module.DB.pdb
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\Module.DB\Module.DB\bin\Debug\Module.DB.dll.config
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\Module.DB\Module.DB\bin\Debug\Module.DB.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\Module.DB\Module.DB\bin\Debug\Module.DB.pdb
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\Module.DB\Module.DB\bin\Debug\coreLib.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\Module.DB\Module.DB\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\Module.DB\Module.DB\bin\Debug\System.Web.Mvc.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\Module.DB\Module.DB\bin\Debug\System.Web.Razor.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\Module.DB\Module.DB\bin\Debug\System.Web.WebPages.Razor.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\Module.DB\Module.DB\bin\Debug\System.Web.WebPages.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\Module.DB\Module.DB\bin\Debug\Microsoft.Web.Infrastructure.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\Module.DB\Module.DB\bin\Debug\System.Web.WebPages.Deployment.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\Module.DB\Module.DB\bin\Debug\coreLib.pdb
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\Module.DB\Module.DB\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\Module.DB\Module.DB\obj\Debug\Module.DB.csprojAssemblyReference.cache
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\Module.DB\Module.DB\obj\Debug\Module.DB.csproj.CoreCompileInputs.cache
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\Module.DB\Module.DB\obj\Debug\Module.DB.csproj.CopyComplete
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\Module.DB\Module.DB\obj\Debug\Module.DB.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\Module.DB\Module.DB\obj\Debug\Module.DB.pdb

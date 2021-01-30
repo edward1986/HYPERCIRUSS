@@ -1,0 +1,102 @@
+﻿@model List<coreApp.DAL.tblEmployee_Voluntary>
+
+@{
+    Layout = "~/Areas/EmployeeModule/Views/Shared/_EmployeeDetailsLayout.cshtml";
+
+    ViewBag.Title = "Voluntary Works";
+    ViewBag.Subtitle = "List";
+
+    ViewBag.EmployeeDetailsActiveTab = "voluntary";
+
+    Module.DB.tblEmployee employee = (Module.DB.tblEmployee)ViewBag.Employee;
+
+    bool readOnly = !coreApp.Cache.Get().userAccess.HasPermission("EmployeeVoluntary");
+
+}
+
+@section Breadcrumbs {
+    @Html.Partial("_Breadcrumbs", new List<Breadcrumb>()
+    {
+        new Breadcrumb { Description = "Employee Main Record", Link = Url.Action("Details", "Employees", new { id = employee.EmployeeId, area = "EmployeeModule" } ) },
+        new Breadcrumb { Description = ViewBag.Title }
+    })
+}
+
+<div class="block">
+    <div class="head bg-default bg-light-ltr noradius">
+        <h2>@ViewBag.Title</h2>
+        <div class="side pull-right">
+            <ul class="buttons">
+                @if (!readOnly)
+                {
+                    <li><button class="btn btn-success btn-create" onclick="$.fn.list('modalCreate', this)">Create</button></li>
+                }  
+            </ul>
+        </div>
+    </div>
+    <div class="content">
+        <table class="display table table-bordered table-striped table-list" cellspacing="0" width="100%"
+               modal-target="#modalView" modal-start="view"
+               modal-view-url="/HRModule/Employee/Voluntary/Details/@employee.EmployeeId/{0}" modal-edit-url="/HRModule/Employee/Voluntary/Edit/@employee.EmployeeId/{0}" modal-delete-url="/HRModule/Employee/Voluntary/Delete/@employee.EmployeeId" modal-create-url="/HRModule/Employee/Voluntary/Create/@employee.EmployeeId">
+            <thead>
+                <tr>
+                    <th class="idcol">
+                        Id
+                    </th>
+                    <th>
+                        From
+                    </th>
+                    <th>
+                        To
+                    </th>
+                    <th>
+                        Organization
+                    </th>
+                    <th>
+                        Address
+                    </th>
+                    <th>
+                        No. of Hours
+                    </th>
+                    <th>
+                        Position/Nature of Work
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (coreApp.DAL.tblEmployee_Voluntary item in Model)
+                {
+                    <tr record-id="@item.Id">
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Id)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DateFrom)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DateTo_Desc)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Organization)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Address)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NoOfHours)
+                        </td>
+                        <td>
+                            @Html.DisplayMultiLineFor(modelItem => item.PositionNatureOfWork)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+
+
+
+        </table>
+    </div>
+</div>
+
+@Html.Partial("~/Views/Shared/modals/_ModalView.cshtml", "modalView")
+

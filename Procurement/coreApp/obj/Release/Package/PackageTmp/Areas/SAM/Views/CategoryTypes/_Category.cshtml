@@ -1,0 +1,91 @@
+﻿@model coreApp.Areas.Procurement.DAL.tblCategory
+
+@{    
+    bool isReadOnly = (bool)ViewBag.uiIsReadOnly;
+    bool includeId = (bool)ViewBag.uiIncludeId;
+    
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+
+    if (isReadOnly)
+            {
+                <div class="form-row">
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.Id)
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-control">
+                            @Html.DisplayFor(model => model.Id)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.Category)
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-control">
+                            @Html.DisplayFor(model => model.Category)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.Type)
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-control">
+                            @Html.DisplayFor(model => model.Type_Desc)
+                        </div>
+                    </div>
+                </div>
+                
+
+    }
+    else
+    {
+        @Html.HiddenFor(model => model.Id)
+        @Html.HiddenFor(model => model.Category)
+        @Html.HiddenFor(model => model.Code)
+
+        if (includeId)
+        {
+            <div class="form-row">
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.Id)
+                </div>
+                <div class="col-md-9">
+                    <div class="form-control dimmed">
+                        @Html.DisplayFor(model => model.Id)
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.Category)
+                </div>
+                <div class="col-md-9">
+                    <div class="form-control dimmed">
+                        @Html.DisplayFor(model => model.Category)
+                    </div>
+                </div>
+            </div>
+        }
+
+        <div class="form-row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.Type)
+            </div>
+            <div class="col-md-9">
+                @Html.DropDownListFor(model => model.Type, coreApp.Areas.SAM.SelectItems.getCategoryTypes(), new { @class = "form-control" })
+            </div>
+        </div>
+    }
+}

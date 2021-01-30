@@ -1,0 +1,32 @@
+﻿@model coreApp.DAL.leaveApplicationApproveModel
+
+<div class="approve-ui" data-applicationid="@Model.ApplicationId">    
+    <fieldset>
+        <legend>Applicant applied for @Model.LeaveType</legend>
+
+        @Html.DisplayFor(model => model.Applied.Date_Desc)
+    </fieldset>
+    <br />
+    <fieldset>
+        <legend>Approve Leave w/ Pay</legend>
+
+        <div class="row">
+            <div class="col-sm-3">
+                @Html.Partial("_Helper_CheckBox", "NoWithPay", new ViewDataDictionary { { "value", Model.WithPay == null }, { "text", "None" } })
+            </div>
+            <div class="col-sm-9">
+                <div class="with-pay">
+                    @Html.Partial("_LeavePeriod", Model.WithPay, new ViewDataDictionary { { "minDate", Model.WithPay.StartDate.ToString("MM/dd/yyyy") }, { "maxDate", Model.WithPay.EndDate.ToString("MM/dd/yyyy") }, { "lockIncludeRestDays", true } })
+                </div>                
+            </div>
+        </div>
+        
+    </fieldset>
+    <br />
+    <fieldset>
+        <legend>Approve Leave w/o Pay</legend>
+
+        <div class="without-pay"></div>
+    </fieldset>
+    <div style="clear:both">&nbsp;</div>
+</div>

@@ -1,0 +1,63 @@
+﻿@{ 
+    Layout = "~/Views/Shared/_ModuleLayout.cshtml";
+
+    Module.DB.tblEmployee employee = (Module.DB.tblEmployee)ViewBag.Employee;
+
+    string employeeDetailsActiveTab = ViewBag.EmployeeDetailsActiveTab;
+    
+}
+@section Styles {
+    <style>
+        .btn-group a {
+            border-radius: initial;
+        }
+
+        
+    </style>
+    @RenderSection("Styles", false)
+}
+
+@section HeaderScripts {
+    @RenderSection("HeaderScripts", required: false)
+}
+
+@section Breadcrumbs {
+    @RenderSection("Breadcrumbs", required: false)
+}
+
+@section Scripts {
+    @RenderSection("Scripts", required: false)
+}
+
+
+
+<div class="row">
+    <div class="col-md-12">
+
+        @Html.Partial("~/Views/Shared/modals/_ModalView_FromDetails.cshtml", "modalViewDetails_Create")
+
+        @Html.Partial("_employeeInfoPhoto", employee)
+        <div class="btn-group btn-group-justified">
+            <a href="@Url.Action("Details", "MyProfile", new { area = "EmployeeModule" })" class="btn btn-default btn-clean @(employeeDetailsActiveTab == "main" ? "active" : "")">Main Record</a>
+            <a href="@Url.Action("Details", "MyInfo", new { area = "EmployeeModule" })" class="btn btn-default btn-clean @(employeeDetailsActiveTab == "personal-info" ? "active" : "")">Personal Information</a>
+        </div>
+        <div class="btn-group btn-group-justified">
+            <a href="@Url.Action("Details", "MyPhotos", new { area = "EmployeeModule" })" class="btn btn-default btn-clean @(employeeDetailsActiveTab == "photos" ? "active" : "")">Photos</a>            
+            <a href="@Url.Action("Index", "MyCareers", new { area = "EmployeeModule" })" class="btn btn-default btn-clean @(employeeDetailsActiveTab == "careers" ? "active" : "")">Career</a>            
+            <a href="@Url.Action("Index", "MyTrainings", new { area = "EmployeeModule" })" class="btn btn-default btn-clean @(employeeDetailsActiveTab == "trainings" ? "active" : "")">Trainings</a>
+            <a href="@Url.Action("Index", "MyEduc", new { area = "EmployeeModule" })" class="btn btn-default btn-clean @(employeeDetailsActiveTab == "education" ? "active" : "")">Education</a>
+            <a href="@Url.Action("Index", "MyWorkExps", new { area = "EmployeeModule" })" class="btn btn-default btn-clean @(employeeDetailsActiveTab == "workexps" ? "active" : "")">Work Experiences</a>
+        </div>
+        <div class="btn-group btn-group-justified">
+            <a href="@Url.Action("Index", "MyChildren", new { area = "EmployeeModule" })" class="btn btn-default btn-clean @(employeeDetailsActiveTab == "children" ? "active" : "")">Children</a>
+            <a href="@Url.Action("Index", "MyCivilServices", new { area = "EmployeeModule" })" class="btn btn-default btn-clean @(employeeDetailsActiveTab == "civil-services" ? "active" : "")">Civil Services</a>
+            <a href="@Url.Action("PDSQuestions", "MyInfo", new { area = "EmployeeModule" })" class="btn btn-default btn-clean @(employeeDetailsActiveTab == "pds-questions" ? "active" : "")">PDS Questions</a>
+            <a href="@Url.Action("Index", "MyReferences", new { area = "EmployeeModule" })" class="btn btn-default btn-clean @(employeeDetailsActiveTab == "references" ? "active" : "")">References</a>
+            <a href="@Url.Action("Index", "MyVoluntary", new { area = "EmployeeModule" })" class="btn btn-default btn-clean @(employeeDetailsActiveTab == "voluntary" ? "active" : "")">Voluntary Works</a>
+            <a href="@Url.Action("Details", "MyOtherInfo", new { area = "EmployeeModule" })" class="btn btn-default btn-clean @(employeeDetailsActiveTab == "other-info" ? "active" : "")">Other Information</a>
+        </div>
+
+        @RenderBody()
+    </div>
+</div>
+

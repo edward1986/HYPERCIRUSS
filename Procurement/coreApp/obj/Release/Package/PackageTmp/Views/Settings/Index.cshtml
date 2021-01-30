@@ -1,0 +1,219 @@
+﻿@model List<Module.DB.tblSettings_BaseModule>
+
+@{
+    ViewBag.Title = "Settings";
+    ViewBag.Subtitle = "List";
+
+}
+
+@section Breadcrumbs {
+    @Html.Partial("_Breadcrumbs", new List<coreApp.Breadcrumb>() { new coreApp.Breadcrumb { Description = ViewBag.Title } })
+}
+
+@section Styles {
+    <style>
+        .tab-content {
+            min-height: 200px;
+        }
+
+        .table tr th:first-child,
+        .table tr td:first-child {
+            width: 200px;
+        }
+    </style>    
+}
+
+@using(Html.BeginForm("RefreshCachedTables", "Settings", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    
+    <button type="submit" class="btn btn-info">Refresh Cached Tables</button>    
+}
+
+<br />
+
+<div class="block">
+    <ul class="nav nav-tabs" state-key="settings-tab" state-manager-for="tabs">
+        <li class="active"><a href="#general" data-toggle="tab">General</a></li>
+        <li><a href="#reports" data-toggle="tab">Reports</a></li>
+        <li><a href="#mail" data-toggle="tab">Mail</a></li>
+
+        <li><a href="#sams" data-toggle="tab">SAMS</a></li>
+        <li><a href="#procurement" data-toggle="tab">Procurement</a></li>
+        @*@if (MvcApplication.ApplicationLicense.Info.Modules_SAM)
+        {
+
+        }
+        @if (MvcApplication.ApplicationLicense.Info.Modules_Procurement)
+        {
+
+        }*@
+    </ul>
+    <div class="content tab-content">
+        <div class="tab-pane active" id="general">
+            <table id="general-table" class="display table table-bordered table-striped table-list" cellspacing="0" width="100%"
+                    modal-target="#modalView" modal-start="edit" modal-noview="true" modal-edit-url="/Settings/Edit/{0}">
+
+                    <thead>
+                        <tr>
+                            <th>Setting</th>
+                            <th>Value</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (Module.DB.tblSettings_BaseModule s in Model.Where(x => x.Category == "General"))
+                        {
+                            <tr record-id="@s.Id">
+                                <td>
+                                    @s.Setting
+                                </td>
+                                <td>
+                                    @if (s.ValueType == "bool")
+                                    {
+                                        @(s.SettingValue == "true" ? "Yes" : "No")
+                                    }
+                                    else
+                                    {
+                                        @s.SettingValue
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+        </div>
+        <div class="tab-pane" id="reports">
+            <table id="reports-table" class="display table table-bordered table-striped table-list" cellspacing="0" width="100%"
+                    modal-target="#modalView" modal-start="edit" modal-noview="true" modal-edit-url="/Settings/Edit/{0}">
+                <thead>
+                    <tr>
+                        <th>Setting</th>
+                        <th>Value</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (Module.DB.tblSettings_BaseModule s in Model.Where(x => x.Category == "Reports"))
+                    {
+                        <tr record-id="@s.Id">
+                            <td>
+                                @s.Setting
+                            </td>
+                            <td>
+                                @if (s.ValueType == "bool")
+                                {
+                                    @(s.SettingValue == "true" ? "Yes" : "No")
+                                }
+                                else
+                                {
+                                    @s.SettingValue
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="tab-pane" id="mail">
+            <table id="mail-table" class="display table table-bordered table-striped table-list" cellspacing="0" width="100%"
+                   modal-target="#modalView" modal-start="edit" modal-noview="true" modal-edit-url="/Settings/Edit/{0}">
+                <thead>
+                    <tr>
+                        <th>Setting</th>
+                        <th>Value</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (Module.DB.tblSettings_BaseModule s in Model.Where(x => x.Category == "Mail"))
+                    {
+                        <tr record-id="@s.Id">
+                            <td>
+                                @s.Setting
+                            </td>
+                            <td>
+                                @if (s.ValueType == "bool")
+                                {
+                                    @(s.SettingValue == "true" ? "Yes" : "No")
+                                }
+                                else
+                                {
+                                    @s.SettingValue
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        @if (true)
+        {
+            <div class="tab-pane" id="sams">
+                <table id="sams-table" class="display table table-bordered table-striped table-list" cellspacing="0" width="100%"
+                       modal-target="#modalView" modal-start="edit" modal-noview="true" modal-edit-url="/Settings/Edit/{0}">
+                    <thead>
+                        <tr>
+                            <th>Setting</th>
+                            <th>Value</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (Module.DB.tblSettings_BaseModule s in Model.Where(x => x.Category == "SAMS"))
+                        {
+                            <tr record-id="@s.Id">
+                                <td>
+                                    @s.Setting
+                                </td>
+                                <td>
+                                    @if (s.ValueType == "bool")
+                                    {
+                                        @(s.SettingValue == "true" ? "Yes" : "No")
+                                    }
+                                    else
+                                    {
+                                        @s.SettingValue
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+        @if (true)
+        {
+            <div class="tab-pane" id="procurement">
+                <table id="sams-table" class="display table table-bordered table-striped table-list" cellspacing="0" width="100%"
+                       modal-target="#modalView" modal-start="edit" modal-noview="true" modal-edit-url="/Settings/Edit/{0}">
+                    <thead>
+                        <tr>
+                            <th>Setting</th>
+                            <th>Value</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (Module.DB.tblSettings_BaseModule s in Model.Where(x => x.Category == "Procurement"))
+                        {
+                            <tr record-id="@s.Id">
+                                <td>
+                                    @s.Setting
+                                </td>
+                                <td>
+                                    @if (s.ValueType == "bool")
+                                    {
+                                        @(s.SettingValue == "true" ? "Yes" : "No")
+                                    }
+                                    else
+                                    {
+                                        @s.SettingValue
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+       
+    </div>
+</div>
+
+@Html.Partial("~/Views/Shared/modals/_ModalView.cshtml", "modalView")

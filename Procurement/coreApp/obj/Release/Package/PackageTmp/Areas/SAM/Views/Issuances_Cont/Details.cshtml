@@ -1,0 +1,24 @@
+﻿@model coreApp.Areas.SAM.IssuanceModel_Cont
+
+@{
+
+    ViewBag.Title = "Contractor Issuances";
+    ViewBag.Subtitle = "Details";
+
+    ViewBag.uiIsReadOnly = true;
+    ViewBag.uiIncludeId = true;
+
+}
+
+@section Breadcrumbs {
+    @Html.Partial("_Breadcrumbs", new List<Breadcrumb>()
+    {
+        new Breadcrumb { Description = "Supply/Asset Management", Link = Url.Action("Index", "Main", new { area = "SAM" }) },
+        new Breadcrumb { Description = ViewBag.Title }
+    })
+}
+
+@Html.Partial("_Contractors", Model.ContractorId, new ViewDataDictionary { { "ShowEmptyItem", false } })
+<br />
+@Html.Partial("_Issuances")
+

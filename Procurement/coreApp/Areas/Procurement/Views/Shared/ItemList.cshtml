@@ -1,0 +1,55 @@
+﻿@model List<coreApp.Areas.Procurement.DAL.tblItem>
+
+<div class="dt-responsive table-responsive">
+    <table class="display table table-bordered table-striped table-list skiptable" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Description
+                </th>
+                <th>
+                    Category
+                </th>
+                <th>
+                    In DBM
+                </th>
+                <th>
+                    Unit
+                </th>
+                <th>
+                    Price
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (coreApp.Areas.Procurement.DAL.tblItem item in Model)
+            {
+
+                <tr record-id="@item.Id" data-item-name="@item.Name" data-item-price="@item.Price" data-item-unit="@item.Unit.Unit">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                    <td>
+                        @item.Category.Code - @item.Category.Category
+                    </td>
+                    <td style="text-align:center;width:100px;">
+                        @(item.InDBM ? "Yes" : "No")
+                    </td>
+                    <td style="text-align:center;width:150px;">
+                        @Html.DisplayFor(modelItem => item.Unit.Unit)
+                    </td>
+                    <td style="text-align:right;width:150px;">
+                        @Html.DisplayFor(modelItem => item.Price)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+

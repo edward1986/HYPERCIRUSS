@@ -1,0 +1,213 @@
+﻿@model List<coreApp.Areas.Procurement.DAL.tblNOA>
+@{
+
+    ViewBag.Title = "Notice of Award";
+    int Year = (int)ViewBag.Year;
+
+}
+
+@section Breadcrumbs {
+    @Html.Partial("_Breadcrumbs", new List<Breadcrumb>()
+    {
+        new Breadcrumb { Description = "Public Bidding" },
+        new Breadcrumb { Description = ViewBag.Title }
+    })
+}
+
+@section Styles {
+    <link href="~/Areas/Procurement/Assets/css/common.less" rel="stylesheet" type="text/css">
+
+}
+
+@section Scripts {
+    <script>
+
+        function load(e) {
+
+            if (e.viewType == 'view') {
+
+                var editBtn = e.modal.find('.btn-edit');
+                var deleteBtn = e.modal.find('.btn-delete');
+                var submitBtn = e.modal.find('.btn-submit');
+                var returnBtn = e.modal.find('.btn-return');
+                var printBtn = e.modal.find('.btn-print');
+
+                var submitLink = submitBtn.attr('data-link-tmp');
+
+                submitBtn.unbind('click').bind('click', function (ee) {
+                    ee.preventDefault();
+
+                    modalConfirm('Are you sure you want to submit this document?', function (ret) {
+                        if (ret) {
+                            e.modal.modal('hide');
+                            var proc = modalProcessing();
+
+                            $.post(submitLink, null, function (res) {
+                                proc.modal('hide');
+
+                                if (res.IsSuccessful) {
+                                    sessionStorage.clientMessage = res.Remarks;
+                                    window.location.reload(true);
+                                } else {
+                                    modalMessage(res.Err.split('\n'), 'Office PPMP', true);
+                                }
+                            }, 'json');
+                        }
+                    });
+
+                });
+
+                var returnLink = returnBtn.attr('data-link-tmp');
+
+                returnBtn.unbind('click').bind('click', function (ee) {
+                    ee.preventDefault();
+
+                    modalInput('Are you sure you want to return this document?', 'Return Message:',  function (ret, userInput) {
+                        if (ret) {
+                            if (userInput == '') {
+                                modalMessage('Return message is required', true);
+                                return;
+                            }
+
+                            var data = {
+                                returnMessage: userInput
+                            };
+
+                            $.post(returnLink, data, function (res) {
+                                if (res.IsSuccessful) {
+                                    sessionStorage.clientMessage = res.Remarks;
+                                    window.location.reload(true);
+                                } else {
+                                    modalMessage(res.Err.split('\n'), 'Return NOA', true);
+                                }
+                            }, 'json');
+                        }
+                    }, 'textarea', function (modal) {
+                        modal.find('.modal-footer .btn-cancel').html('No');
+                        modal.find('.modal-footer .btn-ok').html('Yes');
+                    });
+
+                });
+
+                var printlink = printBtn.attr('data-link-tmp');
+
+                printBtn.unbind('click').bind('click', function (ee) {
+                    ee.preventDefault();
+
+                    modalPrint('@Module.Core.ModuleConstants.PRINT_OPTIONS', function (ret) {
+                        var dlWord = 'true';
+
+                        if (ret) {
+                            dlWord = 'false';
+                        }
+
+                        window.open(printlink + '?dlWord=' + dlWord, '_blank');
+                    });
+                });
+
+                var hasBeenSubmitted = e.modal.find('[name="Submitted"]').val() == 'True';
+
+                if (hasBeenSubmitted) {
+                    editBtn.hide();
+                    deleteBtn.hide();
+                    submitBtn.hide();
+                    returnBtn.show();
+                } else {
+                    editBtn.show();
+                    deleteBtn.show();
+                    submitBtn.show();
+                    returnBtn.hide();
+                }
+            }
+
+            $('#browse').on("click", function () {
+                $('.form').toggle();
+                $('.prList').toggle();
+            });
+        }
+
+    </script>
+
+
+}
+
+<div class="block">
+    <div class="card">
+        <div class="card-header">
+            <h5>@ViewBag.Title</h5>
+        </div>
+
+        <div class="card-body">
+            <div class="form-group row">
+                <div class="col-sm-3">
+                    <label class="col-form-label text-lg-right">For the year:</label>
+                    @Html.Partial("~/Areas/Procurement/Views/Shared/yearInfo.cshtml", "/Procurement/NOA/Index/{0}")
+                </div>
+            </div>
+            <ul class="nav nav-tabs mb-3" id="myTab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active text-uppercase" data-toggle="tab" href="#tab1" role="tab" aria-controls="home" aria-selected="true">Notice of Awards</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-uppercase" data-toggle="tab" href="#tab2" role="tab" aria-controls="profile" aria-selected="false">Submitted PR</a>
+                </li>
+            </ul>
+            <div class="content tab-content">
+                <div class="tab-pane active" id="tab1">
+                    <div class="float-right">
+                        <button class="btn btn-success btn-sm btn-create" onclick="$.fn.list('modalCreate', this)">Create</button>
+                    </div>
+                    <br />
+                    <br />
+
+                    <div class="dt-responsive table-responsive">
+                        <table id="table1" class="display table table-bordered table-striped table-list" cellspacing="0" width="100%"
+                               modal-target="#modalView" modal-start="view" modal-load-callback="load"
+                               modal-view-url="/Procurement/NOA/Details/@Year/{0}" modal-edit-url="/Procurement/NOA/Edit/@Year/{0}" modal-delete-url="/Procurement/NOA/Delete/@Year/{0}" modal-create-url="/Procurement/NOA/Create/@Year">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Description
+                                    </th>
+                                    <th width="10%">
+                                        Date Created
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr record-id="@item.Id" data-tableid="table1">
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Description)
+                                        </td>
+                                        <td>
+                                            @{
+                                                DateTime dateCreated = (DateTime)item.DateCreated;
+                                            }
+                                            @dateCreated.ToString("d")
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="tab-pane" id="tab2">
+
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+@Html.Partial("~/Views/Shared/modals/_ModalView.cshtml", "modalView")
+
+
+<style>
+    .modal-content {
+        width: 40rem;
+    }
+</style>

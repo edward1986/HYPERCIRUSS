@@ -1,0 +1,199 @@
+﻿
+@model coreApp.Areas.Procurement.DAL.tblAppItem
+
+
+@{
+    bool isReadOnly = (bool)ViewBag.uiIsReadOnly;
+    bool includeId = (bool)ViewBag.uiIncludeId;
+   
+}
+
+<style>
+    .modal-content {
+        width: 50em;
+        border: 0;
+        margin:auto;
+    }
+
+</style>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+
+    if (isReadOnly)
+    {
+
+        <div class="form-group row">
+            <div class="col-md">
+                @Html.LabelFor(model => model.PPMPNumber)
+                <div class="form-control">
+                    @Html.DisplayFor(model => model.PPMPNumber)
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md">
+                @Html.LabelFor(model => model.MOP_desc)
+                <div class="form-control">
+                    @Html.DisplayFor(model => model.MOP_desc)
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-6">
+                @Html.LabelFor(model => model.Advertisement)
+                <div class="form-control">
+                    @Html.DisplayFor(model => model.Advertisement)
+                </div>
+            </div>
+            <div class="col-md-6">
+                @Html.LabelFor(model => model.Submission)
+                <div class="form-control">
+                    @Html.DisplayFor(model => model.Submission)
+                </div>
+            </div>
+        </div>
+       
+        <div class="form-group row">
+            <div class="col-md-6">
+                @Html.LabelFor(model => model.NoticeOfAward)
+                <div class="form-control">
+                    @Html.DisplayFor(model => model.NoticeOfAward)
+                </div>
+            </div>
+            <div class="col-md-6">
+                @Html.LabelFor(model => model.ContractSigning)
+                <div class="form-control">
+                    @Html.DisplayFor(model => model.ContractSigning)
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md">
+                @Html.LabelFor(model => model.Total)
+                <div class="form-control">
+                    @Html.DisplayFor(model => model.Total)
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-6">
+                @Html.LabelFor(model => model.MOOE)
+                <div class="form-control">
+                    @Html.DisplayFor(model => model.MOOE)
+                </div>
+            </div>
+            <div class="col-md-6">
+                @Html.LabelFor(model => model.CO)
+                <div class="form-control">
+                    @Html.DisplayFor(model => model.CO)
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md">
+                @Html.LabelFor(model => model.Remarks)
+                <div class="form-control">
+                    @Html.DisplayFor(model => model.Remarks)
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        @Html.HiddenFor(model => model.Id)
+
+        if (includeId)
+        {
+            <div class="form-group row">
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.Id)
+                </div>
+                <div class="col-md-9">
+                    <div class="form-control dimmed">
+                        @Html.DisplayFor(model => model.Id)
+                    </div>
+                </div>
+            </div>
+        }
+
+        <div class="form-group row">
+            <div class="col-md">
+                @Html.LabelFor(model => model.PPMPNumber)
+                <div class="form-control">
+                    @Html.DisplayFor(model => model.PPMPNumber)
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md">
+                @Html.LabelFor(model => model.MOP_desc)
+                @Html.DropDownListFor(model => model.MOP, coreApp.Areas.Procurement.SelectItems.getModesOfProcurement("[Not Set]", Model.MOP == null ? -1 : (int)Model.MOP), new { @class = "form-control dd-mop" })
+
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-6">
+                @Html.LabelFor(model => model.Advertisement)
+                @Html.TextBoxFor(model => model.Advertisement, new { @class = "form-control datepicker" })
+            </div>
+            <div class="col-md-6">
+                @Html.LabelFor(model => model.Submission)
+                @Html.TextBoxFor(model => model.Submission, new { @class = "form-control datepicker" })
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-6">
+                @Html.LabelFor(model => model.NoticeOfAward)
+                @Html.TextBoxFor(model => model.NoticeOfAward, new { @class = "form-control datepicker" })
+            </div>
+            <div class="col-md-6">
+                @Html.LabelFor(model => model.ContractSigning)
+                @Html.TextBoxFor(model => model.ContractSigning, new { @class = "form-control datepicker" })
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md">
+                @Html.LabelFor(model => model.Total)
+                <div class="form-control">
+                    @Html.DisplayFor(model => model.Total, new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-6">
+                @Html.LabelFor(model => model.MOOE)
+                <div class="form-control">
+                    @Html.DisplayFor(model => model.MOOE, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="col-md-6">
+                @Html.LabelFor(model => model.CO)
+                <div class="form-control">
+                    @Html.DisplayFor(model => model.CO, new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+       
+        <div class="form-group row">
+            <div class="col-md">
+                @Html.LabelFor(model => model.Remarks)
+                @Html.TextAreaFor(model => model.Remarks, new { @class = "form-control" })
+
+            </div>
+        </div>
+
+    }
+}

@@ -1,0 +1,68 @@
+﻿@model coreApp.Models.EmployeeSearchModel
+@{
+    //List<Module.DB.tblDepartment> departments = (List<Module.DB.tblDepartment>)ViewBag.Departments;
+    List<Module.DB.tblOffice> offices = (List<Module.DB.tblOffice>)ViewBag.Offices;
+
+}
+<style>
+    .search.minimal-view .hidden-xs {
+        display: none;
+    }
+
+    .search.minimal-view .form-inline > * {
+        width: 100%;
+    }
+
+    .search-section .form-inline > * {
+        margin: 0 5px 5px 0;
+    }
+
+    /*.result-section {
+        min-height: 200px;
+    }*/
+</style>
+
+<div class="search @(Model.MinimalView ? "minimal-view" : "") @(Model.MultiSelect ? "multi-select" : "")" data-url="@Model.DataUrl" data-exclude-nocareer="@Model.ExcludeNoCareer"
+     data-exclude-nooffice="@Model.ExcludeNoOffice" data-enable-search="@Model.EnableSearch" state-key="employee-search" state-manager-for="employee-search">
+    <div class="block search-section">
+        @*@if (!string.IsNullOrEmpty(Model.Title))
+            {
+                <div class="header">
+                    @Model.Title
+                </div>
+            }*@
+
+        <div class="content">
+            <div class="form-inline">
+
+                <input type="text" class="form-control search-lastname" placeholder="Last Name" />
+                <input type="text" class="form-control search-firstname" placeholder="First Name" />
+
+                @*@Html.DropDownList("searchCampus", SelectItems.getCampuses("All Campus"), new { @class = "form-control search-campusid", data_department = "#searchOffice", data_office_value = "-1", @onchange = "filterOffice()", @id = "ddlCampus" })*@
+
+                @Html.DropDownList("searchOffice", SelectItems.getOffices("All Offices"), new { @class = "form-control search-officeid", data_department = "#searchDepartment", data_department_value = "-1", @id = "ddlOffice", @onchange = "filterDepartment()" })
+
+                @Html.DropDownList("serchDepartment", SelectItems.getDepartments("All Departments"), new { @class = "form-control search-departmentid", data_department_value = "-1", @id = "ddlDepartment" })
+
+
+                @*@Html.DropDownList("searchActive", SelectItems.getActive("Active/Inactive"), new { @class = "form-control search-active" })*@
+
+                <input type="button" class="btn btn-primary btn-search @(Model.EnableSearch ? "" : "hide")" value="Search" style="width: 100px;" />
+
+            </div>
+        </div>
+    </div>
+    <br />
+    <div style="clear:both"></div>
+    <div class="result-section"></div>
+
+    <input type="hidden" class="altSource" value="@(Model.AltSource == null ? "" : string.Join(",", Model.AltSource))" />
+    <input type="hidden" class="selectedItems" />
+</div>
+
+<style>
+    .dataTables_filter {
+        display: none;
+    }
+</style>
+

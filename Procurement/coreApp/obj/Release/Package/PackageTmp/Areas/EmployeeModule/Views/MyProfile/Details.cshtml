@@ -1,0 +1,94 @@
+﻿@model Module.DB.tblEmployee
+
+@{
+    Layout = "~/Areas/EmployeeModule/Views/Shared/_EmployeeDetailsLayout.cshtml";
+
+    ViewBag.Title = "My Profile";
+    ViewBag.Subtitle = "Details";
+
+    ViewBag.uiIsReadOnly = true;
+    ViewBag.uiIncludeId = true;
+
+    ViewBag.EmployeeDetailsActiveTab = "main";
+
+    UserAccess userAccess = coreApp.Cache.Get().userAccess;
+
+    bool hasAnyAccess = userAccess.HasAnyAccess;
+    bool hasOfficeScopes = userAccess.offices.Count > 0;
+    bool hasPermissions = userAccess.HasAnyPermission;
+}
+
+@section Breadcrumbs {
+    @Html.Partial("_Breadcrumbs", new List<Breadcrumb>()
+    {
+        new Breadcrumb { Description = ViewBag.Title }
+    })
+}
+
+<div class="block block-drop-shadow details" modal-target="#modalViewDetails">
+    <div class="head bg-default bg-light-ltr">
+        <h2>Main Record</h2>
+        <div class="side pull-right">
+            <ul class="buttons">
+
+            </ul>
+        </div>
+
+    </div>
+    <div class="content">
+        @Html.Partial("~/Areas/HRModule/Views/Employees/_Employee.cshtml", Model)
+    </div>
+</div>
+
+<div class="block">
+    <div class="content">
+        
+        @if (hasAnyAccess)
+        {
+            <div class="col-md-6">
+                <fieldset>
+                    <legend>Access List</legend>
+
+                    <div>
+                        @Html.Partial("/Areas/HRModule/Views/EmployeeAccess/_AccessList.cshtml", new Module.DB.Procs.procs_tblEmployee(Model).Access(), new ViewDataDictionary { { "ReadOnly", true } })
+                    </div>
+
+                </fieldset>
+            </div>
+            
+        }
+
+        @if (hasOfficeScopes)
+        {
+            <div class="col-md-6">
+                <fieldset>
+                    <legend>Office Scope</legend>
+
+                    <div>
+                        @Html.Partial("_OfficeList", new Module.DB.Procs.procs_tblEmployee(Model).Access().getOffices(), new ViewDataDictionary { { "ReadOnly", true } })
+                    </div>
+
+                </fieldset>
+            </div>
+        }
+
+        @if (hasPermissions)
+        {
+            <div class="col-md-6">
+                <fieldset>
+                    <legend>Permissions</legend>
+
+                    <div>
+                        @Html.Partial("/Areas/HRModule/Views/HRPermissions/_PermissionList.cshtml", new Module.DB.Procs.procs_tblEmployee(Model).Permissions(), new ViewDataDictionary { { "ReadOnly", true } })
+                    </div>
+
+                </fieldset>
+            </div>
+        }
+    </div>
+
+</div>
+
+
+
+@Html.Partial("~/Views/Shared/modals/_ModalView_FromDetails.cshtml", "modalViewDetails")

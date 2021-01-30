@@ -1,0 +1,27 @@
+﻿@model coreApp.Areas.SAM.IssuanceModel
+
+@{
+    Layout = "~/Areas/SAM/Views/Shared/_EmployeeDetailsLayout.cshtml";
+
+    ViewBag.Title = "Employee Issuances";
+    ViewBag.Subtitle = "Details";
+
+    ViewBag.uiIsReadOnly = true;
+    ViewBag.uiIncludeId = true;
+
+}
+
+@section Breadcrumbs {
+    @Html.Partial("_Breadcrumbs", new List<Breadcrumb>()
+    {
+        new Breadcrumb { Description = "Supply/Asset Management", Link = Url.Action("Index", "Main", new { area = "SAM" }) },
+        new Breadcrumb { Description = ViewBag.Title }
+    })
+}
+
+@section SearchSection {
+    @Html.Action("Search", "EmployeeSearch", new { area = "HRModule", model = new coreApp.Models.EmployeeSearchModel { DataUrl = "/SAM/Issuances/Details/{0}", MinimalView = true } })    
+}
+
+@Html.Partial("_Issuances")
+

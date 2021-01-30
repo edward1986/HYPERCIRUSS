@@ -1,0 +1,55 @@
+﻿@model List<Module.DB.tblEmployee>
+
+@{
+    bool showOfficeColumn = (bool)ViewBag.AllOffices;
+}
+
+<div class="block">
+    <div class="content">
+        <table class="display table table-bordered table-striped table-list" cellspacing="0" width="100%" data-url="">
+            <thead>
+                <tr>
+                    <th class="idcol hidden-xs">
+                        Id
+                    </th>
+                    <th>
+                        Name
+                    </th>
+                    <th class="hidden-xs">
+                        Id No.
+                    </th>
+                    <th class="hidden-xs">
+                        Department
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Module.DB.tblEmployee item in Model)
+                {
+
+                    <tr record-id="@item.EmployeeId" class="id-column">
+                        <td class="hidden-xs">
+                            @Html.DisplayFor(modelItem => item.EmployeeId)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FullName)
+                            @if (!item.IsActive())
+                            {
+                                <small class="text-danger">[inactive]</small>
+                            }
+                        </td>
+                        <td class="hidden-xs">
+                            @Html.DisplayFor(modelItem => item.IdNo)
+                        </td>
+                        <td class="hidden-xs">
+                            @Html.DisplayFor(modelItem => item.Department)
+                        </td>
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<div style="clear:both"></div>

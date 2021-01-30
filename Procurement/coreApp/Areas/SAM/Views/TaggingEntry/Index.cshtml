@@ -1,0 +1,145 @@
+﻿@model List<coreApp.Areas.SAM.tblInventoryItem>
+@{
+    ViewBag.Title = "Item Details";
+
+    coreApp.Areas.SAM.tblReceiptItem receiptItem = (coreApp.Areas.SAM.tblReceiptItem)ViewBag.ReceiptItem;
+
+    int Year = (int)ViewBag.Year;
+
+    bool showCompletd = (bool)ViewBag.ShowCompleted;
+}
+
+@section Breadcrumbs {
+    @Html.Partial("_Breadcrumbs", new List<Breadcrumb>()
+        {
+            new Breadcrumb { Description = "Tagging", Link = Url.Action("Index", "Tagging", new { area = "SAM", showCompleted = showCompletd }) },
+            new Breadcrumb { Description = ViewBag.Title }
+        })
+}
+
+@section Scripts {
+    <script>
+        function load(e) {
+
+            if (e.viewType == 'view') {
+                var printBtn = e.modal.find('.btn-print');
+                var printlink = printBtn.attr('data-link-tmp');
+
+                printBtn.unbind('click').bind('click', function (ee) {
+                    ee.preventDefault();
+
+                    modalPrint('@Module.Core.ModuleConstants.PRINT_OPTIONS', function (ret) {
+                        var dlWord = 'true';
+
+                        if (ret) {
+                            dlWord = 'false';
+                        }
+
+                        window.open(printlink + '?dlWord=' + dlWord, '_blank');
+                    });
+                });
+            }
+
+            if (e.viewType == 'create') {
+
+                var propertyNo = e.modal.find('.modal-body [name="PropertyNo"]');
+                var btnGenerate = e.modal.find('.modal-body .generate');
+
+                var generate = function () {
+                    var link = '@Url.Action("Generate", new { receiptItemId = receiptItem.Id })';
+
+                    var proc = modalProcessing(null, 'Generating...');
+
+                    $.post(link, null, function (res) {
+                        proc.modal('hide');
+                        if (res.IsSuccessful) {
+                            propertyNo.val(res.Data);
+                        } else {
+                            modalMessage(res.Err.split('\n'), 'Generate Property No.', true);
+                        }
+                    }, 'json');
+                };
+
+                btnGenerate.click(function (e) {
+                    e.preventDefault();
+                    generate();
+                })
+            }
+
+            return e;
+        }
+    </script>
+}
+
+<div class="block">
+    <div class="card">
+        <div class="card-header">
+            <h5>@ViewBag.Title</h5>
+            <div class="card-header-right">
+                <div class="btn-group-sm card-option">
+                    @if (Model.Count < receiptItem.Qty)
+                    {
+                        <button class="btn btn-success btn-create" onclick="$.fn.list('modalCreate', this)">Create</button>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="form-group row">
+                <div class="col-sm-12">                    
+                    @Html.Partial("~/Areas/SAM/Views/Shared/receiptItemInfo.cshtml", "/SAM/Tagging/Entry/Index/" + Year + "/")
+                </div>
+            </div>
+            <div class="dt-responsive table-responsive">
+                <table class="display table table-bordered table-striped table-list" cellspacing="0" width="100%"
+                       modal-target="#modalView" modal-start="view" modal-load-callback="load"
+                       modal-view-url="/SAM/Tagging/Entry/Details/@Year/@receiptItem.Id/{0}" modal-edit-url="/SAM/Tagging/Entry/Edit/@Year/@receiptItem.Id/{0}" modal-delete-url="/SAM/Tagging/Entry/Delete/@Year/@receiptItem.Id" modal-create-url="/SAM/Tagging/Entry/Create/@Year/@receiptItem.Id">
+
+                    <thead>
+                        <tr>
+                            <th>Property No.</th>
+                            <th>Barcode</th>
+                            <th>Serial No.</th>
+                            <th>Model</th>
+                            <th>Brand</th>
+                            <th>Color</th>
+                            <th>Remarks</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (coreApp.Areas.SAM.tblInventoryItem item in Model)
+                        {
+                            <tr record-id="@item.Id">
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.PropertyNo)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Barcode)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.SerialNo)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ModelNo)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Brand)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Color)
+                                </td>
+                                <td>
+                                    @Html.DisplayMultiLineFor(modelItem => item.Remarks)
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@Html.Partial("~/Views/Shared/modals/_ModalView.cshtml", "modalView")

@@ -1,0 +1,220 @@
+﻿
+@model List<coreApp.Areas.Procurement.DAL.tblAppItem>
+
+@{
+    int appId = ViewBag.appId;
+}
+
+<script>
+    function load(e) {
+        if (e.viewType == 'view') {
+
+            var editBtn = e.modal.find('.btn-edit');
+            var deleteBtn = e.modal.find('.btn-delete');
+
+            var hasBeenSubmitted = e.modal.find('[name="Submitted"]').val() == 'True';
+
+            if (hasBeenSubmitted) {
+                editBtn.hide();
+                deleteBtn.hide();
+            } else {
+                editBtn.show();
+                deleteBtn.hide();
+            };
+        };
+    }
+</script>
+<div class="block">
+    <div class="card">
+        <div class="card-body">
+            <h6>APP Line Item</h6>
+            <div class="dt-responsive table-responsive">
+                <table id="table1" class="display table table-bordered table-striped table-list" cellspacing="0" width="100%"
+                       modal-target="#modalView" modal-start="view" modal-load-callback="load"
+                       modal-view-url="/Procurement/CompanyAPP/Items/Details/@appId/{0}" modal-edit-url="/Procurement/CompanyAPP/Items/Edit/@appId/{0}">
+                    <thead>
+                        <tr>
+                            <th>Code (PAP)</th>
+                            <th>Procurement Program/Project</th>
+                            <th>PMO/End-User</th>
+                            <th class="mop">Mode of Procurement</th>
+                            <th>Advertisement/Posting of IB/REI</th>
+                            <th>Submission/Opening of Bids</th>
+                            <th>Notice of Award</th>
+                            <th>Contract Signing</th>
+                            <th>Source of Funds</th>
+                            <th>Total</th>
+                            <th>MOOE</th>
+                            <th>CO</th>
+                            <th>Remarks</th>
+                        </tr>
+
+                    </thead>
+                    <tbody>
+
+                        @foreach (coreApp.Areas.Procurement.DAL.tblAppItem item in Model)
+                        {
+                            <tr record-id="@item.Id">
+                                <td>
+                                    @item.getPPMP.PPMPNumber
+                                </td>
+                                <td>
+                                    @item.getPPMP.Description
+                                </td>
+                                <td>
+                                    @{
+                                        if (item.getPPMP.Office != null)
+                                        {
+                                            @item.getPPMP.Office.ShortName
+                                        }
+                                    }
+
+                                </td>
+                                <td class="mop">
+                                    @item.MOP_desc
+                                </td>
+                                <td>
+                                    @{
+
+                                        if (item.Advertisement != null)
+                                        {
+                                            DateTime Advertisement = (DateTime)item.Advertisement;
+                                            @Advertisement.ToString("MM/dd/yyyy");
+                                        }
+                                        else
+                                        {
+                                            @item.Advertisement.ToString()
+                                        }
+
+                                    }
+                                </td>
+
+                                <td>
+
+                                    @{
+
+                                        if (item.Submission != null)
+                                        {
+                                            DateTime Submission = (DateTime)item.Submission;
+                                            @Submission.ToString("MM/dd/yyyy");
+                                        }
+                                        else
+                                        {
+                                            @item.Submission.ToString()
+                                        }
+
+                                    }
+
+                                </td>
+                                <td>
+
+                                    @{
+
+                                        if (item.NoticeOfAward != null)
+                                        {
+                                            DateTime NoticeOfAward = (DateTime)item.NoticeOfAward;
+                                            @NoticeOfAward.ToString("MM/dd/yyyy");
+                                        }
+                                        else
+                                        {
+                                            @item.NoticeOfAward.ToString()
+                                        }
+
+                                    }
+                                </td>
+                                <td>
+
+                                    @{
+
+                                        if (item.ContractSigning != null)
+                                        {
+                                            DateTime ContractSigning = (DateTime)item.ContractSigning;
+                                            @ContractSigning.ToString("MM/dd/yyyy");
+                                        }
+                                        else
+                                        {
+                                            @item.ContractSigning.ToString()
+                                        }
+
+                                    }
+                                    
+                                </td>
+                                <td>
+                                    @{
+                                        if (item.getPPMP.Fund != null)
+                                        {
+                                            @item.getPPMP.Fund.Fund;
+                                        }
+
+                                    } 
+                                </td>
+                                <td>
+
+                                    @{
+
+                                        if (item.Total != null)
+                                        {
+                                            double total = (double)item.Total;
+                                            @total.ToString("#,##0.00")
+                                        }
+                                        else
+                                        {
+                                            @item.Total.ToString()
+                                        }
+
+                                    }
+
+                                </td>
+                                <td>
+                                    @{
+                                        if (item.MOOE != null)
+                                        {
+                                            double mooe = (double)item.MOOE;
+                                            @mooe.ToString("#,##0.00")
+                                        }
+                                        else
+                                        {
+                                            @item.MOOE.ToString()
+                                        }
+
+                                    }
+
+
+                                </td>
+                                <td>
+                                    @{
+                                        if (item.CO != null)
+                                        {
+                                            double co = (double)item.CO;
+                                            @co.ToString("#,##0.00")
+                                        }
+                                        else
+                                        {
+                                            @item.CO.ToString()
+                                        }
+
+                                    }
+
+
+                                </td>
+                                <td>
+                                    @item.Remarks
+                                </td>
+                            </tr>
+
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+
+    .modal-content {
+        width: 50em;
+    }
+</style>
+
+@Html.Partial("~/Views/Shared/modals/_ModalView.cshtml", "modalView")

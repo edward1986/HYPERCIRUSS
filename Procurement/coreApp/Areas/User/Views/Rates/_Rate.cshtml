@@ -1,0 +1,101 @@
+﻿@model Module.DB.tblRate
+
+@{    
+    bool isReadOnly = (bool)ViewBag.uiIsReadOnly;
+    bool includeId = (bool)ViewBag.uiIncludeId;
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+            if (isReadOnly)
+            {
+                <div class="form-row">
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.RateId)
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-control">
+                            @Html.DisplayFor(model => model.RateId)
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.DateEffective)
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-control">
+                            @Html.DisplayFor(model => model.DateEffective)
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.PositionLevel)
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-control">
+                            @Html.DisplayFor(model => model.PositionLevel)
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.Rate)
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-control">
+                            @Html.DisplayFor(model => model.Rate)
+                        </div>
+                    </div>
+                </div>
+            }
+            else
+            {
+                @Html.HiddenFor(model => model.RateId)
+                @Html.HiddenFor(model => model.PositionId)
+
+                if (includeId)
+                {
+                    <div class="form-row">
+                        <div class="col-md-3">
+                            @Html.LabelFor(model => model.RateId)
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-control dimmed">
+                                @Html.DisplayFor(model => model.RateId)
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                <div class="form-row">
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.DateEffective)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(model => model.DateEffective, "{0:MM/dd/yyyy}", new { @class = "datepicker form-control" })
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.PositionLevel)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.DropDownListFor(m => m.PositionLevel, coreApp.SelectItems.getMaxLevel(), new { @class = "form-control" })
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.Rate)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(model => model.Rate, new { @class = "form-control" })
+                    </div>
+                </div>
+            }
+}

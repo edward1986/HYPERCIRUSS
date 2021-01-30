@@ -1,0 +1,454 @@
+﻿@model List<coreApp.DAL.tblPayrollSummary_Employee>
+
+@{
+    ViewBag.Title = "Payroll Summary Employees";
+    ViewBag.Subtitle = "List";
+
+    coreApp.DAL.tblPayrollSummary ps = (coreApp.DAL.tblPayrollSummary)ViewBag.PS;
+
+    string employeeIds = string.Join(",", Model.Select(x => x.EmployeeId).ToArray());
+
+    bool IsSalary = ps.PayrollType == (int)coreApp.Enums.PayrollType.Salary;
+    bool IsOT = ps.PayrollType == (int)coreApp.Enums.PayrollType.Overtime;
+    bool IsHourly = ps.PayMode == (int)coreApp.Enums.PayMode.Hourly;
+    bool IsOverload = ps.PayrollType == (int)coreApp.Enums.PayrollType.Overload;
+
+}
+
+@section Breadcrumbs {
+    @Html.Partial("_Breadcrumbs", new List<Breadcrumb>() {
+        new Breadcrumb { Description = "Payroll Summary", Link = "/HRModule/PayrollSummary" },
+        new Breadcrumb { Description = ViewBag.Title }
+    })
+}
+
+@section Scripts {
+
+    <script>
+
+        function addEmployees(btn) {
+            var opts = {
+                modalCustomWidth: 'most-wide',
+                modalCustomTitle: 'Add Employees',
+                modalCustomButton: 'Add Selected Employees',
+                preLoadCallback: 'addEmployeesPreLoad'
+            };
+            var url = '/HRModule/PayrollSummaryEmployees/AddEmployees/@ps.PSId';
+            $.fn.list('modalCustom', btn, url, opts);
+        }
+
+        function addEmployeesPreLoad(e) {
+            e.modal.find('.btn-custom').show();
+            return e;
+        }
+
+        function load(e) {
+            if (e.viewType == 'view') {
+                var psStatus = $('#PS_Status');
+                var deleteBtn = e.modal.find('.btn-delete');
+
+                var hasBreakLogs = e.modal.find('[name="_HasBreakLogs"]').val() == 'True';
+
+                var recalculateBtn = e.modal.find('.btn-recalculate');
+                var link = recalculateBtn.attr('data-link-tmp');
+
+                //for recalculate button in view
+                recalculateBtn.unbind('click').bind('click', function (ee) {
+                    ee.preventDefault();
+
+                    modalConfirm('Are you sure you want to recalculate this record?', function (ret) {
+                        if (ret) {
+                            $.post(link, { id: e.recordId, overwrite: true }, function (res) {
+                                if (res.IsSuccessful) {
+                                    sessionStorage.clientMessage = res.Remarks;
+                                    window.location.reload(true);
+                                } else {
+                                    modalMessage(res.Err.split('\n'), 'Recalculate record', true);
+                                }
+                            }, 'json');
+                        }
+                    });
+
+                });
+
+                if (psStatus.val() > @((int)coreApp.Enums.PSStatus.Returned)) {
+                    deleteBtn.hide();
+                    recalculateBtn.hide();
+                } else {
+                    deleteBtn.show();
+                    recalculateBtn.show();
+                }
+            } else if (e.viewType == 'custom') {
+                //for add employees button in index
+                e.modal.find('.btn-custom').unbind('click').bind('click', function () {
+                    processEmployees(false);
+                });
+            }
+
+            return e;
+        }
+
+
+        function processEmployees(recalculate) {
+            var url = '/HRModule/PayrollSummaryEmployees/AddEmployee/@ps.PSId';
+
+            var _selectedItems = recalculate ? '@employeeIds' : $('.search .selectedItems').val();
+            var selectedItems = [];
+
+            var successful = 0;
+
+            if (_selectedItems != '') {
+                selectedItems = _selectedItems.split(',');
+            }
+
+            var asyncSend = function (_progress) {
+                selectedItems.forEach(function (v) {
+                    $.post(url, { employeeId: v, overwrite: recalculate }, function (res) {
+                        _progress.currentValue++;
+                        _progress.showProgress();
+
+                        if (res.IsSuccessful) {
+                            successful++;
+                        }
+                        else {
+                            _progress.progressResults.prepend('<br/> Record Id:' + v + ' - ' + res.Err);
+                        }
+
+                        if (_progress.currentValue >= selectedItems.length) {
+                            _progress.completed();
+                        }
+                    });
+                });
+            };
+
+            var process = function () {
+                var progress = $.extend({}, modalProgress, {
+                    title: recalculate ? 'Recalculating records...' : 'Adding selected employees...',
+                    maxValue: selectedItems.length,
+                    showCallback: function (_progress) {
+                        asyncSend(_progress);
+                    },
+                    cancelable: false,
+                    continueCallback: function () {
+                        sessionStorage.clientMessage = successful + ' item(s) were successfully ' + (recalculate ? 'recalculated' : 'added');
+                        window.location.reload(true);
+                    }
+                });
+
+                progress.init();
+            };
+
+            if (selectedItems.length == 0) {
+                if (recalculate) {
+                    modalMessage('No item to recalculate', 'Recalculate records', true);
+                } else {
+                    modalMessage('No item selected', 'Add Employees', true);
+                }
+            } else {
+                process();
+            }
+        }
+
+        function clearEmployees() {
+            var clearEmployeeUrl = '/HRModule/PayrollSummaryEmployees/clearEmployees/@ps.PSId';
+
+            modalConfirm('Are you sure you want to remove all employees from this payroll summary?', function (res) {
+                if (res) {
+                    $.post(clearEmployeeUrl, null, function (res) {
+                        if (!res.IsSuccessful) {
+                            sessionStorage.clientErrorMessage = res.Err;
+                        } else {
+                            sessionStorage.clientMessage = res.Remarks;
+                        }
+                        window.location.reload(true);
+                    });
+                }
+            });
+        }
+
+        function recalculate() {
+            processEmployees(true);
+        }
+
+        function submit() {
+            var link = '/HRModule/PayrollSummary/submit/@ps.PSId';
+
+            modalConfirm('Are you sure you want to submit this payroll summary?', function (ret) {
+                if (ret) {
+                    $.post(link, null, function (res) {
+                        if (res.IsSuccessful) {
+                            sessionStorage.clientMessage = res.Remarks;
+                            window.location.reload(true);
+                        } else {
+                            modalMessage(res.Err.split('\n'), 'Payroll Summary', true);
+                        }
+                    }, 'json');
+                }
+            });
+        }
+
+    </script>
+}
+
+@section Styles {
+    <style>
+        .hasbreaklogs {
+            background-color: orange !important;
+        }
+    </style>
+}
+
+@Html.Partial("~/Views/Shared/info/payrollSummaryInfo.cshtml", "/HRModule/PayrollSummaryEmployees/Index/")
+
+<div class="block">
+    <div class="content">
+        <small>Payroll Type: @ps.PayrollType_Desc</small>
+        <div style="width:100%;overflow:auto">
+            <div class="table-actions">
+                @if (!ps.HasBeenSubmitted)
+                {
+                    <button class="btn btn-warning" onclick="submit()">Submit</button>
+                    <button class="btn btn-info" onclick="recalculate()">Recalculate</button>
+                    <button class="btn btn-success" onclick="addEmployees(this)">Add Employees</button>
+                    <button class="btn btn-danger" onclick="clearEmployees()">Clear Employees</button>
+                }
+            </div>
+
+
+            <table class="display table table-bordered table-striped table-list" cellspacing="0" width="100%"
+                   modal-target="#modalView" modal-start="view" modal-load-callback="load" modal-view-width="most-wide"
+                   modal-view-url="/HRModule/PayrollSummaryEmployees/Details/@ps.PSId/{0}" modal-edit-url="/HRModule/PayrollSummaryEmployees/Edit/@ps.PSId/{0}" modal-delete-url="/HRModule/PayrollSummaryEmployees/Delete/@ps.PSId/{0}">
+                <thead>
+                    <tr>
+                        <th class="idcol">Id</th>
+                        <th>
+                            Employee
+                        </th>
+                        <th>
+                            Position
+                        </th>
+
+                        @if (!IsOverload)
+                        {
+                            <th>
+                                Rate
+                            </th>
+
+                        }
+
+                        @if (IsOT)
+                        {
+                            <th>
+                                OT
+                            </th>
+                        }
+                        else if (IsSalary && IsHourly)
+                        {
+                            <th>
+                                Rate/Hour
+                            </th>
+                            <th>
+                                Total Hours Worked
+                            </th>
+                        }
+                        else if (IsSalary)
+                        {
+                            <th>
+                                Total Working Days
+                            </th>
+                            <th>
+                                Total Days Worked
+                            </th>
+                            <th>
+                                Total Days Absent
+                            </th>
+                            <th>
+                                Total Hours/Mins. Late
+                            </th>
+                            <th>
+                                Total Hours/Mins. Undertime
+                            </th>
+                            <th>
+                                Total Hours/Mins. Late Tolerance
+                            </th>
+                            <th>
+                                Total Hours/Mins. Flexi-Time
+                            </th>
+                            <th>
+                                Total Hours On-Break
+                            </th>
+                            <th>
+                                Leave Charges
+                            </th>
+                            <th>
+                                OT
+                            </th>
+
+                            @*<th>
+                                    NP
+                                </th>
+                                <th>
+                                    RH
+                                </th>
+                                <th>
+                                    SH
+                                </th>
+                                <th>
+                                    RD
+                                </th>
+                                <th>
+                                    RD/RH
+                                </th>
+                                <th>
+                                    RD/SH
+                                </th>
+                                <th>
+                                    Sun
+                                </th>*@
+                        }
+                        else if (IsOverload)
+                        {
+                            <th>
+                                Rate/Hour
+                            </th>
+                            <th>
+                                Total Hours Worked
+                            </th>
+                        }
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (coreApp.DAL.tblPayrollSummary_Employee item in Model)
+                    {
+                        <tr record-id="@item.PSEmployeeId">
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PSEmployeeId)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.FullName)
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Position)
+                            </td>
+                            @if (!IsOverload)
+                            {
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Rate)
+                                </td>
+                            }
+
+                            @if (IsOT)
+                            {
+                                <td>
+                                    @(Convert.ToDecimal(item.OT_Eq).ToString("#,##0.##"))
+                                </td>
+                            }
+                            else if (IsSalary && IsHourly)
+                            {
+
+                                <th>
+                                    @Html.DisplayFor(modelItem => item.RatePerHour)
+                                </th>
+                                <th>
+                                    @Html.DisplayFor(modelItem => item._TotalHoursWorked)
+                                </th>
+
+                            }
+                            else if (IsSalary)
+                            {
+                                <td>
+                                    @Html.DisplayFor(modelItem => item._TotalWorkingDays)
+                                </td>
+                                <td>
+
+                                    @if (item.IsJO == false)
+                                    {
+                                        @(item._TotalHoursWorked / item.EmployeeSettings().WorkHoursPerDay)
+
+                                    }
+                                    else
+                                    {
+                                        @(((item._TotalHoursWorked / (item.Position == "Security Guard" ? 6 : item.EmployeeSettings().WorkHoursPerDay)) + item.TotalLeaveCharges).ToString("#,##0.##"))
+
+                                    }
+
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item._NoOfDaysAbsent)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item._TotalHoursLate) /
+                                    @(item._TotalHoursLate * 60)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item._TotalHoursUndertime) /
+                                    @(item._TotalHoursUndertime * 60)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item._TotalLateTolerance) /
+                                    @(item._TotalLateTolerance * 60)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item._TotalFlexiTime) /
+                                    @(item._TotalFlexiTime * 60)
+                                </td>
+                                <td class="@(item._HasBreakLogs ? "hasbreaklogs" : "")" title="@(item._HasBreakLogs ? "Has break logs. Please update hours on-break" : "")">
+                                    @Html.DisplayFor(modelItem => item._TotalHoursOnBreak)
+                                </td>
+                                <td>
+                                    @foreach (Module.Leave.LeaveChargesModel lc in item.LeaveCharges)
+                                    {
+                                        <div style="white-space:nowrap">
+                                            <span>-</span> @lc.leaveType.Description <span>:</span> @lc.charge
+                                        </div>
+
+                                    }
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.OT_Eq)
+                                </td>
+                                @*<td>
+                                        @Html.DisplayFor(modelItem => item.NP)<br />@Html.DisplayFor(modelItem => item.NP_Eq)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.RH_Eq)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.SH_Eq)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.RD_Eq)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.RDRH_Eq)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.RDSH_Eq)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Sun_Eq)
+                                    </td>*@
+                            }
+                            else if (IsOverload)
+                            {
+<th>
+                                    @Html.DisplayFor(modelItem => item.OverloadRate)
+                                </th>
+                                <th>
+                                    @Html.DisplayFor(modelItem => item.OverloadHours)
+                                </th>
+
+                            }
+
+                        </tr>
+                    }
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+</div>
+
+@Html.Partial("~/Views/Shared/modals/_ModalView.cshtml", "modalView")
+

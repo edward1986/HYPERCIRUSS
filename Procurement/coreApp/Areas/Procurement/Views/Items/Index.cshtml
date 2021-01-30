@@ -1,0 +1,173 @@
+﻿@model List<coreApp.Areas.Procurement.DAL.tblItem>
+@using coreLib.Extensions
+@{
+    ViewBag.Title = "Items";
+    int Year = (int)ViewBag.Year;
+}
+
+@section Breadcrumbs {
+    @Html.Partial("_Breadcrumbs", new List<Breadcrumb>()
+        {
+            new Breadcrumb { Description = "Procurement", Link = Url.Action("Index", "Main", new { area = "Procurement" }) },
+            new Breadcrumb { Description = ViewBag.Title }
+        })
+}
+
+@section Scripts {
+    <script>
+        function copy() {
+            modalInput('Copy Item Set', 'Please specify the year for the new set', function (ret, val) { }, null, function (modal) {
+                var select = $('.content > .year-selection').clone().removeAttr('onchange class').addClass('year');
+                var body = modal.find('.modal-body');
+                var div = modal.find('.modal-body > div');
+
+                div.empty().append(select);
+
+                modal.find('.btn-ok').unbind().bind('click', function (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+
+                    var url = '@Url.Action("CopyItemSet")';
+                    var data = {
+                        currentYear: @Year,
+                        newYear: select.val(),
+                        overwrite: false,
+                        copyStockNos: true
+                    };
+
+                    body.addClass('loading-mask');
+
+                    $.post(url, data, function (res) {
+                                if (res.IsSuccessful) {
+                                    sessionStorage.clientMessage = res.Remarks;
+                                    window.location = '/Procurement/Items/Index/' + select.val();
+                                } else {
+                                    modalMessage(res.Err.split('\n'), 'Copy Item Set', true);
+                                }
+                        }, 'json')
+                        .always(function () {
+                            body.removeClass('loading-mask');
+                            modal.modal('hide');
+                        });
+
+                });
+            })
+        }
+
+        function deleteAll() {
+            var url = '@Url.Action("DeleteAllItems")';;
+
+             modalConfirm('Are you sure you want to delete all items?', function (ret) {
+                if (ret) {
+                    $.post(url, { year: @Year }, function (res) {
+                        if (res.IsSuccessful) {
+                            sessionStorage.clientMessage = res.Remarks;
+                            window.location.reload();
+                        } else {
+                            modalMessage(res.Err.split('\n'), 'Delete All Items', true);
+                        }
+                    }, 'json');
+                }
+            });
+        }
+
+        function load(e) {
+            $('.pc-selectpicker').selectpicker();
+            $(function () { });
+        }
+    </script>
+
+    <script src="~/assets/nextro/assets/js/plugins/bootstrap-select.min.js"></script>
+}
+
+<div class="block">
+    <div class="card">
+        <div class="card-header">
+            <h5>@ViewBag.Title</h5>
+            <div class="card-header-right">
+                <div class="btn-group-sm card-option">
+                    <button class="btn btn-success btn-create" onclick="$.fn.list('modalCreate', this)">Create</button>
+                    <button class="btn btn-primary btn-copy" onclick="copy()">Copy Item Set</button>
+                    <button class="btn btn-danger btn-clear" onclick="deleteAll()">Delete All Items</button>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="form-group row">
+                <div class="col-sm-3">
+                    <label class="col-form-label text-lg-right">For the year:</label>
+                    @Html.Partial("~/Areas/Procurement/Views/Shared/yearInfo.cshtml", "/Procurement/Items/Index/{0}")
+                </div>
+            </div>           
+            <div class="dt-responsive table-responsive">
+                <table class="display table table-bordered table-striped table-list" cellspacing="0" width="100%"
+                       modal-target="#modalView" modal-start="view"
+                       modal-view-url="/Procurement/Items/Details/@Year/{0}" modal-edit-url="/Procurement/Items/Edit/@Year/{0}" modal-delete-url="/Procurement/Items/Delete/@Year" modal-create-url="/Procurement/Items/Create/@Year">
+                    <thead>
+                        <tr>
+                            <th>
+                                Name
+                            </th>
+                            <th>
+                                Description
+                            </th>
+                            <th>
+                                Category
+                            </th>
+                            <th>
+                                Unit
+                            </th>
+                            <th>
+                                In DBM
+                            </th>
+                            <th>
+                                Price
+                            </th>
+                            <th>
+                                Stock No.
+                            </th>
+                            <th>
+                                MFO
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (coreApp.Areas.Procurement.DAL.tblItem item in Model)
+                        {
+                            <tr record-id="@item.Id">
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Description)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Category.Category)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Unit.Unit)
+                                </td>
+                                <td>
+                                    @(item.InDBM ? "Yes" : "No")
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.OrigPrice)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.StockNo)
+                                </td>
+                                <td>                                   
+                                    @Html.DisplayFor(modelItem => item.MFO_desc)
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@Html.Partial("~/Views/Shared/modals/_ModalView.cshtml", "modalView")
+

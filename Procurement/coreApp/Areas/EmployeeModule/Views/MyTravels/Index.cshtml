@@ -1,0 +1,88 @@
+﻿@model List<Module.DB.tblEmployee_Travel>
+@{ 
+    ViewBag.Title = "My Travels";
+    ViewBag.Subtitle = "";
+
+    Module.DB.tblEmployee employee = (Module.DB.tblEmployee)ViewBag.Employee;
+
+}
+
+@section Breadcrumbs {
+    @Html.Partial("_Breadcrumbs", new List<Breadcrumb>()
+    {
+        new Breadcrumb { Description = ViewBag.Title }
+    })
+}
+
+<div class="block">
+    <div class="head bg-default bg-light-ltr noradius">
+        <h2>@ViewBag.Title</h2>
+    </div>
+    <div class="content">
+        <table class="display table table-bordered table-striped table-list" cellspacing="0" width="100%">            
+            <thead>
+                <tr>
+                    <th class="idcol">
+                        Id
+                    </th>
+                    <th>
+                        Period
+                    </th>
+                    <th>
+                        Purpose
+                    </th>
+                    <th>
+                        Destination
+                    </th>
+                    <th>
+                        Created/Approved By
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Module.DB.tblEmployee_Travel item in Model)
+                {
+                    Module.DB.tblTravelApplication application = item.GetApplication();
+
+                    <tr record-id="@item.Id" locked>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Id)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.InclusiveDays)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Purpose)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Destination)
+                        </td>
+
+                        @if (application == null)
+                        {
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CreatedBy)
+                                <div class="small">
+                                    @item.CreateDate.ToShortDateString()
+                                </div>
+                            </td>
+                        }
+                        else
+                        {
+                            <td>
+                                @Html.DisplayFor(modelItem => application.ApprovedBy)
+                                <div class="small">
+                                    @application.ApproveDate.Value.ToShortDateString()
+                                </div>
+                            </td>
+                        }
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+    </div>
+</div>
+
+@Html.Partial("~/Views/Shared/modals/_ModalView.cshtml", "modalView")
+

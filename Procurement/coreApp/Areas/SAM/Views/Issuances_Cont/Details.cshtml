@@ -1,0 +1,22 @@
+﻿@model coreApp.Areas.SAM.IssuanceModel_Cont
+
+@{
+
+    ViewBag.Title = "Contractor Issuances";
+    ViewBag.Subtitle = "Details";
+
+    ViewBag.uiIsReadOnly = true;
+    ViewBag.uiIncludeId = false;
+
+}
+
+@section Breadcrumbs {
+    @Html.Partial("_Breadcrumbs", new List<Breadcrumb>()
+    {
+        new Breadcrumb { Description = "Monitoring" },
+        new Breadcrumb { Description = ViewBag.Title }
+    })
+}
+
+@Html.Partial("_Issuances")
+

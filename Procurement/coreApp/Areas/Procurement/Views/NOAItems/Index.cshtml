@@ -1,0 +1,69 @@
+﻿@model List<coreApp.Areas.Procurement.DAL.tblNOAItem>
+@{
+
+    ViewBag.Title = "Notice of Award Items";
+    int Year = (int)ViewBag.Year;
+
+}
+
+@section Breadcrumbs {
+    @Html.Partial("_Breadcrumbs", new List<Breadcrumb>()
+    {
+        new Breadcrumb { Description = "Procurement" },
+        new Breadcrumb { Description = "Notice of Awards", Link = Url.Action("Index", "NOA", new { area = "Procurement", year = Year }) },
+        new Breadcrumb { Description = ViewBag.Title }
+    })
+}
+
+<div class="block">
+    <div class="card">
+        <div class="card-header">
+            <h5>@ViewBag.Title</h5>
+            <div class="card-header-right">
+                <div class="btn-group card-option">
+                    <div class="btn-group-sm header-button">
+                        <button class="btn btn-success btn-additems">Select PR</button>
+                        <button class="btn btn-info btn-print" data-printmsg="@Module.Core.ModuleConstants.PRINT_OPTIONS">Print</button>
+                        <button class="btn btn-warning btn-submit">Submit</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-body">
+            <div class="dt-responsive table-responsive">
+                <table id="table1" class="display table table-bordered table-striped table-list" cellspacing="0" width="100%"
+                       modal-target="#modalView" modal-start="view" modal-load-callback="load"
+                       modal-view-url="/Procurement/NOA/Details/@Year/{0}" modal-edit-url="/Procurement/NOA/Edit/@Year/{0}" modal-delete-url="/Procurement/NOA/Delete/@Year/{0}" modal-create-url="/Procurement/NOA/Create/@Year">
+                    <thead>
+                        <tr>
+                            <th>
+                                Description
+                            </th>
+                            <th width="30%">
+                                Amount
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr record-id="@item.Id" data-tableid="table1">
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ConsolidatedPR().Description)
+                                </td>
+                                <td>
+                                    @{
+                                        double amount = (double)item.ConsolidatedPR()._TotalAmount;
+                                    }
+                                    @amount.ToString("#,##0")
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,13 @@
+﻿@model Module.DB._HRPermission
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="row">
+        <div class="col-sm-12">            
+            @Html.Partial("~/Areas/HRModule/Views/HRPermissions/_PermissionList.cshtml", Model, new ViewDataDictionary { { "ReadOnly", false } })
+        </div>
+    </div>
+
+}

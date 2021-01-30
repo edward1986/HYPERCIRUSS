@@ -1,0 +1,175 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>@ViewBag.Title</title>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    @Scripts.Render("~/bundles/modernizr")
+
+    <!-- font css -->
+    <link rel="stylesheet" href="~/assets/nextro/assets/fonts/font-awsome-pro/css/pro.min.css">
+    <link rel="stylesheet" href="~/assets/nextro/assets/fonts/feather.css">
+    <link rel="stylesheet" href="~/assets/nextro/assets/fonts/fontawesome.css">
+    <link rel="stylesheet" href="~/assets/nextro/assets/css/plugins/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="~/Assets/nextro/assets/css/plugins/select2.min.css">
+    <link rel="stylesheet" href="~/assets/nextro/assets/css/plugins/bootstrap-select.min.css">
+
+    <!-- vendor css -->
+    <link rel="stylesheet" href="~/assets/nextro/assets/css/style.css">
+    <link rel="stylesheet" href="~/assets/nextro/assets/css/customizer.css">
+
+
+
+    <script type='text/javascript' data-pace-options='{ "restartOnPushState": true, "restartOnRequestAfter": true }' src='~/Assets/plugins/pace-master/pace.min.js'></script>
+
+
+    <script type='text/javascript' src='~/assets/nextro/assets/js/vendor-all.min.js'></script>
+    <script type='text/javascript' src='/Assets/taurus/html/js/plugins/jquery/jquery.js'></script>
+    <script type='text/javascript' src='/Assets/taurus/html/js/plugins/jquery/jquery-ui.min.js'></script>
+    <script type='text/javascript' src='/Assets/taurus/html/js/plugins/jquery/jquery-migrate.min.js'></script>
+    <script type='text/javascript' src='/Assets/taurus/html/js/plugins/jquery/globalize.js'></script>
+
+    @*<script type='text/javascript' src='~/Assets/nextro/assets/js/plugins/bootstrap.min.js'></script>*@
+
+    @*<script type='text/javascript' src='/Assets/taurus/html/js/plugins/mcustomscrollbar/jquery.mCustomScrollbar.min.js'></script>*@
+    <script type='text/javascript' src='/Assets/taurus/html/js/plugins/uniform/jquery.uniform.min.js'></script>
+
+    @*<script type='text/javascript' src='/Assets/taurus/html/js/plugins/knob/jquery.knob.js'></script>*@
+    @*<script type='text/javascript' src='/Assets/taurus/html/js/plugins/sparkline/jquery.sparkline.min.js'></script>*@
+    @*<script type='text/javascript' src='/Assets/taurus/html/js/plugins/flot/jquery.flot.js'></script>*@
+    @*<script type='text/javascript' src='/Assets/taurus/html/js/plugins/flot/jquery.flot.resize.js'></script>
+        <script type='text/javascript' src='/Assets/taurus/html/js/plugins/flot/jquery.flot.pie.js'></script>
+        <script type='text/javascript' src='/Assets/taurus/html/js/plugins/flot/jquery.flot.time.js'></script>*@
+    <script type='text/javascript' src='~/Assets/taurus/html/js/plugins/jquery/jquery-ui-timepicker-addon.js'></script>
+    <script type="text/javascript" src="~/Assets/taurus/html/js/plugins/datatables/datatables.min.js"></script>
+    <script type="text/javascript" src="~/Assets/taurus/html/js/plugins/maskedinput/jquery.maskedinput.min.js"></script>
+    <script type="text/javascript" src="~/Assets/plugins/moment.min.js"></script>
+    <script type="text/javascript" src="~/Assets/plugins/numeral.js"></script>
+    <script type="text/javascript" src="~/Assets/plugins/datetime-moment.js"></script>
+    <script type="text/javascript" src="~/Assets/plugins/jquery.form.js"></script>
+
+    @RenderSection("Styles", false)
+
+    @Html.Partial("_HeaderStylesAndScripts")
+    @RenderSection("HeaderScripts", required: false)
+
+    <script>
+        var autoLogoutInMins = 500;
+    </script>
+    <script type='text/javascript' src="~/Assets/js/autoLogout.js"></script>
+
+</head>
+<body>
+
+    @Html.Partial("_Header")
+    @Html.Partial("_Menu")
+
+    <div class="pc-mob-header pc-header">
+        <div class="pcm-logo">
+            <img src="~/assets/nextro/assets/images/logo.svg" alt="" class="logo logo-lg">
+        </div>
+        <div class="pcm-toolbar">
+            <a href="#!" class="pc-head-link" id="mobile-collapse">
+                <div class="hamburger hamburger--arrowturn">
+                    <div class="hamburger-box">
+                        <div class="hamburger-inner"></div>
+                    </div>
+                </div>
+                <!-- <i data-feather="menu"></i> -->
+            </a>
+
+            <a href="#!" class="pc-head-link" id="header-collapse">
+                <i data-feather="more-vertical"></i>
+            </a>
+        </div>
+    </div>
+
+    <div class="pc-container">
+        <div class="pcoded-content">
+
+            <div class="page-header">
+                <div class="page-block">
+                    <div class="row align-items-center">
+                        <div class="col-md-12">
+
+                            <ul class="breadcrumb">
+                                @RenderSection("Breadcrumbs", required: false)
+                            </ul>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-sm-12">
+
+                    @RenderBody()
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <script src="~/assets/nextro/assets/js/plugins/bootstrap.min.js"></script>
+    <script src="~/assets/nextro/assets/js/plugins/feather.min.js"></script>
+    <script src="~/assets/nextro/assets/js/pcoded.min.js"></script>
+    <script src="~/assets/nextro/assets/js/plugins/clipboard.min.js"></script>
+    <script src="~/assets/nextro/assets/js/uikit.min.js"></script>
+
+    @Html.Partial("~/Views/Shared/modals/_ModalMessage.cshtml")
+    @Html.Partial("~/Views/Shared/modals/_ModalEmpty.cshtml")
+    @Html.Partial("~/Views/Shared/modals/_ModalProcessing.cshtml")
+    @Html.Partial("~/Views/Shared/modals/_ModalConfirm.cshtml")
+    @Html.Partial("~/Views/Shared/modals/_ModalPrint.cshtml")
+    @Html.Partial("~/Views/Shared/modals/_ModalInput.cshtml")
+    @Html.Partial("~/Views/Shared/modals/_ModalProgress.cshtml")
+
+
+    @Html.Partial("_BodyScripts")
+
+
+    <br /><br />
+    @RenderSection("Scripts", required: false)
+
+
+    <style>
+
+        .modal-header {
+            padding: 1rem;
+        }
+
+        .modal-footer {
+            padding: 1rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .modal-content {
+            border-radius: 0px;
+        }
+
+        .btn-sm, .btn-group-sm > .btn {
+            padding: .5rem 1rem;
+            border-radius: 4px;
+        }
+
+        .card .card-header .card-header-right {
+            padding: 5px;
+        }
+    </style>
+
+    <script src="~/assets/nextro/assets/js/plugins/dataTables.bootstrap4.min.js"></script>
+    <script src="~/assets/nextro/assets/js/plugins/bootstrap-select.min.js"></script>
+
+    <script>
+        $('.pc-selectpicker').selectpicker();
+        $(function () { });
+    </script>
+</body>
+</html>

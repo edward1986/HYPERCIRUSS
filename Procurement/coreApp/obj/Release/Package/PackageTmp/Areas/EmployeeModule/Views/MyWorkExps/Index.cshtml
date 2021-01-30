@@ -1,0 +1,112 @@
+﻿@model List<coreApp.DAL.tblEmployee_WorkExp>
+
+@{
+    Layout = "~/Areas/EmployeeModule/Views/Shared/_EmployeeDetailsLayout.cshtml";
+
+    ViewBag.Title = "Work Experiences";
+    ViewBag.Subtitle = "List";
+
+    ViewBag.EmployeeDetailsActiveTab = "workexps";
+
+    Module.DB.tblEmployee employee = (Module.DB.tblEmployee)ViewBag.Employee;
+
+    bool readOnly = !coreApp.Cache.Get().userAccess.HasPermission("EmployeeWorkExps");
+
+}
+
+@section Breadcrumbs {
+    @Html.Partial("_Breadcrumbs", new List<Breadcrumb>()
+    {
+        new Breadcrumb { Description = "Employee Main Record", Link = Url.Action("Details", "Employees", new { id = employee.EmployeeId, area = "EmployeeModule" } ) },
+        new Breadcrumb { Description = ViewBag.Title }
+    })
+}
+
+<div class="block">
+    <div class="head bg-default bg-light-ltr noradius">
+        <h2>@ViewBag.Title</h2>
+        <div class="side pull-right">
+            <ul class="buttons">
+                @if (!readOnly)
+                {
+                    <li><button class="btn btn-success btn-create" onclick="$.fn.list('modalCreate', this)">Create</button></li>
+                }     
+            </ul>
+        </div>
+    </div>
+    <div class="content">
+        
+        <table class="display table table-bordered table-striped table-list" cellspacing="0" width="100%"
+               modal-target="#modalView" modal-start="view"
+               modal-view-url="/HRModule/Employee/WorkExps/Details/@employee.EmployeeId/{0}" modal-edit-url="/HRModule/Employee/WorkExps/Edit/@employee.EmployeeId/{0}" modal-delete-url="/HRModule/Employee/WorkExps/Delete/@employee.EmployeeId" modal-create-url="/HRModule/Employee/WorkExps/Create/@employee.EmployeeId">
+            <thead>
+                <tr>
+                    <th class="idcol">
+                        Id
+                    </th>
+                    <th>
+                        From
+                    </th>
+                    <th>
+                        To
+                    </th>
+                    <th>
+                        Position/Title
+                    </th>
+                    <th>
+                        Company
+                    </th>
+                    <th>
+                        Monthly Salary
+                    </th>
+                    <th>
+                        Salary Grade
+                    </th>
+                    <th>
+                        Status of Appointment
+                    </th>
+                    <th>
+                        Gov. Service
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (coreApp.DAL.tblEmployee_WorkExp item in Model)
+                {
+                    <tr record-id="@item.WEId" @(readOnly ? "locked" : "")>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.WEId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DateFrom)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DateTo_Desc)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Position)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Company)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Salary)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SalaryGrade)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StatusOfAppointment_Desc)
+                        </td>
+                        <td>
+                            @Html.DisplayBooleanFor(modelItem => item.IsGovService)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+    </div>
+</div>
+
+@Html.Partial("~/Views/Shared/modals/_ModalView.cshtml", "modalView")

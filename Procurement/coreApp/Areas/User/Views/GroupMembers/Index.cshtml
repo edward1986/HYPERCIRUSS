@@ -1,0 +1,114 @@
+﻿@model List<Module.DB.tblEmployee>
+
+@{
+    ViewBag.Title = "Members";
+    ViewBag.Subtitle = "List";
+
+    Module.DB.tblGroup group = (Module.DB.tblGroup)ViewBag.Group;
+
+}
+
+@section Breadcrumbs {
+    @Html.Partial("_Breadcrumbs", new List<Breadcrumb>() {
+        new Breadcrumb { Description = "Groups", Link = "/HRModule/Groups" },
+        new Breadcrumb { Description = ViewBag.Title }
+    })
+}
+
+@section Scripts {
+    <script>
+        function addEmployees(btn) {
+            var opts = {
+                modalCustomWidth: 'most-wide',
+                modalCustomTitle: 'Add Members',
+                modalCustomButton: 'Add Selected Employees',
+                preLoadCallback: 'addEmployeesPreLoad',
+                preSubmitCallback: 'addEmployeesPreSubmit'
+            };
+            var url = '/HRModule/Groups/Members/Add/@group.Id';
+            $.fn.list('modalCustom', btn, url, opts);
+        }
+
+        function addEmployeesPreSubmit(viewType, e) {
+            if (viewType == 'custom') {
+
+                var selectedItems = $('.search .selectedItems');
+
+                var employeeIds = e.modal.find('#employeeIds');
+
+                employeeIds.val('');
+
+                if (selectedItems.val() == '') {
+                    modalMessage('No employee selected', 'Add Members', true);
+                    return false;
+                } else {
+
+                    employeeIds.val(selectedItems.val());
+                    return true;
+                }
+            }
+        }
+
+        function addEmployeesPreLoad(e) {
+            e.modal.find('.btn-custom').show();
+            return e;
+        }
+
+        function addEmployeesPreLoad(e) {
+            e.modal.find('.btn-custom').show();
+            return e;
+        }
+
+        function load(e) {
+
+            if (e.viewType == 'view') {
+                var editBtn = e.modal.find('.btn-edit');
+                editBtn.hide();
+            }
+        }
+    </script>
+}
+
+@Html.Partial("~/Views/Shared/info/groupInfo.cshtml", "/HRModule/Groups/Members/Index/")
+
+<div class="block">
+    <div class="head bg-default bg-light-ltr noradius">
+        <h2>@ViewBag.Title</h2>
+        <div class="side pull-right">
+            <ul class="buttons">
+                <li>
+                    <button class="btn btn-success" onclick="addEmployees(this)">Add Members</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="content">
+        <table class="display table table-bordered table-striped table-list" cellspacing="0" width="100%"
+               modal-target="#modalView" modal-start="view" modal-load-callback="load"
+               modal-view-url="/HRModule/Groups/Members/Details/@group.Id/{0}" modal-edit-url="/HRModule/Groups/Members/Edit/@group.Id/{0}" modal-delete-url="/HRModule/Groups/Members/Delete/@group.Id" modal-create-url="/HRModule/Groups/Members/Create/@group.Id">
+            <thead>
+                <tr>
+                    <th class="idcol">Id</th>
+                    <th>Member</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Module.DB.tblEmployee item in Model)
+                {
+                    <tr record-id="@item.EmployeeId">
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EmployeeId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FullName)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+    </div>
+</div>
+
+@Html.Partial("~/Views/Shared/modals/_ModalView.cshtml", "modalView")
+

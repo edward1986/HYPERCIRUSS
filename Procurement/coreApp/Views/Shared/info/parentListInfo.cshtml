@@ -1,0 +1,19 @@
+﻿@{
+    string url = ViewData["Url"].ToString();
+    string selectedId = ViewData["SelectedId"].ToString();
+    List<SelectListItem> source = (List<SelectListItem>)ViewData["List"];
+}
+
+<select onchange="itemSelected(this)">
+    @foreach (SelectListItem i in source)
+    {
+        <option value="@i.Value" @(i.Value == selectedId ? "selected" : "")>@i.Text</option>
+    }
+</select>
+<br />
+
+<script>
+    function itemSelected(sel) {
+        window.location = url + $(sel).val();
+    }
+</script>

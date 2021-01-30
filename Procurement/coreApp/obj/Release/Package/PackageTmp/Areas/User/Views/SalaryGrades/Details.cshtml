@@ -1,0 +1,93 @@
+﻿@model List<Module.DB.tblSalaryGrade>
+@{
+
+    ViewBag.Title = "Salary Grades";
+    ViewBag.Subtitle = "Table";
+
+    string effectivity = ViewBag.Effectivity;
+}
+
+@section Breadcrumbs {
+    @Html.Partial("_Breadcrumbs", new List<Breadcrumb>() { new Breadcrumb { Description = ViewBag.Title } })
+}
+
+@section Styles {
+    <style>
+        .sg-cont {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+            .sg-cont th:not(:first-child) {
+                text-align: center;
+            }
+
+            .sg-cont td:not(:first-child) {
+                text-align: right;
+                width: 120px !important;
+            }
+    </style>
+}
+
+@section Scripts {
+    <script>
+        function load(e) { }
+
+    </script>
+}
+
+<span>Effectivity:</span>
+@Html.Partial("~/Views/Shared/info/effectivityInfo.cshtml", "/HRModule/SalaryGrades/Details/")
+
+<div class="block block-drop-shadow details" modal-target="#modalViewDetails" modal-width="most-wide" modal-load-callback="load">
+    <div class="head bg-default bg-light-ltr noradius">
+        <h2>@ViewBag.Title</h2>
+        <div class="side pull-right">
+            <ul class="buttons">
+                <li><a href="#" class="btn btn-primary btn-edit" data-url="@Url.Action("Edit", new { dt = effectivity })">Edit</a></li>
+                <li><a href="#" class="btn btn-success btn-create" data-url="@Url.Action("CreateCopy", new { dt = effectivity })">Create Copy</a></li>
+                <li><a href="#" class="btn btn-success btn-create" data-url="@Url.Action("Create")">Create</a></li>
+                <li><a href="#" class="btn btn-danger btn-delete" data-url="@Url.Action("Delete", new { dt = effectivity })">Delete</a></li>
+            </ul>
+        </div>
+
+    </div>
+    <div class="content">
+        
+        <div class="sg-cont">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Salary Grade</th>
+                        <th>Step 1</th>
+                        <th>Step 2</th>
+                        <th>Step 3</th>
+                        <th>Step 4</th>
+                        <th>Step 5</th>
+                        <th>Step 6</th>
+                        <th>Step 7</th>
+                        <th>Step 8</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (Module.DB.tblSalaryGrade item in Model)
+                    {
+                        <tr>
+                            <td>@item.SalaryGrade</td>
+                            <td>@Html.DisplayFor(model => item.Step1)</td>
+                            <td>@Html.DisplayFor(model => item.Step2)</td>
+                            <td>@Html.DisplayFor(model => item.Step3)</td>
+                            <td>@Html.DisplayFor(model => item.Step4)</td>
+                            <td>@Html.DisplayFor(model => item.Step5)</td>
+                            <td>@Html.DisplayFor(model => item.Step6)</td>
+                            <td>@Html.DisplayFor(model => item.Step7)</td>
+                            <td>@Html.DisplayFor(model => item.Step8)</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        
+    </div>
+</div>
+@Html.Partial("~/Views/Shared/modals/_ModalView_FromDetails.cshtml", "modalViewDetails")

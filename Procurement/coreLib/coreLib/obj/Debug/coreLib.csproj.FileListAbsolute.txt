@@ -1,0 +1,60 @@
+D:\Systems\SkyHR\coreLib\coreLib\bin\Debug\coreLib.dll
+D:\Systems\SkyHR\coreLib\coreLib\bin\Debug\coreLib.pdb
+D:\Systems\SkyHR\coreLib\coreLib\bin\Debug\Newtonsoft.Json.dll
+D:\Systems\SkyHR\coreLib\coreLib\bin\Debug\System.Web.Mvc.dll
+D:\Systems\SkyHR\coreLib\coreLib\bin\Debug\System.Web.Razor.dll
+D:\Systems\SkyHR\coreLib\coreLib\bin\Debug\System.Web.WebPages.Razor.dll
+D:\Systems\SkyHR\coreLib\coreLib\bin\Debug\System.Web.WebPages.dll
+D:\Systems\SkyHR\coreLib\coreLib\bin\Debug\Microsoft.Web.Infrastructure.dll
+D:\Systems\SkyHR\coreLib\coreLib\bin\Debug\System.Web.WebPages.Deployment.dll
+D:\Systems\SkyHR\coreLib\coreLib\bin\Debug\Newtonsoft.Json.xml
+D:\Systems\SkyHR\coreLib\coreLib\obj\Debug\coreLib.csproj.CoreCompileInputs.cache
+D:\Systems\SkyHR\coreLib\coreLib\obj\Debug\coreLib.csproj.CopyComplete
+D:\Systems\SkyHR\coreLib\coreLib\obj\Debug\coreLib.dll
+D:\Systems\SkyHR\coreLib\coreLib\obj\Debug\coreLib.pdb
+D:\Systems\SkyHR\coreLib\coreLib\obj\Debug\coreLib.csprojAssemblyReference.cache
+D:\Systems\Procurement\coreLib\coreLib\bin\Debug\coreLib.dll
+D:\Systems\Procurement\coreLib\coreLib\bin\Debug\coreLib.pdb
+D:\Systems\Procurement\coreLib\coreLib\bin\Debug\Newtonsoft.Json.dll
+D:\Systems\Procurement\coreLib\coreLib\bin\Debug\System.Web.Mvc.dll
+D:\Systems\Procurement\coreLib\coreLib\bin\Debug\System.Web.Razor.dll
+D:\Systems\Procurement\coreLib\coreLib\bin\Debug\System.Web.WebPages.Razor.dll
+D:\Systems\Procurement\coreLib\coreLib\bin\Debug\System.Web.WebPages.dll
+D:\Systems\Procurement\coreLib\coreLib\bin\Debug\Microsoft.Web.Infrastructure.dll
+D:\Systems\Procurement\coreLib\coreLib\bin\Debug\System.Web.WebPages.Deployment.dll
+D:\Systems\Procurement\coreLib\coreLib\bin\Debug\Newtonsoft.Json.xml
+D:\Systems\Procurement\coreLib\coreLib\obj\Debug\coreLib.csprojAssemblyReference.cache
+D:\Systems\Procurement\coreLib\coreLib\obj\Debug\coreLib.csproj.CoreCompileInputs.cache
+D:\Systems\Procurement\coreLib\coreLib\obj\Debug\coreLib.csproj.CopyComplete
+D:\Systems\Procurement\coreLib\coreLib\obj\Debug\coreLib.dll
+D:\Systems\Procurement\coreLib\coreLib\obj\Debug\coreLib.pdb
+D:\Procurement\coreLib\coreLib\bin\Debug\coreLib.dll
+D:\Procurement\coreLib\coreLib\bin\Debug\coreLib.pdb
+D:\Procurement\coreLib\coreLib\bin\Debug\Newtonsoft.Json.dll
+D:\Procurement\coreLib\coreLib\bin\Debug\System.Web.Mvc.dll
+D:\Procurement\coreLib\coreLib\bin\Debug\System.Web.Razor.dll
+D:\Procurement\coreLib\coreLib\bin\Debug\System.Web.WebPages.Razor.dll
+D:\Procurement\coreLib\coreLib\bin\Debug\System.Web.WebPages.dll
+D:\Procurement\coreLib\coreLib\bin\Debug\Microsoft.Web.Infrastructure.dll
+D:\Procurement\coreLib\coreLib\bin\Debug\System.Web.WebPages.Deployment.dll
+D:\Procurement\coreLib\coreLib\bin\Debug\Newtonsoft.Json.xml
+D:\Procurement\coreLib\coreLib\obj\Debug\coreLib.csprojAssemblyReference.cache
+D:\Procurement\coreLib\coreLib\obj\Debug\coreLib.csproj.CoreCompileInputs.cache
+D:\Procurement\coreLib\coreLib\obj\Debug\coreLib.csproj.CopyComplete
+D:\Procurement\coreLib\coreLib\obj\Debug\coreLib.dll
+D:\Procurement\coreLib\coreLib\obj\Debug\coreLib.pdb
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreLib\coreLib\bin\Debug\coreLib.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreLib\coreLib\bin\Debug\coreLib.pdb
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreLib\coreLib\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreLib\coreLib\bin\Debug\System.Web.Mvc.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreLib\coreLib\bin\Debug\System.Web.Razor.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreLib\coreLib\bin\Debug\System.Web.WebPages.Razor.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreLib\coreLib\bin\Debug\System.Web.WebPages.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreLib\coreLib\bin\Debug\Microsoft.Web.Infrastructure.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreLib\coreLib\bin\Debug\System.Web.WebPages.Deployment.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreLib\coreLib\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreLib\coreLib\obj\Debug\coreLib.csprojAssemblyReference.cache
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreLib\coreLib\obj\Debug\coreLib.csproj.CoreCompileInputs.cache
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreLib\coreLib\obj\Debug\coreLib.csproj.CopyComplete
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreLib\coreLib\obj\Debug\coreLib.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreLib\coreLib\obj\Debug\coreLib.pdb

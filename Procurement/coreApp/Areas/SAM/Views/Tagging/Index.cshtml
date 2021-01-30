@@ -1,0 +1,105 @@
+﻿@model List<coreApp.Areas.SAM.TagItemModel>
+@{
+    ViewBag.Title = "Items";
+
+    bool showCompleted = (bool)ViewBag.ShowCompleted;
+    int Year = (int)ViewBag.Year;
+}
+
+@section Breadcrumbs {
+    @Html.Partial("_Breadcrumbs", new List<Breadcrumb>()
+        {
+            new Breadcrumb { Description = ViewBag.Title }
+        })
+}
+
+
+<div class="block">
+    <div class="card">
+        <div class="card-header">
+            <h5>@ViewBag.Title</h5>
+            <div class="card-header-right">
+                <div class="btn-group card-option">
+
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="form-group row">
+                <div class="col-sm-3">
+                    <label class="col-form-label text-lg-right">For the year:</label>
+                    @Html.Partial("~/Areas/Procurement/Views/Shared/yearInfo.cshtml", "/SAM/Tagging/Index/{0}")
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="btn">
+                    <a href="@Url.Action("Index", new { showCompleted = !showCompleted })">
+                        <span>
+                            @if (showCompleted)
+                            {
+                            <span>
+                                <i data-feather="check-square"></i> Show Uncompleted Items
+                            </span>
+                            }
+                            else
+                            {
+                                <span>
+                                    <i data-feather="square"></i> Show Completed Items
+                                </span>
+                            }
+
+                        </span>
+                    </a>
+                </div>
+            </div>
+            <div class="dt-responsive table-responsive">
+                <table class="display table table-bordered table-striped table-list" cellspacing="0" width="100%"
+                       data-url="/SAM/Tagging/Entry/Index/@Year/{0}?showCompleted=@showCompleted">
+                    <thead>
+                        <tr>
+                            <th>P.O. No.</th>
+                            <th>Date Received</th>
+                            <th>Item</th>
+                            <th>Category Type</th>
+                            <th>Received Qty</th>
+                            <th>Tagged Items</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (coreApp.Areas.SAM.TagItemModel item in Model)
+                        {
+
+                            <tr record-id="@item.ReceiptItem.Id">
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Receipt._PONo)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Receipt.ReceivedDate)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.POItem.ItemName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.POItem.CategoryType_Desc)
+                                </td>
+                                <td class="qtycol">
+                                    @Html.DisplayFor(modelItem => item.ReceiptItem.Qty)
+                                </td>
+                                <td class="qtycol">
+                                    @string.Format("{0}/{1}", item.Tagged, item.ReceiptItem.Qty)
+                                    @if (item.IsComplete)
+                                    {
+                                        <span class="text-success">&nbsp;[complete]</span>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@Html.Partial("~/Views/Shared/modals/_ModalView.cshtml", "modalView")

@@ -1,0 +1,53 @@
+﻿@model List<Module.DB.tblBulletinBoard>
+
+@{
+    ViewBag.Title = "Bulletin Board List";
+    ViewBag.Subtitle = "List";
+
+}
+
+@section Breadcrumbs {
+    @Html.Partial("_Breadcrumbs", new List<Breadcrumb>() { new Breadcrumb { Description = ViewBag.Title } })
+}
+
+<div class="block">
+    <div class="content">
+        <div class="table-actions">
+            <button class="btn btn-success btn-create" onclick="$.fn.list('modalCreate', this)">Create</button>
+        </div>
+        
+        <table class="display table table-bordered table-striped table-list" cellspacing="0" width="100%" data-url="/HRModule/BulletinBoardView/Details?id={0}">
+            <thead>
+                <tr>
+                    <th class="idcol">
+                        Id
+                    </th>
+                    <th>
+                        Title
+                    </th>
+                    <th>
+                        Date Posted
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Module.DB.tblBulletinBoard item in Model)
+                {
+                    <tr record-id="@item.Id">
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Id)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Title)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DateOfPosting)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@Html.Partial("~/Views/Shared/modals/_ModalView.cshtml", "modalView")

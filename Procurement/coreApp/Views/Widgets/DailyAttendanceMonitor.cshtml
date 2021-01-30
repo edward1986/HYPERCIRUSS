@@ -1,0 +1,202 @@
+﻿@using coreApp.Models
+@model Module.Time.etPeriod
+@{ 
+    coreLib.Objects.PeriodModel pm = (coreLib.Objects.PeriodModel)ViewBag.Period;
+    Module.Time.etPeriod period = Model;
+
+    Module.Time.TimeSettingsModel settings = Model.data.settings;
+
+    double t = period.TotalWorkHours;
+    double perc_hoursWorked = (period.TotalHoursWorked / t) * 100;
+    double perc_late = (period.TotalHoursLate / t) * 100;
+    double perc_undertime = (period.TotalHoursUndertime / t) * 100;
+
+    Module.Time.etDay day = period.Days.First();
+
+    List<Module.DB.tblEmployee_TimeLog> timeLogs = new List<Module.DB.tblEmployee_TimeLog>();
+
+    if (day.Times.Any())
+    {
+        timeLogs = Model.data.tblEmployee_TimeLogs.OrderBy(x => x.TimeLog).ThenBy(x => x.LogId)
+                                        .Where(x => day.Times.First().segment.TimeInFrom <= x.TimeLog && day.Times.Last().segment.TimeOutTo >= x.TimeLog)
+                                        .ToList();
+    }
+
+}
+
+
+<div class="head bg-dot20 dam">
+    <h2>Daily Attendance Monitoring</h2>
+    <div class="side pull-right">    
+        <ul class="buttons">
+            <li><a href="#" class="btn-refresh" title="refresh"><span class="icon-refresh"></span></a></li>
+        </ul>
+    </div>
+
+
+    @if (TempData["DAM_GlobalError"] != null)
+    {
+        <div class="head-panel" style="margin-top:0">
+            <div class="alert alert-danger">
+                <button type="button" class="close" data-dismiss="alert">
+                    <i class="fa fa-times"></i>
+                </button>
+
+                @Html.Raw(TempData["DAM_GlobalError"].ToString())
+            </div>
+        </div>
+    }
+
+    <div class="head-panel" style="margin-top:0">    
+        <input type="text" class="form-control datepicker dam-date" value="@pm.StartDate.ToString("MM/dd/yyyy")" />
+
+        <div class="row">
+            <div class="col-sm-6">
+                <fieldset>
+                    <legend>Day's Schedule</legend>
+                    
+                    @if (day.IsHoliday)
+                    {
+                        <div class="text-warning">
+                            This day was declared as a holiday: @day.Holiday.Holiday
+                        </div>
+                    }
+
+                    @if (day.NoSchedule)
+                    {
+                        <div class="text-danger">
+                            You have no schedule for this day
+                        </div>
+                    }
+                    else
+                    {
+                        <ul>
+                            @foreach (var time in day.Times)
+                            {
+                                if (time.segment.IsWorkSpan)
+                                {
+                                    <li>
+                                        @time.segment.Description - @time.segment.SegmentType_Desc (@settings.WorkHoursPerDay hours)
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li>
+                                        @time.segment.Description (@time.segment.TimeIn.ToString("h:mm tt") - @time.segment.TimeOut.ToString("h:mm tt"))
+                                        @if (time.segment.SegmentType != (int)Module.DB.Enums.SegmentType.Regular)
+                                        {
+                                            <span>@(" - " + time.segment.SegmentType_Desc)</span>
+                                        }
+                                    </li>
+                                }
+                            }
+                        </ul>
+                    }
+                </fieldset>
+            </div>
+            <div class="col-sm-6">
+                <fieldset>
+                    <legend>Day's Time Logs</legend>
+
+                    @if (!timeLogs.Any())
+                    {
+                        <div class="text-danger">
+                            You have no time logs for this day
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="table-responsive" style="max-height:150px;">
+                            <table border="1" class="table static-table">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            Time Log
+                                        </th>
+                                        <th>
+                                            Mode
+                                        </th>
+                                        <th>
+                                            Entry Type
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (Module.DB.tblEmployee_TimeLog item in timeLogs)
+                                    {
+                                        <tr record-id="@item.LogId">
+                                            <td>
+                                                @item.TimeLog.ToString("h:mm tt")
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Mode_Desc)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.EntryType_Desc)
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                </fieldset>
+            </div>
+        </div>
+        <hr />
+
+        @if (!day.NoSchedule)
+        {
+            <div class="hp-info pull-left color1">
+                <div class="hp-icon">
+                    <span class="fa fa-clock-o"></span>
+                </div>
+                <span class="hp-main">@t.ToString("#,##0.#") Hrs.</span>
+                <span class="hp-sm">Total Work Hours</span>
+            </div>
+            <div class="hp-info pull-left color2">
+                <div class="hp-icon">
+                    <span class="fa fa-clock-o"></span>
+                </div>
+                <span class="hp-main" style="margin-left: 35px;">@period.TotalHoursWorked.ToString("#,##0.#") Hrs. (@perc_hoursWorked.ToString("#,##0.#")%)</span>
+                <span class="hp-sm" style="margin-left: 35px;">Total Hours Worked</span>
+            </div>
+            <div class="hp-info pull-left color3">
+                <div class="hp-icon">
+                    <span class="fa fa-clock-o"></span>
+                </div>
+                <span class="hp-main" style="margin-left: 35px;">@period.Days.First().TotalMinsLate.ToString("#,##0.#") (@perc_late.ToString("#,##0.#")%)</span>
+                <span class="hp-sm" style="margin-left: 35px;">Total Minutes Late</span>
+            </div>
+            <div class="hp-info pull-left color4">
+                <div class="hp-icon">
+                    <span class="fa fa-clock-o"></span>
+                </div>
+                <span class="hp-main" style="margin-left: 35px;">@period.Days.First().TotalMinsUndertime.ToString("#,##0.#") (@perc_undertime.ToString("#,##0.#")%)</span>
+                <span class="hp-sm" style="margin-left: 35px;">Total Minutes Undertime</span>
+            </div>
+        }
+    </div>
+</div>
+
+<script>
+  
+
+    function DAM_applyDate(dt) {
+        var cont = $('.dashboard-item .dam').parent();
+        var url = '/Widgets/DailyAttendanceMonitor';
+
+        if (dt != null) {
+            url += '?dt=' + dt;
+        }
+
+        cont.addClass('loading-mask');
+        cont.load(url, function (res) {
+            setDatePickers();
+            setDAM();
+            cont.removeClass('loading-mask');
+        });
+    }
+
+
+</script>

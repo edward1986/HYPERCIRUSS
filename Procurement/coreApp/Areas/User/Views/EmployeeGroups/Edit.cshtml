@@ -1,0 +1,16 @@
+﻿@model List<Module.DB.tblGroup>
+@{ 
+    
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+            
+    <div class="row">
+        <div class="col-sm-12">
+            @Html.Partial("_GroupList", Model, new ViewDataDictionary { { "ReadOnly", false } })
+        </div>
+    </div>
+}
+

@@ -1,0 +1,102 @@
+﻿@model Module.DB.tblCampus
+
+@{
+    bool isReadOnly = (bool)ViewBag.uiIsReadOnly;
+    bool includeId = (bool)ViewBag.uiIncludeId;
+}
+
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    if (isReadOnly)
+    {
+        <div class="form-group row">
+            <div class="col-md">
+                @Html.LabelFor(model => model.CampusID)
+                <div class="form-control">
+                    @Html.DisplayFor(model => model.CampusID)
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md">
+                @Html.LabelFor(model => model.Campus)
+                <div class="form-control">
+                    @Html.DisplayFor(model => model.Campus)
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md">
+                @Html.LabelFor(model => model.CampusAddress)
+                <div class="form-control">
+                    @Html.DisplayFor(model => model.CampusAddress)
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md">
+                @Html.LabelFor(model => model.ContactNumber)
+                <div class="form-control">
+                    @Html.DisplayFor(model => model.ContactNumber)
+                </div>
+            </div>
+        </div>
+        
+    }
+    else
+    {
+        @Html.HiddenFor(model => model.CampusID)
+
+        if (includeId)
+        {
+            <div class="form-group row">
+               <div class="col-md">
+                    @Html.LabelFor(model => model.CampusID)
+                    <div class="form-control dimmed">
+                        @Html.DisplayFor(model => model.CampusID)
+                    </div>
+                </div>
+            </div>
+        }
+
+        <div class="form-group row">
+            <div class="col-md">
+                @Html.LabelFor(model => model.Campus)
+                @Html.TextBoxFor(model => model.Campus, new { @class = "form-control", maxlength = "200" })
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md">
+                @Html.LabelFor(model => model.Address)
+                @Html.TextBoxFor(model => model.Address, new { @class = "form-control", maxlength = "200" })
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md">
+                @Html.LabelFor(model => model.CountryID)
+                @Html.DropDownListFor(model => model.CountryID, SelectItems.getCountries(), new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md">
+                @Html.LabelFor(model => model.PostalCode)
+                @Html.TextBoxFor(model => model.PostalCode, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md">
+                @Html.LabelFor(model => model.ContactNumber)
+                @Html.TextBoxFor(model => model.ContactNumber, new { @class = "form-control" })
+            </div>
+        </div>
+      
+    }
+}

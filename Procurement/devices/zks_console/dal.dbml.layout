@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="dal">
+  <DataContextMoniker Name="/dalDataContext" />
+  <nestedChildShapes>
+    <classShape Id="bca4d1b6-8a27-4b1c-a911-9a2470393257" absoluteBounds="6.875, 2.375, 2, 1.7708968098958331">
+      <DataClassMoniker Name="/dalDataContext/tblDeviceLog" />
+      <nestedChildShapes>
+        <elementListCompartment Id="dfa4beb0-adb3-4259-aa8c-4491bbf6dc07" absoluteBounds="6.89, 2.835, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="67d44ab3-91f4-43b9-8974-2bd0602a936b" absoluteBounds="3.375, 5.25, 2, 1.9631982421875">
+      <DataClassMoniker Name="/dalDataContext/tblEmployee_TimeLog" />
+      <nestedChildShapes>
+        <elementListCompartment Id="e1fcad62-106d-408d-b5a3-fff2c7eb8355" absoluteBounds="3.39, 5.71, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="862fa12e-5c43-40eb-9ac1-8d1546dd3308" absoluteBounds="7.25, 5, 2, 1.9631982421875">
+      <DataClassMoniker Name="/dalDataContext/vwDeviceLog" />
+      <nestedChildShapes>
+        <elementListCompartment Id="0aaf888e-b65b-4c78-9919-e69df1681699" absoluteBounds="7.265, 5.46, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

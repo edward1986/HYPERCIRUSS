@@ -1,0 +1,36 @@
+D:\Systems\SkyHR\Module.Core\Module.Core\bin\Debug\Module.Core.dll
+D:\Systems\SkyHR\Module.Core\Module.Core\bin\Debug\Module.Core.pdb
+D:\Systems\SkyHR\Module.Core\Module.Core\bin\Debug\Newtonsoft.Json.dll
+D:\Systems\SkyHR\Module.Core\Module.Core\bin\Debug\Newtonsoft.Json.xml
+D:\Systems\SkyHR\Module.Core\Module.Core\obj\Debug\Module.Core.csprojAssemblyReference.cache
+D:\Systems\SkyHR\Module.Core\Module.Core\obj\Debug\Module.Core.csproj.CoreCompileInputs.cache
+D:\Systems\SkyHR\Module.Core\Module.Core\obj\Debug\Module.Core.csproj.CopyComplete
+D:\Systems\SkyHR\Module.Core\Module.Core\obj\Debug\Module.Core.dll
+D:\Systems\SkyHR\Module.Core\Module.Core\obj\Debug\Module.Core.pdb
+D:\Systems\Procurement\Module.Core\Module.Core\bin\Debug\Module.Core.dll
+D:\Systems\Procurement\Module.Core\Module.Core\bin\Debug\Module.Core.pdb
+D:\Systems\Procurement\Module.Core\Module.Core\bin\Debug\Newtonsoft.Json.dll
+D:\Systems\Procurement\Module.Core\Module.Core\bin\Debug\Newtonsoft.Json.xml
+D:\Systems\Procurement\Module.Core\Module.Core\obj\Debug\Module.Core.csprojAssemblyReference.cache
+D:\Systems\Procurement\Module.Core\Module.Core\obj\Debug\Module.Core.csproj.CoreCompileInputs.cache
+D:\Systems\Procurement\Module.Core\Module.Core\obj\Debug\Module.Core.csproj.CopyComplete
+D:\Systems\Procurement\Module.Core\Module.Core\obj\Debug\Module.Core.dll
+D:\Systems\Procurement\Module.Core\Module.Core\obj\Debug\Module.Core.pdb
+D:\Procurement\Module.Core\Module.Core\bin\Debug\Module.Core.dll
+D:\Procurement\Module.Core\Module.Core\bin\Debug\Module.Core.pdb
+D:\Procurement\Module.Core\Module.Core\bin\Debug\Newtonsoft.Json.dll
+D:\Procurement\Module.Core\Module.Core\bin\Debug\Newtonsoft.Json.xml
+D:\Procurement\Module.Core\Module.Core\obj\Debug\Module.Core.csprojAssemblyReference.cache
+D:\Procurement\Module.Core\Module.Core\obj\Debug\Module.Core.csproj.CoreCompileInputs.cache
+D:\Procurement\Module.Core\Module.Core\obj\Debug\Module.Core.csproj.CopyComplete
+D:\Procurement\Module.Core\Module.Core\obj\Debug\Module.Core.dll
+D:\Procurement\Module.Core\Module.Core\obj\Debug\Module.Core.pdb
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\Module.Core\Module.Core\bin\Debug\Module.Core.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\Module.Core\Module.Core\bin\Debug\Module.Core.pdb
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\Module.Core\Module.Core\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\Module.Core\Module.Core\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\Module.Core\Module.Core\obj\Debug\Module.Core.csprojAssemblyReference.cache
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\Module.Core\Module.Core\obj\Debug\Module.Core.csproj.CoreCompileInputs.cache
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\Module.Core\Module.Core\obj\Debug\Module.Core.csproj.CopyComplete
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\Module.Core\Module.Core\obj\Debug\Module.Core.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\Module.Core\Module.Core\obj\Debug\Module.Core.pdb

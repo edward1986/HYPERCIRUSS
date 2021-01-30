@@ -1,0 +1,11 @@
+C:\Users\renebert\Documents\Visual Studio 2013\Projects\hrms-eu\hrms-eu\devices\device_zks_s5\bin\x86\Release\device_zks_s5.dll
+C:\Users\renebert\Documents\Visual Studio 2013\Projects\hrms-eu\hrms-eu\devices\device_zks_s5\bin\x86\Release\device_zks_s5.pdb
+C:\Users\renebert\Documents\Visual Studio 2013\Projects\hrms-eu\hrms-eu\devices\device_zks_s5\bin\x86\Release\device_core.dll
+C:\Users\renebert\Documents\Visual Studio 2013\Projects\hrms-eu\hrms-eu\devices\device_zks_s5\bin\x86\Release\device_core.pdb
+C:\Users\renebert\Documents\Visual Studio 2013\Projects\hrms-eu\hrms-eu\devices\device_zks_s5\obj\x86\Release\device_zks_s5.csprojResolveAssemblyReference.cache
+C:\Users\renebert\Documents\Visual Studio 2013\Projects\hrms-eu\hrms-eu\devices\device_zks_s5\obj\x86\Release\Interop.DAO.dll
+C:\Users\renebert\Documents\Visual Studio 2013\Projects\hrms-eu\hrms-eu\devices\device_zks_s5\obj\x86\Release\Interop.MSDATASRC.dll
+C:\Users\renebert\Documents\Visual Studio 2013\Projects\hrms-eu\hrms-eu\devices\device_zks_s5\obj\x86\Release\Interop.VBRUN.dll
+C:\Users\renebert\Documents\Visual Studio 2013\Projects\hrms-eu\hrms-eu\devices\device_zks_s5\obj\x86\Release\device_zks_s5.csproj.ResolveComReference.cache
+C:\Users\renebert\Documents\Visual Studio 2013\Projects\hrms-eu\hrms-eu\devices\device_zks_s5\obj\x86\Release\device_zks_s5.dll
+C:\Users\renebert\Documents\Visual Studio 2013\Projects\hrms-eu\hrms-eu\devices\device_zks_s5\obj\x86\Release\device_zks_s5.pdb

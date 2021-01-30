@@ -1,0 +1,18 @@
+﻿@using coreApp
+@{
+    coreApp.UserAccess access = coreApp.Cache.Get().userAccess;
+    ViewBag.Title = "Home Page";
+    Layout = "~/Views/Shared/_Layout_Anonymous.cshtml";
+}
+
+@if (coreApp.Cache.Get().userAccess.IsEmployee)
+{
+    if (access.IsAdmin || (access.HasAccess("procurement") && access.HasAccess("sam")))
+    {
+
+        @Html.Partial("_Dashboard")
+
+    }
+   
+
+}

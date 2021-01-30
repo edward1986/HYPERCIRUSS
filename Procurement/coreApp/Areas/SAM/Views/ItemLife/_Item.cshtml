@@ -1,0 +1,85 @@
+﻿@model coreApp.Areas.Procurement.DAL.tblItem
+
+@{    
+    bool isReadOnly = (bool)ViewBag.uiIsReadOnly;
+    bool includeId = (bool)ViewBag.uiIncludeId;
+    
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+
+    if (isReadOnly)
+            {
+                <div class="form-group row">
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.Id)
+                    </div>
+                    <div class="col-md">
+                        <div class="form-control">
+                            @Html.DisplayFor(model => model.Id)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.Name)
+                    </div>
+                    <div class="col-md">
+                        <div class="form-control">
+                            @Html.DisplayFor(model => model.Name)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-md-3">
+                        No. of Months
+                    </div>
+                    <div class="col-md">
+                        <div class="form-control">
+                            @Model.GetItemLife()
+                        </div>
+                    </div>
+                </div>
+                
+
+    }
+    else
+    {
+        @Html.HiddenFor(model => model.Id)
+
+        if (includeId)
+        {
+            @*<div class="form-group row">
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.Id)
+                </div>
+                <div class="col-md">
+                    <div class="form-control dimmed">
+                        @Html.DisplayFor(model => model.Id)
+                    </div>
+                </div>
+            </div>*@
+
+            <div class="form-group row">
+                <div class="col-md">
+                    @Html.LabelFor(model => model.Name)
+                    <div class="form-control">
+                        @Html.DisplayFor(model => model.Name)
+                    </div>
+                </div>
+            </div>
+        }
+
+        <div class="form-group row">
+            <div class="col-md-6">
+                <label>No. of Months</label>
+                @Html.TextBox("NoOfMonths", Model.GetItemLife(), new { @class = "form-control" })
+            </div>
+        </div>
+    }
+}

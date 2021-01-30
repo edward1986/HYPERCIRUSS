@@ -1,0 +1,114 @@
+﻿@model Module.DB.tblOTApplication
+
+@{    
+    bool isReadOnly = (bool)ViewBag.uiIsReadOnly;
+    bool includeId = (bool)ViewBag.uiIncludeId;
+
+    bool isNew = !includeId;
+    
+}
+
+@Html.Hidden("HasBeenSubmitted", Model.HasBeenSubmitted)
+@Html.Hidden("HasBeenServed", Model.HasBeenServed)
+
+
+@using (Html.BeginForm(isNew ? "Create" : "Edit", "MyOTApplications", new { area = "EmployeeModule", employeeId = Model.EmployeeId }, FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    if (isReadOnly)
+    {
+        @Html.Partial("~/Areas/EmployeeModule/Views/MyOTApplications/_OTApplicationView.cshtml")
+    }
+    else
+    {
+        @Html.HiddenFor(model => model.EmployeeId)
+        @Html.HiddenFor(model => model.Id)
+        @Html.HiddenFor(model => model.StartDate)
+        @Html.HiddenFor(model => model.EndDate)
+
+        <div>
+            @if (includeId)
+            {
+                <div class="form-group row">
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.Id)
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-control dimmed">
+                            @Html.DisplayFor(model => model.Id)
+                        </div>
+                    </div>
+                </div>
+            }
+
+            <div class="form-group row">
+                <div class="col-md-3">
+                    Period
+                </div>
+                <div class="col-md-9">
+                    @Html.Partial("_Helper_Period", new coreLib.Objects.PeriodModel(Model.StartDate, Model.EndDate), new ViewDataDictionary { { "clientCallback", "applyPeriod" }, { "class", "form-control" } })
+                </div>
+            </div>
+
+            @Html.Partial("_Helper_SegmentTimeEdit", Model, new ViewDataDictionary { { "SimpleUI", true } })
+
+            <div class="form-group row">
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.Breaks)
+                </div>
+                <div class="col-md-9">                    
+                    <div class="input-group">
+                        @Html.TextBoxFor(model => model.Breaks, new { @class = "form-control" })
+                        <div class="input-group-addon">
+                            Hours
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.MustTimeIn)
+                </div>
+                <div class="col-md-9">
+                    @Html.Partial("_Helper_CheckBox", "MustTimeIn", new ViewDataDictionary { { "value", Model.MustTimeIn } })
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.MustTimeOut)
+                </div>
+                <div class="col-md-9">
+                    @Html.Partial("_Helper_CheckBox", "MustTimeOut", new ViewDataDictionary { { "value", Model.MustTimeOut } })
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.Days)
+                </div>
+                <div class="col-md-9">
+                    @Html.Partial("_Helper_Days")
+                </div>
+            </div>
+            
+            <div class="form-group row">
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.Remarks)
+                </div>
+                <div class="col-md-9">
+                    @Html.TextAreaFor(model => model.Remarks, new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+        
+    }
+}
+
+<script>
+    $(window).load(function () {
+        $('textarea').unbind();
+    });
+</script>

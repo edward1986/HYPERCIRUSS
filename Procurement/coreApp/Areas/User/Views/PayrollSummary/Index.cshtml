@@ -1,0 +1,311 @@
+﻿@model List<coreApp.DAL.tblPayrollSummary>
+
+@{
+    ViewBag.Title = "Payroll Summary";
+    ViewBag.Subtitle = "List";
+
+    bool isPending = (bool)ViewBag.isPending;
+
+}
+
+@section Breadcrumbs {
+    @Html.Partial("_Breadcrumbs", new List<Breadcrumb>() { new Breadcrumb { Description = ViewBag.Title } })
+}
+
+@section Styles {
+    <style>
+        .paymode,
+        .excludeot,
+        .period {
+            display: block;
+        }
+
+        form.contoptions-none .contributions,
+        form.ptype-salary .overloadtype,
+        form.ptype-13thmp .paymode,
+        form.ptype-13thmp .excludeot,
+        form.ptype-13thmp .overloadtype,
+        form.ptype-midyear .paymode,
+        form.ptype-midyear .excludeot,
+        form.ptype-midyear .overloadtype,
+        form.ptype-yearend .paymode,
+        form.ptype-yearend .overloadtype,
+        form.ptype-ot .paymode,
+        form.ptype-ot .excludeot,
+        form.ptype-ot .overloadtype,
+        form.ptype-acapera .paymode,
+        form.ptype-acapera .excludeot,
+        form.ptype-acapera .overloadtype,
+        form.ptype-midyear .period,
+        form.ptype-midyear .overloadtype,
+        form.ptype-overload .paymode,
+        form.ptype-overload .excludeot,
+        form.ptype-yearend .period {
+            display: none
+        }
+    </style>
+}
+
+@section Scripts {
+    <script>
+        var ptypeSalary = @((int)coreApp.Enums.PayrollType.Salary);
+        var ptype13thMP = @((int)coreApp.Enums.PayrollType._13thMP);
+        var ptypeMidYear = @((int)coreApp.Enums.PayrollType.Mid_Year);
+        var ptypeYearEnd = @((int)coreApp.Enums.PayrollType.Year_End);
+        var ptypeOT = @((int)coreApp.Enums.PayrollType.Overtime);
+        var ptypeACAPERA = @((int)coreApp.Enums.PayrollType.ACA_PERA);
+        var ptypeOverload = @((int)coreApp.Enums.PayrollType.Overload);
+
+        var contoptionsNone = @((int)coreApp.Enums.ContributionOptions.None);
+
+        function load(e) {
+            if (e.viewType == 'view') {
+                var psStatus = $('#PS_Status');
+                var editBtn = e.modal.find('.btn-edit');
+                var deleteBtn = e.modal.find('.btn-delete');
+
+                var printBtn = e.modal.find('.btn-print');
+                var submitBtn = e.modal.find('.btn-submit');
+                var link = submitBtn.attr('data-link-tmp');
+
+                submitBtn.unbind('click').bind('click', function (ee) {
+                    ee.preventDefault();
+
+                    modalConfirm('Are you sure you want to submit this payroll summary?', function (ret) {
+                        if (ret) {
+                            $.post(link, null, function (res) {
+                                if (res.IsSuccessful) {
+                                    sessionStorage.clientMessage = res.Remarks;
+                                    window.location.reload(true);
+                                } else {
+                                    modalMessage(res.Err.split('\n'), 'Payroll Summary', true);
+                                }
+                            }, 'json');
+                        }
+                    });
+
+                });
+
+                var printlink = printBtn.attr('data-link-tmp');
+
+                printBtn.unbind('click').bind('click', function (ee) {
+                    ee.preventDefault();
+
+                    modalPrint('@Module.Core.ModuleConstants.PRINT_OPTIONS', function (ret) {
+                        var dlWord = 'true';
+
+                        if (ret) {
+                            dlWord = 'false';
+                        }
+
+                        window.open(printlink + '?dlWord=' + dlWord, '_blank');
+                    });
+                });
+
+                if (psStatus.val() > @((int)coreApp.Enums.PSStatus.Returned)) {
+                    editBtn.hide();
+                    deleteBtn.hide();
+                    submitBtn.hide();
+                } else {
+                    editBtn.show();
+                    deleteBtn.show();
+                    submitBtn.show();
+                }
+
+            } else if (e.viewType == 'create' || e.viewType == 'edit') {
+
+                var form = $('form');
+                var payrollType = $('#PayrollType');
+                var contOptions = $('#ContOptions');
+
+                payrollType.change(function () {
+                    form.removeClass('ptype-salary ptype-13thmp ptype-midyear ptype-yearend ptype-ot ptype-acapera ptype-overload');
+
+                    if (payrollType.val() == ptypeSalary) form.addClass('ptype-salary');
+                    else if (payrollType.val() == ptype13thMP) form.addClass('ptype-13thmp');
+                    else if (payrollType.val() == ptypeMidYear) form.addClass('ptype-midyear');
+                    else if (payrollType.val() == ptypeYearEnd) form.addClass('ptype-yearend');
+                    else if (payrollType.val() == ptypeOT) form.addClass('ptype-ot');
+                    else if (payrollType.val() == ptypeACAPERA) form.addClass('ptype-acapera');
+                    else if (payrollType.val() == ptypeOverload) form.addClass('ptype-overload');
+                });
+
+                contOptions.change(function () {
+                    form.removeClass('contoptions-none');
+
+                    if (contOptions.val() == contoptionsNone) form.addClass('contoptions-none');
+                });
+
+                payrollType.change();
+                contOptions.change();
+            }
+
+
+            return e;
+        }
+
+        function presubmit(type, e) {
+            if (type == 'create' || type == 'update') {
+                var s = '';
+
+                $('[name="_Contributions"]').each(function (i, v) {
+                    var cb = $(v);
+                    if (cb.prop('checked')) {
+                        s += (s == '' ? '' : ',') + cb.attr('data-text');
+                    }
+                })
+
+                $('#Contributions').val(s);
+            }
+
+            return true;
+        }
+
+        function applyPeriod(startDate, endDate) {
+            $('#DateFrom').val(startDate);
+            $('#DateTo').val(endDate);
+        }
+
+
+
+    </script>
+}
+<div class="block">
+    <ul class="nav nav-tabs" state-key="settings-tab" state-manager-for="tabs">
+        <li class="@(isPending ? "active" : "")"><a href="@(isPending ? "#" : "/HRModule/PayrollSummary")" data-toggle="@(isPending ? "tab" : "")">Pending</a></li>
+        <li class="@(isPending ? "" : "active")"><a href="@(isPending ? "PayrollSummary/Submitted" : "#")" data-toggle="@(isPending ? "" : "tab")">Submitted</a></li>
+    </ul>
+    <div class="content table-responsive">
+        <div class="table-actions">
+            <button class="btn btn-success btn-create" onclick="$.fn.list('modalCreate', this)">Create</button>
+        </div>
+
+        <table class="display table table-bordered table-striped table-list" cellspacing="0" width="100%"
+               modal-target="#modalView" modal-start="view" modal-load-callback="load" modal-presubmit-callback="presubmit"
+               modal-view-url="/HRModule/PayrollSummary/Details/{0}" modal-edit-url="/HRModule/PayrollSummary/Edit/{0}" modal-delete-url="/HRModule/PayrollSummary/Delete" modal-create-url="/HRModule/PayrollSummary/Create">
+            <thead>
+                <tr>
+                    <th class="idcol">
+                        Id
+                    </th>
+                    <th>
+                        Payroll Type
+                    </th>
+                    <th>
+                        Pay Mode
+                    </th>
+                    @*<th>
+                            Contributions
+                        </th>*@
+                    <th>
+                        Include OT
+                    </th>
+                    @if (FixedSettings.UseAgencyShare)
+                    {
+                        <th>
+                            Agency Share
+                        </th>
+                    }
+
+                    <th>
+                        Description
+                    </th>
+                    <th>
+                        Period
+                    </th>
+                    <th>
+                        Status
+                    </th>
+                    <th>
+                        Created By
+                    </th>
+                    <th>
+                        Submitted By
+                    </th>
+                    <th>
+                        Returned By
+                    </th>
+                    <th>
+                        Posted By
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (coreApp.DAL.tblPayrollSummary item in Model)
+                {
+                    <tr record-id="@item.PSId">
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PSId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PayrollType_Desc)
+
+                            @if (item.PayrollType == (int)coreApp.Enums.PayrollType.Overload)
+                            {
+                                <span>(@Html.DisplayFor(modelItem => item.OverloadType_Desc))</span>
+                            }
+
+                        </td>
+                        <td>
+                            @if (item.PayrollType == (int)coreApp.Enums.PayrollType.Salary || item.PayrollType == (int)coreApp.Enums.PayrollType.Overload)
+                            {
+                                @Html.DisplayFor(modelItem => item.PayMode_Desc)
+
+                            }
+                        </td>
+                        @*<td>
+                                @if (item.PayrollType == (int)coreApp.Enums.PayrollType.Salary)
+                                {
+                                    @Html.DisplayFor(modelItem => item.ContOptions_Desc)
+                                }
+                            </td>*@
+                        <td>
+                            @if (item.PayrollType == (int)coreApp.Enums.PayrollType.Salary)
+                            {
+                                @Html.DisplayBooleanFor(modelItem => item.IncludeOT)
+                            }
+                        </td>
+                        @if (FixedSettings.UseAgencyShare)
+                        {
+                            <td>
+                                @if (item.PayrollType == (int)coreApp.Enums.PayrollType.Salary)
+                                {
+                                    @Html.DisplayFor(modelItem => item.AgencyShare)
+                                }
+                            </td>
+                        }
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Description)
+                        </td>
+                        <td style="white-space: nowrap">
+                            @if (item.PayrollType == (int)coreApp.Enums.PayrollType.Salary || item.PayrollType == (int)coreApp.Enums.PayrollType.Overtime || item.PayrollType == (int)coreApp.Enums.PayrollType._13thMP)
+                            {
+                                @Html.DisplayFor(modelItem => item.DateFrom)<span> - </span>@Html.DisplayFor(modelItem => item.DateTo)
+                            }
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Status_Desc)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CreatedBy)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SubmittedBy)<br />
+                            <span class="subtitle">@Html.DisplayFor(modelItem => item.DateSubmitted)</span>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ReturnedBy)<br />
+                            <span class="subtitle">@Html.DisplayFor(modelItem => item.DateReturned)</span>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PostedBy)<br />
+                            <span class="subtitle">@Html.DisplayFor(modelItem => item.DatePosted)</span>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@Html.Partial("~/Views/Shared/modals/_ModalView.cshtml", "modalView")

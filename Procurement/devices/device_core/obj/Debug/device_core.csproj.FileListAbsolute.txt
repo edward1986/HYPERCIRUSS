@@ -1,0 +1,110 @@
+D:\Repository\hrms-eu\devices\device_core\bin\Debug\device_core.dll
+D:\Repository\hrms-eu\devices\device_core\bin\Debug\device_core.pdb
+D:\Repository\hrms-eu\devices\device_core\obj\Debug\device_core.csproj.ResolveComReference.cache
+D:\Repository\hrms-eu\devices\device_core\obj\Debug\device_core.dll
+D:\Repository\hrms-eu\devices\device_core\obj\Debug\device_core.pdb
+D:\Repositories\hrms-eu\devices\device_core\bin\Debug\device_core.dll
+D:\Repositories\hrms-eu\devices\device_core\bin\Debug\device_core.pdb
+D:\Repositories\hrms-eu\devices\device_core\obj\Debug\device_core.csprojResolveAssemblyReference.cache
+D:\Repositories\hrms-eu\devices\device_core\obj\Debug\device_core.csproj.ResolveComReference.cache
+D:\Repositories\hrms-eu\devices\device_core\obj\Debug\device_core.dll
+D:\Repositories\hrms-eu\devices\device_core\obj\Debug\device_core.pdb
+C:\Users\renebert\Documents\Visual Studio 2015\Projects\hrms\hrms\hrms-eu\devices\device_core\bin\Debug\device_core.dll
+C:\Users\renebert\Documents\Visual Studio 2015\Projects\hrms\hrms\hrms-eu\devices\device_core\bin\Debug\device_core.pdb
+C:\Users\renebert\Documents\Visual Studio 2015\Projects\hrms\hrms\hrms-eu\devices\device_core\obj\Debug\device_core.csproj.ResolveComReference.cache
+C:\Users\renebert\Documents\Visual Studio 2015\Projects\hrms\hrms\hrms-eu\devices\device_core\obj\Debug\device_core.dll
+C:\Users\renebert\Documents\Visual Studio 2015\Projects\hrms\hrms\hrms-eu\devices\device_core\obj\Debug\device_core.pdb
+C:\Users\renebert\Documents\Visual Studio 2017\Projects\skyhr_legacy_db\skyhr\devices\device_core\bin\Debug\device_core.dll
+C:\Users\renebert\Documents\Visual Studio 2017\Projects\skyhr_legacy_db\skyhr\devices\device_core\bin\Debug\device_core.pdb
+C:\Users\renebert\Documents\Visual Studio 2017\Projects\skyhr_legacy_db\skyhr\devices\device_core\obj\Debug\device_core.csproj.ResolveComReference.cache
+C:\Users\renebert\Documents\Visual Studio 2017\Projects\skyhr_legacy_db\skyhr\devices\device_core\obj\Debug\device_core.csproj.CoreCompileInputs.cache
+C:\Users\renebert\Documents\Visual Studio 2017\Projects\skyhr_legacy_db\skyhr\devices\device_core\obj\Debug\device_core.dll
+C:\Users\renebert\Documents\Visual Studio 2017\Projects\skyhr_legacy_db\skyhr\devices\device_core\obj\Debug\device_core.pdb
+C:\Users\User\source\repos\skyhr_legacy_db\skyhr_legacy_db\skyhr\devices\device_core\bin\Debug\device_core.dll
+C:\Users\User\source\repos\skyhr_legacy_db\skyhr_legacy_db\skyhr\devices\device_core\bin\Debug\device_core.pdb
+C:\Users\User\source\repos\skyhr_legacy_db\skyhr_legacy_db\skyhr\devices\device_core\obj\Debug\device_core.csproj.ResolveComReference.cache
+C:\Users\User\source\repos\skyhr_legacy_db\skyhr_legacy_db\skyhr\devices\device_core\obj\Debug\device_core.csproj.CoreCompileInputs.cache
+C:\Users\User\source\repos\skyhr_legacy_db\skyhr_legacy_db\skyhr\devices\device_core\obj\Debug\device_core.dll
+C:\Users\User\source\repos\skyhr_legacy_db\skyhr_legacy_db\skyhr\devices\device_core\obj\Debug\device_core.pdb
+C:\Users\renebert\Documents\Visual Studio 2017\Projects\skyhr_legacy_db\skyhr_legacy_db\skyhr\devices\device_core\bin\Debug\device_core.dll
+C:\Users\renebert\Documents\Visual Studio 2017\Projects\skyhr_legacy_db\skyhr_legacy_db\skyhr\devices\device_core\bin\Debug\device_core.pdb
+C:\Users\renebert\Documents\Visual Studio 2017\Projects\skyhr_legacy_db\skyhr_legacy_db\skyhr\devices\device_core\obj\Debug\device_core.csproj.ResolveComReference.cache
+C:\Users\renebert\Documents\Visual Studio 2017\Projects\skyhr_legacy_db\skyhr_legacy_db\skyhr\devices\device_core\obj\Debug\device_core.csproj.CoreCompileInputs.cache
+C:\Users\renebert\Documents\Visual Studio 2017\Projects\skyhr_legacy_db\skyhr_legacy_db\skyhr\devices\device_core\obj\Debug\device_core.dll
+C:\Users\renebert\Documents\Visual Studio 2017\Projects\skyhr_legacy_db\skyhr_legacy_db\skyhr\devices\device_core\obj\Debug\device_core.pdb
+C:\Users\User\source\repos\skyhr2\skyhr2\skyhr\devices\device_core\bin\Debug\device_core.dll
+C:\Users\User\source\repos\skyhr2\skyhr2\skyhr\devices\device_core\bin\Debug\device_core.pdb
+C:\Users\User\source\repos\skyhr2\skyhr2\skyhr\devices\device_core\obj\Debug\device_core.csproj.ResolveComReference.cache
+C:\Users\User\source\repos\skyhr2\skyhr2\skyhr\devices\device_core\obj\Debug\device_core.csproj.CoreCompileInputs.cache
+C:\Users\User\source\repos\skyhr2\skyhr2\skyhr\devices\device_core\obj\Debug\device_core.dll
+C:\Users\User\source\repos\skyhr2\skyhr2\skyhr\devices\device_core\obj\Debug\device_core.pdb
+C:\Users\renebert\Documents\Visual Studio 2017\Projects\skyhr_legacy_db\skyhr_legacy_db\skyhr\devices\device_core\obj\Debug\device_core.csprojResolveAssemblyReference.cache
+C:\Users\User\source\repos\skyhr2\skyhr2\skyhr\devices\device_core\obj\Debug\device_core.csprojResolveAssemblyReference.cache
+C:\Users\renebert\Documents\Visual Studio 2017\Projects\skyhr\skyhr\devices\device_core\bin\Debug\device_core.dll
+C:\Users\renebert\Documents\Visual Studio 2017\Projects\skyhr\skyhr\devices\device_core\bin\Debug\device_core.pdb
+C:\Users\renebert\Documents\Visual Studio 2017\Projects\skyhr\skyhr\devices\device_core\obj\Debug\device_core.csproj.ResolveComReference.cache
+C:\Users\renebert\Documents\Visual Studio 2017\Projects\skyhr\skyhr\devices\device_core\obj\Debug\device_core.csproj.CoreCompileInputs.cache
+C:\Users\renebert\Documents\Visual Studio 2017\Projects\skyhr\skyhr\devices\device_core\obj\Debug\device_core.dll
+C:\Users\renebert\Documents\Visual Studio 2017\Projects\skyhr\skyhr\devices\device_core\obj\Debug\device_core.pdb
+C:\Users\User\source\repos\skyhr_procurement\skyhr_procurement\devices\device_core\bin\Debug\device_core.dll
+C:\Users\User\source\repos\skyhr_procurement\skyhr_procurement\devices\device_core\bin\Debug\device_core.pdb
+C:\Users\User\source\repos\skyhr_procurement\skyhr_procurement\devices\device_core\bin\Debug\Aspose.Cells.dll
+C:\Users\User\source\repos\skyhr_procurement\skyhr_procurement\devices\device_core\obj\Debug\device_core.csproj.ResolveComReference.cache
+C:\Users\User\source\repos\skyhr_procurement\skyhr_procurement\devices\device_core\obj\Debug\device_core.csproj.CoreCompileInputs.cache
+C:\Users\User\source\repos\skyhr_procurement\skyhr_procurement\devices\device_core\obj\Debug\device_core.dll
+C:\Users\User\source\repos\skyhr_procurement\skyhr_procurement\devices\device_core\obj\Debug\device_core.pdb
+C:\Users\User\source\repos\hrtrack\hrtrack\devices\device_core\bin\Debug\device_core.dll
+C:\Users\User\source\repos\hrtrack\hrtrack\devices\device_core\bin\Debug\device_core.pdb
+C:\Users\User\source\repos\hrtrack\hrtrack\devices\device_core\bin\Debug\Aspose.Cells.dll
+C:\Users\User\source\repos\hrtrack\hrtrack\devices\device_core\obj\Debug\device_core.csprojResolveAssemblyReference.cache
+C:\Users\User\source\repos\hrtrack\hrtrack\devices\device_core\obj\Debug\device_core.csproj.ResolveComReference.cache
+C:\Users\User\source\repos\hrtrack\hrtrack\devices\device_core\obj\Debug\device_core.csproj.CoreCompileInputs.cache
+C:\Users\User\source\repos\hrtrack\hrtrack\devices\device_core\obj\Debug\device_core.dll
+C:\Users\User\source\repos\hrtrack\hrtrack\devices\device_core\obj\Debug\device_core.pdb
+C:\Users\User\source\repos\skyhr_procurement\skyhr_procurement\devices\device_core\obj\Debug\device_core.csprojResolveAssemblyReference.cache
+C:\Users\User\Desktop\FOR SKY DELIVERABLES\SkyHR\devices\device_core\bin\Debug\device_core.dll
+C:\Users\User\Desktop\FOR SKY DELIVERABLES\SkyHR\devices\device_core\bin\Debug\device_core.pdb
+C:\Users\User\Desktop\FOR SKY DELIVERABLES\SkyHR\devices\device_core\bin\Debug\Aspose.Cells.dll
+C:\Users\User\Desktop\FOR SKY DELIVERABLES\SkyHR\devices\device_core\obj\Debug\device_core.csproj.ResolveComReference.cache
+C:\Users\User\Desktop\FOR SKY DELIVERABLES\SkyHR\devices\device_core\obj\Debug\device_core.csproj.CoreCompileInputs.cache
+C:\Users\User\Desktop\FOR SKY DELIVERABLES\SkyHR\devices\device_core\obj\Debug\device_core.dll
+C:\Users\User\Desktop\FOR SKY DELIVERABLES\SkyHR\devices\device_core\obj\Debug\device_core.pdb
+D:\Cleford\System\FOR SKY DELIVERABLES_2\FOR SKY DELIVERABLES\SkyHR\devices\device_core\bin\Debug\device_core.dll
+D:\Cleford\System\FOR SKY DELIVERABLES_2\FOR SKY DELIVERABLES\SkyHR\devices\device_core\bin\Debug\device_core.pdb
+D:\Cleford\System\FOR SKY DELIVERABLES_2\FOR SKY DELIVERABLES\SkyHR\devices\device_core\bin\Debug\Aspose.Cells.dll
+D:\Cleford\System\FOR SKY DELIVERABLES_2\FOR SKY DELIVERABLES\SkyHR\devices\device_core\obj\Debug\device_core.csprojAssemblyReference.cache
+D:\Cleford\System\FOR SKY DELIVERABLES_2\FOR SKY DELIVERABLES\SkyHR\devices\device_core\obj\Debug\device_core.csproj.ResolveComReference.cache
+D:\Cleford\System\FOR SKY DELIVERABLES_2\FOR SKY DELIVERABLES\SkyHR\devices\device_core\obj\Debug\device_core.csproj.CopyComplete
+D:\Cleford\System\FOR SKY DELIVERABLES_2\FOR SKY DELIVERABLES\SkyHR\devices\device_core\obj\Debug\device_core.dll
+D:\Cleford\System\FOR SKY DELIVERABLES_2\FOR SKY DELIVERABLES\SkyHR\devices\device_core\obj\Debug\device_core.pdb
+D:\Cleford\System\FOR SKY DELIVERABLES_2\FOR SKY DELIVERABLES\SkyHR\devices\device_core\obj\Debug\device_core.csproj.CoreCompileInputs.cache
+D:\Systems\SkyHR\SkyHR\devices\device_core\bin\Debug\device_core.dll
+D:\Systems\SkyHR\SkyHR\devices\device_core\bin\Debug\device_core.pdb
+D:\Systems\SkyHR\SkyHR\devices\device_core\bin\Debug\Aspose.Cells.dll
+D:\Systems\SkyHR\SkyHR\devices\device_core\obj\Debug\device_core.csprojAssemblyReference.cache
+D:\Systems\SkyHR\SkyHR\devices\device_core\obj\Debug\device_core.csproj.ResolveComReference.cache
+D:\Systems\SkyHR\SkyHR\devices\device_core\obj\Debug\device_core.csproj.CoreCompileInputs.cache
+D:\Systems\SkyHR\SkyHR\devices\device_core\obj\Debug\device_core.csproj.CopyComplete
+D:\Systems\SkyHR\SkyHR\devices\device_core\obj\Debug\device_core.dll
+D:\Systems\SkyHR\SkyHR\devices\device_core\obj\Debug\device_core.pdb
+D:\Systems\SkyHR\SkyHR\SkyHR\SkyHR\devices\device_core\bin\Debug\device_core.dll
+D:\Systems\SkyHR\SkyHR\SkyHR\SkyHR\devices\device_core\bin\Debug\device_core.pdb
+D:\Systems\SkyHR\SkyHR\SkyHR\SkyHR\devices\device_core\bin\Debug\Aspose.Cells.dll
+D:\Systems\SkyHR\SkyHR\SkyHR\SkyHR\devices\device_core\obj\Debug\device_core.csprojAssemblyReference.cache
+D:\Systems\SkyHR\SkyHR\SkyHR\SkyHR\devices\device_core\obj\Debug\device_core.csproj.ResolveComReference.cache
+D:\Systems\SkyHR\SkyHR\SkyHR\SkyHR\devices\device_core\obj\Debug\device_core.csproj.CoreCompileInputs.cache
+D:\Systems\SkyHR\SkyHR\SkyHR\SkyHR\devices\device_core\obj\Debug\device_core.csproj.CopyComplete
+D:\Systems\SkyHR\SkyHR\SkyHR\SkyHR\devices\device_core\obj\Debug\device_core.dll
+D:\Systems\SkyHR\SkyHR\SkyHR\SkyHR\devices\device_core\obj\Debug\device_core.pdb
+D:\Systems\SkyHR\devices\device_core\bin\Debug\device_core.dll
+D:\Systems\SkyHR\devices\device_core\bin\Debug\device_core.pdb
+D:\Systems\SkyHR\devices\device_core\bin\Debug\Aspose.Cells.dll
+D:\Systems\SkyHR\devices\device_core\bin\Debug\Newtonsoft.Json.dll
+D:\Systems\SkyHR\devices\device_core\bin\Debug\Newtonsoft.Json.xml
+D:\Systems\SkyHR\devices\device_core\obj\Debug\device_core.csprojAssemblyReference.cache
+D:\Systems\SkyHR\devices\device_core\obj\Debug\Interop.zkemkeeper.dll
+D:\Systems\SkyHR\devices\device_core\obj\Debug\device_core.csproj.ResolveComReference.cache
+D:\Systems\SkyHR\devices\device_core\obj\Debug\device_core.csproj.CoreCompileInputs.cache
+D:\Systems\SkyHR\devices\device_core\obj\Debug\device_core.csproj.CopyComplete
+D:\Systems\SkyHR\devices\device_core\obj\Debug\device_core.dll
+D:\Systems\SkyHR\devices\device_core\obj\Debug\device_core.pdb

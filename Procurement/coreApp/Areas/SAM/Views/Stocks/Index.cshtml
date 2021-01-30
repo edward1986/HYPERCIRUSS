@@ -1,0 +1,78 @@
+﻿@model List<coreApp.Areas.SAM.StockModel>
+@{
+    ViewBag.Title = "Stocks";
+}
+
+@section Breadcrumbs {
+    @Html.Partial("_Breadcrumbs", new List<Breadcrumb>()
+        {
+            new Breadcrumb { Description = "Supply/Asset Management", Link = Url.Action("Index", "Main", new { area = "SAM" }) },
+            new Breadcrumb { Description = ViewBag.Title }
+        })
+}
+
+@section Scripts {
+    <script>
+        function print() {
+            modalPrint('@Module.Core.ModuleConstants.PRINT_OPTIONS', function (ret) {
+                        var dlWord = 'true';
+
+                        if (ret) {
+                            dlWord = 'false';
+                        }
+
+                        window.open('@Url.Action("Print")?dlWord=' + dlWord, '_blank');
+                    });
+        }
+    </script>
+}
+
+<div class="block">
+    <div class="card">
+        <div class="card-header">
+            <h5>@ViewBag.Title</h5>
+            <div class="card-header-right">
+                <div class="btn-group-sm card-option">
+                    <button class="btn btn-info btn-clean btn-print" onclick="print()">Print</button>
+
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="dt-responsive table-responsive">
+                <table class="display table table-bordered table-striped table-list" cellspacing="0" width="100%" data-url="/SAM/Stock/Items/Index/{0}">
+                    <thead>
+                        <tr>
+                            <th>Stock No.</th>
+                            <th>Item Name</th>
+                            <th>Unit</th>
+                            <th>Balance</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr record-id="@item.Item.Id">
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.StockNo)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Item.Name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Item.Unit.Unit)
+                                </td>
+                                <td>
+                                    @item.Balance().ToString("#,##0.#")
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@Html.Partial("~/Views/Shared/modals/_ModalView.cshtml", "modalView")

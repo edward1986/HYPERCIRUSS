@@ -1,0 +1,25 @@
+﻿@model Module.DB.tblLeaveApplication
+
+@if (Model.IsApproved)
+{
+    List<coreApp.DAL.leaveEntryModel> LWOP = new List<coreApp.DAL.leaveEntryModel>();
+
+    if (!string.IsNullOrEmpty(Model.Approved_WithoutPay_Data))
+    {
+        string[] tmp = Newtonsoft.Json.JsonConvert.DeserializeObject<string[]>(Model.Approved_WithoutPay_Data);
+        LWOP = tmp.Select(x => Newtonsoft.Json.JsonConvert.DeserializeObject<coreApp.DAL.leaveEntryModel>(x)).ToList();
+    }
+    
+    int i = 0;
+
+    foreach (coreApp.DAL.leaveEntryModel wopay in LWOP)
+    {
+        if (i > 0)
+        {
+            <br />
+        }
+
+        @Html.DisplayFor(modelItem => wopay.Date_Desc)
+        i++;
+    }
+}

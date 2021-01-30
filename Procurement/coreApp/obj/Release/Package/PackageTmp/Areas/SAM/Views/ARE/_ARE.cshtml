@@ -1,0 +1,221 @@
+﻿@model coreApp.Areas.SAM.tblARE
+
+@{    
+    bool isReadOnly = (bool)ViewBag.uiIsReadOnly;
+    bool includeId = (bool)ViewBag.uiIncludeId;
+    
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    if (isReadOnly)
+    {
+        <div class="form-row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.Id)
+            </div>
+            <div class="col-md-9">
+                <div class="form-control">
+                    @Html.DisplayFor(model => model.Id)
+                </div>
+            </div>
+        </div>
+
+                <div class="form-row">
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.AREDate)
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-control">
+                            @Html.DisplayFor(model => model.AREDate)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model._ARENo)
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-control">
+                            @Html.DisplayFor(model => model._ARENo)
+                        </div>
+                    </div>
+                </div>
+
+        if (Model.ToContractor)
+        {
+                    <div class="form-row">
+                        <div class="col-md-3">
+                            Contractor
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-control">
+                                @Html.DisplayFor(model => model._To_Name)
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="col-md-3">
+                            @Html.LabelFor(model => model._To_Address)
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-control">
+                                @Html.DisplayMultiLineFor(model => model._To_Address)
+                            </div>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="form-row">
+                        <div class="col-md-3">
+                            Employee
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-control">
+                                @Html.DisplayFor(model => model._To_Name)
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="col-md-3">
+                            @Html.LabelFor(model => model._To_Position)
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-control">
+                                @Html.DisplayFor(model => model._To_Position)
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="col-md-3">
+                            @Html.LabelFor(model => model._To_Office)
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-control">
+                                @Html.DisplayFor(model => model._To_Office)
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="col-md-3">
+                            @Html.LabelFor(model => model._To_Department)
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-control">
+                                @Html.DisplayFor(model => model._To_Department)
+                            </div>
+                        </div>
+                    </div>
+                }
+
+
+                <div class="form-row">
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.FundCluster)
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-control">
+                            @Html.DisplayFor(model => model.FundCluster)
+                        </div>
+                    </div>
+                </div>
+    }
+    else
+    {
+        @Html.HiddenFor(model => model.Id)
+
+        if (includeId)
+        {
+            <div class="form-row">
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.Id)
+                </div>
+                <div class="col-md-9">
+                    <div class="form-control dimmed">
+                        @Html.DisplayFor(model => model.Id)
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model._ARENo)
+                </div>
+                <div class="col-md-9">
+                    <div class="form-control dimmed">
+                        @Html.DisplayFor(model => model._ARENo)
+                    </div>
+                </div>
+            </div>
+        }
+
+        <div class="form-row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.AREDate)
+            </div>
+            <div class="col-md-9">
+                @Html.TextBoxFor(model => model.AREDate, "{0:MM/dd/yyyy}", new { @class = "form-control datepicker" })
+            </div>
+        </div>
+
+        if (FixedSettings.IncludeContractors)
+        {
+           
+            <div class="totype-ui @(Model.ToContractor ? "show-totype-contractor" : "show-totype-employee" )">
+                <div class="form-row">
+                    <div class="col-md-3">
+                        To
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-control radiobox-inline">
+                            <label><input type="radio" name="To_Type" value="0" @(!Model.ToContractor ? "checked" : "") /> Employee</label>&nbsp;
+                            <label><input type="radio" name="To_Type" value="1" @(Model.ToContractor ? "checked" : "") /> Contractor</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row totype totype-employee">
+                    <div class="col-md-3"></div>
+                    <div class="col-md-9">
+                        @Html.DropDownListFor(model => model._ToEmployee, coreApp.Areas.Procurement.SelectItems.getEmployees(), new { @class = "form-control" })
+                    </div>
+                </div>
+
+                <div class="form-row totype totype-contractor">
+                    <div class="col-md-3"></div>
+                    <div class="col-md-9">
+                        @Html.DropDownListFor(model => model._ToContractor, coreApp.Areas.SAM.SelectItems.getContractors(), new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+
+        }
+        else
+        {
+            <div class="form-row">
+                <div class="col-md-3">
+                    To
+                </div>
+                <div class="col-md-9">
+                    @Html.DropDownListFor(model => model.To_Id, coreApp.Areas.Procurement.SelectItems.getEmployees(), new { @class = "form-control" })
+                </div>
+            </div>
+        }
+
+        <div class="form-row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.FundCluster)
+            </div>
+            <div class="col-md-9">
+                @Html.TextBoxFor(model => model.FundCluster, new { @class = "form-control" })
+            </div>
+        </div>
+    }
+}

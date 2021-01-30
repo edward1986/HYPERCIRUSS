@@ -1,0 +1,329 @@
+﻿@model List<Module.DB.tblEmployee_Career>
+
+@{
+    Layout = "~/Areas/HRModule/Views/Shared/_EmployeeDetailsLayout.cshtml";
+
+    ViewBag.Title = "Career";
+    ViewBag.Subtitle = "List";
+
+    ViewBag.EmployeeDetailsActiveTab = "careers";
+
+    Module.DB.tblEmployee employee = (Module.DB.tblEmployee)ViewBag.Employee;
+}
+
+@section Breadcrumbs {
+    @Html.Partial("_Breadcrumbs", new List<Breadcrumb>()
+    {
+        new Breadcrumb { Description = "Employee List", Link = Url.Action("Index", "Employees", new { area = "HRModule" }) },
+        new Breadcrumb { Description = "Employee Main Record", Link = Url.Action("Details", "Employees", new { id = employee.EmployeeId, area = "HRModule" } ) },
+        new Breadcrumb { Description = ViewBag.Title }
+    })
+}
+
+@section SearchSection {
+    @Html.Action("Search", "EmployeeSearch", new { model = new coreApp.Models.EmployeeSearchModel { DataUrl = "/HRModule/Employee/Career/Index/{0}", MinimalView = true } })
+}
+
+@section Scripts {
+    <script>
+        function print() {
+             modalPrint('@Module.Core.ModuleConstants.PRINT_OPTIONS', function (ret) {
+                 var dlWord = 'true';
+
+                 if (ret) {
+                     dlWord = 'false';
+                 }
+
+                 window.open('/HRModule/Employee/Career/Print/@employee.EmployeeId/?dlWord=' + dlWord, '_blank');
+            });
+        }
+
+        $(document).ready(function () {
+            $("a.dp").click(function () {
+                modalEmpty('Set date', function (modal) {
+
+                    var tb = $('<div />');
+                    tb.addClass('datepicker');
+
+                    var body = modal.find('.modal-body');
+                    body.empty().append(tb);
+
+                    tb.datepicker({
+                        changeMonth: true,
+                        changeYear: true,
+                        dateFormat: 'mm-dd-yy',
+                        yearRange: "-40:+20"
+                    });
+
+                    var btnOk = modal.find('.modal-footer .btn-ok');
+                    btnOk.click(function (e) {
+                        var link = '@Url.Action("UpdateStartedInGovService", new { employeeId = employee.EmployeeId })';
+                        var data = {
+                            dt: tb.val()
+                        };
+
+                        $.post(link, data, function (res) {
+                        if (res.IsSuccessful) {
+                            sessionStorage.clientMessage = res.Remarks;
+                            window.location.reload(true);
+                        } else {
+                            modalMessage(res.Err.split('\n'), 'Set date', true);
+                        }
+                    }, 'json');
+                    });
+                })
+            });
+                       
+        })
+
+
+    </script>
+
+    <script>
+
+        function filterCareerOffice() {
+
+            var campus = document.getElementById("careerCampus");
+
+            var office = document.getElementById("careerOffice");
+
+            var selectedCampus = campus.options[campus.selectedIndex].value;
+                       
+            for (i = 0; i < office.length; i++) {
+
+                if (office.options[i].value.split(",")[0] != selectedCampus) {
+
+                    if (office.options[i].value.split(",")[0] != -1) {
+                        office[i].style.display = "none";
+                    }
+
+                }
+                else {
+                    office[i].style.display = "block";
+                }
+            }
+                       
+        }
+
+        function filterCareerDepartment() {
+                        
+            var office = document.getElementById("careerOffice");
+           
+            var department = document.getElementById("careerDepartment");
+
+            var selectedOffice = office.options[office.selectedIndex].value.split(",")[1];
+
+            department.value = -1;
+
+            for (i = 0; i < department.length; i++) {
+
+                if (department.options[i].value.split(",")[0] != selectedOffice) {
+
+                    if (department.options[i].value.split(",")[0] != -1) {
+                        department[i].style.display = "none";
+
+                    }
+                }
+                else {
+                    department[i].style.display = "block";
+                }
+            }
+
+        }
+
+        function setDepartment(departmentId, officeId, campusId ) {
+
+            if (departmentId != 0) {
+
+                console.log(departmentId + ' ' + officeId + ' ' + campusId);
+
+                var campus = document.getElementById("careerCampus");
+
+                var office = document.getElementById("careerOffice");
+
+                var department = document.getElementById("careerDepartment");
+
+                campus.value = campusId;
+
+                office.value = campusId + ',' + officeId;
+
+                department.value = officeId + ',' + departmentId;
+
+            }
+            
+        }
+              
+    </script>
+}
+
+<div class="block">
+    <ul class="nav nav-tabs" state-key="settings-tab" state-manager-for="tabs">
+        <li class="active"><a href="#career" data-toggle="tab">Career</a></li>
+        <li class=""><a href="/HRModule/Employee/Overload/Index/@employee.EmployeeId">Overload</a></li>
+    </ul>
+
+    <div class="content">
+        <div class="head bg-default bg-light-ltr noradius">
+            <div class="side pull-right">
+                <ul class="buttons">
+                    <li><button class="btn btn-success btn-create" onclick="$.fn.list('modalCreate', this)">Create</button></li>
+                    <li><button class="btn btn-info btn-print" onclick="print()">Print</button></li>
+                </ul>
+            </div>
+        </div>
+        @if (FixedSettings.UseStartInGovService)
+        {
+            <div>
+                Started in Government Service:
+                @if (employee.StartedInGovService == null)
+                {
+                    <span>Unknown</span>
+                }
+                else
+                {
+                    @Html.DisplayFor(model => employee.StartedInGovService)
+                }
+                &nbsp;
+                <a href="#" style="color:#2F84B1" class="dp">[update...]</a>
+            </div>
+            <br />
+        }
+
+        <table class="display table table-bordered table-striped table-list" cellspacing="0" width="100%"
+               modal-target="#modalView" modal-start="view"
+               modal-view-url="/HRModule/Employee/Career/Details/@employee.EmployeeId/{0}" modal-edit-url="/HRModule/Employee/Career/Edit/@employee.EmployeeId/{0}" modal-delete-url="/HRModule/Employee/Career/Delete/@employee.EmployeeId" modal-create-url="/HRModule/Employee/Career/Create/@employee.EmployeeId"
+               modal-view-width="most-wide" modal-edit-width="most-wide" modal-create-width="most-wide">
+            <thead>
+                <tr>
+                    <th class="idcol">
+                        Id
+                    </th>
+                    <th>
+                        Date Effective
+                    </th>
+                    <th>
+                        Event/
+                        Remarks
+                    </th>
+                    @if (FixedSettings.UseMFO)
+                    {
+                        <th>
+                            MFO
+                        </th>
+                    }
+                    <th>
+                        Department
+                    </th>
+                    <th>
+                        Position
+                    </th>
+                    <th>
+                        Salary Grade
+                    </th>
+                    <th>
+                        Step
+                    </th>
+                    <th>
+                        Rate
+                    </th>
+                    <th>
+                        Fund
+                    </th>
+                    <th>
+                        Employment Type
+                    </th>
+                    <th>
+                        Faculty
+                    </th>
+                   <th>
+                        End Event Date
+                    </th>
+                    <th>
+                        End Event/
+                        Remarks
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Module.DB.tblEmployee_Career item in Model)
+                {
+                    <tr record-id="@item.CareerId">
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CareerId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DateEffective)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Events_Desc)
+                            @if (!string.IsNullOrEmpty(item.EventRemarks))
+                            {
+                                <hr style="margin:0" />
+                                @Html.DisplayMultiLineFor(model => item.EventRemarks)
+                            }
+                        </td>
+                        @if (FixedSettings.UseMFO)
+                        {
+                            <td>
+                                @Html.DisplayFor(modelItem => item.MFO_Desc)
+                            </td>
+                        }
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Department)
+                            <div class="subtitle">
+                                @Html.DisplayFor(modelItem => item.Office.Campus.Campus),
+                                @Html.DisplayFor(modelItem => item.Office.Office),
+                                @Html.DisplayFor(modelItem => item.Office.Campus.Address)
+                            </div>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Position.Position)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SalaryGrade)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PositionLevel)
+                        </td>
+                        <td>
+                            @item.Rate.ToString("#,##0.00")
+                            @if (item.IsCustomRate)
+                            {
+                                <div class="subtitle">(Custom Rate)</div>
+                            }
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Fund)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EmploymentType_Desc)
+                        </td>
+                        <td>
+                            @(item.IsFaculty ? "Yes" : "No")
+                            @if (item.IsDesignated)
+                            {
+                                <br />
+                                <small>(with Designation)</small>
+                            }
+
+                        </td>
+                       <td>
+                            @Html.DisplayFor(modelItem => item.EndEventDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EndEvent_Desc)
+                            @if (!string.IsNullOrEmpty(item.EndEventRemarks))
+                            {
+                                <hr style="margin:0" />
+                                @Html.DisplayMultiLineFor(model => item.EndEventRemarks)
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+@Html.Partial("~/Views/Shared/modals/_ModalView.cshtml", "modalView")

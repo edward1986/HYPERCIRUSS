@@ -1,0 +1,47 @@
+﻿@using coreApp.Areas.SAM
+@model string
+@{
+    tblPO po = (tblPO)ViewBag.PO;
+
+    List<tblPO> pos = (List<tblPO>)ViewBag.POs;
+    
+}
+
+P.O. No.
+<select onchange="poSelected(this)">
+    @foreach (tblPO o in pos)
+            {
+        <option value="@o.Id" @(po.Id == o.Id ? "selected" : "")>@o.PONo</option>
+    }
+</select>
+
+<div style="padding:5px;">
+    <table>
+        <tbody>
+            <tr>
+                <td>Supplier</td>
+                <td>&nbsp;:&nbsp;</td>
+                <td>@po._SupplierName</td>
+            </tr>
+            <tr>
+                <td>Address</td>
+                <td>&nbsp;:&nbsp;</td>
+                <td>@po._SupplierAddress</td>
+            </tr>
+            <tr>
+                <td>Created by</td>
+                <td>&nbsp;:&nbsp;</td>
+                <td>@po.CreatedBy</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+<br />
+
+<script>
+    function poSelected(sel) {
+        window.location = '@Model' + $(sel).val();
+    }
+</script>

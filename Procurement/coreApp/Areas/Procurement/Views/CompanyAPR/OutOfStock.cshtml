@@ -1,0 +1,289 @@
+﻿@model coreApp.Areas.Procurement.Models.APRModel
+@using coreLib.Extensions
+@{
+    ViewBag.Title = "Set Out-Of-Stock Items";
+
+    List<coreApp.Areas.Procurement.DAL.tblPPMPItem> consolidated = Model.ConsolidatedItems;
+    bool readOnly = Model.apr.HasBeenIncludedInSubmittedAgencyPR();
+}
+
+@section Breadcrumbs {
+    @Html.Partial("_Breadcrumbs", new List<Breadcrumb>()
+        {
+            new Breadcrumb { Description = "Procurement", Link = Url.Action("Index", "Main", new { area = "Procurement" }) },
+            new Breadcrumb { Description = "Agency APRs", Link = Url.Action("Index", "CompanyAPR", new { area = "Procurement" }) },
+            new Breadcrumb { Description = ViewBag.Title }
+        })
+}
+
+@section Styles {
+    <style>
+        .apr-info td {
+            padding: 2px 5px;
+        }
+
+        .qtycol {
+            width: 100px;
+            text-align: center
+        }
+
+        .oos {
+            width: 120px;
+            text-align: center
+        }
+
+            .oos input {
+                text-align: center;
+            }
+
+        .newprice {
+            width: 120px;
+            text-align: right
+        }
+
+            .newprice input {
+                text-align: right;
+            }
+    </style>
+}
+
+@section Scripts {
+    <script>
+        var oTable;
+
+        function prepDone(table) {           
+            oTable = table;
+        }
+
+        function tableBind(obj) {
+            $('.tboos, .tbnewprice').keypress(function (e) {
+                return $.isNumeric(e.key);
+            });
+        }
+
+        function clearEntries() {
+            modalConfirm('Are you sure you want to clear all entries?', function (ret) {
+                if (ret) {
+                    update(true);
+                }
+            });
+        }
+
+        function updateEntries() {
+            modalConfirm('Are you sure you want to update all items?', function (ret) {
+                if (ret) {
+                    update(false);
+                }
+            });
+        }
+
+        function update(clear) {
+            var link = '@Url.Action("OutOfStock_Update", "CompanyAPR")';
+
+            var proc = modalProcessing(null, 'Updating...');
+
+            var oos = [];
+            var err = [];
+
+            if (!clear) {
+               
+                var obj = $('.main-list');
+
+              
+                var nodes = oTable.rows().nodes();
+
+                for (var i = 0; i < nodes.length; i++) {
+                    var tr = $(nodes[i]);
+                    var tb = tr.find('.tboos');
+                    var tbNP = tr.find('.tbnewprice');
+
+                    var id = tr.attr('data-itemid');
+                    var n = tr.attr('data-name');
+
+                    var item = {
+                        ItemId: id,
+                        Qty: null,
+                        NewPrice: null
+                    };
+
+                    if ($.isNumeric(tb.val())) {
+
+                        var qtyreq = parseInt(tr.attr('data-qty-req'));
+                        var qty = parseInt(tb.val());
+
+                        if (qty != 0) {
+
+                            if (qty > qtyreq) {
+                                err.push('\'Out Of Stock\' value for \'' + n + '\' cannot be greater than the \'Requested Qty\'');
+                            } else {
+                                item.Qty = qty;
+                            }
+                        }
+                    }
+
+                    if ($.isNumeric(tbNP.val())) {
+
+                        var newprice = parseFloat(tbNP.val());
+
+                        if (newprice != 0) {
+
+                            if (newprice < 0) {
+                                err.push('\'New Price\' value for \'' + n + '\' cannot be less than 0');
+                            } else {
+                                item.NewPrice = newprice;
+                            }
+                        }
+                    }
+
+                    if (item.Qty != null || item.NewPrice != null) {
+                        oos.push(item);
+                    }
+
+                };
+            }
+
+            if (err.length > 0) {
+                proc.modal('hide');
+                modalMessage(err, 'Update Items', true);
+            } else {
+
+                $.post(link, { id: @Model.apr.Id, isClear: clear, data: oos }, function (res) {
+                    if (res.IsSuccessful) {
+                        sessionStorage.clientMessage = res.Remarks;
+                        window.location.reload(true);
+                    } else {
+                        proc.modal('hide');
+                        modalMessage(res.Err.split('\n'), 'Update Items', true);
+                    }
+                }, 'json');
+            }
+        }
+    </script>
+}
+
+
+<div class="block">
+    <div class="card">
+        <div class="card-header">
+            <h5>@ViewBag.Title</h5>
+            
+            @if (readOnly)
+            {
+                <div class="alert alert-info">
+                    Included in submitted Agency PR
+                </div>
+            }
+            else
+            {
+                <div class="card-header-right">
+                    <div class="btn-group-sm card-option">
+                        <button class="btn btn-primary btn-update" onclick="updateEntries()">Update</button>
+                        <button class="btn btn-danger btn-clear" onclick="clearEntries()">Clear Entries</button>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="card-body">
+            <div class="apr-info">
+                <table>
+                    <tbody>
+                        <tr><td>Description</td><td>:</td><td>@Model.apr.Description</td></tr>
+                        <tr><td>Year</td><td>:</td><td>@Model.apr.Year</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <br />
+
+            @Html.Hidden("Ids", string.Join(",", consolidated.Select(x => x.ItemId)))
+            <div class="dt-responsive table-responsive">
+                <table class="display table table-bordered table-striped table-list main-list" event-tablebind="tableBind" event-settables-done="prepDone" cellspacing="0" width="100%"
+                       modal-target="#modalView">
+                    <thead>
+                        <tr>
+                            <th>
+                                Name
+                            </th>
+                            <th>
+                                Description
+                            </th>
+                            <th>
+                                Category
+                            </th>
+                            <th>
+                                Unit
+                            </th>
+                            <th>
+                                Price
+                            </th>
+                            <th class="qtycol">
+                                Requested Qty
+                            </th>
+                            <th class="oos">
+                                No. of<br />Out-Of-Stock<br />Items
+                            </th>
+                            <th class="newprice">
+                                New DBM Price
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (coreApp.Areas.Procurement.DAL.tblPPMPItem _item in Model.ConsolidatedItems)
+                        {
+
+                            <tr record-id="@_item.Id" data-itemid="@_item.ItemId" locked data-name="@_item.ItemName" data-qty-req="@_item.Qty">
+                                <td>
+                                    @Html.DisplayFor(modelItem => _item.ItemName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => _item.ItemDescription)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => _item.ItemCategory)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => _item.ItemUnit)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => _item.ItemPrice)
+                                </td>
+                                <td class="qtycol">
+                                    @Html.DisplayFor(modelItem => _item.Qty)
+                                </td>
+                                @if (readOnly)
+                                {
+                                    <td class="oos">
+                                        @(_item.OOS == null || _item.OOS == 0 ? "" : _item.OOS.Value.ToString())
+                                    </td>
+                                    <td class="newprice">
+                                        @(_item.DBMPrice == null || _item.DBMPrice == 0 ? "" : _item.DBMPrice.Value.ToString())
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td class="oos">
+                                        <input type="text" class="tboos" value="@(_item.OOS == null || _item.OOS == 0 ? "" : _item.OOS.Value.ToString())" placeholder="Enter Qty" />
+                                    </td>
+                                    <td class="newprice">
+                                        <input type="text" class="tbnewprice" value="@(_item.DBMPrice == null || _item.DBMPrice == 0 ? "" : _item.DBMPrice.Value.ToString())" placeholder="Enter New Price" />
+                                    </td>
+                                }
+
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@Html.Partial("~/Views/Shared/modals/_ModalView.cshtml", "modalView")
+
+<script>
+
+    var x = document.getElementsByClassName("modal-title");
+
+    x.val = "test";
+</script>
+

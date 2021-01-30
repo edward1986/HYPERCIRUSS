@@ -1,0 +1,123 @@
+﻿@model List<Module.DB.tblEmployee_TimeLog>
+
+@{
+    ViewBag.Title = "My Time Logs";
+    ViewBag.Subtitle = "";
+
+    Module.DB.tblEmployee employee = (Module.DB.tblEmployee)ViewBag.Employee;
+    Module.DB.tblLeaveType leaveType = (Module.DB.tblLeaveType)ViewBag.LeaveType;
+
+    bool modifyTL = coreApp.Cache.Get().userAccess.HasAccess("hr_emp_timelogs_modify");
+
+    coreLib.Objects.PeriodModel pm = (coreLib.Objects.PeriodModel)ViewBag.Period;
+
+}
+
+@section Breadcrumbs {
+    @Html.Partial("_Breadcrumbs", new List<Breadcrumb>()
+    {
+        new Breadcrumb { Description = ViewBag.Title }
+    })
+}
+
+
+@section Scripts {
+    <script>
+        function preload(e) {
+            var modifyTL = @(modifyTL ? "true" : "false");
+
+            if (!modifyTL) {
+                e.modal.find('.btn-delete').hide();
+            }
+
+            return e;
+        }
+
+        function applyPeriod(start, end) {
+            window.location = '/EmployeeModule/MyTimeLogs/Index/@employee.EmployeeId/-1/' + start + '/' + end;
+        }
+
+        function _applyPeriod(start, end) {
+            $('#StartDate').val(start);
+            $('#EndDate').val(end);
+        }
+    </script>
+}
+
+<div class="row">
+    <div class="col-sm-12">
+        @Html.Partial("~/Views/Shared/_Helper_Period.cshtml", pm, new ViewDataDictionary { { "clientCallback", "applyPeriod" } })
+    </div>
+</div>
+
+<div class="block">
+    <div class="head bg-default bg-light-ltr noradius">
+        <h2>@ViewBag.Title</h2>
+        <div class="side pull-right">
+            <ul class="buttons">
+                @if (coreApp.Cache.Get().userAccess.HasAccess("hr_emp_timelogs_modify"))
+                {
+                    <li>
+                        <button class="btn btn-success btn-create" onclick="$.fn.list('modalCreate', this)">Create</button>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+    <div class="content">
+        <table class="display table table-bordered table-striped table-list" cellspacing="0" width="100%"
+               modal-target="#modalView" modal-start="view" modal-preload-callback="preload"
+               modal-view-url="/TimeModule/Employee/TimeLogs/Details/@employee.EmployeeId/{0}" modal-edit-url="/TimeModule/Employee/TimeLogs/Edit/@employee.EmployeeId/{0}" modal-delete-url="/TimeModule/Employee/TimeLogs/Delete/@employee.EmployeeId" modal-create-url="/TimeModule/Employee/TimeLogs/Create/@employee.EmployeeId">
+            <thead>
+                <tr>
+                    <th class="idcol">
+                        Id
+                    </th>
+                    <th>
+                        Day
+                    </th>
+                    <th>
+                        Date/Time
+                    </th>
+                    <th>
+                        Mode
+                    </th>
+                    <th>
+                        Entry Type
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Module.DB.tblEmployee_TimeLog item in Model)
+                {
+                    <tr record-id="@item.LogId">
+                        <td>
+                            @Html.DisplayFor(modelItem => item.LogId)
+                        </td>
+                        <td>
+                            @item.TimeLog.ToString("dddd")
+                        </td>
+                        <td>
+                            @item.TimeLog.ToString("MM/dd/yyyy h:mm tt")
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Mode_Desc)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EntryType_Desc)
+                        </td>
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+
+
+
+    </div>
+</div>
+
+
+
+@Html.Partial("~/Views/Shared/modals/_ModalView.cshtml", "modalView")

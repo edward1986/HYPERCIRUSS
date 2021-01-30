@@ -1,0 +1,9 @@
+D:\Procurement\Module.Core\Module.Core\bin\Release\Module.Core.dll
+D:\Procurement\Module.Core\Module.Core\bin\Release\Module.Core.pdb
+D:\Procurement\Module.Core\Module.Core\bin\Release\Newtonsoft.Json.dll
+D:\Procurement\Module.Core\Module.Core\bin\Release\Newtonsoft.Json.xml
+D:\Procurement\Module.Core\Module.Core\obj\Release\Module.Core.csprojAssemblyReference.cache
+D:\Procurement\Module.Core\Module.Core\obj\Release\Module.Core.csproj.CoreCompileInputs.cache
+D:\Procurement\Module.Core\Module.Core\obj\Release\Module.Core.csproj.CopyComplete
+D:\Procurement\Module.Core\Module.Core\obj\Release\Module.Core.dll
+D:\Procurement\Module.Core\Module.Core\obj\Release\Module.Core.pdb

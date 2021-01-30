@@ -1,0 +1,202 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="sams" Class="samDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=.\mssqlserver2016;Initial Catalog=sams;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="samsConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.tblInventoryItemStatus" Member="tblInventoryItemStatus">
+    <Type Name="tblInventoryItemStatus">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="InspectionId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="InventoryItemId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Status" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Remarks" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblInventoryInspection" Member="tblInventoryInspections">
+    <Type Name="tblInventoryInspection">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ReportDate" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="EmployeeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblReceiptItems" Member="tblReceiptItems">
+    <Type Name="tblReceiptItem">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ReceiptId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="POItemId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Qty" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblItemLife" Member="tblItemLifes">
+    <Type Name="tblItemLife">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ItemId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="NoOfMonths" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblPOItems" Member="tblPOItems">
+    <Type Name="tblPOItem">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="POId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UnitId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ItemName" Type="System.String" DbType="NVarChar(500) NOT NULL" CanBeNull="false" />
+      <Column Name="Qty" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UnitCost" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="Amount" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="Procurement_ItemId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CategoryId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="[_Unit]" Member="_Unit" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="[_Category]" Member="_Category" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="[_CategoryType]" Member="_CategoryType" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[_PONo]" Member="_PONo" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblRISItems" Member="tblRISItems">
+    <Type Name="tblRISItem">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="RISId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="POItemId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Requested_Qty" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Approved_Qty" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Remarks" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="[_ItemId]" Member="_ItemId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="[_ItemName]" Member="_ItemName" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="[_Unit]" Member="_Unit" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="[_StockNo]" Member="_StockNo" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="[_Life]" Member="_Life" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="[_PONo]" Member="_PONo" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="[_UnitCost]" Member="_UnitCost" Type="System.Double" DbType="Float" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblContractors" Member="tblContractors">
+    <Type Name="tblContractor">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="CompanyName" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Address" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="TelephoneNo" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Representative" Type="System.String" DbType="NVarChar(150) NOT NULL" CanBeNull="false" />
+      <Column Name="Representative_MobileNo" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblInventoryItems" Member="tblInventoryItems">
+    <Type Name="tblInventoryItem">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ReceiptItemId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PropertyNo" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="SerialNo" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ModelNo" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Brand" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Color" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Barcode" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Remarks" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="[_ItemName]" Member="_ItemName" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="[_IsSemiExpendable]" Member="_IsSemiExpendable" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblAREItems" Member="tblAREItems">
+    <Type Name="tblAREItem">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="AREId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="InventoryItemId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[_AcquisitionDate]" Member="_AcquisitionDate" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="[_ItemName]" Member="_ItemName" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="[_Unit]" Member="_Unit" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="[_UnitCost]" Member="_UnitCost" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="[_PropertyNo]" Member="_PropertyNo" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="[_Life]" Member="_Life" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="[_IsSemiExpendable]" Member="_IsSemiExpendable" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblWarehouses" Member="tblWarehouses">
+    <Type Name="tblWarehouse">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="WarehouseName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Address" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblReceipts" Member="tblReceipts">
+    <Type Name="tblReceipt">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ReceivedDate" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="ReceivedBy_UserId" Type="System.String" DbType="NVarChar(128) NOT NULL" CanBeNull="false" />
+      <Column Name="POId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="InvoiceNo" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="InvoiceDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="DRNo" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="DepartmentId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="FundCluster" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="InspectionDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="InspectionRemarks" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="DateSubmitted" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="DateReturned" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="SubmittedBy_UserId" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="ReturnedBy_UserId" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="ReturnMessage" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="ItemsLastUpdated" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="[_PONo]" Member="_PONo" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="[_SupplierId]" Member="_SupplierId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[_SupplierName]" Member="_SupplierName" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="[_OfficeId]" Member="_OfficeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="[_DepartmentName]" Member="_DepartmentName" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="[_OfficeName]" Member="_OfficeName" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="[_RCC]" Member="_RCC" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="WarehouseId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblARE" Member="tblAREs">
+    <Type Name="tblARE">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="AREDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="From_Id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="From_Type" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="To_Id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="To_Type" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="FundCluster" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="[_From_Name]" Member="_From_Name" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="[_To_Name]" Member="_To_Name" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="[_To_Position]" Member="_To_Position" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="[_To_Office]" Member="_To_Office" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="[_To_Department]" Member="_To_Department" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="[_To_Address]" Member="_To_Address" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="[_ARENo]" Member="_ARENo" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="[_AREType]" Member="_AREType" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="WarehouseId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblRIS" Member="tblRIs">
+    <Type Name="tblRI">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="RequisitionDate" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="EmployeeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Purpose" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Fund" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="[_EmployeeName]" Member="_EmployeeName" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="[_Position]" Member="_Position" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="[_Office]" Member="_Office" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="[_Department]" Member="_Department" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="[_RISNo]" Member="_RISNo" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="[_OfficeId]" Member="_OfficeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="[_RCC]" Member="_RCC" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="WarehouseId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblPO" Member="tblPOs">
+    <Type Name="tblPO">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PONo" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="PODate" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="SupplierId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Procurement_POId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CreatedBy_UserId" Type="System.String" DbType="NVarChar(128) NOT NULL" CanBeNull="false" />
+      <Column Name="Form_PlaceOfDelivery" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Form_DateOfDelivery" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="Form_DeliveryTerm" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Form_PaymentTerm" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="[_SupplierName]" Member="_SupplierName" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="[_SupplierAddress]" Member="_SupplierAddress" Type="System.String" DbType="Text NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Column Name="[_SupplierTIN]" Member="_SupplierTIN" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="PRNo" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="PRDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="MOP" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="WarehouseId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="OfficeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+</Database>

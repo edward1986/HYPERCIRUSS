@@ -1,0 +1,64 @@
+﻿@model List<coreApp.Areas.SAM.tblWarehouse>
+@{
+    ViewBag.Title = "Warehouses";
+    
+}
+
+@section Breadcrumbs {
+@Html.Partial("_Breadcrumbs", new List<Breadcrumb>()
+    {
+        new Breadcrumb { Description = "Supply/Asset Management", Link = Url.Action("Index", "Main", new { area = "SAM" }) },
+        new Breadcrumb { Description = ViewBag.Title }
+    })
+}
+
+@section Scripts {
+    <script>
+        
+    </script>
+}
+
+<div class="block">
+    <div class="head bg-default bg-light-ltr noradius">
+        <h2>@ViewBag.Title</h2>
+        <div class="side pull-right">
+            <ul class="buttons">
+                <li>
+                    <button class="btn btn-success btn-create" onclick="$.fn.list('modalCreate', this)">Create</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="content">
+        <table class="display table table-bordered table-striped table-list" cellspacing="0" width="100%"
+               modal-target="#modalView" modal-start="view"
+               modal-view-url="/SAM/Warehouses/Details/{0}" modal-edit-url="/SAM/Warehouses/Edit/{0}" modal-delete-url="/SAM/Warehouses/Delete" modal-create-url="/SAM/Warehouses/Create">
+            <thead>
+                <tr>
+                    <th>
+                       Warehouse Name
+                    </th>
+                    <th>
+                        Address
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (coreApp.Areas.SAM.tblWarehouse item in Model)
+                {
+                    <tr record-id="@item.Id">
+                        <td>
+                            @Html.DisplayFor(modelItem => item.WarehouseName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Address)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+    </div>
+</div>
+
+@Html.Partial("~/Views/Shared/modals/_ModalView.cshtml", "modalView")

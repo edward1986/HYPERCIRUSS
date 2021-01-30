@@ -1,0 +1,232 @@
+﻿@model coreApp.Areas.SAM.tblReceipt
+
+@{
+    bool isReadOnly = (bool)ViewBag.uiIsReadOnly;
+    bool includeId = (bool)ViewBag.uiIncludeId;
+}
+
+
+<style>
+    .modal-content {
+        width: 50em;
+    }
+</style>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.HasBeenSubmitted)
+
+    if (isReadOnly)
+    {
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group row">
+                    <div class="col-md">
+                        @Html.LabelFor(model => model.Id)
+                        <div class="form-control">
+                            @Html.DisplayFor(model => model.Id)
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md">
+                        @Html.LabelFor(model => model.InvoiceNo)
+                        <div class="form-control">
+                            @Html.DisplayFor(model => model.InvoiceNo)
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md">
+                        @Html.LabelFor(model => model.DRNo)
+                        <div class="form-control">
+                            @Html.DisplayFor(model => model.DRNo)
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group row">
+                    <div class="col-md">
+                        <label>P.O. No.</label>
+                        <div class="form-control">
+                            @Html.DisplayFor(model => model._PONo)
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md">
+                        @Html.LabelFor(model => model.InvoiceDate)
+                        <div class="form-control">
+                            @Html.DisplayFor(model => model.InvoiceDate)
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md">
+                        @Html.LabelFor(model => model.ReceivedDate)
+                        <div class="form-control">
+                            @Html.DisplayFor(model => model.ReceivedDate)
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md">
+                @Html.LabelFor(model => model.ReceivedBy_UserId)
+                <div class="form-control">
+                    @Html.DisplayFor(model => model.ReceivedBy)
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md">
+                @Html.LabelFor(model => model.Office_Department)
+                <div class="form-control">
+                    @Html.DisplayFor(model => model.Office_Department)
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md">
+                @Html.LabelFor(model => model.FundCluster)
+                <div class="form-control">
+                    @Html.DisplayFor(model => model.FundCluster)
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md">
+                @Html.LabelFor(model => model.Delivery)
+                <div class="form-control">
+                    @Html.DisplayFor(model => model.Delivery)
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md">
+                @Html.LabelFor(model => model.Status)
+                <div class="form-control">
+                    @Html.DisplayFor(model => model.Status_Desc)
+                    @if (Model.IsReturned)
+                    {
+                        <div class="small">
+                            &quot;@Model.ReturnMessage&quot;
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+
+        @Html.HiddenFor(model => model.Id)
+
+        if (includeId)
+        {
+            @*<div class="form-group row">
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.Id)
+                    </div>
+                    <div class="col-md">
+                        <div class="form-control dimmed">
+                            @Html.DisplayFor(model => model.Id)
+                        </div>
+                    </div>
+                </div>*@
+
+            <div class="form-group row">
+                <div class="col-md">
+                    <label>P.O. No.</label>
+                    <div class="form-control dimmed">
+                        @Html.DisplayFor(model => model._PONo)
+                        @Html.HiddenFor(model => model._PONo)
+                        @Html.HiddenFor(model => model.POId)
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="form-group row">
+                <div class="col-md">
+                    <label>P.O. No.</label>
+                    @Html.TextBox("SearchPONo", "", new { @class = "form-control" })
+                </div>
+            </div>
+        }
+
+        <div class="form-group row">
+            <div class="col-md">
+                @Html.LabelFor(model => model.ReceivedDate)
+                @Html.TextBoxFor(model => model.ReceivedDate, "{0:MM/dd/yyyy}", new { @class = "form-control datepicker" })
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md">
+                @Html.LabelFor(model => model.InvoiceNo)
+                @Html.TextBoxFor(model => model.InvoiceNo, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md">
+                @Html.LabelFor(model => model.InvoiceDate)
+                @Html.TextBoxFor(model => model.InvoiceDate, "{0:MM/dd/yyyy}", new { @class = "form-control datepicker" })
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md">
+                @Html.LabelFor(model => model.DRNo)
+                @Html.TextBoxFor(model => model.DRNo, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md">
+                <label>Office</label>
+
+                @{ int? dval;
+                    if (Model._OfficeId != null)
+                    {
+                        dval = Model._OfficeId;
+                    }
+                    else
+                    {
+                        dval = -1;
+                    }
+                }
+                @Html.DropDownList("searchOffice", SelectItems.getOffices(defaultValue: dval), new { @class = "form-control search-officeid pc-selectpicker", data_department = "#searchDepartment", data_department_value = "-1", @id = "ddlOffice", @onchange = "filterDepartment()" })
+
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md">
+                <label>Department</label>
+               
+                @Html.DropDownList("selectedDepartment", SelectItems.getDepartments(), new { @class = "form-control search-departmentid pc-selectpicker", data_department_value = "-1", @id = "ddlDepartment" })
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md">
+                @Html.LabelFor(model => model.FundCluster)
+                @Html.TextBoxFor(model => model.FundCluster, new { @class = "form-control" })
+            </div>
+        </div>
+
+    }
+}

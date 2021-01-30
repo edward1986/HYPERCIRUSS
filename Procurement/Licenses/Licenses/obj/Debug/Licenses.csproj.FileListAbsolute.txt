@@ -1,0 +1,11 @@
+D:\Systems\SkyHR\Licenses\Licenses\bin\Debug\Licenses.dll.config
+D:\Systems\SkyHR\Licenses\Licenses\bin\Debug\Licenses.dll
+D:\Systems\SkyHR\Licenses\Licenses\bin\Debug\Licenses.pdb
+D:\Systems\SkyHR\Licenses\Licenses\bin\Debug\machine.dll
+D:\Systems\SkyHR\Licenses\Licenses\bin\Debug\Newtonsoft.Json.dll
+D:\Systems\SkyHR\Licenses\Licenses\bin\Debug\Newtonsoft.Json.xml
+D:\Systems\SkyHR\Licenses\Licenses\obj\Debug\Licenses.csprojAssemblyReference.cache
+D:\Systems\SkyHR\Licenses\Licenses\obj\Debug\Licenses.csproj.CoreCompileInputs.cache
+D:\Systems\SkyHR\Licenses\Licenses\obj\Debug\Licenses.csproj.CopyComplete
+D:\Systems\SkyHR\Licenses\Licenses\obj\Debug\Licenses.dll
+D:\Systems\SkyHR\Licenses\Licenses\obj\Debug\Licenses.pdb

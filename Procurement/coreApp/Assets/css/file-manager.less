@@ -1,0 +1,121 @@
+﻿.file-manager {
+    .fm-toolbar {
+        margin-bottom: 10px;
+    }
+
+    .fm-message {
+        .alert:empty {
+            display: none;
+        }        
+    }
+    
+    .fm-expandcollapse-container {
+        margin-top: 10px;
+    }
+
+    .fm-contents {
+        border: 1px solid #e0e0e0;
+        padding: 10px;
+        margin-top: 5px;
+        max-height: 450px;
+        overflow: auto;
+
+        ul {
+            margin: 0;
+            padding-left: 20px;
+
+            ul ul {
+                display: none;
+            }
+        }
+
+        li {
+            list-style: none;
+            cursor: pointer;
+            color: lightgray;
+
+            .fa {
+                margin-right: 10px;
+            }
+        }
+
+        li.file > div {
+            > a {
+                visibility: hidden;
+
+                .fa:last-child {
+                    display: none;
+                }
+            }
+
+            > .fa {
+                color: cornflowerblue;
+            }
+        }
+
+        li.folder > div > .fa {
+            color: yellow;
+        }
+
+        li.folder.fixed-folder > div > .fa {
+            color: coral;
+        }
+
+        li.folder > div > a {
+            visibility: hidden;
+        }
+
+        li.folder.haschildren > div > a {
+            visibility: visible;
+        }
+
+        li.folder > div > a > .shrink,
+        li.folder.expanded > div > a > .expand {
+            display: none;
+        }
+
+        li.folder > div > a > .expand,
+        li.folder.expanded > div > a > .shrink {
+            display: inline-block;
+        }
+
+        li.folder.expanded > ul {
+            display: block;
+        }
+
+        li:hover {
+            color: #fff;
+        }
+    }
+
+    .fm-preview {
+        display: none;
+        position: relative;
+        border: 1px solid #e0e0e0;
+        margin-top: 5px;
+
+        .view-in-newtab {
+            position: absolute;
+            top: 0;
+            right: 0;
+            opacity: 0.5;
+        }
+
+        iframe {
+            width: 100%;
+            height: 800px;
+        }
+
+        img {
+            width: 100%;
+        }
+    }
+
+    .fm-upload {
+        margin-top: 5px;
+
+        .file-footer-caption {
+            color: #fff !important;
+        }
+    }
+}

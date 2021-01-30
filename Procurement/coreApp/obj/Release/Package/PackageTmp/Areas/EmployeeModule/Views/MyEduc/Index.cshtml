@@ -1,0 +1,116 @@
+﻿@model List<coreApp.DAL.tblEmployee_Educ>
+
+@{
+    Layout = "~/Areas/EmployeeModule/Views/Shared/_EmployeeDetailsLayout.cshtml";
+
+    ViewBag.Title = "Education";
+    ViewBag.Subtitle = "List";
+
+    ViewBag.EmployeeDetailsActiveTab = "education";
+
+    Module.DB.tblEmployee employee = (Module.DB.tblEmployee)ViewBag.Employee;
+
+    bool readOnly = !coreApp.Cache.Get().userAccess.HasPermission("EmployeeEduc");
+}
+
+@section Breadcrumbs {
+    @Html.Partial("_Breadcrumbs", new List<Breadcrumb>()
+    {
+        new Breadcrumb { Description = "Employee Main Record", Link = Url.Action("Details", "Employees", new { id = employee.EmployeeId, area = "EmployeeModule" } ) },
+        new Breadcrumb { Description = ViewBag.Title }
+    })
+}
+
+<div class="block">
+    <div class="head bg-default bg-light-ltr noradius">
+        <h2>@ViewBag.Title</h2>
+        <div class="side pull-right">
+            <ul class="buttons">
+                @if (!readOnly)
+                {
+                    <li><button class="btn btn-success btn-create" onclick="$.fn.list('modalCreate', this)">Create</button></li>
+                }
+            </ul>
+        </div>
+    </div>
+    <div class="content">
+        <table class="display table table-bordered table-striped table-list" cellspacing="0" width="100%"
+               modal-target="#modalView" modal-start="view"
+               modal-view-url="/HRModule/Employee/Educ/Details/@employee.EmployeeId/{0}" modal-edit-url="/HRModule/Employee/Educ/Edit/@employee.EmployeeId/{0}" modal-delete-url="/HRModule/Employee/Educ/Delete/@employee.EmployeeId" modal-create-url="/HRModule/Employee/Educ/Create/@employee.EmployeeId">
+            <thead>
+                <tr>
+                    <th class="idcol">
+                        Id
+                    </th>
+                
+                    <th>
+                        Level
+                    </th>
+                    <th>
+                        Name of School
+                    </th>
+                    <th>
+                        Degree/Course
+                    </th>
+                    <th>
+                        Year Graduated
+                    </th>
+                    <th>
+                        Units Earned
+                    </th>
+                    <th>
+                        From
+                    </th>
+                    <th>
+                        To
+                    </th>
+                    <th>
+                        Honors Received
+                    </th>
+                
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (coreApp.DAL.tblEmployee_Educ item in Model)
+                {
+                    <tr record-id="@item.EducId" @(readOnly ? "locked" : "")>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EducId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EducLevel_Desc)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.School)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Degree)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.YearGraduated)
+                        </td>
+                        <td>
+                            @if (item.UnitsEarned != null)
+                            {
+                                @item.UnitsEarned.Value.ToString("#,##0.00")
+                            }
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.YearFrom)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.YearTo_Desc)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.HonorsReceived)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+    </div>
+</div>
+
+@Html.Partial("~/Views/Shared/modals/_ModalView.cshtml", "modalView")
+

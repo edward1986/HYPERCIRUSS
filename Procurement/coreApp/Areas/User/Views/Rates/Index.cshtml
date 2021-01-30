@@ -1,0 +1,76 @@
+﻿@model List<Module.DB.tblRate>
+
+@{
+    ViewBag.Title = "Rates";
+    ViewBag.Subtitle = "List";
+
+    Module.DB.tblPosition position = (Module.DB.tblPosition)ViewBag.Position;
+
+}
+
+@section Breadcrumbs {
+    @Html.Partial("_Breadcrumbs", new List<Breadcrumb>() {
+        new Breadcrumb { Description = "Positions", Link = "/HRModule/Positions" },
+        new Breadcrumb { Description = ViewBag.Title }
+    })
+}
+
+@Html.Partial("~/Views/Shared/info/positionInfo.cshtml")
+
+<div class="block">
+    <div class="head bg-default bg-light-ltr noradius">
+        <h2>@ViewBag.Title</h2>
+        <div class="side pull-right">
+            <ul class="buttons">
+                <li>
+                    <button class="btn btn-success btn-create" onclick="$.fn.list('modalCreate', this)">Create</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="content">
+                
+        <table class="display table table-bordered table-striped table-list" cellspacing="0" width="100%"
+               modal-target="#modalView" modal-start="view"
+               modal-view-url="/HRModule/Rates/Details/@position.PositionId/{0}" modal-edit-url="/HRModule/Rates/Edit/@position.PositionId/{0}" modal-delete-url="/HRModule/Rates/Delete/@position.PositionId" modal-create-url="/HRModule/Rates/Create/@position.PositionId">
+            <thead>
+                <tr>
+                    <th class="idcol">
+                        Id
+                    </th>
+                    <th>
+                        Date Effective
+                    </th>
+                    <th>
+                        Level
+                    </th>
+                    <th>
+                        Rate
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Module.DB.tblRate item in Model)
+                {
+                    <tr record-id="@item.RateId">
+                        <td>
+                            @Html.DisplayFor(modelItem => item.RateId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DateEffective)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PositionLevel)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Rate)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@Html.Partial("~/Views/Shared/modals/_ModalView.cshtml", "modalView")
+

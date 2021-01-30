@@ -1,0 +1,148 @@
+﻿@using coreApp.Models
+@model EmployeeAttendanceStatisticsModel
+@{ 
+    coreLib.Objects.PeriodModel pm = (coreLib.Objects.PeriodModel)ViewBag.Period;
+    Module.Time.etPeriod period = (Module.Time.etPeriod)ViewBag.etPeriod;
+
+    Module.Time.TimeSettingsModel settings = period.data.settings;
+
+    bool NoSchedule = !period.Days.Any(x => !x.NoSchedule);
+}
+
+<div class="head bg-dot20 eas">
+    <h2>Employee Attendance Statistics</h2>
+    <div class="side pull-right">    
+        <ul class="buttons">
+            <li><a href="#" class="btn-refresh" title="refresh"><span class="icon-refresh"></span></a></li>
+        </ul>
+    </div>
+
+
+    @if (TempData["EAS_GlobalError"] != null)
+    {
+        <div class="head-panel" style="margin-top:0">
+            <div class="alert alert-danger">
+                <button type="button" class="close" data-dismiss="alert">
+                    <i class="fa fa-times"></i>
+                </button>
+
+                @Html.Raw(TempData["EAS_GlobalError"].ToString())
+            </div>
+        </div>
+    }
+
+    <div class="head-panel" style="margin-top:0">    
+        <div class="form-control">
+            @Html.Partial("_Helper_Period", pm, new ViewDataDictionary { { "clientCallback", "EAS_applyPeriod" } })
+        </div>        
+        <br />
+
+        @if (NoSchedule)
+        {
+            <div class="text-danger">
+                You have no schedule for this period
+            </div>
+        }
+        else
+        {
+            <div class="chart" id="dash_chart_1" style="height: 150px;"></div>
+        }
+    </div>
+
+    @if (!NoSchedule)
+    {
+        <div class="head-panel abstar">
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="chart" id="dash_chart_2" style="width: 120px; height: 120px;"></div>
+                        </td>
+                        <td>
+                            <div class="pie-legend"></div>
+                        </td>
+                        <td>
+                            <div class="head-panel nm">
+                                <div class="hp-info pull-left color1">
+                                    <div class="hp-icon">
+                                        <span class="fa fa-calendar"></span>
+                                    </div>
+                                    <span class="hp-main">@period.TotalWorkDays.ToString("#,##0.#") Days (@period.TotalWorkHours.ToString("#,##0.#") Hrs.)</span>
+                                    <span class="hp-sm">Total Work Days/Hours</span>
+                                </div>
+                                <div class="hp-info pull-left color2">
+                                    <div class="hp-icon">
+                                        <span class="fa fa-calendar-o"></span>
+                                    </div>
+                                    <span class="hp-main" style="margin-left: 35px;">@period.TotalHoursWorked_DayEq.ToString("#,##0.#") Days (@period.TotalHoursWorked.ToString("#,##0.#") Hrs.) (@(((double)Model.AbsencesTardiness.Series.Where(x => x.label == "Hours Worked").Single().data).ToString("#,##0.#"))%)</span>
+                                    <span class="hp-sm" style="margin-left: 35px;">Total Days/Hours Worked</span>
+                                </div>
+                                <div class="hp-info pull-left color5">
+                                    <div class="hp-icon">
+                                        <span class="fa fa-calendar-o"></span>
+                                    </div>
+                                    <span class="hp-main" style="margin-left: 35px;">@period.TotalLeaveEq.ToString("#,##0.#") Days (@((period.TotalLeaveEq * settings.WorkHoursPerDay).ToString("#,##0.#")) Hrs.) (@(((double)Model.AbsencesTardiness.Series.Where(x => x.label == "Hours On Leave").Single().data).ToString("#,##0.#"))%)</span>
+                                    <span class="hp-sm" style="margin-left: 35px;">Total Days/Hours On Leave</span>
+                                </div>
+                                <div class="hp-info pull-left color6">
+                                    <div class="hp-icon">
+                                        <span class="fa fa-calendar-minus-o"></span>
+                                    </div>
+                                    <span class="hp-main" style="margin-left: 35px;">@((period.TotalDaysAbsent - period.TotalLeaveEq).ToString("#,##0.#")) Days (@((period.TotalDaysAbsent * settings.WorkHoursPerDay).ToString("#,##0.#")) Hrs.) (@(((double)Model.AbsencesTardiness.Series.Where(x => x.label == "Absences").Single().data).ToString("#,##0.#"))%)</span>
+                                    <span class="hp-sm" style="margin-left: 35px;">Total Absences</span>
+                                </div>
+                                <div class="hp-info pull-left color3">
+                                    <div class="hp-icon">
+                                        <span class="fa fa-clock-o"></span>
+                                    </div>
+                                    <span class="hp-main" style="margin-left: 35px;">@period.TotalHoursLate.ToString("#,##0.#") (@(((double)Model.AbsencesTardiness.Series.Where(x => x.label == "Hours Late").Single().data).ToString("#,##0.#"))%)</span>
+                                    <span class="hp-sm" style="margin-left: 35px;">Total Hours Late</span>
+                                </div>
+                                <div class="hp-info pull-left color4">
+                                    <div class="hp-icon">
+                                        <span class="fa fa-clock-o"></span>
+                                    </div>
+                                    <span class="hp-main" style="margin-left: 35px;">@period.TotalHoursUndertime.ToString("#,##0.#") (@(((double)Model.AbsencesTardiness.Series.Where(x => x.label == "Hours Undertime").Single().data).ToString("#,##0.#"))%)</span>
+                                    <span class="hp-sm" style="margin-left: 35px;">Total Hours Undertime</span>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    }
+    
+</div>
+
+<script>
+        var data = @Html.Raw(Model.WorkHours.SerializedData());
+        var labels = @Html.Raw(Model.WorkHours.SerializedXAxisLabels());
+        var labelData = @Html.Raw(Model.WorkHours.SerializedXAxisData());
+        var labelsCount = @Model.WorkHours.XAxisLabels.Count;
+    var noSchedule = @(NoSchedule ? "true" : "false");
+
+        var pieData = @Html.Raw(Model.AbsencesTardiness.SerializedData());
+
+        $(document).ready(function () {
+            setEAS(data, labels, labelData, labelsCount, pieData, noSchedule);
+        });
+
+        function EAS_applyPeriod(start, end) {
+            var cont = $('.dashboard-item .eas').parent();
+            var url = '/Widgets/EmployeeAttendanceStatistics';
+
+            if (start != null) {
+                url += '?startDate=' + start + '&endDate=' + end;
+            }
+
+            cont.addClass('loading-mask');
+            cont.load(url, function (res) {
+                setPeriod();
+                setEAS(data, labels, labelData, labelsCount, pieData, noSchedule);
+                cont.removeClass('loading-mask');
+            });
+        }
+
+
+</script>

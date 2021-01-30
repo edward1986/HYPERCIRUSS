@@ -1,0 +1,52 @@
+﻿@model coreApp.DAL.tblEmployee_OtherInfo
+@{
+    Layout = "~/Areas/HRModule/Views/Shared/_EmployeeDetailsLayout.cshtml";
+
+    Module.DB.tblEmployee employee = (Module.DB.tblEmployee)ViewBag.Employee;
+
+    ViewBag.Title = "Other Information";
+    ViewBag.Subtitle = "Details";
+
+    ViewBag.uiIsReadOnly = true;
+    ViewBag.uiIncludeId = false;
+
+    ViewBag.EmployeeDetailsActiveTab = "other-info";
+
+}
+
+@section Breadcrumbs {
+    @Html.Partial("_Breadcrumbs", new List<Breadcrumb>()
+    {
+        new Breadcrumb { Description = "Employee List", Link = Url.Action("Index", "Employees", new { area = "HRModule" }) },
+        new Breadcrumb { Description = "Employee Main Record", Link = Url.Action("Details", "Employees", new { id = employee.EmployeeId, area = "HRModule" } ) },
+        new Breadcrumb { Description = ViewBag.Title }
+    })
+}
+
+@section SearchSection {
+    @Html.Action("Search", "EmployeeSearch", new { model = new coreApp.Models.EmployeeSearchModel { DataUrl = "/HRModule/Employee/OtherInfo/Details/{0}/-1", MinimalView = true } })
+}
+
+@section Scripts {
+    <script>
+        function load(e) { }
+        
+    </script>
+}
+
+
+<div class="block block-drop-shadow details" modal-target="#modalViewDetails" modal-width="wide" modal-load-callback="load">
+    <div class="head bg-default bg-light-ltr noradius">
+        <h2>Other Information</h2>
+        <div class="side pull-right">
+            <ul class="buttons">
+                <li><a href="#" class="btn btn-primary btn-edit" data-url="@Url.Action("Edit", new { employeeId = Model.EmployeeId, id = Model.Id, area = "HRModule" })">Edit</a></li>
+            </ul>
+        </div>
+
+    </div>
+    <div class="content">
+        @Html.Partial("_OtherInfo", Model)
+    </div>
+</div>
+@Html.Partial("~/Views/Shared/modals/_ModalView_FromDetails.cshtml", "modalViewDetails")

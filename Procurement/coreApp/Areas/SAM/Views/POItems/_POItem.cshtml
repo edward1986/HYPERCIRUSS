@@ -1,0 +1,185 @@
+﻿@model coreApp.Areas.SAM.tblPOItem
+
+@{    
+    bool isReadOnly = (bool)ViewBag.uiIsReadOnly;
+    bool includeId = (bool)ViewBag.uiIncludeId;
+
+    coreApp.Areas.SAM.tblPO po = (coreApp.Areas.SAM.tblPO)ViewBag.PO;
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.Hidden("Locked", po.Locked)
+
+    if (isReadOnly)
+    {
+        <div class="form-group row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.Id)
+            </div>
+            <div class="col-md-9">
+                <div class="form-control">
+                    @Html.DisplayFor(model => model.Id)
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.ItemName)
+            </div>
+            <div class="col-md-9">
+                <div class="form-control">
+                    @Html.DisplayFor(model => model.ItemName)
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.UnitId)
+            </div>
+            <div class="col-md-9">
+                <div class="form-control">
+                    @Html.DisplayFor(model => model._Unit)
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.CategoryId)
+            </div>
+            <div class="col-md-9">
+                <div class="form-control">
+                    @Html.DisplayFor(model => model._Category)
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-3">
+                Category Type
+            </div>
+            <div class="col-md-9">
+                <div class="form-control">
+                    @Html.DisplayFor(model => model.CategoryType_Desc)
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.Qty)
+            </div>
+            <div class="col-md-9">
+                <div class="form-control">
+                    @Html.DisplayFor(model => model.Qty)
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.UnitCost)
+            </div>
+            <div class="col-md-9">
+                <div class="form-control">
+                    @Html.DisplayFor(model => model.UnitCost)
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.Amount)
+            </div>
+            <div class="col-md-9">
+                <div class="form-control">
+                    @Html.DisplayFor(model => model.Amount)
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        @Html.HiddenFor(model => model.Id)
+
+        if (includeId)
+        {
+            @*<div class="form-group row">
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.Id)
+                </div>
+                <div class="col-md-9">
+                    <div class="form-control dimmed">
+                        @Html.DisplayFor(model => model.Id)
+                    </div>
+                </div>
+            </div>*@
+            <div class="form-group row">
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.ItemName)
+                </div>
+                <div class="col-md-9">
+                    <div class="form-control dimmed">
+                        @Html.DisplayFor(model => model.ItemName)
+                        @Html.HiddenFor(model => model.Procurement_ItemId)
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="form-group row">
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.ItemName)
+                </div>
+                <div class="col-md-9">
+                    @Html.DropDownListFor(model => model.Procurement_ItemId, coreApp.Areas.Procurement.SelectItems.getProcurementItems(), new { @class = "form-control chosen-select", data_placeholder = "Choose an item..." })
+                </div>
+            </div>
+        }
+
+
+        <div class="form-group row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.UnitId)
+            </div>
+            <div class="col-md-9">
+                @Html.DropDownListFor(model => model.UnitId, coreApp.Areas.Procurement.SelectItems.getUnits("USE DEFAULT UNIT"), new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.CategoryId)
+            </div>
+            <div class="col-md-9">
+                @Html.DropDownListFor(model => model.CategoryId, coreApp.Areas.Procurement.SelectItems.getCategories("USE DEFAULT UNIT"), new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-3">
+                Category Type
+            </div>
+            <div class="col-md-9">
+                @Html.DropDownListFor(model => model._CategoryType, coreApp.Areas.SAM.SelectItems.getCategoryTypes("USE DEFAULT TYPE"), new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.Qty)
+            </div>
+            <div class="col-md-9">
+                @Html.TextBoxFor(model => model.Qty, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.UnitCost)
+            </div>
+            <div class="col-md-9">
+                @Html.TextBoxFor(model => model.UnitCost, new { @class = "form-control" })
+            </div>
+        </div>
+    }
+
+}

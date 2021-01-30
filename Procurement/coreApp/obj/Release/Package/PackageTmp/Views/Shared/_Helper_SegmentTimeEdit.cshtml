@@ -1,0 +1,92 @@
+﻿@model Module.DB.Interfaces.ISegment
+@{
+    bool simpleUI = false;
+    if (ViewData["SimpleUI"] != null)
+    {
+        simpleUI = (bool)ViewData["SimpleUI"];
+    }
+
+    Module.Time.TimeSettingsModel settings = new Module.Time.TimeSettingsModel(Module.Time.Procs.TMSettings(DateTime.Today, coreApp.Cache.Get().userAccess.career.Office.OfficeId));
+    double whpd = settings.WorkHoursPerDay;
+}
+
+<div class="clearfix"></div>
+<div class="segment-time st-basic">
+    @Html.Hidden("WorkHoursPerDay", whpd)
+    <div class="form-row @(simpleUI ? "hidden" : "")">
+        <div class="col-md-12 segment-toggle">
+            <a href="#">Advanced&nbsp;&raquo;</a>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="col-md-3">
+            @Html.LabelFor(model => model.TimeIn)
+        </div>
+        <div class="col-md-9">
+            <div class="input-group">
+                <div class="input-group-addon"><span class="icon-time"></span></div>
+                @Html.TextBoxFor(model => model.TimeIn, "{0:h:mm tt}", new { @class = "form-control timepicker" })
+            </div>
+
+            <div class="row for-advanced">
+                <div class="col-md-6">
+                    <div class="input-group">
+                        @Html.TextBoxFor(model => model.TimeInFrom, "{0:h:mm tt}", new { @class = "form-control timepicker" })
+                        <div class="input-group-addon">@Html.Partial("_Helper_CheckBox", "TimeInFrom_IsPrev", new ViewDataDictionary { { "value", Model.TimeInFrom_IsPrev }, { "text", "Prev Day" } })</div>
+                    </div>
+                    
+                </div>
+                <div class="col-md-6">
+                    <div class="input-group">
+                        @Html.TextBoxFor(model => model.TimeInTo, "{0:h:mm tt}", new { @class = "form-control timepicker" })
+                        <div class="input-group-addon">@Html.Partial("_Helper_CheckBox", "TimeInTo_IsNext", new ViewDataDictionary { { "value", Model.TimeInTo_IsNext }, { "text", "Next Day" } })</div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="form-row">
+        <div class="col-md-3">
+            @Html.LabelFor(model => model.TimeOut)
+        </div>
+        <div class="col-md-9">
+            <div class="input-group">
+                <div class="input-group-addon"><span class="icon-time"></span></div>
+                @Html.TextBoxFor(model => model.TimeOut, "{0:h:mm tt}", new { @class = "form-control timepicker" })
+                <div class="input-group-addon">@Html.Partial("_Helper_CheckBox", "TimeOut_IsNext", new ViewDataDictionary { { "value", Model.TimeOut_IsNext }, { "text", "Next Day" } })</div>
+            </div>
+            
+
+            <div class="row for-advanced">
+                <div class="col-md-6">
+                    <div class="input-group">
+                        @Html.TextBoxFor(model => model.TimeOutFrom, "{0:h:mm tt}", new { @class = "form-control timepicker" })
+                        <div class="input-group-addon">@Html.Partial("_Helper_CheckBox", "TimeOutFrom_IsNext", new ViewDataDictionary { { "value", Model.TimeOutFrom_IsNext }, { "text", "Next Day" } })</div>
+                    </div>
+                    
+                </div>
+                <div class="col-md-6">
+                    <div class="input-group">
+                        @Html.TextBoxFor(model => model.TimeOutTo, "{0:h:mm tt}", new { @class = "form-control timepicker" })
+                        <div class="input-group-addon">@Html.Partial("_Helper_CheckBox", "TimeOutTo_IsNext", new ViewDataDictionary { { "value", Model.TimeOutTo_IsNext }, { "text", "Next Day" } })</div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-row @(simpleUI ? "hidden" : "")">
+        <div class="col-md-3">
+            @Html.LabelFor(model => model.WorkDayEq)
+        </div>
+        <div class="col-md-3">
+            @Html.TextBoxFor(model => model.WorkDayEq, new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+</div>

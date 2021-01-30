@@ -1,0 +1,24 @@
+﻿@using Module.DB
+@model string
+@{
+    tblOffice office = (tblOffice)ViewBag.Office;
+
+    List<tblOffice> offices = (List<tblOffice>)ViewBag.Offices;
+}
+
+<select onchange="itemSelected(this)" class="form-control pc-selectpicker" data-style="btn-success">
+    @foreach (tblOffice o in offices)
+    {
+        <option value="@o.OfficeId" @(office.OfficeId == o.OfficeId ? "selected" : "")>@o.Office.ToUpper()</option>
+    }
+</select>
+@*<div class="subtitle" style="padding-left: 15px;">
+    @office.Campus.CampusAddress
+</div>*@
+<br />
+
+<script>
+    function itemSelected(sel) {
+        window.location = '@Model' + $(sel).val();
+    }
+</script>

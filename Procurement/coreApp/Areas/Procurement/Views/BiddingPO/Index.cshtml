@@ -1,0 +1,15 @@
+﻿@{
+    ViewBag.Title = "Purchase Order";
+
+
+}
+
+@section Breadcrumbs {
+    @Html.Partial("_Breadcrumbs", new List<Breadcrumb>()
+    {
+        new Breadcrumb { Description = "Public Bidding" },
+        new Breadcrumb { Description = ViewBag.Title }
+    })
+}
+
+<h1>Bidding PO</h1>

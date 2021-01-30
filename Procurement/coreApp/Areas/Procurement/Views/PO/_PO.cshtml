@@ -1,0 +1,197 @@
+﻿@model coreApp.Areas.Procurement.DAL.tblPO
+
+@{    
+    bool isReadOnly = (bool)ViewBag.uiIsReadOnly;
+    bool includeId = (bool)ViewBag.uiIncludeId;
+
+    int year = (int)ViewBag.Year;
+}
+
+
+@Html.Hidden("Submitted", Model.HasBeenSubmitted)
+@Html.Hidden("NoItem", string.IsNullOrEmpty(Model.AOBIds))
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    if (isReadOnly)
+    {
+        <div class="form-group row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.Id)
+            </div>
+            <div class="col-md-9">
+                <div class="form-control">
+                    @Html.DisplayFor(model => model.Id)
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.Description)
+            </div>
+            <div class="col-md-9">
+                <div class="form-control">
+                    @Html.DisplayFor(model => model.Description)
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.Form_PlaceOfDelivery)
+            </div>
+            <div class="col-md-9">
+                <div class="form-control">
+                    @Html.DisplayFor(model => model.Form_PlaceOfDelivery)
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.Form_DateOfDelivery)
+            </div>
+            <div class="col-md-9">
+                <div class="form-control">
+                    @Html.DisplayFor(model => model.Form_DateOfDelivery)
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.Form_DeliveryTerm)
+            </div>
+            <div class="col-md-9">
+                <div class="form-control">
+                    @Html.DisplayFor(model => model.Form_DeliveryTerm)
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.Form_PaymentTerm)
+            </div>
+            <div class="col-md-9">
+                <div class="form-control">
+                    @Html.DisplayFor(model => model.Form_PaymentTerm)
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-3">
+                P.O. Nos.
+            </div>
+            <div class="col-md-9">
+                <div class="form-control">
+                    @string.Join(", ", Model.GetPONos())
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.DocStatus_Desc)
+            </div>
+            <div class="col-md-9">
+                <div class="form-control">
+                    @Html.DisplayFor(model => model.DocStatus_Desc)
+                </div>
+            </div>
+        </div>
+
+        if (Model.HasBeenSubmitted)
+        {
+            <div class="form-group row">
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.SubmittedBy)
+                </div>
+                <div class="col-md-9">
+                    <div class="form-control">
+                        @Html.DisplayFor(model => model.SubmittedBy) | 
+                        @Html.DisplayFor(model => model.SubmitDate)
+                    </div>
+                </div>
+            </div>
+        }
+
+        if (Model.IsReturned)
+        {
+            <div class="form-group row">
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.ReturnedBy)
+                </div>
+                <div class="col-md-9">
+                    <div class="form-control">
+                        @Html.DisplayFor(model => model.ReturnedBy)
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.ReturnMessage)
+                </div>
+                <div class="col-md-9">
+                    <div class="form-control">
+                        @Html.DisplayMultiLineFor(model => model.ReturnMessage)
+                    </div>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        @Html.HiddenFor(model => model.Id)
+               
+        <div class="form-group row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.Description)
+            </div>
+            <div class="col-md-9">
+                @Html.TextBoxFor(model => model.Description, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.Form_PlaceOfDelivery)
+            </div>
+            <div class="col-md-9">
+                @Html.TextBoxFor(model => model.Form_PlaceOfDelivery, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.Form_DateOfDelivery)
+            </div>
+            <div class="col-md-9">
+                @Html.TextBoxFor(model => model.Form_DateOfDelivery, "{0:MM/dd/yyyy}", new { @class = "form-control datepicker" })
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.Form_DeliveryTerm)
+            </div>
+            <div class="col-md-9">
+                @Html.TextBoxFor(model => model.Form_DeliveryTerm, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.Form_PaymentTerm)
+            </div>
+            <div class="col-md-9">
+                @Html.TextBoxFor(model => model.Form_PaymentTerm, new { @class = "form-control" })
+            </div>
+        </div>
+    }
+}

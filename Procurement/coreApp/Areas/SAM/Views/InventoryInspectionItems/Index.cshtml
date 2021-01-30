@@ -1,0 +1,83 @@
+﻿@model List<coreApp.Areas.SAM.tblInventoryItemStatus>
+
+@{
+    ViewBag.Title = "Equipment Inspection Items";
+    ViewBag.Subtitle = "List";
+
+    coreApp.Areas.SAM.tblInventoryInspection inventoryInspection = (coreApp.Areas.SAM.tblInventoryInspection)ViewBag.InventoryInspection;
+
+}
+
+@section Breadcrumbs {
+    @Html.Partial("_Breadcrumbs", new List<Breadcrumb>() {
+        new Breadcrumb { Description = "Equipment Inspections", Link = Url.Action("Index", "InventoryInspection", new { area = "SAM" }) },
+        new Breadcrumb { Description = "Items" }
+    })
+}
+
+
+
+<div class="block">
+    <div class="card">
+        <div class="card-header">
+            <h5>@ViewBag.Title</h5>
+            <div class="card-header-right">
+                <div class="btn-group-sm card-option">
+                    <button class="btn btn-success btn-create" onclick="$.fn.list('modalCreate', this)">Create</button>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="form-group row">
+                <div class="col-sm-6">
+                    @Html.Partial("~/Areas/SAM/Views/Shared/inventoryInspectionInfo.cshtml", "/SAM/Inventory/Inspection/Items/Index/")
+
+                </div>
+            </div>
+            <div class="dt-responsive table-responsive">
+                <table class="display table table-bordered table-striped table-list" cellspacing="0" width="100%"
+                       modal-target="#modalView" modal-start="view"
+                       modal-view-url="/SAM/Inventory/Inspection/Items/Details/@inventoryInspection.Id/{0}" modal-edit-url="/SAM/Inventory/Inspection/Items/Edit/@inventoryInspection.Id/{0}" modal-delete-url="/SAM/Inventory/Inspection/Items/Delete/@inventoryInspection.Id" modal-create-url="/SAM/Inventory/Inspection/Items/Create/@inventoryInspection.Id">
+                    <thead>
+                        <tr>
+                            <th class="idcol">Id</th>
+                            <th>Property No.</th>
+                            <th>Item Name</th>
+                            <th>Status</th>
+                            <th>Remarks</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (coreApp.Areas.SAM.tblInventoryItemStatus item in Model)
+                        {
+                            coreApp.Areas.SAM.InventoryItemModel inventoryItemModel = new coreApp.Areas.SAM.InventoryItemModel(item.InventoryItemId);
+
+
+                            <tr record-id="@item.Id">
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Id)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => inventoryItemModel.Item.PropertyNo)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => inventoryItemModel.Tag.POItem.ItemName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Status_Desc)
+                                </td>
+                                <td>
+                                    @Html.DisplayMultiLineFor(modelItem => item.Remarks)
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@Html.Partial("~/Views/Shared/modals/_ModalView.cshtml", "modalView")
+

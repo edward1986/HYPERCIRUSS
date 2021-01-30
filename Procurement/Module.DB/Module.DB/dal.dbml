@@ -1,0 +1,364 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="MainData" Class="dalDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=DESKTOP-R9K5SN7\SQL;Initial Catalog=MainData;Integrated Security=True" SettingsObjectName="Module.DB.Properties.Settings" SettingsPropertyName="skyhr_lnuConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.[_Countries]" Member="_Countries">
+    <Type Name="_Country">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Nationality" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblDepartments" Member="tblDepartments">
+    <Type Name="tblDepartment">
+      <Column Name="DepartmentId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="OfficeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Department" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblSettings_BaseModule" Member="tblSettings_BaseModule">
+    <Type Name="tblSettings_BaseModule">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Setting" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="SettingValue" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="Category" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="ValueType" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="db_owner.[_HRPermissions]" Member="_HRPermissions">
+    <Type Name="_HRPermission">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="EmployeeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Controllers" Type="System.String" DbType="Text NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+    </Type>
+  </Table>
+  <Table Name="dbo.AspNetUsers" Member="AspNetUsers">
+    <Type Name="AspNetUser">
+      <Column Name="Id" Type="System.String" DbType="NVarChar(128) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="EmailConfirmed" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="PasswordHash" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="SecurityStamp" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="PhoneNumber" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="PhoneNumberConfirmed" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="TwoFactorEnabled" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="LockoutEndDateUtc" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="LockoutEnabled" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="AccessFailedCount" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UserName" Type="System.String" DbType="NVarChar(256) NOT NULL" CanBeNull="false" />
+      <Column Name="Disabled" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblEmployee_FP" Member="tblEmployee_FPs">
+    <Type Name="tblEmployee_FP">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="EmployeeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FP1" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="FP2" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="FP3" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="FP4" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="FP5" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="FP6" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="FP7" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="FP8" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="FP9" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="FP10" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblEmployee_Groups" Member="tblEmployee_Groups">
+    <Type Name="tblEmployee_Group">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="EmployeeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="GroupId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblGroups" Member="tblGroups">
+    <Type Name="tblGroup">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="GroupName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.AspNetRoles" Member="AspNetRoles">
+    <Type Name="AspNetRole">
+      <Column Name="Id" Type="System.String" DbType="NVarChar(128) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(256) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Discriminator" Type="System.String" DbType="NVarChar(128) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.AspNetUserRoles" Member="AspNetUserRoles">
+    <Type Name="AspNetUserRole">
+      <Column Name="UserId" Type="System.String" DbType="NVarChar(128) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="RoleId" Type="System.String" DbType="NVarChar(128) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblPositions" Member="tblPositions">
+    <Type Name="tblPosition">
+      <Column Name="PositionId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Position" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Code" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Confidential" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="IsFaculty" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.vwMasterList_00" Member="vwMasterList_00s">
+    <Type Name="vwMasterList_00">
+      <Column Name="EmployeeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CareerId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="InfoId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblMFOs" Member="tblMFOs">
+    <Type Name="tblMFO">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.AspNetUsers_Photos" Member="AspNetUsers_Photos">
+    <Type Name="AspNetUsers_Photo">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Photo" Type="System.Data.Linq.Binary" DbType="Image NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Column Name="EmployeeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblEmployee_Info" Member="tblEmployee_Infos">
+    <Type Name="tblEmployee_Info">
+      <Column Name="InfoId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="EmployeeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="DOB" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="POB_Address" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="POB_CountryId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="POB_PostalCode" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Gender" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CivilStatus" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Nationality_CountryId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TIN" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="SSS" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="GSIS" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="PAGIBIG" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Home_Address" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="Home_CountryId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Home_PostalCode" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Home_TelephoneNo" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="MobileNo" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Height" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Weight" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="BloodType" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Spouse_LastName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Spouse_FirstName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Spouse_MiddleName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Spouse_Occupation" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Spouse_Employer" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Spouse_Employer_TelephoneNo" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Father_LastName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Father_FirstName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Father_MiddleName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Mother_LastName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Mother_FirstName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Mother_MiddleName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="PHILHEALTH" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="BIRStatus" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="PDSPhoto" Type="System.Data.Linq.Binary" DbType="Image" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="PDSQ34a" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="PDSQ34b" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="PDSQ34b_Details" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="PDSQ35a" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="PDSQ35a_Details" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="PDSQ35b" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="PDSQ35b_DateFiled" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="PDSQ35b_Status" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="PDSQ36" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="PDSQ36_Details" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="PDSQ37" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="PDSQ37_Details" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="PDSQ38a" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="PDSQ38a_Details" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="PDSQ38b" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="PDSQ38b_Details" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="PDSQ39" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="PDSQ39_Details" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="PDSQ40a" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="PDSQ40a_Details" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="PDSQ40b" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="PDSQ40b_Details" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="PDSQ40c" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="PDSQ40c_Details" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="PDS_GovIssuedId" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="PDS_IDLIcensePPNo" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="PDS_DateOfIssuance" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="PDS_PlaceOfIssuance" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Citizenship_Dual" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Citizenship_ByBirth" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Citizenship_ByNaturalization" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Citizenship_Details" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Perm_Address" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="Perm_CountryId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Perm_PostalCode" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.vwEmployee_Info_NoPhoto" Member="vwEmployee_Info_NoPhotos">
+    <Type Name="vwEmployee_Info_NoPhoto">
+      <Column Name="InfoId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="EmployeeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="DOB" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="POB_Address" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="POB_CountryId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="POB_PostalCode" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Gender" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CivilStatus" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Nationality_CountryId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TIN" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="SSS" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="GSIS" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="PAGIBIG" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Home_Address" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="Home_CountryId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Home_PostalCode" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Home_TelephoneNo" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="MobileNo" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Height" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Weight" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="BloodType" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Spouse_LastName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Spouse_FirstName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Spouse_MiddleName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Spouse_Occupation" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Spouse_Employer" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Spouse_Employer_TelephoneNo" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Father_LastName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Father_FirstName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Father_MiddleName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Mother_LastName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Mother_FirstName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Mother_MiddleName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="PHILHEALTH" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="BIRStatus" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="PDSQ34a" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="PDSQ34b" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="PDSQ34b_Details" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="PDSQ35a" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="PDSQ35a_Details" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="PDSQ35b" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="PDSQ35b_DateFiled" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="PDSQ35b_Status" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="PDSQ36" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="PDSQ36_Details" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="PDSQ37" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="PDSQ37_Details" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="PDSQ38a" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="PDSQ38a_Details" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="PDSQ38b" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="PDSQ38b_Details" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="PDSQ39" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="PDSQ39_Details" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="PDSQ40a" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="PDSQ40a_Details" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="PDSQ40b" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="PDSQ40b_Details" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="PDSQ40c" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="PDSQ40c_Details" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="PDS_GovIssuedId" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="PDS_IDLIcensePPNo" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="PDS_DateOfIssuance" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="PDS_PlaceOfIssuance" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Citizenship_Dual" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Citizenship_ByBirth" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Citizenship_ByNaturalization" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Citizenship_Details" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Perm_Address" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="Perm_CountryId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Perm_PostalCode" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="db_owner.tblEmployee_Access" Member="tblEmployee_Accesses">
+    <Type Name="tblEmployee_Access">
+      <Column Name="AccessId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="EmployeeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="hr_config" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="hr_devices" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="hr_holidays" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="hr_emp" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="hr_emp_access" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="hr_emp_info" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="hr_emp_career" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="hr_emp_sched" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="hr_emp_timelogs" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="hr_emp_timelogs_modify" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="hr_emp_leave" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="hr_emp_leave_app" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="hr_emp_travel" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="hr_emp_travel_app" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="hr_emp_ot" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="hr_emp_ot_app" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="hr_ps" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="hr_permissions" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="hr_emp_confidential" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="hr_emp_login_account" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="campus_scope" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="office_scope" Type="System.String" DbType="Text NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Column Name="finance_module" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="finance_module_unpost_ps" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="hr_att" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="hr_module" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="system_admin" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="leave_module" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="leave_module_settings" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="finance_ps" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="finance_employee_loans" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="finance_definitions" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="hr_bulletinboard" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="procurement" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="procurement_allocate_funds" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="procurement_settings" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="procurement_access_department_ppmp" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="procurement_access_office_ppmp" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="procurement_access_app" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="procurement_item_settings" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="procurement_ppmp_approver" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="sam" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="sam_settings" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="sam_receiving" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="sam_tagging" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="sam_inspection" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="sam_transactions" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="sam_monitoring" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="sam_inspection_equip" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblCampus" Member="tblCampus">
+    <Type Name="tblCampus">
+      <Column Name="CampusID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Campus" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Address" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="CountryID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PostalCode" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ContactNumber" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblEmployees" Member="tblEmployees">
+    <Type Name="tblEmployee">
+      <Column Name="EmployeeId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="LastName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="FirstName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="MiddleName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="NameExt" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="UserId" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(256) NOT NULL" CanBeNull="false" />
+      <Column Name="IdNo" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="WarehouseId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DepartmentId" Type="System.Int32" DbType="Int" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblOffices" Member="tblOffices">
+    <Type Name="tblOffice">
+      <Column Name="OfficeId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Office" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="ShortName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="TelephoneNo" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="RCC" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="CampusID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Function Name="dbo.getDateTime" Method="getDateTime" IsComposable="true">
+    <Return Type="System.DateTime" />
+  </Function>
+</Database>

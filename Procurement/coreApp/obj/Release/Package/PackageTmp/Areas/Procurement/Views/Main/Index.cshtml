@@ -1,0 +1,15 @@
+﻿
+@{
+    ViewBag.Title = "Procurement";
+    coreApp.UserAccess userAccess = coreApp.Cache.Get().userAccess;
+   
+}
+
+@section Breadcrumbs {
+    @Html.Partial("_Breadcrumbs", new List<Breadcrumb>() { new Breadcrumb { Description = ViewBag.Title } })
+}
+
+<div class="row">
+    
+
+</div>

@@ -1,0 +1,157 @@
+﻿@model List<coreApp.Areas.SAM.tblARE>
+@{
+    ViewBag.Title = "Property Return Slips";
+
+    int Year = (int)ViewBag.Year;
+
+}
+
+@section Breadcrumbs {
+@Html.Partial("_Breadcrumbs", new List<Breadcrumb>()
+    {
+        new Breadcrumb { Description = "Supply/Asset Management", Link = Url.Action("Index", "Main", new { area = "SAM" }) },
+        new Breadcrumb { Description = ViewBag.Title }
+    })
+}
+
+@section Scripts {
+    <script>
+        function load(e) {
+
+            if (e.viewType == 'view') {
+                var printBtn = e.modal.find('.btn-print');
+                var printlink = printBtn.attr('data-link-tmp');
+
+                printBtn.unbind('click').bind('click', function (ee) {
+                    ee.preventDefault();
+
+                    modalPrint('@Module.Core.ModuleConstants.PRINT_OPTIONS', function (ret) {
+                        var dlWord = 'true';
+
+                        if (ret) {
+                            dlWord = 'false';
+                        }
+
+                        window.open(printlink + '?dlWord=' + dlWord, '_blank');
+                    });
+                });
+
+            } else if (e.viewType == 'create' || e.viewType == 'edit') {
+
+                var fromTypeUI = e.modal.find('.fromtype-ui');
+                var fromTypes = e.modal.find('input[name="From_Type"]');
+                
+                fromTypes.change(function () {
+                    
+                    fromTypeUI.removeClass('show-fromtype-employee show-fromtype-contractor');
+
+                    if ($(this).val() == '0') {
+                        fromTypeUI.addClass('show-fromtype-employee');
+                    } else {
+                        fromTypeUI.addClass('show-fromtype-contractor');
+                    }
+                    
+                });
+            }
+
+            return e;
+        }
+    </script>
+}
+
+@section Styles {
+    <style>
+        .form-row:first-child {
+            margin-top: 0px;
+        }
+
+        .form-row:last-child {
+            margin-bottom: 10px;
+        }
+
+        .fromtype {
+            display: none;
+        }
+
+        div.show-fromtype-employee .fromtype-employee,
+        div.show-fromtype-contractor .fromtype-contractor {
+            display: block;
+        }
+    </style>
+}
+
+<div class="row">
+    <div class="col-sm-12">
+        For the year:
+        @Html.Partial("~/Areas/Procurement/Views/Shared/yearInfo.cshtml", "/SAM/Return/Index/{0}")
+        <br />
+    </div>
+</div>
+
+<div class="block">
+    <div class="head bg-default bg-light-ltr noradius">
+        <h2>@ViewBag.Title</h2>
+        <div class="side pull-right">
+            <ul class="buttons">
+                <li>
+                    <button class="btn btn-success btn-create" onclick="$.fn.list('modalCreate', this)">Create</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="content">
+        <table class="display table table-bordered table-striped table-list" cellspacing="0" width="100%"
+               modal-target="#modalView" modal-start="view" modal-load-callback="load"
+               modal-view-url="/SAM/Return/Details/@Year/{0}" modal-edit-url="/SAM/Return/Edit/@Year/{0}" modal-delete-url="/SAM/Return/Delete/@Year" modal-create-url="/SAM/Return/Create/@Year">
+            <thead>
+                <tr>
+                    <th>
+                        Date
+                    </th>
+                    <th>
+                        Return No.
+                    </th>
+
+                   @if (FixedSettings.IncludeContractors)
+                   {
+                    <th>
+                        Employee/Contractor
+                    </th>
+                   }
+                   else
+                   {
+                    <th>
+                        Employee
+                    </th>
+                   }
+
+                    <th>
+                        Fund Cluster
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (coreApp.Areas.SAM.tblARE item in Model)
+                {
+                    <tr record-id="@item.Id">
+                        <td>
+                            @Html.DisplayFor(modelItem => item.AREDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.RetNo)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item._From_Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FundCluster)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+    </div>
+</div>
+
+@Html.Partial("~/Views/Shared/modals/_ModalView.cshtml", "modalView")

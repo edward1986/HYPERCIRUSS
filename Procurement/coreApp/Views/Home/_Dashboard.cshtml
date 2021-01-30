@@ -1,0 +1,65 @@
+﻿@{
+
+    List<coreApp.Areas.Procurement.DAL.vTotalAllocation> allocations = (List<coreApp.Areas.Procurement.DAL.vTotalAllocation>)ViewBag.allocations;
+    ViewBag.Title = "Procurement";
+    coreApp.UserAccess userAccess = coreApp.Cache.Get().userAccess;
+    coreApp.Areas.Procurement.Models.OfficePPMPModel officeModel = (coreApp.Areas.Procurement.Models.OfficePPMPModel)ViewBag.OfficeModel;
+
+    Layout = "~/Views/Shared/_Layout_Anonymous.cshtml";
+}
+
+<!-- font css -->
+<link rel="stylesheet" href="~/assets/nextro/assets/fonts/font-awsome-pro/css/pro.min.css">
+<link rel="stylesheet" href="~/assets/nextro/assets/fonts/feather.css">
+<link rel="stylesheet" href="~/assets/nextro/assets/fonts/fontawesome.css">
+<link rel="stylesheet" href="~/assets/nextro/assets/css/plugins/dataTables.bootstrap4.min.css">
+<link rel="stylesheet" href="~/Assets/nextro/assets/css/plugins/select2.min.css">
+<link rel="stylesheet" href="~/assets/nextro/assets/css/plugins/bootstrap-select.min.css">
+
+<!-- vendor css -->
+<link rel="stylesheet" href="~/assets/nextro/assets/css/style.css">
+<link rel="stylesheet" href="~/assets/nextro/assets/css/customizer.css">
+
+<script type='text/javascript' src='~/assets/nextro/assets/js/vendor-all.min.js'></script>
+
+@Html.Partial("_DashboardHeader")
+
+<div class="container my-auto">
+
+    <div class="box d-flex align-items-center justify-content-center">
+        <div class="col col-md-4">
+            <div class="card prod-p-card background-pattern">
+                <div class="card-body">
+                    <h5 class="card-title m-b-10">PMS</h5>
+                    <p class="card-text">Procurement Management System</p>
+                    <a href="@Url.Action("Index", "Main", new { area = "Procurement" })" class="btn btn-success">Go to Dashboard</a>
+                </div>
+            </div>
+        </div>
+        <div class="col col-md-4">
+            <div class="card prod-p-card background-pattern">
+                <div class="card-body">
+                    <h5 class="card-title m-b-10">SAMS</h5>
+                    <p class="card-text">Supply and Asset Management System</p>
+                    <a href="@Url.Action("Index", "Main", new { area = "SAM" })" class="btn  btn-primary">Go to Dashboard</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script src="~/assets/nextro/assets/js/plugins/bootstrap.min.js"></script>
+<script src="~/assets/nextro/assets/js/plugins/feather.min.js"></script>
+<script src="~/assets/nextro/assets/js/pcoded.min.js"></script>
+
+<script>
+    window.onload = function () {
+
+        var h = window.innerHeight;
+        var box = document.getElementsByClassName("box");
+
+        box[0].style.height = h - 100 + "px";
+    }
+</script>
+

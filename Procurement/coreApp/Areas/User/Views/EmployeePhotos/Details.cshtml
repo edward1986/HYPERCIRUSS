@@ -1,0 +1,91 @@
+﻿@{
+    Layout = "~/Areas/HRModule/Views/Shared/_EmployeeDetailsLayout.cshtml";
+
+    Module.DB.tblEmployee employee = (Module.DB.tblEmployee)ViewBag.Employee;
+
+    ViewBag.Title = "Personal Information";
+    ViewBag.Subtitle = "Details";
+
+    ViewBag.uiIsReadOnly = true;
+    ViewBag.uiIncludeId = false;
+
+    ViewBag.EmployeeDetailsActiveTab = "photos";
+
+}
+
+@section Breadcrumbs {
+    @Html.Partial("_Breadcrumbs", new List<Breadcrumb>()
+    {
+        new Breadcrumb { Description = "Employee List", Link = Url.Action("Index", "Employees", new { area = "HRModule" }) },
+        new Breadcrumb { Description = "Employee Main Record", Link = Url.Action("Details", "Employees", new { id = employee.EmployeeId, area = "HRModule" } ) },
+        new Breadcrumb { Description = ViewBag.Title }
+    })
+}
+
+@section SearchSection {
+    @Html.Action("Search", "EmployeeSearch", new { model = new coreApp.Models.EmployeeSearchModel { DataUrl = "/HRModule/Employee/Photos/Details/{0}", MinimalView = true } })
+}
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('.btn-save').click(function (e) {
+                e.preventDefault();
+
+                var activePhotoConts = $('.photo-cont.has-file, .photo-cont.remove-photo');
+
+                if (activePhotoConts.length == 0) {
+                    modalMessage('No photo to upload/remove', 'Photos', true);
+                } else {
+                    $('#uploadform').submit();
+                }
+            });
+        });
+    </script>
+
+}
+
+<div class="block block-drop-shadow">
+    <div class="head bg-default bg-light-ltr noradius">
+        <h2>Photos</h2>
+        <div class="side pull-right">
+            <ul class="buttons">
+                <li><a href="#" class="btn btn-primary btn-clean btn-save">Save</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="content">
+
+        @using (Html.BeginForm("Upload", "EmployeePhotos", new { area = "HRModule", employeeId = employee.EmployeeId }, FormMethod.Post, new { id = "uploadform", enctype = "multipart/form-data" }))
+        {
+            <div class="row">
+                <div class="col-sm-6">
+                    <fieldset>
+                        <legend>Profile Photo</legend>
+
+                        @Html.Partial("_Helper_Photo", new ViewDataDictionary {
+                        { "url", "/HRModule/Employee/Photos/GetPhoto/" + employee.EmployeeId + "?type=profile-photo" },
+                        { "control-name", "ProfilePhoto" },
+                        { "readonly", false }
+                   })
+                    </fieldset>
+                </div>
+
+                <div class="col-sm-6">
+                    <fieldset>
+                        <legend>PDS Photo</legend>
+
+                        @Html.Partial("_Helper_Photo", new ViewDataDictionary {
+                        { "url", "/HRModule/Employee/Photos/GetPhoto/" + employee.EmployeeId + "?type=pds-photo" },
+                        { "control-name", "PDSPhoto" },
+                        { "readonly", false }
+                   })
+                    </fieldset>
+                </div>
+            </div>
+
+        }
+
+
+    </div>
+</div>

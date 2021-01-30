@@ -1,0 +1,127 @@
+﻿@model List<coreApp.Areas.SAM.POItemModel>
+
+@{
+    ViewBag.Title = "P.O. Items";
+    ViewBag.Subtitle = "List";
+
+    coreApp.Areas.SAM.tblPO po = (coreApp.Areas.SAM.tblPO)ViewBag.PO;
+
+}
+
+@section Breadcrumbs {
+    @Html.Partial("_Breadcrumbs", new List<Breadcrumb>() {
+        new Breadcrumb { Description = "Purchase Orders", Link = Url.Action("Index", "PO", new { area = "SAM" }) },
+        new Breadcrumb { Description = ViewBag.Title }
+    })
+}
+
+@section Styles {
+    <link href="~/Areas/Procurement/Assets/css/common.less" rel="stylesheet" type="text/css">
+}
+
+@section Scripts {
+    <script>
+        function load(e) {
+
+            if (e.viewType == 'view') {
+
+                var locked = e.modal.find('.modal-body #Locked').val() == 'True';
+                var btnEdit = e.modal.find('.modal-footer .btn-edit');
+                var btnDelete = e.modal.find('.modal-footer .btn-delete');
+
+                if (locked) {
+                    btnEdit.hide();
+                    btnDelete.hide();
+                } else {
+                    btnEdit.show();
+                    btnDelete.show();
+                }
+            }
+
+            return e;
+        }
+    </script>
+}
+
+<div class="block">
+    <div class="card">
+        <div class="card-header">
+            <h5>@ViewBag.Title</h5>
+            <div class="card-header-right">
+                <div class="btn-group card-option">
+                    @if (po.Locked)
+                    {
+                        <label><i class="fa fa-lock"></i> Imported</label>
+                    }
+                    else
+                    {
+                        <button class="btn btn-success btn-sm btn-create" onclick="$.fn.list('modalCreate', this)">Create</button>
+                    }
+
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            @Html.Partial("~/Areas/SAM/Views/Shared/poInfo.cshtml", "/SAM/PO/Items/Index/")
+            <div class="dt-responsive table-responsive">
+                <table class="display table table-bordered table-striped table-list" cellspacing="0" width="100%"
+                       modal-target="#modalView" modal-start="view" modal-load-callback="load"
+                       modal-view-url="/SAM/PO/Items/Details/@po.Id/{0}" modal-edit-url="/SAM/PO/Items/Edit/@po.Id/{0}" modal-delete-url="/SAM/PO/Items/Delete/@po.Id" modal-create-url="/SAM/PO/Items/Create/@po.Id">
+                    <thead>
+                        <tr>
+                            <th class="idcol">Id</th>
+                            <th>Item Name</th>
+                            <th>Unit</th>
+                            <th>Category</th>
+                            <th>Category Type</th>
+                            <th>Qty</th>
+                            <th>Unit Cost</th>
+                            <th>Amount</th>
+                            <th>Delivered (Equiv.)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (coreApp.Areas.SAM.POItemModel _item in Model)
+                        {
+                            coreApp.Areas.SAM.tblPOItem item = _item.Item;
+
+                            <tr record-id="@item.Id">
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Id)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ItemName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item._Unit)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item._Category)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CategoryType_Desc)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Qty)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.UnitCost)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Amount)
+                                </td>
+                                <td>
+                                    @string.Format("{0} ({1})", _item.Delivered, _item.DeliveryEquiv.ToString("#,##0.00"))
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+@Html.Partial("~/Views/Shared/modals/_ModalView.cshtml", "modalView")
+

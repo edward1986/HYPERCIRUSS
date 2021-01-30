@@ -1,0 +1,346 @@
+﻿@model coreApp.Areas.Procurement.DAL.tblAPP
+
+@using coreLib.Extensions
+@{
+    ViewBag.Title = "APP Items";
+
+    coreApp.Areas.Procurement.Models.CompanyAPPModel companyAPPModel = new coreApp.Areas.Procurement.Models.CompanyAPPModel(Model.Year);
+    coreApp.Areas.Procurement.Models.APPModel appModel = Model.Model();
+
+    double totalFunds = companyAPPModel.utility.TotalAmountReceived();
+    double totalSubmitted = companyAPPModel.utility.TotalAmountOfSubmittedAPPs(Model.Id);
+
+    double totalAmount = Model._TotalAmount ?? 0;
+    double balance = totalFunds - totalSubmitted - totalAmount;
+
+    bool negativeBalance = balance < 0;
+
+    bool fromAPR = false;
+    if (Session["FromAPR"] != null)
+    {
+        fromAPR = (bool)Session["FromAPR"];
+    }
+
+
+    List<coreApp.Areas.Procurement.Models.GroupedConflictItems> conflicts = appModel.ItemsInConflictWithOtherAPPs();
+
+}
+
+
+@section Styles {
+
+    <link rel="stylesheet" href="~/Assets/nextro/assets/css/plugins/bootstrap-datepicker3.min.css">
+
+}
+
+<script>
+    var hasConflicts = @(conflicts.Any() ? "true" : "false");
+</script>
+
+
+<div class="block">
+    <div class="card">
+        <div class="card-header">
+            <h5>@Model.Description Item</h5>
+            <div class="card-header-right">
+                <div class="btn-group card-option">
+                    <div class="btn-group-sm header-button">
+                        <button class="btn btn-warning btn-clean btn-importitems" data-forapp="true">Add/Remove Office PPMPs</button>
+                        <button class="btn btn-info btn-clean btn-print" data-printmsg="@Module.Core.ModuleConstants.PRINT_OPTIONS">Print</button>
+                        <button class="btn btn-primary btn-clean btn-submit">Submit</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+
+            @if (Model.HasBeenSubmitted)
+            {
+                <div class="alert alert-info">
+                    Submitted by: @Model.SubmittedBy |
+                    <small>@Html.DisplayFor(x => Model.SubmitDate)</small>
+                </div>
+            }
+
+            <div class="row">
+                <div class="col-sm-4">
+                    <table class="tblinfo">
+                        <tbody>
+                            <tr><td>Year</td><td>:</td><td>@Model.Year</td></tr>
+                            @*<tr class="title"><td>Agency</td><td>:</td><td>@FixedSettings.AgencyName</td></tr>*@
+                        </tbody>
+                    </table>
+
+                    @if (!fromAPR)
+                    {
+                        @Html.Partial("~/Areas/Procurement/Views/Shared/appInfo.cshtml", "/Procurement/CompanyAPP/Items/Index/",
+                                            new ViewDataDictionary { { "year", Model.Year }, { "app", Model } })
+
+                    }
+                </div>
+                <div class="col-sm-4">
+                    <ul class="nav nav-tabs mb-3" id="myTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active text-uppercase" id="Consolidated-tab" data-toggle="tab" href="#tab1" role="tab" aria-controls="home" aria-selected="true">Selected PPMPs</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-uppercase" id="Categories-tab" data-toggle="tab" href="#tab2" role="tab" aria-controls="profile" aria-selected="false">Categories</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-uppercase" id="Months-tab" data-toggle="tab" href="#tab3" role="tab" aria-controls="profile" aria-selected="false">Months</a>
+                        </li>
+                    </ul>
+                    <div class="content tab-content">
+                        <div class="tab-pane active" id="tab1">
+                            <div class="ppmp-list" style="max-height:200px;overflow-x:hidden;overflow-y:auto">
+
+                                <table class="display table table-bordered table-striped table-list" cellspacing="0" width="100%">
+                                    <thead>
+                                        <tr>
+                                            <th>Code (PAP)</th>
+                                            <th>Description</th>
+                                            <th>PMO/End-User</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        @foreach (coreApp.Areas.Procurement.DAL.tblAppItem item in Model.AppItems)
+                                        {
+                                            <tr id="@item.Id">
+                                                <td>@item.getPPMP.PPMPNumber</td>
+                                                <td>@item.getPPMP.Description</td>
+                                                <td>
+                                                    @{
+                                                        if (item.getPPMP.Office != null)
+                                                        {
+                                                            @item.getPPMP.Office.ShortName
+                                                        }
+                                                    }
+
+                                                </td>
+                                            </tr>
+
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="tab2">
+                            <div class="category-list" style="max-height:200px;overflow-x:hidden;overflow-y:auto">
+                                <table class="table static-table" style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th>Category</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @{
+                                            int i = 1;
+                                        }
+                                        @foreach (var cat in Model.Categories().OrderBy(x => x.Category))
+                                        {
+                                            <tr>
+                                                <td style="width:50px;">@i.</td>
+                                                <td>@cat.Category</td>
+                                            </tr>
+
+                                            i++;
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="tab3">
+                            <div class="month-list" style="max-height:200px;overflow-x:hidden;overflow-y:auto">
+                                <table class="table static-table" style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th>Month</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @{
+                                            i = 1;
+                                        }
+                                        @foreach (var month in Model.GetMonths())
+                                        {
+                                            <tr>
+                                                <td style="width:50px;">@i.</td>
+                                                <td>@month.Text</td>
+                                            </tr>
+
+                                            i++;
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4" style="text-align:right">
+                    <table class="tblbalance">
+                        <tbody>
+                            <tr><td>Total Company Funds:</td><td>@totalFunds.ToCurrencyString()</td></tr>
+                            <tr><td>Other Submitted Company APPs:</td><td>@totalSubmitted.ToCurrencyString()</td></tr>
+
+                            <tr><td>Total Amount of Items:</td><td>@totalAmount.ToCurrencyString()</td></tr>
+                            <tr class="@(negativeBalance ? "negative-value" : "")"><td>Balance@(Model.HasBeenSubmitted ? "" : " (if submitted)"):</td><td>@balance.ToCurrencyString(negativeIsEncloseInParenthesis: true)</td></tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-sm-12">
+
+                @Html.Partial("_Conflicts", conflicts)
+
+                <div class="dt-responsive table-responsive">
+                    <table class="display table maintable table-bordered table-striped table-list skiptable" event-tablebind="tableBind" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Item Name
+                                </th>
+                                <th>
+                                    Description
+                                </th>
+                                <th>
+                                    In DBM
+                                </th>
+                                <th>
+                                    Category
+                                </th>
+                                <th>
+                                    Jan
+                                </th>
+                                <th>
+                                    Feb
+                                </th>
+                                <th>
+                                    Mar
+                                </th>
+                                <th>
+                                    Apr
+                                </th>
+                                <th>
+                                    May
+                                </th>
+                                <th>
+                                    Jun
+                                </th>
+                                <th>
+                                    Jul
+                                </th>
+                                <th>
+                                    Aug
+                                </th>
+                                <th>
+                                    Sep
+                                </th>
+                                <th>
+                                    Oct
+                                </th>
+                                <th>
+                                    Nov
+                                </th>
+                                <th>
+                                    Dec
+                                </th>
+                                <th>
+                                    Qty
+                                </th>
+                                <th>
+                                    Price
+                                </th>
+                                <th>
+                                    Amount
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in appModel.Items)
+                            {
+                                <tr record-id="@item.Id" data-item="@item.Stringify()">
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ItemName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ItemDescription)
+                                    </td>
+                                    <td class="qtr">
+                                        @(item.ItemInDBM ? "Yes" : "No")
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ItemCategory)
+                                    </td>
+                                    <td class="month @(conflicts.Any(x => x.ItemIsInConflict(item.ItemId, 1)) ? "onpr" : "")">
+                                        @((item.M1 ?? 0) == 0 ? "" : item.M1.Value.ToString("#,##0"))
+                                    </td>
+                                    <td class="month @(conflicts.Any(x => x.ItemIsInConflict(item.ItemId, 2)) ? "onpr" : "")">
+                                        @((item.M2 ?? 0) == 0 ? "" : item.M2.Value.ToString("#,##0"))
+                                    </td>
+                                    <td class="month @(conflicts.Any(x => x.ItemIsInConflict(item.ItemId, 3)) ? "onpr" : "")">
+                                        @((item.M3 ?? 0) == 0 ? "" : item.M3.Value.ToString("#,##0"))
+                                    </td>
+                                    <td class="month @(conflicts.Any(x => x.ItemIsInConflict(item.ItemId, 4)) ? "onpr" : "")">
+                                        @((item.M4 ?? 0) == 0 ? "" : item.M4.Value.ToString("#,##0"))
+                                    </td>
+                                    <td class="month @(conflicts.Any(x => x.ItemIsInConflict(item.ItemId, 5)) ? "onpr" : "")">
+                                        @((item.M5 ?? 0) == 0 ? "" : item.M5.Value.ToString("#,##0"))
+                                    </td>
+                                    <td class="month @(conflicts.Any(x => x.ItemIsInConflict(item.ItemId, 6)) ? "onpr" : "")">
+                                        @((item.M6 ?? 0) == 0 ? "" : item.M6.Value.ToString("#,##0"))
+                                    </td>
+                                    <td class="month @(conflicts.Any(x => x.ItemIsInConflict(item.ItemId, 7)) ? "onpr" : "")">
+                                        @((item.M7 ?? 0) == 0 ? "" : item.M7.Value.ToString("#,##0"))
+                                    </td>
+                                    <td class="month @(conflicts.Any(x => x.ItemIsInConflict(item.ItemId, 8)) ? "onpr" : "")">
+                                        @((item.M8 ?? 0) == 0 ? "" : item.M8.Value.ToString("#,##0"))
+                                    </td>
+                                    <td class="month @(conflicts.Any(x => x.ItemIsInConflict(item.ItemId, 9)) ? "onpr" : "")">
+                                        @((item.M9 ?? 0) == 0 ? "" : item.M9.Value.ToString("#,##0"))
+                                    </td>
+                                    <td class="month @(conflicts.Any(x => x.ItemIsInConflict(item.ItemId, 10)) ? "onpr" : "")">
+                                        @((item.M10 ?? 0) == 0 ? "" : item.M10.Value.ToString("#,##0"))
+                                    </td>
+                                    <td class="month @(conflicts.Any(x => x.ItemIsInConflict(item.ItemId, 11)) ? "onpr" : "")">
+                                        @((item.M11 ?? 0) == 0 ? "" : item.M11.Value.ToString("#,##0"))
+                                    </td>
+                                    <td class="month @(conflicts.Any(x => x.ItemIsInConflict(item.ItemId, 12)) ? "onpr" : "")">
+                                        @((item.M12 ?? 0) == 0 ? "" : item.M12.Value.ToString("#,##0"))
+                                    </td>
+                                    <td class="qtr">
+                                        @(item.Qty == 0 ? "" : item.Qty.ToString("#,##0"))
+                                    </td>
+                                    <td class="amnt">
+                                        @Html.DisplayFor(modelItem => item.ItemPrice)
+                                    </td>
+                                    <td class="amnt">
+                                        @Html.DisplayFor(modelItem => item.Amount)
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<script src="~/assets/nextro/assets/js/plugins/dataTables.bootstrap4.min.js"></script>
+<script src="~/assets/nextro/assets/js/plugins/bootstrap-select.min.js"></script>
+<script src="~/Assets/nextro/assets/js/plugins/bootstrap-datepicker.min.js"></script>
+
+<script>
+    $('.pc-selectpicker').selectpicker();
+    $(function () { });
+
+    $(".datepicker").datepicker();
+    $(function () { });
+
+</script>

@@ -1,0 +1,13 @@
+﻿@model List<coreApp.DAL.tblEmployee_Allowance>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="row">
+        <div class="col-sm-12">            
+            @Html.Partial("~/Areas/HRModule/Views/EmployeeAllowancesDeductions/_AllowanceList.cshtml", Model, new ViewDataDictionary { { "ReadOnly", false }, { "Allowances", ViewBag.Allowances } })
+        </div>
+    </div>
+
+}

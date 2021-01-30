@@ -1,0 +1,25 @@
+﻿@using coreApp.Areas.Procurement.DAL
+@model string
+@{
+    int year = Convert.ToInt32(ViewData["year"]);
+
+    bool forOffice = (bool)ViewData["forOffice"];
+    tblPPMP ppmp = (tblPPMP)ViewData["ppmp"];
+
+    List<SelectListItem> ppmps =
+        coreApp.Areas.Procurement.SelectItems.getPPMPs(year: year, officeId: ppmp.OfficeId, deptId: (ppmp.IsDepartmentPPMP ? ppmp.DepartmentId.Value : -1), forOfficeOrSubmittedByDept: forOffice, showEmptyItem: false);
+}
+
+
+<select onchange="ppmpItemSelected(this)" class="form-control pc-selectpicker" data-style="btn-success">
+    @foreach (SelectListItem o in ppmps)
+    {
+        <option value="@o.Value" @(ppmp.Id.ToString() == o.Value ? "selected" : "")>@o.Text</option>
+    }
+</select>
+
+<script>
+    function ppmpItemSelected(sel) {
+        window.location = '@Model' + $(sel).val();
+    }
+</script>

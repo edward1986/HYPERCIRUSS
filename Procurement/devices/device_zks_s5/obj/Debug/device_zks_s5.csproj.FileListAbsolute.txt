@@ -1,0 +1,5 @@
+C:\Users\renebert\Documents\Visual Studio 2017\Projects\skyhr_legacy_db\skyhr\devices\device_zks_s5\obj\Debug\device_zks_s5.csprojResolveAssemblyReference.cache
+C:\Users\renebert\Documents\Visual Studio 2017\Projects\skyhr_legacy_db\skyhr\devices\device_zks_s5\obj\Debug\Interop.MSDATASRC.dll
+C:\Users\renebert\Documents\Visual Studio 2017\Projects\skyhr_legacy_db\skyhr\devices\device_zks_s5\obj\Debug\Interop.VBRUN.dll
+C:\Users\renebert\Documents\Visual Studio 2017\Projects\skyhr_legacy_db\skyhr\devices\device_zks_s5\obj\Debug\device_zks_s5.csproj.ResolveComReference.cache
+C:\Users\renebert\Documents\Visual Studio 2017\Projects\skyhr_legacy_db\skyhr\devices\device_zks_s5\obj\Debug\device_zks_s5.csproj.CoreCompileInputs.cache

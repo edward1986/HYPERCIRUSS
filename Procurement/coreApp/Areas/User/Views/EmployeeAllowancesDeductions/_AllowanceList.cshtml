@@ -1,0 +1,44 @@
+﻿@model List<coreApp.DAL.tblEmployee_Allowance>
+
+@{
+    bool readOnly = Convert.ToBoolean(ViewData["ReadOnly"]);
+}
+
+
+<style>
+    .entry-ui ul {
+        list-style: none;
+    }
+</style>
+
+@if (readOnly)
+{
+    <ul>
+        @foreach (coreApp.DAL.tblEmployee_Allowance allowance in Model)
+        {
+            <li>@allowance.Allowance.Description</li>
+        }
+    </ul>
+}
+else
+{
+    List<coreApp.DAL.tblFin_AllowanceDef> allowances = (List<coreApp.DAL.tblFin_AllowanceDef>)ViewData["Allowances"];
+
+    <div class="entry-ui select-all select-all-parent-inverse">
+        <ul>
+            <li>
+                @Html.Partial("_Helper_CheckBox", null, new ViewDataDictionary { { "value", allowances.Count == Model.Count }, { "text", "Select All" }, { "input-value", "SelectAll" } })
+
+                <ul>
+                    @foreach (coreApp.DAL.tblFin_AllowanceDef allowance in allowances)
+                    {
+                        <li>
+                            @Html.Partial("_Helper_CheckBox", "Allowances", new ViewDataDictionary { { "value", Model.Any(x => x.AllowanceId == allowance.AllowanceId) }, { "text", allowance.Description }, { "input-value", allowance.AllowanceId.ToString() } })
+                        </li>
+                    }
+                </ul>
+
+            </li>
+        </ul>
+    </div>
+}

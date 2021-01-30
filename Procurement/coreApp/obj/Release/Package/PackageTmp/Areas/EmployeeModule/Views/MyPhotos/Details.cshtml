@@ -1,0 +1,90 @@
+﻿@{
+    Layout = "~/Areas/EmployeeModule/Views/Shared/_EmployeeDetailsLayout.cshtml";
+
+    Module.DB.tblEmployee employee = (Module.DB.tblEmployee)ViewBag.Employee;
+
+    ViewBag.Title = "Photos";
+    ViewBag.Subtitle = "";
+
+    ViewBag.uiIsReadOnly = true;
+    ViewBag.uiIncludeId = true;
+
+    ViewBag.EmployeeDetailsActiveTab = "photos";
+
+}
+
+@section Breadcrumbs {
+    @Html.Partial("_Breadcrumbs", new List<Breadcrumb>()
+    {
+        new Breadcrumb { Description = "Employee Main Record", Link = Url.Action("Details", "MyProfile", new { id = employee.EmployeeId, area = "EmployeeModule" } ) },
+        new Breadcrumb { Description = ViewBag.Title }
+    })
+}
+
+@section Scripts {   
+    <script>
+        $(document).ready(function () {
+            $('.btn-save').click(function (e) {
+                e.preventDefault();
+
+                var activePhotoConts = $('.photo-cont.has-file, .photo-cont.remove-photo');
+
+                if (activePhotoConts.length == 0) {
+                    modalMessage('No photo to upload/remove', 'Photos', true);
+                } else {
+                    $('#uploadform').submit();
+                }
+            });
+        });
+    </script>
+}
+
+<div class="block block-drop-shadow">
+    <div class="head bg-default bg-light-ltr noradius">
+        <h2>Photos</h2>
+        <div class="side pull-right">
+            <ul class="buttons">
+                <li><a href="#" class="btn btn-primary btn-clean btn-save">Save</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="content">
+
+        @using (Html.BeginForm("Upload", "MyPhotos", new { area = "EmployeeModule", employeeId = employee.EmployeeId }, FormMethod.Post, new { id = "uploadform", enctype = "multipart/form-data" }))
+        {
+            <div class="row">
+                <div class="col-sm-6">
+                    <fieldset>
+                        <legend>Profile Photo</legend>
+
+                        @Html.Partial("_Helper_Photo", new ViewDataDictionary {
+                        { "url", "/HRModule/Employee/Photos/GetPhoto/" + employee.EmployeeId + "?type=profile-photo" },
+                        { "control-name", "ProfilePhoto" },
+                        { "readonly", false }
+                   })
+                    </fieldset>
+                </div>
+
+                @if (coreApp.Cache.Get().userAccess.HasPermission("EmployeePhotos_PDS"))
+                {
+                    <div class="col-sm-6">
+                        <fieldset>
+                            <legend>PDS Photo</legend>
+
+                            @Html.Partial("_Helper_Photo", new ViewDataDictionary {
+                                { "url", "/HRModule/Employee/Photos/GetPhoto/" + employee.EmployeeId + "?type=pds-photo" },
+                                { "control-name", "PDSPhoto" },
+                                { "readonly", false }
+                           })
+                        </fieldset>
+                    </div>
+                }
+
+              
+            </div>
+
+        }
+
+
+    </div>
+</div>

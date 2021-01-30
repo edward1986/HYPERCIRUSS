@@ -1,0 +1,303 @@
+﻿@model Module.DB.tblEmployee_Access
+@{ 
+    bool readOnly = Convert.ToBoolean(ViewData["ReadOnly"]);
+}
+
+<style>
+    .access-list-cont {
+        max-height: 500px;
+        overflow: auto;
+    }
+
+    .access-list-cont .entry-ui ul {
+        list-style: none;
+    }
+</style>
+
+<div class="access-list-cont">
+
+    @if (readOnly)
+    {
+        <div class="view-ui">
+            <ul>
+                @if (Model.system_admin)
+                {
+                    <li>@Html.DisplayNameFor(m => m.system_admin)</li>
+                }
+                @if (Model.hr_config)
+                {
+                    <li>@Html.DisplayNameFor(m => m.hr_config)</li>
+                }
+                @if (Model.hr_devices)
+                {
+                    <li>@Html.DisplayNameFor(m => m.hr_devices)</li>
+                }
+                @if (Model.hr_bulletinboard)
+                {
+                    <li>@Html.DisplayNameFor(m => m.hr_bulletinboard)</li>
+                }
+                @if (Model.hr_holidays)
+                {
+                    <li>@Html.DisplayNameFor(m => m.hr_holidays)</li>
+                }
+                @if (Model.hr_ps)
+                {
+                    <li>@Html.DisplayNameFor(m => m.hr_ps)</li>
+                }
+                @if (Model.hr_module)
+                {   
+                    <li>
+                        @Html.DisplayNameFor(m => m.hr_module)
+
+                        <ul> 
+                            @if (Model.hr_emp_info)
+                            {
+                                <li>@Html.DisplayNameFor(m => m.hr_emp_info)</li>
+                            }
+                            @if (Model.hr_emp_career)
+                            {
+                                <li>@Html.DisplayNameFor(m => m.hr_emp_career)</li>
+                            }
+                            @if (Model.hr_emp_login_account)
+                            {
+                                <li>@Html.DisplayNameFor(m => m.hr_emp_login_account)</li>
+                            }
+                            @if (Model.hr_emp_confidential)
+                            {
+                                <li>@Html.DisplayNameFor(m => m.hr_emp_confidential)</li>
+                            }
+                            @if (Model.hr_emp_access)
+                            {
+                                <li>@Html.DisplayNameFor(m => m.hr_emp_access)</li>
+                            }                           
+                            @if (Model.hr_emp_timelogs_modify)
+                            {
+                                <li>@Html.DisplayNameFor(m => m.hr_emp_timelogs_modify)</li>
+                            }
+                            @if (Model.hr_permissions)
+                            {
+                                <li>@Html.DisplayNameFor(m => m.hr_permissions)</li>
+                            }
+                            @if (Model.hr_emp_leave)
+                            {
+                                <li>@Html.DisplayNameFor(m => m.hr_emp_leave)</li>
+                            }
+                            @if (Model.hr_emp_travel)
+                            {
+                                <li>@Html.DisplayNameFor(m => m.hr_emp_travel)</li>
+                            }
+                            @if (Model.hr_emp_travel_app)
+                            {
+                                <li>@Html.DisplayNameFor(m => m.hr_emp_travel_app)</li>
+                            }
+                            @if (Model.hr_emp_ot)
+                            {
+                                <li>@Html.DisplayNameFor(m => m.hr_emp_ot)</li>
+                            }
+                            @if (Model.hr_emp_ot_app)
+                            {
+                                <li>@Html.DisplayNameFor(m => m.hr_emp_ot_app)</li>
+                            }
+                        </ul>
+                    </li>
+                }
+                @if (Model.leave_module)
+                {
+                    <li>
+                        @Html.DisplayNameFor(m => m.leave_module)
+
+                        <ul>
+                            @if (Model.leave_module_settings)
+                            {
+                                <li>@Html.DisplayNameFor(m => m.leave_module_settings)</li>
+                            }
+                           @if (Model.hr_emp_leave_app)
+                           {
+                            <li>@Html.DisplayNameFor(m => m.hr_emp_leave_app)</li>
+                           }
+                        </ul>
+                    </li>
+                }
+                
+                @if (Model.finance_module)
+                {
+                    <li>
+                        @Html.DisplayNameFor(m => m.finance_module)
+
+                        <ul>
+                            @if (Model.finance_definitions)
+                            {
+                                <li>@Html.DisplayNameFor(m => m.finance_definitions)</li>
+                            }
+                            @if (Model.finance_employee_loans)
+                            {
+                                <li>@Html.DisplayNameFor(m => m.finance_employee_loans)</li>
+                            }
+                            @if (Model.finance_ps)
+                            {
+                                <li>@Html.DisplayNameFor(m => m.finance_ps)</li>
+                            }
+                        </ul>
+                    </li>
+                }
+
+                @*@if (Model.procurement && (MvcApplication.ApplicationLicense.Info.Modules_Procurement))*@
+                @if (Model.procurement)
+                {
+                    <li>
+                        @Html.DisplayNameFor(m => m.procurement)
+
+                        <ul>
+                            @if (Model.procurement_settings)
+                            {
+                                <li>@Html.DisplayNameFor(m => m.procurement_settings)</li>
+                            }
+                            @if (Model.procurement_item_settings)
+                            {
+                                <li>@Html.DisplayNameFor(m => m.procurement_item_settings)</li>
+                            }
+                            @if (Model.procurement_allocate_funds)
+                            {
+                                <li>@Html.DisplayNameFor(m => m.procurement_allocate_funds)</li>
+                            }
+                            @if (Model.procurement_access_department_ppmp)
+                            {
+                                <li>@Html.DisplayNameFor(m => m.procurement_access_department_ppmp)</li>
+                            }
+                            @if (Model.procurement_access_office_ppmp)
+                            {
+                                <li>@Html.DisplayNameFor(m => m.procurement_access_office_ppmp)</li>
+                            }
+                            @if (Model.procurement_ppmp_approver)
+                            {
+                                <li>@Html.DisplayNameFor(m => m.procurement_ppmp_approver)</li>
+                            }
+                            @if (Model.procurement_access_app)
+                            {
+                                <li>@Html.DisplayNameFor(m => m.procurement_access_app)</li>
+                            }
+                        </ul>
+                    </li>
+                }
+
+                @*@if (Model.sam)
+                {
+                    <li>
+                        @Html.DisplayNameFor(m => m.sam)
+
+                        <ul>
+                            @if (Model.sam_settings)
+                            {
+                                <li>@Html.DisplayNameFor(m => m.sam_settings)</li>
+                            }
+                            @if (Model.sam_receiving)
+                            {
+                                <li>@Html.DisplayNameFor(m => m.sam_receiving)</li>
+                            }
+                            @if (Model.sam_tagging)
+                            {
+                                <li>@Html.DisplayNameFor(m => m.sam_tagging)</li>
+                            }
+                            @if (Model.sam_inspection)
+                            {
+                                <li>@Html.DisplayNameFor(m => m.sam_inspection)</li>
+                            }
+                            @if (Model.sam_inspection_equip)
+                            {
+                                <li>@Html.DisplayNameFor(m => m.sam_inspection_equip)</li>
+                            }
+                            @if (Model.sam_transactions)
+                            {
+                                <li>@Html.DisplayNameFor(m => m.sam_transactions)</li>
+                            }
+                            @if (Model.sam_monitoring)
+                            {
+                                <li>@Html.DisplayNameFor(m => m.sam_monitoring)</li>
+                            }
+                        </ul>
+                    </li>
+                }*@
+            </ul>
+        </div>
+        
+    }
+    else
+    {
+        <div class="entry-ui select-all">
+            <ul>
+                @if (coreApp.Cache.Get().userAccess.IsAdmin)
+                {
+                    <li>
+                        @Html.Partial("_Helper_CheckBox", "Access", new ViewDataDictionary { { "value", Model.system_admin }, { "text", Html.DisplayNameFor(m => m.system_admin) }, { "input-value", "system_admin" } })
+                    </li>
+                }
+             
+                @if (true)
+                {
+                    <li>
+                        @Html.Partial("_Helper_CheckBox", "Access", new ViewDataDictionary { { "value", Model.procurement }, { "text", Html.DisplayNameFor(m => m.procurement) }, { "input-value", "procurement" } })
+
+                        <ul>
+                            <li>
+                                @Html.Partial("_Helper_CheckBox", "Access", new ViewDataDictionary { { "value", Model.procurement_settings }, { "text", Html.DisplayNameFor(m => m.procurement_settings) }, { "input-value", "procurement_settings" } })
+                            </li>
+                            <li>
+                                @Html.Partial("_Helper_CheckBox", "Access", new ViewDataDictionary { { "value", Model.procurement_item_settings }, { "text", Html.DisplayNameFor(m => m.procurement_item_settings) }, { "input-value", "procurement_item_settings" } })
+                            </li>
+                            <li>
+                                @Html.Partial("_Helper_CheckBox", "Access", new ViewDataDictionary { { "value", Model.procurement_allocate_funds }, { "text", Html.DisplayNameFor(m => m.procurement_allocate_funds) }, { "input-value", "procurement_allocate_funds" } })
+                            </li>
+                            <li>
+                                @Html.Partial("_Helper_CheckBox", "Access", new ViewDataDictionary { { "value", Model.procurement_access_department_ppmp }, { "text", Html.DisplayNameFor(m => m.procurement_access_department_ppmp) }, { "input-value", "procurement_access_department_ppmp" } })
+                            </li>
+                            <li>
+                                @Html.Partial("_Helper_CheckBox", "Access", new ViewDataDictionary { { "value", Model.procurement_access_office_ppmp }, { "text", Html.DisplayNameFor(m => m.procurement_access_office_ppmp) }, { "input-value", "procurement_access_office_ppmp" } })
+                            </li>
+                            <li>
+                                @Html.Partial("_Helper_CheckBox", "Access", new ViewDataDictionary { { "value", Model.procurement_ppmp_approver }, { "text", Html.DisplayNameFor(m => m.procurement_ppmp_approver) }, { "input-value", "procurement_ppmp_approver" } })
+                            </li>
+                            <li>
+                                @Html.Partial("_Helper_CheckBox", "Access", new ViewDataDictionary { { "value", Model.procurement_access_app }, { "text", Html.DisplayNameFor(m => m.procurement_access_app) }, { "input-value", "procurement_access_app" } })
+                            </li>
+                        </ul>
+                    </li>
+                }
+
+                @*@if (true)
+                {
+                    <li>
+                        @Html.Partial("_Helper_CheckBox", "Access", new ViewDataDictionary { { "value", Model.sam }, { "text", Html.DisplayNameFor(m => m.sam) }, { "input-value", "sam" } })
+
+                        <ul>
+                            <li>
+                                @Html.Partial("_Helper_CheckBox", "Access", new ViewDataDictionary { { "value", Model.sam_settings }, { "text", Html.DisplayNameFor(m => m.sam_settings) }, { "input-value", "sam_settings" } })
+                            </li>
+                            <li>
+                                @Html.Partial("_Helper_CheckBox", "Access", new ViewDataDictionary { { "value", Model.sam_receiving }, { "text", Html.DisplayNameFor(m => m.sam_receiving) }, { "input-value", "sam_receiving" } })
+                            </li>
+                            <li>
+                                @Html.Partial("_Helper_CheckBox", "Access", new ViewDataDictionary { { "value", Model.sam_tagging }, { "text", Html.DisplayNameFor(m => m.sam_tagging) }, { "input-value", "sam_tagging" } })
+                            </li>
+                            <li>
+                                @Html.Partial("_Helper_CheckBox", "Access", new ViewDataDictionary { { "value", Model.sam_inspection }, { "text", Html.DisplayNameFor(m => m.sam_inspection) }, { "input-value", "sam_inspection" } })
+                            </li>
+                            <li>
+                                @Html.Partial("_Helper_CheckBox", "Access", new ViewDataDictionary { { "value", Model.sam_inspection_equip }, { "text", Html.DisplayNameFor(m => m.sam_inspection_equip) }, { "input-value", "sam_inspection_equip" } })
+                            </li>
+                            <li>
+                                @Html.Partial("_Helper_CheckBox", "Access", new ViewDataDictionary { { "value", Model.sam_transactions }, { "text", Html.DisplayNameFor(m => m.sam_transactions) }, { "input-value", "sam_transactions" } })
+                            </li>
+                            <li>
+                                @Html.Partial("_Helper_CheckBox", "Access", new ViewDataDictionary { { "value", Model.sam_monitoring }, { "text", Html.DisplayNameFor(m => m.sam_monitoring) }, { "input-value", "sam_monitoring" } })
+                            </li>
+                        </ul>
+                    </li>
+                }*@
+                
+            </ul>
+        </div>
+
+    }
+
+
+</div>

@@ -1,0 +1,42 @@
+﻿@using coreApp.Areas.SAM
+@model string
+@{
+    tblRI ri = (tblRI)ViewBag.RI;
+
+    List<tblRI> ris = (List<tblRI>)ViewBag.RIS;
+
+}
+
+
+<label class="col-form-label">RIS No.</label>
+<select onchange="risSelected(this)" class="form-control pc-selectpicker" data-style="btn-success">
+    @foreach (tblRI o in ris)
+    {
+        <option value="@o.Id" @(ri.Id == o.Id ? "selected" : "")>@o._RISNo | @o._EmployeeName</option>
+    }
+</select>
+
+<div class="alert alert-light m-b-0" role="alert">
+    <div style="padding:5px;">
+        <table>
+            <tbody>
+                <tr>
+                    <td>Position</td>
+                    <td>&nbsp;:&nbsp;</td>
+                    <td>@ri._Position</td>
+                </tr>
+                <tr>
+                    <td>Office/Department</td>
+                    <td>&nbsp;:&nbsp;</td>
+                    <td>@ri._Office / @ri._Department</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    function risSelected(sel) {
+        window.location = '@Model' + $(sel).val();
+    }
+</script>

@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+    <configSections>
+        <sectionGroup name="userSettings" type="System.Configuration.UserSettingsGroup, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" >
+            <section name="UareU.Kiosk.Properties.Settings" type="System.Configuration.ClientSettingsSection, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" allowExeDefinition="MachineToLocalUser" requirePermission="false" />
+        </sectionGroup>
+    </configSections>
+    <connectionStrings>
+        <add name="UareU.Kiosk.Properties.Settings.skyhr_lnuConnectionString"
+            connectionString="Server=tcp:skyhr.database.windows.net,1433;Initial Catalog=skyhr;Persist Security Info=False;User ID=skyhrAdmin;Password=IAlone@00;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
+            providerName="System.Data.SqlClient" />
+    </connectionStrings>
+    <startup> 
+        <supportedRuntime version="v4.0" sku=".NETFramework,Version=v4.6.1" />
+    </startup>
+    <userSettings>
+        <UareU.Kiosk.Properties.Settings>
+            <setting name="AppUrl" serializeAs="String">
+                <value>http://45.64.81.17</value>
+            </setting>
+            <setting name="ServerTimeQueryInterval" serializeAs="String">
+                <value>60000</value>
+            </setting>
+            <setting name="LongTimeFormat" serializeAs="String">
+                <value>False</value>
+            </setting>
+            <setting name="OfflineMessage" serializeAs="String">
+                <value>...</value>
+            </setting>
+            <setting name="TerminalId" serializeAs="String">
+                <value>1</value>
+            </setting>
+            <setting name="TimeLogsPath" serializeAs="String">
+                <value>D:\KIOSK FILES\TimeLogs</value>
+            </setting>
+            <setting name="OfflineDataPath" serializeAs="String">
+                <value>D:\KIOSK FILES\Datasource</value>
+            </setting>
+            <setting name="DataDownloadInterval" serializeAs="String">
+                <value>60000</value>
+            </setting>
+            <setting name="PostOfflineLogsInterval" serializeAs="String">
+                <value>60000</value>
+            </setting>
+            <setting name="DeviceIP" serializeAs="String">
+                <value>192.168.254.97</value>
+            </setting>
+            <setting name="DevicePort" serializeAs="String">
+                <value>4370</value>
+            </setting>
+            <setting name="Fullview" serializeAs="String">
+                <value>False</value>
+            </setting>
+            <setting name="UseServerTime" serializeAs="String">
+                <value>True</value>
+            </setting>
+        </UareU.Kiosk.Properties.Settings>
+    </userSettings>
+</configuration>

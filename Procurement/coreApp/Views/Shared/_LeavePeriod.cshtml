@@ -1,0 +1,24 @@
+﻿@model coreApp.DAL.leaveEntryModel
+@{ 
+    coreLib.Objects.PeriodModel p = new coreLib.Objects.PeriodModel(Model.StartDate, Model.EndDate);
+    string minDate = ViewData["minDate"] == null ? "" : Convert.ToString(ViewData["minDate"]);
+    string maxDate = ViewData["maxDate"] == null ? "" : Convert.ToString(ViewData["maxDate"]);
+    bool lockIncludeRestDays = ViewData["lockIncludeRestDays"] == null ? false : Convert.ToBoolean(ViewData["lockIncludeRestDays"]);
+}
+
+<div class="leave-entry">
+    @Html.Partial("_Helper_Period", p, new ViewDataDictionary { { "clientCallback", "applyPeriod" }, { "class", "form-control" }, { "minDate", minDate }, { "maxDate", maxDate } })
+    @Html.HiddenFor(m => m.StartDate)
+    @Html.HiddenFor(m => m.EndDate)
+
+    <div class="startdate-halfday">
+        @Html.Partial("_Helper_CheckBox", "StartDate_IsHalfDay", new ViewDataDictionary { { "value", Model.StartDate_IsHalfDay }, { "text", "Start Date is Half-Day" } })
+    </div>
+    <div class="enddate-halfday">
+        @Html.Partial("_Helper_CheckBox", "EndDate_IsHalfDay", new ViewDataDictionary { { "value", Model.EndDate_IsHalfDay }, { "text", "End Date is Half-Day" } })
+    </div>
+    <div class="include-restdays">
+        @Html.Partial("_Helper_CheckBox", "IncludeRestDays", new ViewDataDictionary { { "value", Model.IncludeRestDays }, { "text", Html.DisplayNameFor(x => x.IncludeRestDays) }, { "disabled", lockIncludeRestDays } })
+    </div>
+</div>
+

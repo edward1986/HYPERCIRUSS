@@ -1,0 +1,126 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 28.375" name="dal">
+  <DataContextMoniker Name="/dalDataContext" />
+  <nestedChildShapes>
+    <classShape Id="89383c85-f905-4c54-ad2e-4e182b32f280" absoluteBounds="4.625, 1.5, 2, 1.3862939453125005">
+      <DataClassMoniker Name="/dalDataContext/_Country" />
+      <nestedChildShapes>
+        <elementListCompartment Id="7d2c480f-923a-4f7f-9c04-130bde77ec4b" absoluteBounds="4.6400000000000006, 1.96, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="503d43ac-083e-4178-982c-9ea42675cfe2" absoluteBounds="0.625, 3.5, 2, 1.3862939453124996">
+      <DataClassMoniker Name="/dalDataContext/tblDepartment" />
+      <nestedChildShapes>
+        <elementListCompartment Id="b1639218-2676-4b5f-a24a-a86f9dc1dcf8" absoluteBounds="0.63999999999999968, 3.96, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="05c43174-3367-4151-9559-c5054c8ac098" absoluteBounds="0.625, 7.25, 2, 1.9631982421875005">
+      <DataClassMoniker Name="/dalDataContext/tblSettings_BaseModule" />
+      <nestedChildShapes>
+        <elementListCompartment Id="b5dd788b-b675-4e3e-8e1f-1f2cd44431ba" absoluteBounds="0.64000000000000057, 7.71, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="904d3655-0946-41f6-8c96-5a1c075815e0" absoluteBounds="4.625, 5.25, 2, 1.3862939453125023">
+      <DataClassMoniker Name="/dalDataContext/_HRPermission" />
+      <nestedChildShapes>
+        <elementListCompartment Id="ac19246e-78a7-450b-bf30-559bbfff5fcd" absoluteBounds="4.6400000000000006, 5.7100000000000009, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="547b9685-bb7a-4698-b9f8-2b41ad8e2c69" absoluteBounds="0.625, 9.5, 2, 3.3093082682291666">
+      <DataClassMoniker Name="/dalDataContext/AspNetUser" />
+      <nestedChildShapes>
+        <elementListCompartment Id="48e29311-034a-4f77-8466-1f47ccd21b6a" absoluteBounds="0.64000000000000057, 9.96, 1.9700000000000002, 2.7493082682291665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="28325415-7d00-4081-b6fc-1395fa0f06c1" absoluteBounds="7.75, 6.875, 2, 3.1170068359375023">
+      <DataClassMoniker Name="/dalDataContext/tblEmployee_FP" />
+      <nestedChildShapes>
+        <elementListCompartment Id="48a5b825-ff8b-4211-a211-bdd1de880948" absoluteBounds="7.7650000000000006, 7.3350000000000009, 1.9700000000000002, 2.5570068359375" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="1c0fc6e0-f4cd-4c59-b3c8-4d143f771a2b" absoluteBounds="0.75, 13.25, 2, 1.3862939453125023">
+      <DataClassMoniker Name="/dalDataContext/tblEmployee_Group" />
+      <nestedChildShapes>
+        <elementListCompartment Id="66d95866-faab-40f5-8a10-b916f4847fc5" absoluteBounds="0.76500000000000057, 13.71, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="f4b2d21a-81a1-4302-884c-e046082faae9" absoluteBounds="4.625, 8.875, 2, 1.1939925130208309">
+      <DataClassMoniker Name="/dalDataContext/tblGroup" />
+      <nestedChildShapes>
+        <elementListCompartment Id="cf2570f8-ba31-4bb9-a36c-4a609f38950d" absoluteBounds="4.6400000000000006, 9.335, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="1e792dc1-db5e-4258-a7c6-d513d6257929" absoluteBounds="4.625, 3.25, 2, 1.5785953776041666">
+      <DataClassMoniker Name="/dalDataContext/AspNetRole" />
+      <nestedChildShapes>
+        <elementListCompartment Id="a83b5b57-d1b8-40ad-a815-4dacb710585f" absoluteBounds="4.6400000000000006, 3.7100000000000009, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="c84bdde6-2193-4b75-b1bb-3e5288cde52a" absoluteBounds="4.625, 10.375, 2, 1.1939925130208309">
+      <DataClassMoniker Name="/dalDataContext/AspNetUserRole" />
+      <nestedChildShapes>
+        <elementListCompartment Id="d882e98c-c81c-44d7-9927-2abb144a77c8" absoluteBounds="4.6400000000000006, 10.835, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="53f706d0-7c1f-4ee5-93e5-47cbbdc7c463" absoluteBounds="4.625, 6.875, 2, 1.7708968098958309">
+      <DataClassMoniker Name="/dalDataContext/tblPosition" />
+      <nestedChildShapes>
+        <elementListCompartment Id="664b743b-07e9-480e-ae14-046eae8ebed4" absoluteBounds="4.6400000000000006, 7.3350000000000009, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="162927ae-9a9e-4ba2-826a-06fd4715bf47" absoluteBounds="4.625, 11.875, 2, 1.3862939453125023">
+      <DataClassMoniker Name="/dalDataContext/vwMasterList_00" />
+      <nestedChildShapes>
+        <elementListCompartment Id="da0ea9e9-1b6a-447c-be3a-83e6d614e8ed" absoluteBounds="4.6400000000000006, 12.335, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="58390ffa-9ddb-4648-b1fb-edc2468d9d20" absoluteBounds="7.75, 10.375, 2, 1.1939925130208309">
+      <DataClassMoniker Name="/dalDataContext/tblMFO" />
+      <nestedChildShapes>
+        <elementListCompartment Id="d7c7d588-1970-40dd-9f0e-0f1abe83ec11" absoluteBounds="7.7650000000000006, 10.835, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="4e6d74bc-7f9e-41c5-a7f1-4e5788b2cbbb" absoluteBounds="7.75, 5.25, 2, 1.3862939453125023">
+      <DataClassMoniker Name="/dalDataContext/AspNetUsers_Photo" />
+      <nestedChildShapes>
+        <elementListCompartment Id="a1025346-ea2a-450d-b203-dd6e55d1433e" absoluteBounds="7.7650000000000006, 5.7100000000000009, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="5b6bbe69-e0aa-44a3-85c8-35c0e26ec41d" absoluteBounds="4.625, 13.625, 2, 14.462791341145831">
+      <DataClassMoniker Name="/dalDataContext/tblEmployee_Info" />
+      <nestedChildShapes>
+        <elementListCompartment Id="da1bef83-038c-4288-8dd5-08ae8e183dd5" absoluteBounds="4.6400000000000006, 14.085, 1.9700000000000002, 13.902791341145832" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="820c902d-8d50-49a7-90f9-00ec814a717b" absoluteBounds="7.75, 11.875, 2, 14.27048990885416">
+      <DataClassMoniker Name="/dalDataContext/vwEmployee_Info_NoPhoto" />
+      <nestedChildShapes>
+        <elementListCompartment Id="19b27e94-5b6d-4bec-8422-d5baf06f13a3" absoluteBounds="7.7650000000000006, 12.335, 1.9700000000000002, 13.710489908854166" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="42b4327d-fb83-41d8-82f3-67befc79360f" absoluteBounds="0.875, 15, 2.375, 10.616762695312502">
+      <DataClassMoniker Name="/dalDataContext/tblEmployee_Access" />
+      <nestedChildShapes>
+        <elementListCompartment Id="05b11c72-1978-4c7f-ab20-d414ac60316b" absoluteBounds="0.89000000000000012, 15.46, 2.3449999999999998, 10.0567626953125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="64bc437e-7e1b-4022-aba8-22d0f41fe55e" absoluteBounds="0.625, 1.25, 2, 1.9631982421875">
+      <DataClassMoniker Name="/dalDataContext/tblCampus" />
+      <nestedChildShapes>
+        <elementListCompartment Id="60ed464f-69fc-440f-9891-7137d3db2ef4" absoluteBounds="0.63999999999999968, 1.71, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="3a5bb59a-a059-47b2-846d-47bd3cd15b9d" absoluteBounds="7.875, 1.75, 2, 2.7324039713541666">
+      <DataClassMoniker Name="/dalDataContext/tblEmployee" />
+      <nestedChildShapes>
+        <elementListCompartment Id="78b1defa-a695-48ee-aff3-cbee778f1456" absoluteBounds="7.8900000000000006, 2.21, 1.9700000000000002, 2.1724039713541665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="a2a5aaa1-783e-4a5d-978d-e38a1f031d6e" absoluteBounds="0.625, 5.25, 2, 1.9631982421875">
+      <DataClassMoniker Name="/dalDataContext/tblOffice" />
+      <nestedChildShapes>
+        <elementListCompartment Id="0dddcdeb-7308-4c13-afee-adb81ff9cdb8" absoluteBounds="0.64000000000000012, 5.71, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

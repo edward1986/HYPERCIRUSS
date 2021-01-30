@@ -1,0 +1,8 @@
+﻿@model coreApp.Areas.SAM.InventoryItemStatusModel
+
+<div class="@(Model.Status == coreApp.Areas.SAM.Enums.InventoryItemStatus.Unusable ? "text-danger" : Model.Status == coreApp.Areas.SAM.Enums.InventoryItemStatus.Unchecked ? "text-warning" : "")">
+    @Html.DisplayFor(modelItem => Model.Status)
+    <div class="small">
+        As of @Model.ReportDate.ToShortDateString()
+    </div>
+</div>

@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 9" name="core">
+  <DataContextMoniker Name="/coreDataContext" />
+  <nestedChildShapes>
+    <classShape Id="d2f2aa0f-65f6-4ab7-829a-35ef4a39660f" absoluteBounds="0.75, 7.125, 2, 1.5785953776041666">
+      <DataClassMoniker Name="/coreDataContext/AspNetRole" />
+      <nestedChildShapes>
+        <elementListCompartment Id="3eb521bd-28a8-4ed9-b377-99033ea7dd36" absoluteBounds="0.765, 7.585, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="a8a0f785-da56-41c7-bf46-ae9ed150cf1d" absoluteBounds="3.5, 6.125, 2, 1.5785953776041666">
+      <DataClassMoniker Name="/coreDataContext/AspNetUserClaim" />
+      <nestedChildShapes>
+        <elementListCompartment Id="b7847224-5ebd-4459-bd6d-52b631d2c07a" absoluteBounds="3.515, 6.585, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="3633485f-c764-41e7-9635-20da8659574a" absoluteBounds="3.5, 4, 2, 1.3862939453125005">
+      <DataClassMoniker Name="/coreDataContext/AspNetUserLogin" />
+      <nestedChildShapes>
+        <elementListCompartment Id="64820a75-c77f-48ef-8a98-8c4a52228d6e" absoluteBounds="3.515, 4.46, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="a8109255-d9b0-4674-b8d3-ed142b154005" absoluteBounds="3.5, 1.375, 2, 1.1939925130208335">
+      <DataClassMoniker Name="/coreDataContext/AspNetUserRole" />
+      <nestedChildShapes>
+        <elementListCompartment Id="789be16e-d9c6-4f7f-8345-9952d1202b78" absoluteBounds="3.515, 1.835, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

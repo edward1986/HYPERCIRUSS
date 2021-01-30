@@ -1,0 +1,167 @@
+﻿@model coreApp.Areas.Procurement.DAL.tblPR
+
+@{
+    bool isReadOnly = (bool)ViewBag.uiIsReadOnly;
+    bool includeId = (bool)ViewBag.uiIncludeId;
+
+    int year = (int)ViewBag.Year;
+}
+
+@Html.Hidden("ShowMOP", false)
+@Html.Hidden("Submitted", Model.HasBeenSubmitted)
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+
+    if (isReadOnly)
+    {
+        <div class="form-group row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.Description)
+            </div>
+            <div class="col-md-9">
+                <div class="form-control">
+                    @Html.DisplayFor(model => model.Description)
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.DocStatus_Desc)
+            </div>
+            <div class="col-md-9">
+                <div class="form-control">
+                    @Html.DisplayFor(model => model.DocStatus_Desc)
+                </div>
+            </div>
+        </div>
+
+        if (Model.HasBeenSubmitted)
+        {
+            <div class="row">
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.SubmittedBy)
+                </div>
+                <div class="col-md-9">
+                    <div class="form-control">
+                        @Html.DisplayFor(model => model.SubmittedBy)<br />
+                        @Html.DisplayFor(model => model.SubmitDate)
+                    </div>
+                </div>
+            </div>
+        }
+
+        if (Model.IsReturned)
+        {
+            <div class="form-group row">
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.ReturnedBy)
+                </div>
+                <div class="col-md-9">
+                    <div class="form-control">
+                        @Html.DisplayFor(model => model.ReturnedBy)
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.ReturnMessage)
+                </div>
+                <div class="col-md-9">
+                    <div class="form-control">
+                        @Html.DisplayMultiLineFor(model => model.ReturnMessage)
+                    </div>
+                </div>
+            </div>
+        }
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="form-group row">
+                    <div class="col-md-12">
+                        <hr style="margin: 0" />
+                        <label>Request Details</label>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.Form_PRNo)
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-control">
+                            @Html.DisplayFor(model => model.Form_PRNo)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.Form_Purpose)
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-control">
+                            @Html.DisplayMultiLineFor(model => model.Form_Purpose)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    }
+    else
+    {
+        @Html.HiddenFor(model => model.Id)
+
+        if (includeId)
+        {
+            <div class="row">
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.Id)
+                </div>
+                <div class="col-md-9">
+                    <div class="form-control dimmed">
+                        @Html.DisplayFor(model => model.Id)
+                    </div>
+                </div>
+            </div>
+        }
+
+        <div class="form-group row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.Description)
+            </div>
+            <div class="col-md-9">
+                @Html.TextBoxFor(model => model.Description, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-12">
+                <hr style="margin: 0" />
+                <label>Request Details</label>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.Form_PRNo)
+            </div>
+            <div class="col-md-9">
+                @Html.TextBoxFor(model => model.Form_PRNo, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.Form_Purpose)
+            </div>
+            <div class="col-md-9">
+                @Html.TextAreaFor(model => model.Form_Purpose, new { @class = "form-control" })
+            </div>
+        </div>
+    }
+}

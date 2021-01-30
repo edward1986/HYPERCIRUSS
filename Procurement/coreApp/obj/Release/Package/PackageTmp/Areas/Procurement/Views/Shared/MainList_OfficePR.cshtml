@@ -1,0 +1,430 @@
+﻿@model coreApp.Areas.Procurement.DAL.tblPR
+@using coreLib.Extensions
+@{
+    ViewBag.Title = "PR Items";
+
+    Module.DB.tblEmployee career = Model.CreatorCareer();
+
+    coreApp.Areas.Procurement.Models.OfficePRModel officePRModel = new coreApp.Areas.Procurement.Models.OfficePRModel(Model.Year, career);
+    coreApp.Areas.Procurement.Models.PRModel prModel = new coreApp.Areas.Procurement.Models.PRModel(Model.Id);
+
+    var consolidatedItems = prModel.Items;
+
+    double totalPPMPs = officePRModel.TotalAmountOfAllPPMPs();
+    double totalSubmittedPRs = officePRModel.TotalAmountOfSubmittedPRs(Model.Id);
+    double totalPR = consolidatedItems.Sum(x => x.Amount);
+    double balance = totalPPMPs - (totalSubmittedPRs + totalPR);
+
+    List<coreApp.Areas.Procurement.Models.GroupedConflictItems> conflicts = prModel.ItemsInConflictWithOtherPRs();
+    bool submitted = Model.HasBeenSubmitted;
+
+}
+
+<style>
+    .checkbox label {
+        display: inline !important;
+    }
+
+    .tqty {
+        width: 75px;
+        text-align: center;
+    }
+
+    .tbqty {
+        padding: 1px;
+        width: 100%;
+        text-align: center;
+    }
+
+    .month {
+        padding-left: 2px !important;
+        padding-right: 2px !important;
+    }
+</style>
+
+<script>
+    var hasConflicts = @(conflicts.Any() ? "true" : "false");
+
+    $(document).ready(function () {
+        var cbSelect = $.extend({}, _cbSelect);
+        cbSelect.init($('table.main-list'));
+
+        $('.btn-deleteitems').click(function () {
+            modalConfirm('Are you sure you want to delete the selected items?', function (ret) {
+                if (ret) {
+                    $.post('/Procurement/OfficePR/DeleteItems/@Model.Id/', { ids: cbSelect.getSelection(false, oTable) }, function (res) {
+                        if (res.IsSuccessful) {
+                            sessionStorage.clientMessage = res.Remarks;
+                            window.location.reload();
+                        } else {
+                            modalMessage(res.Err.split('\n'), 'Delete Items', true);
+                        }
+                    }, 'json');
+                }
+            });
+        });
+
+        $('.btn-apply-mq').click(function () {
+            modalConfirm('Are you sure you want to apply modified quantities?', function (ret) {
+                if (ret) {
+                    var ret = getModifiedQuantities();
+
+                    if (ret.err.length > 0) {
+                        modalMessage(ret.err, 'Apply Modified Quantities', true);
+                    } else {
+                        $.post('/Procurement/OfficePR/ApplyMQ/@Model.Id/', { data: JSON.stringify(ret.data) }, function (res) {
+                            if (res.IsSuccessful) {
+                                sessionStorage.clientMessage = res.Remarks;
+                                window.location.reload();
+                            } else {
+                                modalMessage(res.Err.split('\n'), 'Apply Modified Quantities', true);
+                            }
+                        }, 'json');
+                    }
+                }
+            });
+        });
+    })
+</script>
+
+<div class="block">
+    <div class="card">
+        <div class="card-header">
+            <h5>@Model.Description Item</h5>
+            <div class="card-header-right">
+                <div class="btn-group card-option">
+                    <div class="btn-group-sm header-button">
+                        <button class="btn btn-primary btn-importitems" data-forpr="true">Add/Remove Office PPMPs</button>
+                        <button class="btn btn-secondary btn-apply-mq">Apply Modified Quantities</button>
+                        <button class="btn btn-danger btn-deleteitems">Delete Selected Items</button>
+                        <button class="btn btn-warning btn-submit">Submit</button>
+                        <button class="btn btn-info btn-print" data-printmsg="@Module.Core.ModuleConstants.PRINT_OPTIONS">Print</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-body">
+            @if (submitted)
+            {
+                <div class="alert alert-info">
+                    Submitted by: @Model.SubmittedBy |
+                    <small>@Html.DisplayFor(x => Model.SubmitDate)</small>
+                </div>
+            }
+            <div class="row">
+                <div class="col-sm-4">
+                    <table class="tblinfo">
+                        <tbody>
+                            <tr>
+                                <td>Year</td>
+                                <td>:</td>
+                                <td>@Model.Year</td>
+                            </tr>
+                            <tr class="title">
+                                <td>Office</td>
+                                <td>:</td>
+                                <td>@Model.Office.Office<div class="subtitle">@Model.Office.OfficeAddress</div></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br />
+
+                    @Html.Partial("~/Areas/Procurement/Views/Shared/prInfo.cshtml", "/Procurement/OfficePR/Items/Index/",
+                                           new ViewDataDictionary { { "pr", Model } })
+                </div>
+                <div class="col-sm-4">
+                    <ul class="nav nav-tabs mb-3" id="myTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active text-uppercase" id="ppmp-tab" data-toggle="tab" href="#tab1" role="tab" aria-controls="tab" aria-selected="true">Consolidated PPMPs</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-uppercase" id="profile-tab" data-toggle="tab" href="#tab2" role="tab" aria-controls="tab" aria-selected="false">Categories</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-uppercase" id="profile-tab" data-toggle="tab" href="#tab3" role="tab" aria-controls="tab" aria-selected="false">Months</a>
+                        </li>
+                    </ul>
+                    <div class="content tab-content">
+                        <div class="tab-pane active" id="tab1">
+                            <div class="consolidated-list" style="max-height:200px;overflow-x:hidden;overflow-y:auto">
+                                <table class="table static-table" style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th>Office</th>
+                                            <th>Description</th>
+                                            <th>Fund</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @{
+                                            int i = 1;
+                                        }
+                                        @foreach (var ppmp in Model.ConsolidatedPPMPs().OrderBy(x => x.Office.Office).ThenBy(x => x.Description))
+                                        {
+                                            <tr>
+                                                <td style="width:50px;">@i.</td>
+                                                <td>@ppmp.Office.Office</td>
+                                                <td>@ppmp.Description</td>
+                                                <td>@ppmp.Fund.Fund</td>
+                                            </tr>
+
+                                            i++;
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="tab2">
+                            <div class="category-list" style="max-height:200px;overflow-x:hidden;overflow-y:auto">
+                                <table class="table static-table" style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th>Category</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @{
+                                            i = 1;
+                                        }
+                                        @foreach (var cat in Model.Categories().OrderBy(x => x.Category))
+                                        {
+                                            <tr>
+                                                <td style="width:50px;">@i.</td>
+                                                <td>@cat.Category</td>
+                                            </tr>
+
+                                            i++;
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="tab3">
+                            <div class="month-list" style="max-height:200px;overflow-x:hidden;overflow-y:auto">
+                                <table class="table static-table" style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th>Month</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @{
+                                            i = 1;
+                                        }
+                                        @foreach (var month in Model.GetMonths())
+                                        {
+                                            <tr>
+                                                <td style="width:50px;">@i.</td>
+                                                <td>@month.Text</td>
+                                            </tr>
+
+                                            i++;
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-sm-4" style="text-align:right">
+                    <table class="tblbalance">
+                        <tbody>
+                            <tr><td>Total Amount of PPMPs in submitted APPs:</td><td>@totalPPMPs.ToCurrencyString()</td></tr>
+                            <tr><td>Other Submitted PRs:</td><td>@totalSubmittedPRs.ToCurrencyString()</td></tr>
+
+                            <tr><td>Total Amount of Items:</td><td>@totalPR.ToCurrencyString()</td></tr>
+                            <tr><td>Balance@(submitted ? "" : " (if submitted)"):</td><td>@balance.ToCurrencyString(negativeIsEncloseInParenthesis: true)</td></tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            @Html.Partial("_Conflicts", conflicts)
+            <br />
+            <div class="dt-responsive table-responsive">
+                <table class="display table maintable table-bordered table-striped table-list skiptable main-list" event-tablebind="tableBind" event-settables-done="prepDone" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            @if (!submitted)
+                            {
+                                <th>
+                                    @Html.Partial("_Helper_CheckBox", null, new ViewDataDictionary { { "name", "SelectAll" }, { "class", "selectall" } })
+                                </th>
+                            }
+
+                            <th>
+                                Item Name / Description
+                            </th>
+                            <th>
+                                Category
+                            </th>
+                            <th>
+                                Jan
+                            </th>
+                            <th>
+                                Feb
+                            </th>
+                            <th>
+                                Mar
+                            </th>
+                            <th>
+                                Apr
+                            </th>
+                            <th>
+                                May
+                            </th>
+                            <th>
+                                Jun
+                            </th>
+                            <th>
+                                Jul
+                            </th>
+                            <th>
+                                Aug
+                            </th>
+                            <th>
+                                Sep
+                            </th>
+                            <th>
+                                Oct
+                            </th>
+                            <th>
+                                Nov
+                            </th>
+                            <th>
+                                Dec
+                            </th>
+                            <th>
+                                Qty
+                            </th>
+                            <th>
+                                Price
+                            </th>
+                            <th>
+                                Amount
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in consolidatedItems)
+                        {
+                            <tr record-id="@item.Id" locked data-itemname="@item.ItemName">
+                                @if (!submitted)
+                                {
+                                    <td style="text-align:center;width:50px">
+                                        @Html.Partial("_Helper_CheckBox", null, new ViewDataDictionary { { "name", "PRSelect" }, { "class", "selectitem" }, { "data-item", item.ItemId } })
+                                    </td>
+                                }
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ItemName)
+                                    @if (!string.IsNullOrEmpty(item.ItemDescription))
+                                    {
+                                        <div class="small">@Html.DisplayFor(modelItem => item.ItemDescription)</div>
+                                    }
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ItemCategory)
+                                </td>
+                                <td class="month @(conflicts.Any(x => x.ItemIsInConflict(item.ItemId, 1)) ? "onpr" : "")">
+                                    @if ((item.M1 ?? 0) > 0)
+                                    {
+                                        <input class="tbqty" type="text" data-month="1" data-value="@item.M1" value="@item.M1" />
+                                    }
+                                </td>
+                                <td class="month @(conflicts.Any(x => x.ItemIsInConflict(item.ItemId, 2)) ? "onpr" : "")">
+                                    @if ((item.M2 ?? 0) > 0)
+                                    {
+                                        <input class="tbqty" type="text" data-month="2" data-value="@item.M2" value="@item.M2" />
+                                    }
+                                </td>
+                                <td class="month @(conflicts.Any(x => x.ItemIsInConflict(item.ItemId, 3)) ? "onpr" : "")">
+                                    @if ((item.M3 ?? 0) > 0)
+                                    {
+                                        <input class="tbqty" type="text" data-month="3" data-value="@item.M3" value="@item.M3" />
+                                    }
+                                </td>
+                                <td class="month @(conflicts.Any(x => x.ItemIsInConflict(item.ItemId, 4)) ? "onpr" : "")">
+                                    @if ((item.M4 ?? 0) > 0)
+                                    {
+                                        <input class="tbqty" type="text" data-month="4" data-value="@item.M4" value="@item.M4" />
+                                    }
+                                </td>
+                                <td class="month @(conflicts.Any(x => x.ItemIsInConflict(item.ItemId, 5)) ? "onpr" : "")">
+                                    @if ((item.M5 ?? 0) > 0)
+                                    {
+                                        <input class="tbqty" type="text" data-month="5" data-value="@item.M5" value="@item.M5" />
+                                    }
+                                </td>
+                                <td class="month @(conflicts.Any(x => x.ItemIsInConflict(item.ItemId, 6)) ? "onpr" : "")">
+                                    @if ((item.M6 ?? 0) > 0)
+                                    {
+                                        <input class="tbqty" type="text" data-month="6" data-value="@item.M6" value="@item.M6" />
+                                    }
+                                </td>
+                                <td class="month @(conflicts.Any(x => x.ItemIsInConflict(item.ItemId, 7)) ? "onpr" : "")">
+                                    @if ((item.M7 ?? 0) > 0)
+                                    {
+                                        <input class="tbqty" type="text" data-month="7" data-value="@item.M7" value="@item.M7" />
+                                    }
+                                </td>
+                                <td class="month @(conflicts.Any(x => x.ItemIsInConflict(item.ItemId, 8)) ? "onpr" : "")">
+                                    @if ((item.M8 ?? 0) > 0)
+                                    {
+                                        <input class="tbqty" type="text" data-month="8" data-value="@item.M8" value="@item.M8" />
+                                    }
+                                </td>
+                                <td class="month @(conflicts.Any(x => x.ItemIsInConflict(item.ItemId, 9)) ? "onpr" : "")">
+                                    @if ((item.M9 ?? 0) > 0)
+                                    {
+                                        <input class="tbqty" type="text" data-month="9" data-value="@item.M9" value="@item.M9" />
+                                    }
+                                </td>
+                                <td class="month @(conflicts.Any(x => x.ItemIsInConflict(item.ItemId, 10)) ? "onpr" : "")">
+                                    @if ((item.M10 ?? 0) > 0)
+                                    {
+                                        <input class="tbqty" type="text" data-month="10" data-value="@item.M10" value="@item.M10" />
+                                    }
+                                </td>
+                                <td class="month @(conflicts.Any(x => x.ItemIsInConflict(item.ItemId, 11)) ? "onpr" : "")">
+                                    @if ((item.M11 ?? 0) > 0)
+                                    {
+                                        <input class="tbqty" type="text" data-month="11" data-value="@item.M11" value="@item.M11" />
+                                    }
+                                </td>
+                                <td class="month @(conflicts.Any(x => x.ItemIsInConflict(item.ItemId, 12)) ? "onpr" : "")">
+                                    @if ((item.M12 ?? 0) > 0)
+                                    {
+                                        <input class="tbqty" type="text" data-month="12" data-value="@item.M12" value="@item.M12" />
+                                    }
+                                </td>
+                                <td class="tqty">
+                                    @(item.Qty == 0 ? "" : item.Qty.ToString("#,##0"))
+                                </td>
+                                <td class="amnt">
+                                    @Html.DisplayFor(modelItem => item.ItemPrice)
+                                </td>
+                                <td class="amnt">
+                                    @Html.DisplayFor(modelItem => item.Amount)
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/assets/nextro/assets/js/plugins/dataTables.bootstrap4.min.js"></script>
+<script src="~/assets/nextro/assets/js/plugins/bootstrap-select.min.js"></script>
+<script>
+    $('.pc-selectpicker').selectpicker();
+    $(function () { });
+</script>

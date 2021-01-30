@@ -1,0 +1,58 @@
+C:\Users\User\Desktop\FOR SKY DELIVERABLES\SkyHR\devices\device_granding\bin\Debug\device_granding.dll
+C:\Users\User\Desktop\FOR SKY DELIVERABLES\SkyHR\devices\device_granding\bin\Debug\device_granding.pdb
+C:\Users\User\Desktop\FOR SKY DELIVERABLES\SkyHR\devices\device_granding\bin\Debug\device_core.dll
+C:\Users\User\Desktop\FOR SKY DELIVERABLES\SkyHR\devices\device_granding\bin\Debug\Aspose.Cells.dll
+C:\Users\User\Desktop\FOR SKY DELIVERABLES\SkyHR\devices\device_granding\bin\Debug\device_core.pdb
+C:\Users\User\Desktop\FOR SKY DELIVERABLES\SkyHR\devices\device_granding\bin\Debug\Interop.zkemkeeper.dll
+C:\Users\User\Desktop\FOR SKY DELIVERABLES\SkyHR\devices\device_granding\obj\Debug\device_granding.csprojResolveAssemblyReference.cache
+C:\Users\User\Desktop\FOR SKY DELIVERABLES\SkyHR\devices\device_granding\obj\Debug\Interop.zkemkeeper.dll
+C:\Users\User\Desktop\FOR SKY DELIVERABLES\SkyHR\devices\device_granding\obj\Debug\device_granding.csproj.ResolveComReference.cache
+C:\Users\User\Desktop\FOR SKY DELIVERABLES\SkyHR\devices\device_granding\obj\Debug\device_granding.csproj.CoreCompileInputs.cache
+C:\Users\User\Desktop\FOR SKY DELIVERABLES\SkyHR\devices\device_granding\obj\Debug\device_granding.dll
+C:\Users\User\Desktop\FOR SKY DELIVERABLES\SkyHR\devices\device_granding\obj\Debug\device_granding.pdb
+D:\Cleford\System\FOR SKY DELIVERABLES_2\FOR SKY DELIVERABLES\SkyHR\devices\device_granding\bin\Debug\device_granding.dll
+D:\Cleford\System\FOR SKY DELIVERABLES_2\FOR SKY DELIVERABLES\SkyHR\devices\device_granding\bin\Debug\device_granding.pdb
+D:\Cleford\System\FOR SKY DELIVERABLES_2\FOR SKY DELIVERABLES\SkyHR\devices\device_granding\bin\Debug\device_core.dll
+D:\Cleford\System\FOR SKY DELIVERABLES_2\FOR SKY DELIVERABLES\SkyHR\devices\device_granding\bin\Debug\Aspose.Cells.dll
+D:\Cleford\System\FOR SKY DELIVERABLES_2\FOR SKY DELIVERABLES\SkyHR\devices\device_granding\bin\Debug\device_core.pdb
+D:\Cleford\System\FOR SKY DELIVERABLES_2\FOR SKY DELIVERABLES\SkyHR\devices\device_granding\obj\Debug\device_granding.csprojAssemblyReference.cache
+D:\Cleford\System\FOR SKY DELIVERABLES_2\FOR SKY DELIVERABLES\SkyHR\devices\device_granding\obj\Debug\device_granding.csproj.ResolveComReference.cache
+D:\Cleford\System\FOR SKY DELIVERABLES_2\FOR SKY DELIVERABLES\SkyHR\devices\device_granding\obj\Debug\device_granding.csproj.CopyComplete
+D:\Cleford\System\FOR SKY DELIVERABLES_2\FOR SKY DELIVERABLES\SkyHR\devices\device_granding\obj\Debug\device_granding.dll
+D:\Cleford\System\FOR SKY DELIVERABLES_2\FOR SKY DELIVERABLES\SkyHR\devices\device_granding\obj\Debug\device_granding.pdb
+D:\Cleford\System\FOR SKY DELIVERABLES_2\FOR SKY DELIVERABLES\SkyHR\devices\device_granding\obj\Debug\device_granding.csproj.CoreCompileInputs.cache
+D:\Systems\SkyHR\SkyHR\devices\device_granding\bin\Debug\device_granding.dll
+D:\Systems\SkyHR\SkyHR\devices\device_granding\bin\Debug\device_granding.pdb
+D:\Systems\SkyHR\SkyHR\devices\device_granding\bin\Debug\device_core.dll
+D:\Systems\SkyHR\SkyHR\devices\device_granding\bin\Debug\Aspose.Cells.dll
+D:\Systems\SkyHR\SkyHR\devices\device_granding\bin\Debug\device_core.pdb
+D:\Systems\SkyHR\SkyHR\devices\device_granding\obj\Debug\device_granding.csprojAssemblyReference.cache
+D:\Systems\SkyHR\SkyHR\devices\device_granding\obj\Debug\device_granding.csproj.ResolveComReference.cache
+D:\Systems\SkyHR\SkyHR\devices\device_granding\obj\Debug\device_granding.csproj.CoreCompileInputs.cache
+D:\Systems\SkyHR\SkyHR\devices\device_granding\obj\Debug\device_granding.csproj.CopyComplete
+D:\Systems\SkyHR\SkyHR\devices\device_granding\obj\Debug\device_granding.dll
+D:\Systems\SkyHR\SkyHR\devices\device_granding\obj\Debug\device_granding.pdb
+D:\Systems\SkyHR\SkyHR\SkyHR\SkyHR\devices\device_granding\bin\Debug\device_granding.dll
+D:\Systems\SkyHR\SkyHR\SkyHR\SkyHR\devices\device_granding\bin\Debug\device_granding.pdb
+D:\Systems\SkyHR\SkyHR\SkyHR\SkyHR\devices\device_granding\bin\Debug\device_core.dll
+D:\Systems\SkyHR\SkyHR\SkyHR\SkyHR\devices\device_granding\bin\Debug\Aspose.Cells.dll
+D:\Systems\SkyHR\SkyHR\SkyHR\SkyHR\devices\device_granding\bin\Debug\device_core.pdb
+D:\Systems\SkyHR\SkyHR\SkyHR\SkyHR\devices\device_granding\obj\Debug\device_granding.csprojAssemblyReference.cache
+D:\Systems\SkyHR\SkyHR\SkyHR\SkyHR\devices\device_granding\obj\Debug\device_granding.csproj.ResolveComReference.cache
+D:\Systems\SkyHR\SkyHR\SkyHR\SkyHR\devices\device_granding\obj\Debug\device_granding.csproj.CoreCompileInputs.cache
+D:\Systems\SkyHR\SkyHR\SkyHR\SkyHR\devices\device_granding\obj\Debug\device_granding.csproj.CopyComplete
+D:\Systems\SkyHR\SkyHR\SkyHR\SkyHR\devices\device_granding\obj\Debug\device_granding.dll
+D:\Systems\SkyHR\SkyHR\SkyHR\SkyHR\devices\device_granding\obj\Debug\device_granding.pdb
+D:\Systems\SkyHR\devices\device_granding\bin\Debug\device_granding.dll
+D:\Systems\SkyHR\devices\device_granding\bin\Debug\device_granding.pdb
+D:\Systems\SkyHR\devices\device_granding\bin\Debug\device_core.dll
+D:\Systems\SkyHR\devices\device_granding\bin\Debug\Newtonsoft.Json.dll
+D:\Systems\SkyHR\devices\device_granding\bin\Debug\Aspose.Cells.dll
+D:\Systems\SkyHR\devices\device_granding\bin\Debug\device_core.pdb
+D:\Systems\SkyHR\devices\device_granding\bin\Debug\Newtonsoft.Json.xml
+D:\Systems\SkyHR\devices\device_granding\obj\Debug\device_granding.csprojAssemblyReference.cache
+D:\Systems\SkyHR\devices\device_granding\obj\Debug\device_granding.csproj.ResolveComReference.cache
+D:\Systems\SkyHR\devices\device_granding\obj\Debug\device_granding.csproj.CoreCompileInputs.cache
+D:\Systems\SkyHR\devices\device_granding\obj\Debug\device_granding.csproj.CopyComplete
+D:\Systems\SkyHR\devices\device_granding\obj\Debug\device_granding.dll
+D:\Systems\SkyHR\devices\device_granding\obj\Debug\device_granding.pdb

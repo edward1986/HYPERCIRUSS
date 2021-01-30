@@ -1,0 +1,371 @@
+﻿@model coreApp.Areas.Procurement.Models.RFQModels
+@using coreLib.Extensions
+@{
+    ViewBag.Title = "RFQs";
+
+    int Year = (int)ViewBag.Year;
+
+    double totalAmountOfSubmittedRFQs = Model.utility.TotalAmountOfSubmittedRFQs();
+
+}
+
+@section Breadcrumbs {
+    @Html.Partial("_Breadcrumbs", new List<Breadcrumb>()
+    {
+        new Breadcrumb { Description = "Procurement" },
+        new Breadcrumb { Description = ViewBag.Title }
+    })
+}
+
+@section Styles {
+
+    <link href="~/Areas/Procurement/Assets/css/common.less" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="~/Assets/nextro/assets/css/plugins/bootstrap-datepicker3.min.css">
+    <link rel="stylesheet" href="~/Assets/nextro/assets/css/plugins/bootstrap-select.min.css">
+
+}
+
+@section Scripts {
+
+    <script src="~/assets/nextro/assets/js/plugins/select2.full.min.js"></script>
+    <script src="~/assets/nextro/assets/js/pages/form-select-custom.js"></script>
+    <script src="~/Assets/nextro/assets/js/plugins/bootstrap-datepicker.min.js"></script>
+    <script src="~/Assets/nextro/assets/js/plugins/bootstrap-select.min.js"></script>
+
+    <script>
+        function presubmit(op, e) {
+            if (e.viewType == 'create' || e.viewType == 'edit') {
+                var supplierIds = e.modal.find('[name="SupplierIds"]');
+                var suppliersSelect = e.modal.find('.suppliers');
+
+                
+                var selection = suppliersSelect.select2('data');
+                console.log(selection);
+                var v = '';
+                selection.forEach(function (data) {
+                    v += (v == '' ? '' : ',') + data.id;
+                });
+
+                supplierIds.val(v);
+            }
+            return true;
+        }
+
+        function load(e) {
+
+            if (e.viewType == 'view') {
+
+                var viewItemsBtn = e.modal.find('.btn-viewitems');
+                var editBtn = e.modal.find('.btn-edit');
+                var deleteBtn = e.modal.find('.btn-delete');
+                var submitBtn = e.modal.find('.btn-submit');
+                var returnBtn = e.modal.find('.btn-return');
+                var printBtn = e.modal.find('.btn-print');
+
+                var isRFQ = e.modalViewUrl.indexOf('isrfq=true') >= 0;
+                var controller = isRFQ ? 'ConsolidatedPR' : 'RFQ';
+                var param = isRFQ ? '?fromRFQ=true' : '';
+                var _href = '/Procurement/' + controller + '/Items/Index/' + e.recordId + param;
+                var _dataLink = '/Procurement/' + controller + '/Items/Index/{0}' + param;
+
+                viewItemsBtn
+                    .attr('href', _href)
+                    .attr('data-link', _dataLink);
+
+                var submitLink = submitBtn.attr('data-link-tmp');
+
+                submitBtn.unbind('click').bind('click', function (ee) {
+                    ee.preventDefault();
+
+                    modalConfirm('Are you sure you want to submit this document?', function (ret) {
+                        if (ret) {
+                            e.modal.modal('hide');
+                            var proc = modalProcessing();
+
+                            $.post(submitLink, null, function (res) {
+                                proc.modal('hide');
+
+                                if (res.IsSuccessful) {
+                                    sessionStorage.clientMessage = res.Remarks;
+                                    window.location.reload(true);
+                                } else {
+                                    modalMessage(res.Err.split('\n'), 'RFQ', true);
+                                }
+                            }, 'json');
+                        }
+                    });
+
+                });
+
+                var returnLink = returnBtn.attr('data-link-tmp');
+
+                returnBtn.unbind('click').bind('click', function (ee) {
+                    ee.preventDefault();
+
+                    modalInput('Are you sure you want to return this document?', 'Return Message:', function (ret, userInput) {
+                        if (ret) {
+                            if (userInput == '') {
+                                modalMessage('Return message is required', 'Return CPR', true);
+                                return;
+                            }
+
+                            var data = {
+                                returnMessage: userInput
+                            };
+
+                            $.post(returnLink, data, function (res) {
+                                if (res.IsSuccessful) {
+                                    sessionStorage.clientMessage = res.Remarks;
+                                    window.location.reload(true);
+                                } else {
+                                    modalMessage(res.Err.split('\n'), 'Return CPR', true);
+                                }
+                            }, 'json');
+                        }
+                    }, 'textarea', function (modal) {
+                        modal.find('.modal-footer .btn-cancel').html('No');
+                        modal.find('.modal-footer .btn-ok').html('Yes');
+                    });
+
+                });
+
+
+                var printlink = printBtn.attr('data-link-tmp');
+
+                printBtn.unbind('click').bind('click', function (ee) {
+                    ee.preventDefault();
+
+                    var supplierIds = e.modal.find('[name="SupplierIds"]');
+                    var sIds = supplierIds.val().split(',');
+
+                    if (supplierIds.val() == '') {
+                        modalMessage('No supplier specified', 'Print', true);
+                    } else {
+                        printParam(function (ret, supplierId) {
+                            if (ret) {
+                                modalPrint('@Module.Core.ModuleConstants.PRINT_OPTIONS', function (ret) {
+                                    var dlWord = 'true';
+
+                                    if (ret) {
+                                        dlWord = 'false';
+                                    }
+
+                                    window.open(printlink + '?dlWord=' + dlWord + '&supplierId=' + supplierId, '_blank');
+                                });
+                            }
+                        });
+                    }
+                });
+
+                var hasBeenSubmitted = e.modal.find('[name="Submitted"]').val() == 'True';
+
+                editBtn.hide();
+                deleteBtn.hide();
+                submitBtn.hide();
+                returnBtn.hide();
+                printBtn.hide();
+
+                if (!isRFQ) {
+                    printBtn.show();
+                }
+
+                if (hasBeenSubmitted) {
+                    if (isRFQ) {
+                        returnBtn.show();
+                    }
+
+                } else {
+                    editBtn.show();
+                    deleteBtn.show();
+                    submitBtn.show();
+                }
+            }
+
+            $('.pc-selectpicker').selectpicker();
+            $(function () { });
+        }
+
+    </script>
+
+    <script>
+        $('.pc-selectpicker').selectpicker();
+        $(function () { });
+    </script>
+}
+
+<div class="block">
+    <div class="card">
+        <div class="card-header">
+            <h5>@ViewBag.Title</h5>
+
+        </div>
+        <div class="card-body">
+            <div class="form-group row">
+                <div class="col-sm-3">
+                    <label class="col-form-label text-lg-right">For the year:</label>
+                    @Html.Partial("~/Areas/Procurement/Views/Shared/yearInfo.cshtml", "/Procurement/RFQ/Index/{0}")
+                </div>
+                <div class="col-sm-9" style="text-align:right">
+                    <table class="tblbalance">
+                        <tbody>
+                            <tr>
+                                <td>Total Amount of Submitted RFQs:</td>
+                                <td>@totalAmountOfSubmittedRFQs.ToCurrencyString()</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <ul class="nav nav-tabs mb-3" id="myTab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active text-uppercase" data-toggle="tab" href="#tab1" role="tab" aria-controls="home" aria-selected="true">RFQs</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-uppercase" data-toggle="tab" href="#tab2" role="tab" aria-controls="profile" aria-selected="false">Consolidated PRs (Tagged with Modes of Procurement)</a>
+                </li>
+            </ul>
+            <div class="content tab-content">
+                <div class="tab-pane active" id="tab1">
+                    <div class="float-right">
+                        <button class="btn btn-success btn-sm btn-create" onclick="$.fn.list('modalCreate', this)">Create</button>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="dt-responsive table-responsive">
+                        <table id="table1" class="display table table-bordered table-striped table-list use-each" cellspacing="0" width="100%"
+                               modal-target="#modalView" modal-start="view" modal-load-callback="load" modal-presubmit-callback="presubmit"
+                               modal-view-url="/Procurement/RFQ/Details/@Year/{0}" modal-edit-url="/Procurement/RFQ/Edit/@Year/{0}" modal-delete-url="/Procurement/RFQ/Delete/@Year" modal-create-url="/Procurement/RFQ/Create/@Year">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Description
+                                    </th>
+                                    <th>
+                                        Canvasser
+                                    </th>
+                                    <th>
+                                        Suppliers
+                                    </th>
+                                    <th>
+                                        Status
+                                    </th>
+                                    <th>
+                                        Submitted By
+                                    </th>
+                                    <th>
+                                        Total Amount
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.RFQs)
+                                {
+                                    <tr record-id="@item.Id" data-tableid="table1">
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Description)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Form_Canvasser)
+                                        </td>
+                                        <td>
+                                            <ol>
+                                                @foreach (coreApp.Areas.Procurement.DAL.tblSupplier supp in item.Suppliers())
+                                                {
+                                                    <li>
+                                                        @supp.CompanyName
+                                                    </li>
+                                                }
+                                            </ol>
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.DocStatus_Desc)
+                                        </td>
+                                        <td>
+                                            @if (item.HasBeenSubmitted)
+                                            {
+                                                @Html.DisplayFor(modelItem => item.SubmittedBy)<br />
+                                                @Html.DisplayFor(modelItem => item.SubmitDate)
+                                            }
+                                        </td>
+                                        <td style="text-align:right">
+                                            @((item._TotalAmount ?? 0).ToCurrencyString())
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="tab-pane" id="tab2">
+                    <div class="dt-responsive table-responsive">
+                        <table id="table2" class="display table table-bordered table-striped table-list use-each" cellspacing="0" width="100%"
+                               modal-target="#modalView" modal-start="view"
+                               modal-view-url="/Procurement/ConsolidatedPR/Details/@Year/{0}?isrfq=true">
+
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Description
+                                    </th>
+                                    <th>
+                                        Status
+                                    </th>
+                                    <th>
+                                        Submitted By
+                                    </th>
+                                    <th>
+                                        Total Amount
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    double total = 0;
+                                }
+
+                                @foreach (var item in Model.ConsolidatedPRs)
+                                {
+                                    double t = item._TotalAmount ?? 0;
+                                    total += t;
+
+                                    <tr record-id="@item.Id" data-tableid="table2">
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Description)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.DocStatus_Desc)
+                                        </td>
+                                        <td>
+                                            @if (item.HasBeenSubmitted)
+                                            {
+                                                @Html.DisplayFor(modelItem => item.SubmittedBy)<br />
+                                                @Html.DisplayFor(modelItem => item.SubmitDate)
+                                            }
+                                        </td>
+                                        <td style="text-align:right">
+                                            @t.ToCurrencyString()
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th class="nofilter" colspan="3" style="text-align:right">
+                                        TOTAL
+                                    </th>
+                                    <th class="nofilter" style="text-align:right">
+                                        @total.ToCurrencyString()
+                                    </th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@Html.Partial("~/Views/Shared/modals/_ModalView.cshtml", "modalView")
+@Html.Partial("~/Views/Shared/modals/_RFQ_PrintParam.cshtml")

@@ -1,0 +1,20 @@
+﻿@using coreApp.Areas.Procurement.DAL
+@model string
+@{    
+    tblPO po = (tblPO)ViewData["po"];
+
+    List<SelectListItem> pos = coreApp.Areas.Procurement.SelectItems.getPOs(year: po.Year, showEmptyItem: false);
+}
+
+<select onchange="poItemSelected(this)" class="form-control pc-selectpicker" data-style="btn-success">
+    @foreach (SelectListItem o in pos)
+    {
+        <option value="@o.Value" @(po.Id.ToString() == o.Value ? "selected" : "")>@o.Text</option>
+    }
+</select>
+
+<script>
+    function poItemSelected(sel) {
+        window.location = '@Model' + $(sel).val();
+    }
+</script>

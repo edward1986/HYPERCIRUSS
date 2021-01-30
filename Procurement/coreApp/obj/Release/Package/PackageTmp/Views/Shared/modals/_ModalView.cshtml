@@ -1,0 +1,29 @@
+﻿@model string
+
+<div class="modal fade modal-view" id="@Model" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                @*<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>*@
+                <h6 class="modal-title"></h6>
+            </div>
+            <div class="modal-body clearfix ">
+                <div class="modal-body"></div>
+            </div>
+            <div class="progress-ui"></div>
+            <div class="modal-footer btn-group-sm">
+
+                <button type="button" data-dismiss="modal" class="btn btn-default btn-close for-create for-edit for-view for-custom">Close</button>
+                <button type="button" class="btn btn-primary btn-edit for-view">Edit</button>
+                <button type="button" class="btn btn-secondary btn-cancel for-edit">Cancel</button>
+                <button type="button" class="btn btn-primary btn-primary btn-update for-edit">Update</button>
+                <button type="button" class="btn btn-primary btn-primary btn-create for-create">Create</button>
+                <button type="button" class="btn btn-primary btn-default btn-custom for-custom"></button>
+                <button type="button" class="btn btn-danger btn-delete for-view">Delete</button>
+
+                @Html.Partial("_Details_Buttons")
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,107 @@
+﻿@model coreApp.Areas.SAM.tblAREItem
+
+@{    
+    bool isReadOnly = (bool)ViewBag.uiIsReadOnly;
+    bool includeId = (bool)ViewBag.uiIncludeId;
+
+    coreApp.Areas.SAM.tblARE are = (coreApp.Areas.SAM.tblARE)ViewBag.ARE;
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    if (isReadOnly)
+    {
+        <div class="form-row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.Id)
+            </div>
+            <div class="col-md-9">
+                <div class="form-control">
+                    @Html.DisplayFor(model => model.Id)
+                </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model._PropertyNo)
+            </div>
+            <div class="col-md-9">
+                <div class="form-control">
+                    @Html.DisplayFor(model => model._PropertyNo)
+                </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model._ItemName)
+            </div>
+            <div class="col-md-9">
+                <div class="form-control">
+                    @Html.DisplayFor(model => model._ItemName)
+                </div>
+            </div>
+        </div>        
+        <div class="form-row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model._AcquisitionDate)
+            </div>
+            <div class="col-md-9">
+                <div class="form-control">
+                    @Html.DisplayFor(model => model._AcquisitionDate)
+                </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model._UnitCost)
+            </div>
+            <div class="col-md-9">
+                <div class="form-control">
+                    @Html.DisplayFor(model => model._UnitCost)
+                </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model._Life)
+            </div>
+            <div class="col-md-9">
+                <div class="form-control">
+                    @Model.RemainingLife(Model.GetARE().AREDate) months
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        @Html.HiddenFor(model => model.Id)
+        @Html.HiddenFor(model => model.AREId)
+
+        if (includeId)
+        {
+            <div class="form-row">
+                <div class="col-md-2">
+                    @Html.LabelFor(model => model.Id)
+                </div>
+                <div class="col-md-10">
+                    <div class="form-control dimmed">
+                        @Html.DisplayFor(model => model.Id)
+                    </div>
+                </div>
+            </div>
+        }
+
+
+        <div class="form-row">
+            <div class="col-md-2">
+                @Html.LabelFor(model => model.InventoryItemId)
+            </div>
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.InventoryItemId, coreApp.Areas.SAM.SelectItems.getInventoryItems(are.WarehouseId, coreApp.Areas.SAM.Enums.AREType.PAR), new { @class = "form-control" })
+            </div>
+        </div>
+    }
+
+}

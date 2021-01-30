@@ -1,0 +1,24 @@
+﻿@using coreApp.Areas.SAM
+@model string
+@{
+    tblInventoryItem inventoryItem = (tblInventoryItem)ViewBag.InventoryItem;
+
+    List<InventoryItemModel> inventoryItemModels = (List<InventoryItemModel>)ViewBag.InventoryItems;
+
+}
+
+Inventory Item:
+<select onchange="inventorySelected(this)">
+    @foreach (InventoryItemModel inventoryItemModel in inventoryItemModels)
+    {
+        <option value="@inventoryItemModel.Item.Id" @(inventoryItem.Id == inventoryItemModel.Item.Id ? "selected" : "")>@string.Format("{0} (Property No.: {1})", inventoryItemModel.Tag.POItem.ItemName, inventoryItemModel.Item.PropertyNo)</option>
+    }
+</select>
+
+<br />
+
+<script>
+    function inventorySelected(sel) {
+        window.location = '@Model' + $(sel).val();
+    }
+</script>

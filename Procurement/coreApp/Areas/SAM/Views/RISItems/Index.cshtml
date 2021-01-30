@@ -1,0 +1,92 @@
+﻿@model List<coreApp.Areas.SAM.tblRISItem>
+
+@{
+    ViewBag.Title = "Items";
+    ViewBag.Subtitle = "List";
+
+    coreApp.Areas.SAM.tblRI ri = (coreApp.Areas.SAM.tblRI)ViewBag.RI;
+
+}
+
+@section Breadcrumbs {
+    @Html.Partial("_Breadcrumbs", new List<Breadcrumb>() {
+        new Breadcrumb { Description = "Transactions" },
+        new Breadcrumb { Description = "Requisition and Issuance", Link = Url.Action("Index", "RIS", new { area = "SAM" }) },
+        new Breadcrumb { Description = ViewBag.Title }
+    })
+}
+
+
+<div class="block">
+    <div class="card">
+        <div class="card-header">
+            <h5>@ViewBag.Title</h5>
+            <div class="card-header-right">
+                <div class="btn-group-sm card-option">
+                    <button class="btn btn-success btn-create" onclick="$.fn.list('modalCreate', this)">Create</button>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="form-group row">
+                <div class="col-sm-6">
+                    @Html.Partial("~/Areas/SAM/Views/Shared/risInfo.cshtml", "/SAM/RIS/Items/Index/")
+
+                </div>
+            </div>
+            <div class="dt-responsive table-responsive">
+                <table class="display table table-bordered table-striped table-list" cellspacing="0" width="100%"
+                       modal-target="#modalView" modal-start="view"
+                       modal-view-url="/SAM/RIS/Items/Details/@ri.Id/{0}" modal-edit-url="/SAM/RIS/Items/Edit/@ri.Id/{0}" modal-delete-url="/SAM/RIS/Items/Delete/@ri.Id" modal-create-url="/SAM/RIS/Items/Create/@ri.Id">
+                    <thead>
+                        <tr>
+                            <th class="idcol">Id</th>
+                            <th>Item Name</th>
+                            <th>Unit</th>
+                            <th>Unit Cost</th>
+                            <th>Requested Qty</th>
+                            <th>Approved Qty</th>
+                            <th>Amount</th>
+                            <th>Remarks</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (coreApp.Areas.SAM.tblRISItem item in Model)
+                        {
+                            <tr record-id="@item.Id">
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Id)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(model => item._ItemName) (PO# @item._PONo))
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item._Unit)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item._UnitCost)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Requested_Qty)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Approved_Qty)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Amount)
+                                </td>
+                                <td>
+                                    @Html.DisplayMultiLineFor(modelItem => item.Remarks)
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@Html.Partial("~/Views/Shared/modals/_ModalView.cshtml", "modalView")
+

@@ -1,0 +1,56 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    @*<link rel="icon" type="image/ico" href="favicon.ico" />*@
+    @Scripts.Render("~/bundles/modernizr")
+
+
+   @* <link href="~/Assets/taurus/html/css/stylesheets.css" rel="stylesheet" type="text/css" />*@
+
+   
+    <!-- Favicon icon -->
+
+    <link rel="icon" href="~/assets/nextro/assets/images/favicon.svg" type="image/x-icon">
+
+
+    <!-- font css -->
+    <link rel="stylesheet" href="~/assets/nextro/assets/fonts/font-awsome-pro/css/pro.min.css">
+    <link rel="stylesheet" href="~/assets/nextro/assets/fonts/feather.css">
+    <link rel="stylesheet" href="~/assets/nextro/assets/fonts/fontawesome.css">
+
+    <!-- vendor css -->
+    <link rel="stylesheet" href="~/assets/nextro/assets/css/style.css">
+    <link rel="stylesheet" href="~/assets/nextro/assets/css/customizer.css">
+
+    @RenderSection("Styles", false)
+
+    <style>
+        .fixed-bottom {
+            position: fixed;
+            bottom: 0;
+            right: 0;
+        }
+    </style>
+
+    @Scripts.Render("~/bundles/jquery")
+    @RenderSection("HeaderScripts", required: false)
+
+    <style>
+        .application-info {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+
+    @RenderBody()
+
+    @RenderSection("Scripts", required: false)
+    @*@RenderSection("PageContent", required: false)*@
+</body>
+</html>

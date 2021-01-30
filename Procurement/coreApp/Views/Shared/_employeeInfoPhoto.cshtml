@@ -1,0 +1,68 @@
+﻿@model Module.DB.tblEmployee
+@{ 
+    Module.DB.tblEmployee_Career career = new Module.DB.Procs.procs_tblEmployee(Model).LatestCareer();
+    UserAccess access = coreApp.Cache.Get().userAccess;
+
+    string name = Model.FullName_FN.ToUpper();
+
+    coreApp.Areas.ReportsModule.Models.LoyaltyModel loyalty = new coreApp.Areas.ReportsModule.Models.LoyaltyModel(Model);
+    int yrs = (int)Model.YearsInGovService;
+}
+<div class="bg-default bg-light-rtl" style="position:relative">
+    <div class="info @(Model.IsActive() ? "" : "inactive")">
+        <table>
+            <tbody>
+                <tr>
+                    <td>
+                        @if (access.IsHRStaff && access.AllowedEmployee(Model.EmployeeId))
+                        {
+                            <h5><a href="/HRModule/Employees/Details/@Model.EmployeeId">@name</a></h5>
+                        }
+                        else if (access.IsMe(Model.EmployeeId))
+                        {
+                            <h5><a href="/EmployeeModule/MyProfile/Details">@name</a></h5>
+                        }
+                        else
+                        {
+                            <h5>@name</h5>
+                        }
+                        
+                        @if (!string.IsNullOrEmpty(Model.IdNo))
+                        {
+                            <span>@Html.DisplayNameFor(x => x.IdNo) @Model.IdNo</span>
+                        }     
+
+                        @if (career != null)
+                        {
+                            <div style="margin-top:10px">
+                                @(career.Position == null ? "" : career.Position.Position)<br />
+                                @if (career.Office != null)
+                                {
+                                    <div>
+                                        @career.Department / @career.Office.Office
+                                    </div>
+                                }
+                            </div>                            
+                        }
+                    </td>
+                    <td class="td-photo">
+                        <img src="/Home/GetEmployeePhoto?type=profile-photo&employeeId=@Model.EmployeeId" class="img-circle img-thumbnail" style="width:80px; height: 80px">
+
+                        @if (FixedSettings.UseStartInGovService && loyalty.loyalties.Any())
+                        {
+                            <a href="@Url.Action("Index", "Loyalty", new { area = "ReportsModule" })" title="@(yrs) years in service" >
+                                <div class="loyalty-seal">
+                                    <p class="ribbon">
+                                        <span class="text"><strong class="bold">@(yrs)</strong> years</span>
+                                    </p>
+                                </div>
+                                
+                            </a>                            
+                        }
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+</div>

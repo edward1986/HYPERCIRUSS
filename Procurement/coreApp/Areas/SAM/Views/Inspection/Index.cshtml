@@ -1,0 +1,180 @@
+﻿@model List<coreApp.Areas.SAM.tblReceipt>
+@{
+    ViewBag.Title = "Inspection";
+
+    int Year = (int)ViewBag.Year;
+
+}
+
+@section Breadcrumbs {
+    @Html.Partial("_Breadcrumbs", new List<Breadcrumb>() {
+        new Breadcrumb { Description = ViewBag.Title }
+    })
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/Assets/nextro/assets/css/plugins/bootstrap-datepicker3.min.css">
+}
+
+@section Scripts {
+    <script>
+        function load(e) {
+
+            if (e.viewType == 'view') {
+                var isInspected = e.modal.find('#IsInspected').val() == 'True';
+                var isUpdated = e.modal.find('#ItemsLastUpdated').val();
+
+                var editBtn = e.modal.find('.btn-edit');
+                var deleteBtn = e.modal.find('.btn-delete');
+
+                var returnBtn = e.modal.find('.btn-return');
+                var returnlink = returnBtn.attr('data-link-tmp');
+
+                returnBtn.unbind('click').bind('click', function (ee) {
+                    ee.preventDefault();
+
+                    modalInput('Inspection Request', 'Are you sure you want to return this request?<br /><br />Your message:', function (ret, userInput) {
+                        if (ret) {
+                            $.post(returnlink, { message: userInput }, function (res) {
+                                if (res.IsSuccessful) {
+                                    sessionStorage.clientMessage = res.Remarks;
+                                    window.location.reload(true);
+                                } else {
+                                    modalMessage(res.Err.split('\n'), title, true);
+                                }
+                            }, 'json');
+                        }
+                    }, 'textarea');
+
+                });
+
+                var printBtn = e.modal.find('.btn-print');
+                var printlink = printBtn.attr('data-link-tmp');
+
+                printBtn.unbind('click').bind('click', function (ee) {
+                    ee.preventDefault();
+
+                    if (isUpdated == '') {
+                        modalMessage('Please update items first before printing the report', 'Print report requirement', true);
+                    } else {
+
+                        modalPrint('@Module.Core.ModuleConstants.PRINT_OPTIONS', function (ret) {
+                            var dlWord = 'true';
+
+                            if (ret) {
+                                dlWord = 'false';
+                            }
+
+                            window.open(printlink + '?dlWord=' + dlWord, '_blank');
+                        });
+                    }
+                });
+
+                deleteBtn.hide();
+                printBtn.hide();
+
+                if (isInspected) {
+                    printBtn.show();
+                    editBtn.hide();
+                    returnBtn.hide();
+                }
+            }
+
+            return e;
+        }
+
+        function postSubmit(res, e) {
+            if (e.viewType == 'update') {
+                if (res.IsSuccessful) {
+                    sessionStorage.clientMessage = res.Remarks;
+                    window.location = '@Url.Action("Index", "InspectionItems")/' + res.Data;
+                    return false;
+                }
+            }
+            return true;
+        }
+    </script>
+    <script src="~/Assets/nextro/assets/js/plugins/bootstrap-datepicker.min.js"></script>
+}
+
+<div class="block">
+    <div class="card">
+        <div class="card-header">
+            <h5>@ViewBag.Title</h5>
+        </div>
+        <div class="card-body">
+            <div class="form-group row">
+                <div class="col-sm-3">
+                    <label class="col-form-label text-lg-right">For the year:</label>
+                    @Html.Partial("~/Areas/Procurement/Views/Shared/yearInfo.cshtml", "/SAM/Receiving/Index/{0}")
+                </div>
+            </div>
+
+            <div class="dt-responsive table-responsive">
+                <table class="display table table-bordered table-striped table-list" cellspacing="0" width="100%"
+                       modal-target="#modalView" modal-start="view" modal-load-callback="load" modal-postsubmit-callback="postSubmit" modal-view-width="mid-wide"
+                       modal-view-url="/SAM/Inspection/Details/@Year/{0}" modal-edit-url="/SAM/Inspection/Edit/@Year/{0}">
+                    <thead>
+                        <tr>
+                            <th>Date Received</th>
+                            <th>P.O. No.</th>
+                            <th>Invoice No</th>
+                            <th>Invoice Date</th>
+                            <th>Delivery Receipt No.</th>
+                            <th>Supplier</th>
+                            <th>Received By</th>
+                            <th>Office/Department</th>
+                            <th>Delivery</th>
+                            <th>Status</th>
+                            <th>Items Last Updated</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (coreApp.Areas.SAM.tblReceipt item in Model)
+                        {
+                            <tr record-id="@item.Id">
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ReceivedDate)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item._PONo)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.InvoiceNo)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.InvoiceDate)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.DRNo)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item._SupplierName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ReceivedBy)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Office_Department)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Delivery)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Status_Desc)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ItemsLastUpdated)
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@Html.Partial("~/Views/Shared/modals/_ModalView.cshtml", "modalView")
+

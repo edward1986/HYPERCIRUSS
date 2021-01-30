@@ -1,0 +1,102 @@
+﻿@model coreApp.Areas.Procurement.DAL.tblNOA
+
+@{
+    bool isReadOnly = (bool)ViewBag.uiIsReadOnly;
+    bool includeId = (bool)ViewBag.uiIncludeId;
+
+}
+
+
+
+
+<div class="form">
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+
+        if (isReadOnly)
+        {
+            <div class="form-group row">
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.Id)
+                </div>
+                <div class="col-md-9">
+                    <div class="form-control">
+                        @Html.DisplayFor(model => model.Id)
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.Description)
+                </div>
+                <div class="col-md-9">
+                    <div class="form-control">
+                        @Html.DisplayFor(model => model.Description)
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.DateCreated)
+                </div>
+                <div class="col-md-9">
+                    <div class="form-control">
+                        @Html.DisplayFor(model => model.DateCreated)
+                    </div>
+                </div>
+            </div>
+
+        }
+        else
+        {
+            @Html.HiddenFor(model => model.Id)
+
+            <div class="form-group row">
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.Description)
+                </div>
+                <div class="col-md-9">
+                    @Html.TextAreaFor(model => model.Description, new { @class = "form-control" })
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.ConsolidatedPR)
+                </div>
+                <div class="col-md-9">
+                    <div class="input-group mb-0">
+                        <div class="form-control">
+                            @Html.DisplayFor(model => model.ConsolidatedPR.Description)
+                        </div>
+                        <div class="input-group-append">
+                            <a href="javascript:void(0)" class="btn btn-success" id="browse">Select</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.Supplier)
+                </div>
+                <div class="col-md-9">
+                    @Html.DropDownListFor(model => model.SupplierId, coreApp.Areas.Procurement.SelectItems.getSuppliers(), new { @class = "form-control  pc-selectpicker" })
+                </div>
+            </div>
+
+        }
+    }
+
+</div>
+
+<div class="prList" style="display: none;">
+
+    <h1>List</h1>
+
+</div>

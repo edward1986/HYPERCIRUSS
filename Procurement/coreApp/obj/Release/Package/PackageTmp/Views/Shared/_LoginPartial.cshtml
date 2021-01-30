@@ -1,0 +1,37 @@
+﻿@using Microsoft.AspNet.Identity
+@if (Request.IsAuthenticated)
+{
+<button type="button" class="btn btn-default btn-clean dropdown-toggle" data-toggle="dropdown" style="margin-right: 1em">
+   Cagayan de Oro
+    <span class="caret"></span>
+</button>
+    
+    using (Html.BeginForm("LogOff", "Account", new { area = "" }, FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+
+        <div class="btn-group">
+            <button type="button" class="btn btn-default btn-clean dropdown-toggle" data-toggle="dropdown">
+                Logged as @User.Identity.GetUserName() <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+                <li class="details" modal-target="#modalViewDetails_ChangePassword" modal-title="Change Password">
+                    <a href="#" class="btn-open" data-url="@Url.Action("ChangePassword", "Manage", new { area = "" })" data-redirect-url="{page-reload}">Change Password</a>
+                </li>
+                <li class="divider"></li>
+                <li><a href="javascript:document.getElementById('logoutForm').submit()">Log Off</a></li>
+            </ul>
+        </div>
+    }
+}
+
+@Html.Partial("~/Views/Shared/modals/_ModalView_FromDetails.cshtml", "modalViewDetails_ChangePassword")
+
+<style>
+    #logoutForm .btn-group {
+        margin-right: 20px;
+    }
+
+    #logoutForm .dropdown-menu {
+        right: initial;
+    }
+</style>

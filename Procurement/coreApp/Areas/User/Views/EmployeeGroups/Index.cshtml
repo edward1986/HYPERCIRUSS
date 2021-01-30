@@ -1,0 +1,56 @@
+﻿@model List<Module.DB.tblGroup>
+
+@{
+    Layout = "~/Areas/HRModule/Views/Shared/_EmployeeDetailsLayout.cshtml";
+
+    ViewBag.Title = "Groups";
+    ViewBag.Subtitle = "List";
+
+    ViewBag.EmployeeDetailsActiveTab = "groups";
+
+    Module.DB.tblEmployee employee = (Module.DB.tblEmployee)ViewBag.Employee;
+
+}
+
+@section Breadcrumbs {
+@Html.Partial("_Breadcrumbs", new List<Breadcrumb>()
+    {
+        new Breadcrumb { Description = "Employee List", Link = Url.Action("Index", "Employees", new { area = "HRModule" }) },
+        new Breadcrumb { Description = "Employee Main Record", Link = Url.Action("Details", "Employees", new { id = employee.EmployeeId, area = "HRModule" } ) },
+        new Breadcrumb { Description = ViewBag.Title }
+    })
+}
+
+@section SearchSection {
+    @Html.Action("Search", "EmployeeSearch", new { model = new coreApp.Models.EmployeeSearchModel { DataUrl = "/HRModule/Employee/Groups/Index/{0}", MinimalView = true } })
+}
+
+@section Styles {
+    <style>
+        .table tr th:first-child,
+        .table tr td:first-child {
+            width: 300px;
+        }
+    </style>    
+}
+
+<div class="block">
+    <div class="head bg-default bg-light-ltr noradius">
+        <h2>@ViewBag.Title</h2>
+        <div class="side pull-right">
+            <ul class="buttons">
+                <li>
+                    <div class="pull-right details" modal-target="#modalViewDetails" modal-title="Group List" style="margin-left:10px">
+                        <a href="#" class="btn btn-primary btn-clean btn-open" data-url="@Url.Action("Edit", new { employeeId = employee.EmployeeId, area = "HRModule" })">Edit</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="content">
+        @Html.Partial("/Areas/HRModule/Views/EmployeeGroups/_GroupList.cshtml", Model, new ViewDataDictionary { { "ReadOnly", true } })
+    </div>
+  
+</div>
+
+@Html.Partial("~/Views/Shared/modals/_ModalView_FromDetails.cshtml", "modalViewDetails")

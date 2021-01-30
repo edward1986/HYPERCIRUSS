@@ -1,0 +1,82 @@
+﻿@model List<Module.DB.tblCampus>
+
+@{
+    ViewBag.Title = "Campus";
+    ViewBag.Subtitle = "List";
+
+}
+
+<script>
+
+    function show() {
+        window.open()
+    }
+
+</script>
+
+@section Breadcrumbs {
+    @Html.Partial("_Breadcrumbs", new List<Breadcrumb>() {
+    new Breadcrumb { Description = "System Settings" },
+    new Breadcrumb { Description = ViewBag.Title }
+    })
+
+}
+
+<div class="block">
+    <div class="card">
+        <div class="card-header">
+            <h5>@ViewBag.Title</h5>
+            <div class="card-header-right">
+                <button class="btn btn-success btn-sm btn-create" onclick="$.fn.list('modalCreate', this)">Create</button>
+
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="dt-responsive table-responsive">
+                <table class="display table table-bordered table-striped table-list" cellspacing="0" width="100%"
+                       modal-target="#modalView" modal-start="view"
+                       modal-view-url="/Procurement/Campus/Details/{0}" modal-edit-url="/Procurement/Campus/Edit/{0}" modal-delete-url="/Procurement/Campus/Delete" modal-create-url="/Procurement/Campus/Create">
+                    <thead>
+                        <tr>
+                            <th class="idcol">
+                                Id
+                            </th>
+                            <th>
+                                Campus
+                            </th>
+                            <th>
+                                Address
+                            </th>
+                            <th>
+                                Contact Number
+                            </th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (Module.DB.tblCampus item in Model)
+                        {
+                            <tr record-id="@item.CampusID">
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CampusID)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Campus)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CampusAddress)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ContactNumber)
+                                </td>
+
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@Html.Partial("~/Views/Shared/modals/_ModalView.cshtml", "modalView")

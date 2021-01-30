@@ -1,0 +1,175 @@
+﻿@model List<coreApp.Areas.SAM.tblPO>
+@{
+    ViewBag.Title = "Purchase Orders";
+
+    int Year = (int)ViewBag.Year;
+    int? whId = coreApp.Cache.Get().userAccess.employee.WarehouseId;
+}
+
+@section Breadcrumbs {
+@Html.Partial("_Breadcrumbs", new List<Breadcrumb>()
+    {
+        new Breadcrumb { Description = "Supply/Asset Management", Link = Url.Action("Index", "Main", new { area = "SAM" }) },
+        new Breadcrumb { Description = ViewBag.Title }
+    })
+}
+
+@section Scripts {
+    <script>
+        function load(e) {
+
+            if (e.viewType == 'view') {
+
+                var locked = e.modal.find('.modal-body #Locked').val() == 'True';
+                var btnEdit = e.modal.find('.modal-footer .btn-edit');
+                var printBtn = e.modal.find('.btn-print');
+                var printlink = printBtn.attr('data-link-tmp');
+
+
+                if (locked) {
+                    btnEdit.hide();
+                } else {
+                    btnEdit.show();
+                }
+
+                printBtn.unbind('click').bind('click', function (ee) {
+                    ee.preventDefault();
+
+                    modalPrint('@Module.Core.ModuleConstants.PRINT_OPTIONS', function (ret) {
+                        var dlWord = 'true';
+
+                        if (ret) {
+                            dlWord = 'false';
+                        }
+
+                        window.open(printlink + '?dlWord=' + dlWord, '_blank');
+                    });
+                });
+            }
+
+            return e;
+        }
+    </script>
+}
+
+<div class="row">
+    <div class="col-sm-12">
+        For the year:
+        @Html.Partial("~/Areas/Procurement/Views/Shared/yearInfo.cshtml", "/SAM/PO/Index/{0}")
+        <br />
+    </div>
+</div>
+
+<div class="block">
+    <div class="head bg-default bg-light-ltr noradius">
+        <h2>@ViewBag.Title</h2>
+        <div class="side pull-right">
+            <ul class="buttons">
+                <li>
+                    <button class="btn btn-success btn-create" onclick="$.fn.list('modalCreate', this)">Create</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="content">
+        <table class="display table table-bordered table-striped table-list" cellspacing="0" width="100%"
+               modal-target="#modalView" modal-start="view" modal-view-width="wide" modal-load-callback="load"
+               modal-view-url="/SAM/PO/Details/@Year/{0}" modal-edit-url="/SAM/PO/Edit/@Year/{0}" modal-delete-url="/SAM/PO/Delete/@Year" modal-create-url="/SAM/PO/Create/@Year">
+            <thead>
+                <tr>
+                    <th>
+                       P.O. No.
+                    </th>
+                    <th>
+                        P.O. Date
+                    </th>
+                    <th>
+                        P.R. No.
+                    </th>
+                    <th>
+                        P.R. Date
+                    </th>
+                    <th>
+                        Supplier
+                    </th>
+                    <th>
+                        Amount
+                    </th>
+                    <th>
+                        Delivery Status
+                    </th>
+                    <th>
+                        Created/Imported By
+                    </th>
+                    <th>
+                        Is Imported
+                    </th>
+                    <th>
+                        Warehouse
+                    </th>
+                    <th>
+                        Office
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (coreApp.Areas.SAM.tblPO item in Model)
+                {
+                    coreApp.Areas.SAM.POModel poModel = new coreApp.Areas.SAM.POModel(item);
+                    coreApp.Areas.SAM.tblWarehouse warehouse = DBProcs.get_WarehouseById(item.WarehouseId);
+                    
+                    <tr record-id="@item.Id">
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PONo)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PODate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PRNo)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PRDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item._SupplierName)
+                        </td>
+                        <td>
+                            @poModel.Amount.ToString("#,##0.00")
+                        </td>
+                        <td>
+                            @poModel.Status_Desc
+
+                            @if (poModel.Status == coreApp.Areas.SAM.Enums.POStatus.Partial)
+                            {
+                                <span>&nbsp;(@((poModel.DeliveryPercentage * 100).ToString("0.#"))% Delivered)</span>                                
+                            }                            
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CreatedBy)
+                        </td>
+                        <td>
+                            @if (item.Locked)
+                            {
+                                <i class="fa fa-lock"></i>
+                            }
+                        </td>
+                        <td>
+                            @warehouse.WarehouseName &nbsp;
+                            @if (item.IsWarehouseLocked(whId))
+                            {
+                                <i class="fa fa-lock"></i>
+                            }
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Office_Desc)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+    </div>
+</div>
+
+@Html.Partial("~/Views/Shared/modals/_ModalView.cshtml", "modalView")

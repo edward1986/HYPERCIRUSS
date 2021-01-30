@@ -1,0 +1,68 @@
+﻿@model coreApp.Models.EmployeeAllowancesDeductionsModel
+
+@{
+    Layout = "~/Areas/HRModule/Views/Shared/_EmployeeDetailsLayout.cshtml";
+
+    ViewBag.Title = "Allowances";
+    ViewBag.Subtitle = "List";
+
+    ViewBag.EmployeeDetailsActiveTab = "allowances-deductions";
+
+    Module.DB.tblEmployee employee = (Module.DB.tblEmployee)ViewBag.Employee;
+}
+
+@section Breadcrumbs {
+    @Html.Partial("_Breadcrumbs", new List<Breadcrumb>()
+    {
+        new Breadcrumb { Description = "Employee List", Link = Url.Action("Index", "Employees", new { area = "HRModule" }) },
+        new Breadcrumb { Description = "Employee Main Record", Link = Url.Action("Details", "Employees", new { id = employee.EmployeeId, area = "HRModule" } ) },
+        new Breadcrumb { Description = ViewBag.Title }
+    })
+}
+
+@section SearchSection {
+    @Html.Action("Search", "EmployeeSearch", new { model = new coreApp.Models.EmployeeSearchModel { DataUrl = "/HRModule/Employee/AllowancesDeductions/Index/{0}", MinimalView = true } })
+}
+
+<div class="row">
+    <div class="col-sm-6">
+        <div class="block">
+            <div class="head bg-default bg-light-ltr noradius">
+                <h2>Allowances</h2>
+                <div class="side pull-right">
+                    <ul class="buttons">
+                        <li class="details" modal-target="#modalViewDetails_Allowances" modal-title="Allowances">
+                            <button class="btn btn-info btn-clean btn-edit" data-url="/HRModule/Employee/AllowancesDeductions/EditAllowances/@employee.EmployeeId">Edit</button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="content">
+                @Html.Partial("/Areas/HRModule/Views/EmployeeAllowancesDeductions/_AllowanceList.cshtml", Model.Allowances, new ViewDataDictionary { { "ReadOnly", true } })
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="block">
+            <div class="head bg-default bg-light-ltr noradius">
+                <h2>Deductions</h2>
+                <div class="side pull-right">
+                    <ul class="buttons">
+                        <li class="details" modal-target="#modalViewDetails_Deductions" modal-title="Deductions">
+                            <button class="btn btn-info btn-clean btn-edit" data-url="/HRModule/Employee/AllowancesDeductions/EditDeductions/@employee.EmployeeId">Edit</button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="content">
+                @Html.Partial("/Areas/HRModule/Views/EmployeeAllowancesDeductions/_DeductionList.cshtml", Model.Deductions, new ViewDataDictionary { { "ReadOnly", true } })
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+@Html.Partial("~/Views/Shared/modals/_ModalView_FromDetails.cshtml", "modalViewDetails_Allowances")
+@Html.Partial("~/Views/Shared/modals/_ModalView_FromDetails.cshtml", "modalViewDetails_Deductions")

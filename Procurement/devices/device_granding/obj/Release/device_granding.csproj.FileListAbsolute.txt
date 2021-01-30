@@ -1,0 +1,12 @@
+C:\Users\User\Desktop\FOR SKY DELIVERABLES\SkyHR\devices\device_granding\bin\Release\device_granding.dll
+C:\Users\User\Desktop\FOR SKY DELIVERABLES\SkyHR\devices\device_granding\bin\Release\device_granding.pdb
+C:\Users\User\Desktop\FOR SKY DELIVERABLES\SkyHR\devices\device_granding\bin\Release\device_core.dll
+C:\Users\User\Desktop\FOR SKY DELIVERABLES\SkyHR\devices\device_granding\bin\Release\device_core.pdb
+C:\Users\User\Desktop\FOR SKY DELIVERABLES\SkyHR\devices\device_granding\bin\Release\Interop.zkemkeeper.dll
+C:\Users\User\Desktop\FOR SKY DELIVERABLES\SkyHR\devices\device_granding\obj\Release\device_granding.csprojResolveAssemblyReference.cache
+C:\Users\User\Desktop\FOR SKY DELIVERABLES\SkyHR\devices\device_granding\obj\Release\Interop.zkemkeeper.dll
+C:\Users\User\Desktop\FOR SKY DELIVERABLES\SkyHR\devices\device_granding\obj\Release\device_granding.csproj.ResolveComReference.cache
+C:\Users\User\Desktop\FOR SKY DELIVERABLES\SkyHR\devices\device_granding\obj\Release\device_granding.csproj.CoreCompileInputs.cache
+C:\Users\User\Desktop\FOR SKY DELIVERABLES\SkyHR\devices\device_granding\obj\Release\device_granding.dll
+C:\Users\User\Desktop\FOR SKY DELIVERABLES\SkyHR\devices\device_granding\obj\Release\device_granding.pdb
+C:\Users\User\Desktop\FOR SKY DELIVERABLES\SkyHR\devices\device_granding\bin\Release\Aspose.Cells.dll

@@ -1,0 +1,20 @@
+﻿@using coreApp.Areas.Procurement.DAL
+@model string
+@{    
+    tblConsolidatedPR cpr = (tblConsolidatedPR)ViewData["cpr"];
+
+    List<SelectListItem> cprs = coreApp.Areas.Procurement.SelectItems.getCPRs(year: cpr.Year, showEmptyItem: false);
+}
+
+<select onchange="cprItemSelected(this)" class="form-control pc-selectpicker" data-style="btn-success">
+    @foreach (SelectListItem o in cprs)
+    {
+        <option value="@o.Value" @(cpr.Id.ToString() == o.Value ? "selected" : "")>@o.Text</option>
+    }
+</select>
+
+<script>
+    function cprItemSelected(sel) {
+        window.location = '@Model' + $(sel).val();
+    }
+</script>

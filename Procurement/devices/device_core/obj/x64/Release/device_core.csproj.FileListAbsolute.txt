@@ -1,0 +1,5 @@
+C:\Users\renebert\Documents\Visual Studio 2013\Projects\hrms-eu\hrms-eu\devices\device_core\bin\x64\Release\device_core.dll
+C:\Users\renebert\Documents\Visual Studio 2013\Projects\hrms-eu\hrms-eu\devices\device_core\bin\x64\Release\device_core.pdb
+C:\Users\renebert\Documents\Visual Studio 2013\Projects\hrms-eu\hrms-eu\devices\device_core\obj\x64\Release\device_core.csproj.ResolveComReference.cache
+C:\Users\renebert\Documents\Visual Studio 2013\Projects\hrms-eu\hrms-eu\devices\device_core\obj\x64\Release\device_core.dll
+C:\Users\renebert\Documents\Visual Studio 2013\Projects\hrms-eu\hrms-eu\devices\device_core\obj\x64\Release\device_core.pdb

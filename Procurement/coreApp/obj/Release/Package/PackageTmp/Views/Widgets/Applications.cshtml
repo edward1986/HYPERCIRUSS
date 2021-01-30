@@ -1,0 +1,46 @@
+﻿@model coreApp.Models.ApplicationsModel
+
+<div class="head-panel nm">
+    @if (Model.IsEmpty)
+    {
+        <span>No pending application</span>
+    }
+    else
+    {
+        if (Model.Leave > 0 && coreApp.Cache.Get().userAccess.HasAccess("hr_emp_leave_app"))
+        {
+            <a href="@Url.Action("Index", "LeaveApplications", new { area = "HRModule" })" class="hp-info pull-left">
+                <div class="hp-icon">
+                    <span class="icon-download-alt"></span>
+                </div>
+                <span class="hp-main">@Model.Leave</span>
+                <span class="hp-sm">Leave</span>
+            </a>
+        }
+
+        if (Model.Travel > 0 && coreApp.Cache.Get().userAccess.HasAccess("hr_emp_travel_app"))
+        {
+            <a href="@Url.Action("Index", "TravelApplications", new { area = "HRModule" })" class="hp-info pull-left">
+                <div class="hp-icon">
+                    <span class="icon-download-alt"></span>
+                </div>
+                <span class="hp-main">@Model.Travel</span>
+                <span class="hp-sm">Travel</span>
+            </a>
+        }
+
+        if (Model.OT > 0 && coreApp.Cache.Get().userAccess.HasAccess("hr_emp_ot_app"))
+        {
+            <a href="@Url.Action("Index", "OTApplications", new { area = "HRModule" })" class="hp-info pull-left">
+                <div class="hp-icon">
+                    <span class="icon-download-alt"></span>
+                </div>
+                <span class="hp-main">@Model.OT</span>
+                <span class="hp-sm">Overtime</span>
+            </a>
+        }
+    }
+    
+</div>
+
+

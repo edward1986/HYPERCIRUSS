@@ -1,0 +1,159 @@
+﻿@model Module.DB.tblCampus
+
+@{
+    bool isReadOnly = (bool)ViewBag.uiIsReadOnly;
+    bool includeId = (bool)ViewBag.uiIncludeId;
+}
+
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    if (isReadOnly)
+    {
+        <div class="form-row">
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.CampusID)
+            </div>
+            <div class="col-md-8">
+                <div class="form-control">
+                    @Html.DisplayFor(model => model.CampusID)
+                </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.Campus)
+            </div>
+            <div class="col-md-8">
+                <div class="form-control">
+                    @Html.DisplayFor(model => model.Campus)
+                </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.CampusAddress)
+            </div>
+            <div class="col-md-8">
+                <div class="form-control">
+                    @Html.DisplayFor(model => model.CampusAddress)
+                </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.ContactNumber)
+            </div>
+            <div class="col-md-8">
+                <div class="form-control">
+                    @Html.DisplayFor(model => model.ContactNumber)
+                </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.PayrollSummarySignatory)
+            </div>
+            <div class="col-md-8">
+                <div class="form-control">
+                    @Html.DisplayFor(model => model.PayrollSummarySignatory)
+                </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.SignatoryPosition)
+            </div>
+            <div class="col-md-8">
+                <div class="form-control">
+                    @Html.DisplayFor(model => model.SignatoryPosition)
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        @Html.HiddenFor(model => model.CampusID)
+
+        if (includeId)
+        {
+            <div class="form-row">
+                <div class="col-md-4">
+                    @Html.LabelFor(model => model.CampusID)
+                </div>
+                <div class="col-md-8">
+                    <div class="form-control dimmed">
+                        @Html.DisplayFor(model => model.CampusID)
+                    </div>
+                </div>
+            </div>
+        }
+
+        <div class="form-row">
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.Campus)
+            </div>
+            <div class="col-md-8">
+                @Html.TextBoxFor(model => model.Campus, new { @class = "form-control", maxlength = "200" })
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.Address)
+            </div>
+            <div class="col-md-8">
+                @Html.TextBoxFor(model => model.Address, new { @class = "form-control", maxlength = "200" })
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.CountryID)
+            </div>
+            <div class="col-md-8">
+                @Html.DropDownListFor(model => model.CountryID, SelectItems.getCountries(), new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.PostalCode)
+            </div>
+            <div class="col-md-8">
+                @Html.TextBoxFor(model => model.PostalCode, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.ContactNumber)
+            </div>
+            <div class="col-md-8">
+                @Html.TextBoxFor(model => model.ContactNumber, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.PayrollSummarySignatory)
+            </div>
+            <div class="col-md-8">
+                @Html.TextBoxFor(model => model.PayrollSummarySignatory, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.SignatoryPosition)
+            </div>
+            <div class="col-md-8">
+                @Html.TextBoxFor(model => model.SignatoryPosition, new { @class = "form-control" })
+            </div>
+        </div>
+
+
+    }
+}

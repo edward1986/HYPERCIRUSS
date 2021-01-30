@@ -1,0 +1,73 @@
+﻿@model List<coreApp.Areas.SAM.tblReceiptItem>
+
+@{
+    ViewBag.Title = "Items";
+    ViewBag.Subtitle = "List";
+
+    coreApp.Areas.SAM.tblReceipt receipt = (coreApp.Areas.SAM.tblReceipt)ViewBag.Receipt;
+
+}
+
+@section Breadcrumbs {
+    @Html.Partial("_Breadcrumbs", new List<Breadcrumb>() {
+        new Breadcrumb { Description = "Supply/Asset Management", Link = Url.Action("Index", "Main", new { area = "SAM" }) },
+        new Breadcrumb { Description = "Inspection", Link = Url.Action("Index", "Inspection", new { area = "SAM" }) },
+        new Breadcrumb { Description = ViewBag.Title }
+    })
+}
+
+<div class="row">
+    <div class="col-sm-12">
+        @Html.Partial("~/Areas/SAM/Views/Shared/inspectionInfo.cshtml", "/SAM/Inspection/Items/Index/")
+    </div>
+</div>
+
+<div class="block">
+    <div class="head bg-default bg-light-ltr noradius">
+        <h2>@ViewBag.Title</h2>
+        <div class="side pull-right">
+            <ul class="buttons">
+                <li>
+
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="content">
+        <table class="display table table-bordered table-striped table-list" cellspacing="0" width="100%">
+            <thead>
+                <tr locked>
+                    <th>Stock No.</th>
+                    <th>Description</th>
+                    <th>Unit</th>
+                    <th>Qty</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (coreApp.Areas.SAM.tblReceiptItem item in Model)
+                {
+                    coreApp.Areas.SAM.tblPOItem pOItem = item.GetPOItem();
+
+                    <tr record-id="@item.Id">
+                        <td>
+                            @Html.DisplayFor(modelItem => pOItem.StockNo)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => pOItem.ItemName)
+                        </td>
+                        <td class="qtycol">
+                            @Html.DisplayFor(modelItem => pOItem._Unit)
+                        </td>
+                        <td class="qtycol">
+                            @Html.DisplayFor(modelItem => item.Qty)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+    </div>
+</div>
+
+@Html.Partial("~/Views/Shared/modals/_ModalView.cshtml", "modalView")
+

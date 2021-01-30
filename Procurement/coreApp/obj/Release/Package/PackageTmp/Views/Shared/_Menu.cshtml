@@ -1,0 +1,112 @@
+﻿@using coreApp
+@{
+    coreApp.UserAccess access = coreApp.Cache.Get().userAccess;
+
+    var _area = HttpContext.Current.Request.RequestContext.RouteData.DataTokens["area"];
+    string area = _area == null ? "" : _area.ToString().ToLower();
+}
+
+
+<nav class="pc-sidebar ">
+    <div class="navbar-wrapper">
+        <div class="m-header">
+            <a href="/" class="b-brand">
+                <img src="~/assets/nextro/assets/images/cirrus-01.png" alt="" class="logo logo-lg" style="width:80%;">
+                <img src="~/assets/nextro/assets/images/cirrus-01.png" alt="" class="logo logo-sm" style="width:80%;">
+            </a>
+        </div>
+        <div class="navbar-content">
+            <ul class="pc-navbar">
+
+                @if (access.HasAccess("procurement_allocate_funds"))
+                {
+                    <li class="pc-item pc-caption">
+                        <label>Source of Funds</label>
+
+                    </li>
+                    <li class="pc-item"><a href="@Url.Action("Index", "Funds", new { area = "Procurement" })" class="pc-link "><span class="pc-micon"><i data-feather="layers"></i></span><span class="pc-mtext">List of Funds</span></a></li>
+                    <li class="pc-item"><a href="@Url.Action("Index", "SOF", new { area = "Procurement" })" class="pc-link "><span class="pc-micon"><i data-feather="log-in"></i></span><span class="pc-mtext">Received Funds</span></a></li>
+                    <li class="pc-item"><a href="@Url.Action("Index", "OfficeAllocations", new { area = "Procurement" })" class="pc-link "><span class="pc-micon"><i data-feather="upload-cloud"></i></span><span class="pc-mtext">Office Allocations</span></a></li>
+                }
+
+                @if (access.HasAccess("procurement_access_office_ppmp"))
+                {
+                    <li class="pc-item pc-caption">
+                        <label>Office</label>
+                    </li>
+
+                    <li class="pc-item"><a href="@Url.Action("Index", "DepartmentAllocations", new { area = "Procurement" })" class="pc-link "><span class="pc-micon"><i data-feather="cloud-snow"></i></span><span class="pc-mtext">Department Allocations</span></a></li>
+                    <li class="pc-item"><a href="@Url.Action("Index", "OfficePPMP", new { area = "Procurement" })" class="pc-link "><span class="pc-micon"><i data-feather="sliders"></i></span><span class="pc-mtext">PPMP</span></a></li>
+                    <li class="pc-item"><a href="@Url.Action("Index", "OfficePR", new { area = "Procurement" })" class="pc-link "><span class="pc-micon"><i data-feather="upload-cloud"></i></span><span class="pc-mtext">PR</span></a></li>
+                }
+
+                @if (access.HasAccess("procurement_access_department_ppmp"))
+                {
+                    <li class="pc-item pc-caption">
+                        <label>Departments</label>
+
+                    </li>
+                    <li class="pc-item"><a href="@Url.Action("Index", "DepartmentPPMP", new { area = "Procurement" })" class="pc-link "><span class="pc-micon"><i data-feather="paperclip"></i></span><span class="pc-mtext">PPMP</span></a></li>
+
+                }
+
+                @if (access.HasAccess("procurement_ppmp_approver") || access.HasAccess("procurement_access_app"))
+                {
+                    <li class="pc-item pc-caption">
+                        <label>Procurement</label>
+                    </li>
+
+                    if (access.HasAccess("procurement_ppmp_approver"))
+                    {
+                        <li class="pc-item"><a href="@Url.Action("Index", "ManagePPMP", new { area = "Procurement" })" class="pc-link "><span class="pc-micon"><i data-feather="sidebar"></i></span><span class="pc-mtext">Manage PPMP's</span></a></li>
+                        <li class="pc-item"><a href="@Url.Action("Index", "ManagePR", new { area = "Procurement" })" class="pc-link "><span class="pc-micon"><i data-feather="sidebar"></i></span><span class="pc-mtext">Manage PR's</span></a></li>
+                    }
+
+                    if (access.HasAccess("procurement_ppmp_approver") && access.HasAccess("procurement_access_app"))
+                    {
+                        <li><hr class="mr-5 ml-4 m-t-0 m-b-0 border-secondary" /></li>
+                    }
+
+                    if (access.HasAccess("procurement_access_app"))
+                    {
+                        <li class="pc-item"><a href="@Url.Action("Index", "CompanyAPP", new { area = "Procurement" })" class="pc-link "><span class="pc-micon"><i data-feather="folder"></i></span><span class="pc-mtext">APP</span></a></li>
+                        <li class="pc-item"><a href="@Url.Action("Index", "CompanyAPR", new { area = "Procurement" })" class="pc-link "><span class="pc-micon"><i data-feather="book"></i></span><span class="pc-mtext">APR</span></a></li>
+                        <li class="pc-item"><a href="@Url.Action("Index", "CompanyPR", new { area = "Procurement" })" class="pc-link "><span class="pc-micon"><i data-feather="inbox"></i></span><span class="pc-mtext">PR (For Out-Of-Stock Items)</span></a></li>
+                        <li class="pc-item"><a href="@Url.Action("Index", "ConsolidatedPR", new { area = "Procurement" })" class="pc-link "><span class="pc-micon"><i data-feather="file-text"></i></span><span class="pc-mtext">Consilidated PR</span></a></li>
+                        <li class="pc-item"><a href="@Url.Action("Index", "RFQ", new { area = "Procurement" })" class="pc-link "><span class="pc-micon"><i data-feather="file"></i></span><span class="pc-mtext">RFQ</span></a></li>
+                        <li class="pc-item"><a href="@Url.Action("Index", "AOB", new { area = "Procurement" })" class="pc-link "><span class="pc-micon"><i data-feather="list"></i></span><span class="pc-mtext">Abstract of Bids</span></a></li>
+                        <li class="pc-item"><a href="@Url.Action("Index", "PO", new { area = "Procurement" })" class="pc-link "><span class="pc-micon"><i data-feather="shopping-cart"></i></span><span class="pc-mtext">Purchase Orders</span></a></li>
+
+                        <li><hr class="mr-5 ml-4 m-t-0 m-b-0 border-secondary" /></li>
+
+                        <li class="pc-item"><a href="@Url.Action("Index", "Suppliers", new { area = "Procurement" })" class="pc-link "><span class="pc-micon"><i data-feather="home"></i></span><span class="pc-mtext">Suppliers</span></a></li>
+
+                    }
+
+                }
+
+                @if (access.HasAccess("procurement_settings") || access.HasAccess("procurement_item_settings"))
+                {
+                    if (access.HasAccess("procurement_settings"))
+                    {
+                        <li class="pc-item pc-caption">
+                            <label>Settings</label>
+                        </li>
+                        <li class="pc-item pc-hasmenu">
+                            <a href="#!" class="pc-link "><span class="pc-micon"><i data-feather="settings"></i></span><span class="pc-mtext">System Settings</span><span class="pc-arrow"><i data-feather="chevron-right"></i></span></a>
+                            <ul class="pc-submenu">
+                                <li class="pc-item"><a class="pc-link" href="@Url.Action("Index", "ProcurementSettings", new { area = "Procurement" })">Settings</a></li>
+                                <li class="pc-item"><a class="pc-link" href="@Url.Action("Index/1", "Offices", new { area = "Procurement" })">Office</a></li>
+                                <li class="pc-item"><a class="pc-link" href="@Url.Action("Index", "Employees", new { area = "User" })">Employees</a></li>
+                                <li class="pc-item"><a class="pc-link" href="@Url.Action("Index", "Units", new { area = "Procurement" })">Units</a></li>
+                                <li class="pc-item"><a class="pc-link" href="@Url.Action("Index", "Categories", new { area = "Procurement" })">Categories</a></li>
+                                <li class="pc-item"><a class="pc-link" href="@Url.Action("Index", "Items", new { area = "Procurement" })">Items</a></li>
+                            </ul>
+                        </li>
+                    }
+                }
+            </ul>
+        </div>
+    </div>
+</nav>
+

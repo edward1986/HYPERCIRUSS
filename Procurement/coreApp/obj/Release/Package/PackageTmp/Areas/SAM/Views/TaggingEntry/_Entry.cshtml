@@ -1,0 +1,203 @@
+﻿@model coreApp.Areas.SAM.tblInventoryItem
+@{    
+    bool isReadOnly = (bool)ViewBag.uiIsReadOnly;
+    bool includeId = (bool)ViewBag.uiIncludeId;
+    
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    if (isReadOnly)
+    {
+                <div class="form-row">
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.Id)
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-control">
+                            @Html.DisplayFor(model => model.Id)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.PropertyNo)
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-control">
+                            @Html.DisplayFor(model => model.PropertyNo)
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.Barcode)
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-control">
+                            @Html.DisplayFor(model => model.Barcode)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.SerialNo)
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-control">
+                            @Html.DisplayFor(model => model.SerialNo)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.ModelNo)
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-control">
+                            @Html.DisplayFor(model => model.ModelNo)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.Brand)
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-control">
+                            @Html.DisplayFor(model => model.Brand)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.Color)
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-control">
+                            @Html.DisplayFor(model => model.Color)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.Remarks)
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-control">
+                            @Html.DisplayMultiLineFor(model => model.Remarks)
+                        </div>
+                    </div>
+                </div>
+    }
+    else
+    {
+        @Html.HiddenFor(model => model.Id)
+        @Html.HiddenFor(model => model.ReceiptItemId)
+        @Html.HiddenFor(model => model.PropertyNo)
+
+        if (includeId)
+        {
+            <div class="form-row">
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.Id)
+                </div>
+                <div class="col-md-9">
+                    <div class="form-control dimmed">
+                        @Html.DisplayFor(model => model.Id)
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.PropertyNo)
+                </div>
+                <div class="col-md-9">
+                    <div class="form-control dimmed">
+                        @Html.DisplayFor(model => model.PropertyNo)                        
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="form-row">
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.PropertyNo)
+                </div>
+                <div class="col-md-9">
+                    <div class="input-group">
+                        @Html.TextBoxFor(model => model.PropertyNo, new { @class = "form-control", @readonly = true })
+                        <div class="input-group-addon">
+                            <a href="#" class="generate" title="Generate Property No.">Re-Generate</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+        <div class="form-row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.Barcode)
+            </div>
+            <div class="col-md-9">
+                @Html.TextBoxFor(model => model.Barcode, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.SerialNo)
+            </div>
+            <div class="col-md-9">
+                @Html.TextBoxFor(model => model.SerialNo, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.ModelNo)
+            </div>
+            <div class="col-md-9">
+                @Html.TextBoxFor(model => model.ModelNo, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.Brand)
+            </div>
+            <div class="col-md-9">
+                @Html.TextBoxFor(model => model.Brand, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.Color)
+            </div>
+            <div class="col-md-9">
+                @Html.TextBoxFor(model => model.Color, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.Remarks)
+            </div>
+            <div class="col-md-9">
+                @Html.TextAreaFor(model => model.Remarks, new { @class = "form-control" })
+            </div>
+        </div>
+    }
+}

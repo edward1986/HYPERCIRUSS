@@ -1,0 +1,168 @@
+﻿@model List<coreApp.DAL.tblPayrollSummary>
+
+@{
+    ViewBag.Title = "HR Permissions";
+    ViewBag.Subtitle = "";
+
+}
+
+@section Breadcrumbs {
+    @Html.Partial("_Breadcrumbs", new List<Breadcrumb>() { new Breadcrumb { Description = ViewBag.Title } })
+}
+
+@section Styles {
+    <link href="~/Assets/plugins/SmartWizard-master/dist/css/smart_wizard.css" rel="stylesheet" type="text/css" /> 
+    <link href="~/Assets/css/page-wizard.less" rel="stylesheet" type="text/css" />
+}
+
+@section Scripts {
+    <script type='text/javascript' src='~/Assets/plugins/SmartWizard-master/dist/js/jquery.smartWizard.js'></script>
+
+    <script>
+        $(document).ready(function () {
+            var employees = '';
+            var permissions = [];
+
+            $('#smartwizard').smartWizard({
+                toolbarSettings: {
+                    toolbarPosition: 'top', // none, top, bottom, both
+                }
+            });
+
+            $("#smartwizard").on("leaveStep", function (e, anchorObject, stepNumber, stepDirection) {
+                if (stepNumber == 0) {
+
+                    var selectedItems = $('.search .selectedItems');
+
+                    employees = '';
+
+                    if (selectedItems.val() == '') {
+                        modalMessage('No employee selected', 'Step 1', true);
+                        return false;
+                    } else {
+
+                        employees = selectedItems.val();
+                        return true;
+                    }
+
+                } else if (stepNumber == 1) {
+                    if (stepDirection == 'forward') {
+
+                        var permissionItems = $('.entry-ui [name="Permissions"]:checked');
+
+                        permissions = [];
+
+                        permissionItems.each(function (i, v) {
+                            permissions.push($(v).val());
+                        });
+
+                        return true;
+                    }
+                } else if (stepNumber == 2) {
+
+                    if (stepDirection == 'forward') {
+
+                        var msg = [];
+
+                        if (employees == '') {
+                            msg.push('No employee selected');
+                        }
+                        
+                        if (msg.length > 0) {
+                            modalMessage(msg, 'Step 3', true);
+                            return false;
+                        } else {
+
+                            var url = '/HRModule/SetHRPermissions/SaveSelection';
+                            var param = {
+                                employees: employees,
+                                permissions: permissions.length > 0 ? permissions.join(',') : null
+                            };
+
+                            $.post(url, param, function (res) {
+                                if (res.IsSuccessful) {
+                                    return true;
+                                } else {
+                                    modalMessage(res.Err.split('\n'), 'Save Selection', true);
+                                    return false;
+                                }
+                            }, 'json');                            
+                        }
+
+                    }
+
+                }
+            });
+
+            $("#smartwizard").on("showStep", function (e, anchorObject, stepNumber, stepDirection) {
+                if (stepNumber == 2) {
+                    if (stepDirection == 'forward') {
+
+                        var cont = $('#step-3');
+                        
+                        var url = '/HRModule/SetHRPermissions/SelectedEmployees';
+                        var param = { selection: employees };
+
+                        cont.addClass('loading-mask');
+                        $('.selected-employees').load(url, param, function () {
+                            cont.removeClass('loading-mask');
+                        });
+                        
+                        url = '/HRModule/SetHRPermissions/SelectedPermissions';
+                        param = { selection: permissions.join(',') };
+
+                        cont.addClass('loading-mask');
+                        $('.selected-permissions').load(url, param, function () {
+                            cont.removeClass('loading-mask');
+                        });
+                    }
+                }
+            });
+        });
+    </script>
+}
+
+<div class="block">
+    <div class="head bg-default bg-light-ltr noradius">
+        <h2>Set Permissions</h2>
+    </div>
+</div>
+
+<div id="smartwizard">
+    <ul>
+        <li><a href="#step-1">Employees<br /><small>Select the employees who will receive the permissions</small></a></li>
+        <li><a href="#step-2">Permissions<br /><small>Select the permissions</small></a></li>
+        <li><a href="#step-3">Summary<br /><small>Review your selection</small></a></li>
+        <li><a href="#step-4">Confirmation<br /><small>Setting of permissions confirmed</small></a></li>
+    </ul>
+
+    <div>
+        <div id="step-1" class="">
+            @Html.Action("Search", "EmployeeSearch", new { area = "HRModule", model = new coreApp.Models.EmployeeSearchModel { DataUrl = "", MultiSelect = true, ExcludeNoCareer = true, ExcludeNoOffice = true } })
+        </div>
+        <div id="step-2" class="">
+            @Html.Partial("~/Areas/HRModule/Views/HRPermissions/_PermissionList.cshtml", new Module.DB._HRPermission(), new ViewDataDictionary { { "ReadOnly", false } })
+        </div>
+        <div id="step-3" class="">
+            <div class="row">
+                <div class="col-sm-6 col-lg-4">
+                    <fieldset>
+                        <legend>Selected Employees</legend>
+
+                        <div class="selected-employees"></div>
+                    </fieldset>
+                </div>
+                <div class="col-sm-6 col-lg-4">
+                    <fieldset>
+                        <legend>Selected Permissions</legend>
+
+                        <div class="selected-permissions"></div>
+                    </fieldset>
+                </div>
+            </div>
+        </div>
+        <div id="step-4" class="">
+            <h3>Permissions were successfully set</h3>
+        </div>
+    </div>
+</div>

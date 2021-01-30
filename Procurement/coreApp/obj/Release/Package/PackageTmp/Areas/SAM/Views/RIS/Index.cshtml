@@ -1,0 +1,133 @@
+﻿@model List<coreApp.Areas.SAM.tblRI>
+@{
+    ViewBag.Title = "Requisition and Issuance";
+
+    int Year = (int)ViewBag.Year;
+
+}
+
+@section Breadcrumbs {
+@Html.Partial("_Breadcrumbs", new List<Breadcrumb>()
+    {
+        new Breadcrumb { Description = "Supply/Asset Management", Link = Url.Action("Index", "Main", new { area = "SAM" }) },
+        new Breadcrumb { Description = ViewBag.Title }
+    })
+}
+
+@section Scripts {
+    <script>
+        function load(e) {
+
+            if (e.viewType == 'view') {
+
+                var printBtn = e.modal.find('.btn-print');
+                var printlink = printBtn.attr('data-link-tmp');
+
+                printBtn.unbind('click').bind('click', function (ee) {
+                    ee.preventDefault();
+
+                    modalPrint('@Module.Core.ModuleConstants.PRINT_OPTIONS', function (ret) {
+                        var dlWord = 'true';
+
+                        if (ret) {
+                            dlWord = 'false';
+                        }
+
+                        window.open(printlink + '?dlWord=' + dlWord, '_blank');
+                    });
+                });
+            }
+
+            return e;
+        }
+    </script>
+}
+
+<div class="row">
+    <div class="col-sm-12">
+        For the year:
+        @Html.Partial("~/Areas/Procurement/Views/Shared/yearInfo.cshtml", "/SAM/RIS/Index/{0}")
+        <br />
+    </div>
+</div>
+
+<div class="block">
+    <div class="head bg-default bg-light-ltr noradius">
+        <h2>@ViewBag.Title</h2>
+        <div class="side pull-right">
+            <ul class="buttons">
+                <li>
+                    <button class="btn btn-success btn-create" onclick="$.fn.list('modalCreate', this)">Create</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="content">
+        <table class="display table table-bordered table-striped table-list" cellspacing="0" width="100%"
+               modal-target="#modalView" modal-start="view" modal-load-callback="load"
+               modal-view-url="/SAM/RIS/Details/@Year/{0}" modal-edit-url="/SAM/RIS/Edit/@Year/{0}" modal-delete-url="/SAM/RIS/Delete/@Year" modal-create-url="/SAM/RIS/Create/@Year">
+            <thead>
+                <tr>
+                    <th>
+                        Date
+                    </th>
+                    <th>
+                        RIS No.
+                    </th>
+                    <th>
+                        Fund
+                    </th>
+                    <th>
+                        Employee
+                    </th>
+                    <th>
+                        Position
+                    </th>
+                    <th>
+                        Office
+                    </th>
+                    <th>
+                        Department
+                    </th>
+                    <th>
+                        Purpose
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (coreApp.Areas.SAM.tblRI item in Model)
+                {
+                    <tr record-id="@item.Id">
+                        <td>
+                            @Html.DisplayFor(modelItem => item.RequisitionDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item._RISNo)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Fund)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item._EmployeeName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item._Position)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item._Office)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item._Department)
+                        </td>
+                        <td>
+                            @Html.DisplayMultiLineFor(modelItem => item.Purpose)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+    </div>
+</div>
+
+@Html.Partial("~/Views/Shared/modals/_ModalView.cshtml", "modalView")

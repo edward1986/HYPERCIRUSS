@@ -1,0 +1,29 @@
+﻿@using coreApp.DAL
+@model string
+@{
+    TblPayrollDeduction deduction = (TblPayrollDeduction)ViewBag.deduction;
+
+    List<TblPayrollDeduction> deductions = (List<TblPayrollDeduction>)ViewBag.deductions;
+
+}
+
+<select onchange="itemSelected(this)">
+    @foreach (TblPayrollDeduction a in deductions)
+    {
+        <option value="@a.DeductionID" @(deduction.DeductionID == a.DeductionID ? "selected" : "")>@a.DeductionName.ToUpper()</option>
+    }
+</select>
+<div class="subtitle" style="padding-left: 15px;">
+    <span>Schedule: @deduction.Deduction_Schedule;</span>
+    
+    <span>Default Amount: @deduction.DefaultAmount;</span>
+    
+    <span>Default Share: @deduction.DefaultShare</span>
+</div>
+<br />
+
+<script>
+    function itemSelected(sel) {
+        window.location = '@Model' + $(sel).val();
+    }
+</script>

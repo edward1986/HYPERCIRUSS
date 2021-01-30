@@ -1,0 +1,47 @@
+﻿@model coreApp.DAL.tblEmployee_OtherInfo
+
+@{
+    Layout = "~/Areas/EmployeeModule/Views/Shared/_EmployeeDetailsLayout.cshtml";
+
+    ViewBag.Title = "Other Information";
+    ViewBag.Subtitle = "Details";
+
+    ViewBag.uiIsReadOnly = true;
+    ViewBag.uiIncludeId = false;
+
+    ViewBag.EmployeeDetailsActiveTab = "other-info";
+}
+
+@section Breadcrumbs {
+    @Html.Partial("_Breadcrumbs", new List<Breadcrumb>()
+    {
+        new Breadcrumb { Description = ViewBag.Title }
+    })
+}
+
+@section Scripts {
+    <script>
+        function load(e) { }
+
+    </script>
+}
+
+<div class="block block-drop-shadow details" modal-target="#modalViewDetails" modal-width="wide" modal-load-callback="load">
+    <div class="head bg-default bg-light-ltr">
+        <h2>Other Information</h2>
+        <div class="side pull-right">
+            <ul class="buttons">
+                @if (coreApp.Cache.Get().userAccess.HasPermission("EmployeeOtherInfo"))
+                {
+                    <li><a href="#" class="btn btn-primary btn-edit" data-url="@Url.Action("Edit")">Edit</a></li>
+                }     
+            </ul>
+        </div>
+
+    </div>
+    <div class="content">
+        @Html.Partial("~/Areas/HRModule/Views/EmployeeOtherInfo/_OtherInfo.cshtml", Model)
+    </div>
+</div>
+
+@Html.Partial("~/Views/Shared/modals/_ModalView_FromDetails.cshtml", "modalViewDetails")

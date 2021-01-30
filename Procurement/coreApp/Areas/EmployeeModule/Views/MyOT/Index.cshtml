@@ -1,0 +1,106 @@
+﻿@model List<Module.DB.tblEmployee_OT>
+@{ 
+    ViewBag.Title = "My Overtimes";
+    ViewBag.Subtitle = "";
+
+    Module.DB.tblEmployee employee = (Module.DB.tblEmployee)ViewBag.Employee;
+
+}
+
+@section Breadcrumbs {
+    @Html.Partial("_Breadcrumbs", new List<Breadcrumb>()
+    {
+        new Breadcrumb { Description = ViewBag.Title }
+    })
+}
+
+<div class="block">
+    <div class="head bg-default bg-light-ltr noradius">
+        <h2>@ViewBag.Title</h2>
+    </div>
+    <div class="content">
+        <table class="display table table-bordered table-striped table-list" cellspacing="0" width="100%">            
+            <thead>
+                <tr>
+                    <th class="idcol">
+                        Id
+                    </th>
+                    <th>
+                        Description
+                    </th>
+                    <th>
+                        Period
+                    </th>
+                    <th>
+                        Time
+                    </th>
+                    <th>
+                        Breaks
+                    </th>
+                    <th>
+                        Days
+                    </th>
+                    <th>
+                        Remarks
+                    </th>
+                    <th>
+                        Created/Approved By
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Module.DB.tblEmployee_OT item in Model)
+                {
+                    Module.DB.tblOTApplication application = item.GetApplication();
+
+                    <tr record-id="@item.Id" locked>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Id)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Description)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.InclusiveDays)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TimeString)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Breaks) Hours
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Days)
+                        </td>
+                        <td>
+                            @Html.DisplayMultiLineFor(modelItem => item.Remarks)
+                        </td>
+
+                        @if (application == null)
+                        {
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CreatedBy)
+                                <div class="small">
+                                    @item.CreateDate.ToShortDateString()
+                                </div>
+                            </td>
+                        }
+                        else
+                        {
+                            <td>
+                                @Html.DisplayFor(modelItem => application.ApprovedBy)
+                                <div class="small">
+                                    @application.ApproveDate.Value.ToShortDateString()
+                                </div>
+                            </td>
+                        }
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+    </div>
+</div>
+
+@Html.Partial("~/Views/Shared/modals/_ModalView.cshtml", "modalView")
+

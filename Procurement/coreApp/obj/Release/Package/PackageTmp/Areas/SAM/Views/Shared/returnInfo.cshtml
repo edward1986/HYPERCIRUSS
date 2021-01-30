@@ -1,0 +1,24 @@
+﻿@using coreApp.Areas.SAM
+@model string
+@{
+    tblARE are = (tblARE)ViewBag.ARE;
+
+    List<tblARE> ares = (List<tblARE>)ViewBag.AREs;
+
+}
+
+Return No.
+<select onchange="returnSelected(this)">
+    @foreach (tblARE o in ares)
+            {
+        <option value="@o.Id" @(are.Id == o.Id ? "selected" : "")>@o.RetNo | @o._From_Name @(o.FromContractor ? " (Contractor)" : "")</option>
+    }
+</select>
+
+<br />
+
+<script>
+    function returnSelected(sel) {
+        window.location = '@Model' + $(sel).val();
+    }
+</script>

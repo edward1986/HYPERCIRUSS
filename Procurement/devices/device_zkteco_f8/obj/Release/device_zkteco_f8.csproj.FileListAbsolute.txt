@@ -1,0 +1,12 @@
+C:\Users\User\Desktop\FOR SKY DELIVERABLES\SkyHR\devices\device_zkteco_f8\bin\Release\device_zkteco_f8.dll
+C:\Users\User\Desktop\FOR SKY DELIVERABLES\SkyHR\devices\device_zkteco_f8\bin\Release\device_zkteco_f8.pdb
+C:\Users\User\Desktop\FOR SKY DELIVERABLES\SkyHR\devices\device_zkteco_f8\bin\Release\device_core.dll
+C:\Users\User\Desktop\FOR SKY DELIVERABLES\SkyHR\devices\device_zkteco_f8\bin\Release\device_core.pdb
+C:\Users\User\Desktop\FOR SKY DELIVERABLES\SkyHR\devices\device_zkteco_f8\bin\Release\Interop.zkemkeeper.dll
+C:\Users\User\Desktop\FOR SKY DELIVERABLES\SkyHR\devices\device_zkteco_f8\obj\Release\device_zkteco_f8.csprojResolveAssemblyReference.cache
+C:\Users\User\Desktop\FOR SKY DELIVERABLES\SkyHR\devices\device_zkteco_f8\obj\Release\Interop.zkemkeeper.dll
+C:\Users\User\Desktop\FOR SKY DELIVERABLES\SkyHR\devices\device_zkteco_f8\obj\Release\device_zkteco_f8.csproj.ResolveComReference.cache
+C:\Users\User\Desktop\FOR SKY DELIVERABLES\SkyHR\devices\device_zkteco_f8\obj\Release\device_zkteco_f8.csproj.CoreCompileInputs.cache
+C:\Users\User\Desktop\FOR SKY DELIVERABLES\SkyHR\devices\device_zkteco_f8\obj\Release\device_zkteco_f8.dll
+C:\Users\User\Desktop\FOR SKY DELIVERABLES\SkyHR\devices\device_zkteco_f8\obj\Release\device_zkteco_f8.pdb
+C:\Users\User\Desktop\FOR SKY DELIVERABLES\SkyHR\devices\device_zkteco_f8\bin\Release\Aspose.Cells.dll

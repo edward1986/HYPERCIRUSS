@@ -1,0 +1,127 @@
+﻿@model coreApp.DAL.tblEmployee_Children
+
+@{    
+    bool isReadOnly = (bool)ViewBag.uiIsReadOnly;
+    bool includeId = (bool)ViewBag.uiIncludeId;
+    
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+
+    if (isReadOnly)
+            {
+                <div class="form-row">
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.ChildId)
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-control">
+                            @Html.DisplayFor(model => model.ChildId)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.Name)
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-control">
+                            @Html.DisplayFor(model => model.Name)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.DateOfBirth)
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-control">
+                            @Html.DisplayFor(model => model.DateOfBirth)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.Gender)
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-control">
+                            @Html.DisplayFor(model => model.Gender_Desc)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.OnSeparatePage)
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-control">
+                            @Html.DisplayBooleanFor(model => model.OnSeparatePage)
+                        </div>
+                    </div>
+                </div>
+
+    }
+    else
+    {
+        @Html.HiddenFor(model => model.ChildId)
+        @Html.HiddenFor(model => model.EmployeeId)
+
+        if (includeId)
+        {
+            <div class="form-row">
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.ChildId)
+                </div>
+                <div class="col-md-9">
+                    <div class="form-control dimmed">
+                        @Html.DisplayFor(model => model.ChildId)
+                    </div>
+                </div>
+            </div>
+        }
+
+        <div class="form-row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.Name)
+            </div>
+            <div class="col-md-9">
+                @Html.TextBoxFor(model => model.Name, new { @class = "form-control", maxlength = "100" })
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.DateOfBirth)
+            </div>
+            <div class="col-md-9">
+                @Html.TextBoxFor(model => model.DateOfBirth, "{0:MM/dd/yyyy}", new { @class = "form-control datepicker" })
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.Gender)
+            </div>
+            <div class="col-md-9">
+                @Html.DropDownListFor(model => model.Gender, coreApp.SelectItems.getGender(), new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.OnSeparatePage)
+            </div>
+            <div class="col-md-9">
+                @Html.Partial("_Helper_CheckBox", "OnSeparatePage", new ViewDataDictionary { { "value", Model.OnSeparatePage } })
+            </div>
+        </div>
+    }
+}

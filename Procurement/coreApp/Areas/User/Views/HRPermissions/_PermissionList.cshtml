@@ -1,0 +1,105 @@
+﻿@using Module.Core
+@model Module.DB._HRPermission
+
+@{
+    bool readOnly = Convert.ToBoolean(ViewData["ReadOnly"]);
+}
+
+
+<style>
+    .entry-ui ul {
+        list-style: none;
+    }
+</style>
+
+@if (readOnly)
+{
+    <ul>
+        @if (coreApp.coreProcs.hasPermission("EmployeeInfo", Model.Controllers))
+        {
+            <li>@ModuleConstants.HRPermissionModules["EmployeeInfo"].ToString()</li>
+        }
+        @if (coreApp.coreProcs.hasPermission("EmployeeEduc", Model.Controllers))
+        {
+            <li>@ModuleConstants.HRPermissionModules["EmployeeEduc"].ToString()</li>
+        }
+        @if (coreApp.coreProcs.hasPermission("EmployeeTrainings", Model.Controllers))
+        {
+            <li>@ModuleConstants.HRPermissionModules["EmployeeTrainings"].ToString()</li>
+        }
+        @if (coreApp.coreProcs.hasPermission("EmployeeWorkExps", Model.Controllers))
+        {
+            <li>@ModuleConstants.HRPermissionModules["EmployeeWorkExps"].ToString()</li>
+        }
+        @if (coreApp.coreProcs.hasPermission("EmployeeChildren", Model.Controllers))
+        {
+            <li>@ModuleConstants.HRPermissionModules["EmployeeChildren"].ToString()</li>
+        }
+        @if (coreApp.coreProcs.hasPermission("EmployeeCivilServices", Model.Controllers))
+        {
+            <li>@ModuleConstants.HRPermissionModules["EmployeeCivilServices"].ToString()</li>
+        }
+        @if (coreApp.coreProcs.hasPermission("EmployeePhotos_PDS", Model.Controllers))
+        {
+            <li>@ModuleConstants.HRPermissionModules["EmployeePhotos_PDS"].ToString()</li>
+        }
+        @if (coreApp.coreProcs.hasPermission("EmployeeReferences", Model.Controllers))
+        {
+            <li>@ModuleConstants.HRPermissionModules["EmployeeReferences"].ToString()</li>
+        }
+        @if (coreApp.coreProcs.hasPermission("EmployeeVoluntary", Model.Controllers))
+        {
+            <li>@ModuleConstants.HRPermissionModules["EmployeeVoluntary"].ToString()</li>
+        }
+        @if (coreApp.coreProcs.hasPermission("EmployeeOtherInfo", Model.Controllers))
+        {
+            <li>@ModuleConstants.HRPermissionModules["EmployeeOtherInfo"].ToString()</li>
+        }
+    </ul>
+}
+else
+{
+    @Html.HiddenFor(m => m.Id)
+
+    <div class="entry-ui select-all select-all-parent-inverse">
+        <ul>
+            <li>
+                @Html.Partial("_Helper_CheckBox", null, new ViewDataDictionary { { "value", !string.IsNullOrEmpty(Model.Controllers) }, { "text", "Select All" }, { "input-value", "SelectAll" } })
+
+                <ul>
+                    <li>
+                        @Html.Partial("_Helper_CheckBox", "Permissions", new ViewDataDictionary { { "value", coreApp.coreProcs.hasPermission("EmployeeInfo", Model.Controllers) }, { "text", @ModuleConstants.HRPermissionModules["EmployeeInfo"].ToString() }, { "input-value", "EmployeeInfo" } })
+                    </li>
+                    <li>
+                        @Html.Partial("_Helper_CheckBox", "Permissions", new ViewDataDictionary { { "value", coreApp.coreProcs.hasPermission("EmployeeEduc", Model.Controllers) }, { "text", @ModuleConstants.HRPermissionModules["EmployeeEduc"].ToString() }, { "input-value", "EmployeeEduc" } })
+                    </li>
+                    <li>
+                        @Html.Partial("_Helper_CheckBox", "Permissions", new ViewDataDictionary { { "value", coreApp.coreProcs.hasPermission("EmployeeTrainings", Model.Controllers) }, { "text", @ModuleConstants.HRPermissionModules["EmployeeTrainings"].ToString() }, { "input-value", "EmployeeTrainings" } })
+                    </li>
+                    <li>
+                        @Html.Partial("_Helper_CheckBox", "Permissions", new ViewDataDictionary { { "value", coreApp.coreProcs.hasPermission("EmployeeWorkExps", Model.Controllers) }, { "text", @ModuleConstants.HRPermissionModules["EmployeeWorkExps"].ToString() }, { "input-value", "EmployeeWorkExps" } })
+                    </li>
+                    <li>
+                        @Html.Partial("_Helper_CheckBox", "Permissions", new ViewDataDictionary { { "value", coreApp.coreProcs.hasPermission("EmployeeChildren", Model.Controllers) }, { "text", @ModuleConstants.HRPermissionModules["EmployeeChildren"].ToString() }, { "input-value", "EmployeeChildren" } })
+                    </li>
+                    <li>
+                        @Html.Partial("_Helper_CheckBox", "Permissions", new ViewDataDictionary { { "value", coreApp.coreProcs.hasPermission("EmployeeCivilServices", Model.Controllers) }, { "text", @ModuleConstants.HRPermissionModules["EmployeeCivilServices"].ToString() }, { "input-value", "EmployeeCivilServices" } })
+                    </li>
+                    <li>
+                        @Html.Partial("_Helper_CheckBox", "Permissions", new ViewDataDictionary { { "value", coreApp.coreProcs.hasPermission("EmployeePhotos_PDS", Model.Controllers) }, { "text", @ModuleConstants.HRPermissionModules["EmployeePhotos_PDS"].ToString() }, { "input-value", "EmployeePhotos_PDS" } })
+                    </li>
+                    <li>
+                        @Html.Partial("_Helper_CheckBox", "Permissions", new ViewDataDictionary { { "value", coreApp.coreProcs.hasPermission("EmployeeReferences", Model.Controllers) }, { "text", @ModuleConstants.HRPermissionModules["EmployeeReferences"].ToString() }, { "input-value", "EmployeeReferences" } })
+                    </li>
+                    <li>
+                        @Html.Partial("_Helper_CheckBox", "Permissions", new ViewDataDictionary { { "value", coreApp.coreProcs.hasPermission("EmployeeVoluntary", Model.Controllers) }, { "text", @ModuleConstants.HRPermissionModules["EmployeeVoluntary"].ToString() }, { "input-value", "EmployeeVoluntary" } })
+                    </li>
+                    <li>
+                        @Html.Partial("_Helper_CheckBox", "Permissions", new ViewDataDictionary { { "value", coreApp.coreProcs.hasPermission("EmployeeOtherInfo", Model.Controllers) }, { "text", @ModuleConstants.HRPermissionModules["EmployeeOtherInfo"].ToString() }, { "input-value", "EmployeeOtherInfo" } })
+                    </li>
+                </ul>
+
+            </li>
+        </ul>
+    </div>
+}

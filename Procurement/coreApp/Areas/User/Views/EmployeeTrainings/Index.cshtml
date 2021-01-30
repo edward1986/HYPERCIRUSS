@@ -1,0 +1,110 @@
+﻿@model List<coreApp.DAL.tblEmployee_Training>
+
+@{
+    Layout = "~/Areas/HRModule/Views/Shared/_EmployeeDetailsLayout.cshtml";
+
+    ViewBag.Title = "Trainings";
+    ViewBag.Subtitle = "List";
+
+    ViewBag.EmployeeDetailsActiveTab = "trainings";
+
+    Module.DB.tblEmployee employee = (Module.DB.tblEmployee)ViewBag.Employee;
+}
+
+@section Breadcrumbs {
+    @Html.Partial("_Breadcrumbs", new List<Breadcrumb>()
+    {
+        new Breadcrumb { Description = "Employee List", Link = Url.Action("Index", "Employees", new { area = "HRModule" }) },
+        new Breadcrumb { Description = "Employee Main Record", Link = Url.Action("Details", "Employees", new { id = employee.EmployeeId, area = "HRModule" } ) },
+        new Breadcrumb { Description = ViewBag.Title }
+    })
+}
+
+@section SearchSection {
+    @Html.Action("Search", "EmployeeSearch", new { model = new coreApp.Models.EmployeeSearchModel { DataUrl = "/HRModule/Employee/Trainings/Index/{0}", MinimalView = true } })
+}
+
+<div class="block">
+    <div class="head bg-default bg-light-ltr noradius">
+        <h2>@ViewBag.Title</h2>
+        <div class="side pull-right">
+            <ul class="buttons">
+                <li>
+                    <button class="btn btn-success btn-create" onclick="$.fn.list('modalCreate', this)">Create</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="content">
+        
+        <table class="display table table-bordered table-striped table-list" cellspacing="0" width="100%"
+               modal-target="#modalView" modal-start="view"
+               modal-view-url="/HRModule/Employee/Trainings/Details/@employee.EmployeeId/{0}" modal-edit-url="/HRModule/Employee/Trainings/Edit/@employee.EmployeeId/{0}" modal-delete-url="/HRModule/Employee/Trainings/Delete/@employee.EmployeeId" modal-create-url="/HRModule/Employee/Trainings/Create/@employee.EmployeeId">
+            <thead>
+                <tr>
+                    <th class="idcol">
+                        Id
+                    </th>
+                    <th>
+                        Title
+                    </th>
+                    <th>
+                        From
+                    </th>
+                    <th>
+                        To
+                    </th>
+
+                    <th>
+                        No. of Hours
+                    </th>
+                    <th>
+                        Type of LD
+                    </th>
+                    <th>
+                        Conducted By
+                    </th>
+                    <th>
+                        On Separate Page
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (coreApp.DAL.tblEmployee_Training item in Model)
+                {
+                    <tr record-id="@item.TrainingId">
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TrainingId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Title)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DateFrom)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DateTo)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NoOfHours)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Type_Desc)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ConductedBy)
+                        </td>
+                        <td>
+                            @Html.DisplayBooleanFor(modelItem => item.OnSeparatePage)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+    </div>
+</div>
+
+@Html.Partial("~/Views/Shared/modals/_ModalView.cshtml", "modalView")
+

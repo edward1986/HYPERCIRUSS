@@ -1,0 +1,96 @@
+﻿@model coreApp.Areas.Procurement.Models.SOFModel
+@using coreLib.Extensions
+@{
+    ViewBag.Title = "Received Funds";
+
+    int Year = (int)ViewBag.Year;
+}
+
+@section Styles{
+    <!-- data tables css -->
+
+    <link rel="stylesheet" href="~/assets/nextro/assets/css/plugins/dataTables.bootstrap4.min.css">
+    
+    <link href="~/Areas/Procurement/Assets/css/common.less" rel="stylesheet" type="text/css">
+}
+
+@section Breadcrumbs {
+
+    @Html.Partial("_Breadcrumbs", new List<Breadcrumb>()
+      {
+          new Breadcrumb { Description = "Source of funds" },
+          new Breadcrumb { Description = ViewBag.Title }
+      })
+
+}
+
+<div class="block">
+    <div class="card">
+        <div class="card-header">
+            <h5>@ViewBag.Title</h5>
+        </div>
+        <div class="card-body">
+            <div class="form-group row">
+                <div class="col-sm-3">
+                    <label class="col-form-label text-lg-right">For the year:</label>
+                    @Html.Partial("~/Areas/Procurement/Views/Shared/yearInfo.cshtml", "/Procurement/SOF/Index/{0}")
+                    <br />
+                  
+                </div>
+
+                <div class="col-sm-9" style="text-align:right">
+                    <table class="tblbalance">
+                        <tbody>
+                            <tr><td>Total Amount:</td><td>@Model.Total.ToCurrencyString()</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="dt-responsive table-responsive">
+                <table class="display table table-bordered table-striped table-list" cellspacing="0" width="100%"
+                       modal-target="#modalView" modal-start="edit" modal-no-cancel="true"
+                       modal-edit-url="/Procurement/SOF/Edit/@Year/{0}">
+                    <thead>
+                        <tr>
+                            <th>
+                                Fund
+                            </th>
+                            <th>
+                                Amount
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (coreApp.Areas.Procurement.Models.FundAllocationModel item in Model.Funds)
+                        {
+                            <tr record-id="@item.Fund.Id">
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Fund.Fund)
+                                </td>
+                                <td style="text-align:right">
+                                    @item.Amount.ToCurrencyString(blankIfZero: true)
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@Html.Partial("~/Views/Shared/modals/_ModalView.cshtml", "modalView")
+
+@section Scripts{
+    @*<script src="~/assets/nextro/assets/js/plugins/jquery.dataTables.min.js"></script>*@
+    <script src="~/assets/nextro/assets/js/plugins/dataTables.bootstrap4.min.js"></script>
+    <script src="~/assets/nextro/assets/js/plugins/bootstrap-select.min.js"></script>
+    <script>
+        $('.pc-selectpicker').selectpicker();
+        $(function () { });
+    </script>
+}
+
+

@@ -1,0 +1,67 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout_Anonymous.cshtml";
+
+    string msg = "";
+    bool hasMessage = Session["ApplicationErrorMessage"] != null;
+
+    if (hasMessage)
+    {
+        msg = Session["ApplicationErrorMessage"].ToString();
+        Session["ApplicationErrorMessage"] = null;
+    }
+
+    string backUrl = "";
+    bool hasBackUrl = Session["error_backurl"] != null;
+
+    if (hasBackUrl)
+    {
+        backUrl = Session["error_backurl"].ToString();
+        Session["error_backurl"] = null;
+    }
+}
+
+@*<div class="login-block" style="width:600px">
+    <div class="block block-transparent">
+
+        <div class="content controls npt">
+
+            <div class="alert alert-danger">
+                @if (hasMessage)
+                {
+                    @Html.DisplayMultiLine(msg)
+                }
+            </div>
+
+            @if (hasBackUrl)
+            {
+                <a href="@backUrl">Back</a>
+            }
+
+        </div>
+    </div>
+</div>*@
+
+<div class="auth-wrapper maintance">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="text-center">
+                    <img src="~/assets/nextro/assets/images/maintance/maintance.png" alt="" class="img-fluid">
+
+                    @if (hasMessage)
+                    {
+                        <h5 class="my-4 text-danger">  @Html.DisplayMultiLine(msg)</h5>
+                    }
+
+                    @if (hasBackUrl)
+                    {
+                        <form action="@backUrl">
+                            <button class="btn waves-effect waves-light btn-primary mb-4"><i class="feather icon-refresh-ccw mr-2"></i>Reload</button>
+                        </form>
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

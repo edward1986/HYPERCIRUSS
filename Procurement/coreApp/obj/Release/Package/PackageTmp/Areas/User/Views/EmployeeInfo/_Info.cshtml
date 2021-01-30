@@ -1,0 +1,904 @@
+﻿@model Module.DB.tblEmployee_Info
+
+@{    
+    bool isReadOnly = (bool)ViewBag.uiIsReadOnly;
+    bool includeId = (bool)ViewBag.uiIncludeId;
+
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    if (isReadOnly)
+    {
+        <div class="row">
+            <div class="col-sm-4">
+                <fieldset>
+                    <legend>Basic Information</legend>
+
+                    <div class="form-row">
+                        <div class="col-sm-4">
+                            @Html.LabelFor(model => model.DOB)
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="form-control">
+                                @Html.DisplayFor(model => model.DOB)
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="col-sm-4">
+                            @Html.LabelFor(model => model.Age)
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="form-control">
+                                @Html.DisplayFor(model => model.Age)
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="col-sm-4">
+                            @Html.LabelFor(model => model.Gender_Desc)
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="form-control">
+                                @Html.DisplayFor(model => model.Gender_Desc)
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="col-sm-4">
+                            @Html.LabelFor(model => model.CivilStatus_Desc)
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="form-control">
+                                @Html.DisplayFor(model => model.CivilStatus_Desc)
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="col-sm-4">
+                            @Html.LabelFor(model => model.Height)
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="form-control">
+                                @Html.DisplayFor(model => model.Height)
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="col-sm-4">
+                            @Html.LabelFor(model => model.Weight)
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="form-control">
+                                @Html.DisplayFor(model => model.Weight)
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="col-sm-4">
+                            @Html.LabelFor(model => model.BloodType)
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="form-control">
+                                @Html.DisplayFor(model => model.BloodType_Desc)
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            
+            </div>
+            
+            <div class="col-sm-4">
+                <fieldset class="clearfix">
+                    <legend>Place of Birth</legend>
+
+                    <div class="form-row">
+                        <div class="col-sm-4">
+                            @Html.LabelFor(model => model.POB)
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="form-control">
+                                @Html.DisplayFor(model => model.POB)
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="col-sm-4">
+                            @Html.LabelFor(model => model.Nationality)
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="form-control">
+                                @Html.DisplayFor(model => model.Nationality)
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="col-sm-4">
+                            @Html.LabelFor(model => model.Citizenship_Dual)
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="form-control">
+                                @Html.DisplayBooleanFor(model => model.Citizenship_Dual)
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="col-sm-4">
+                            @Html.LabelFor(model => model.Citizenship_ByBirth)
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="form-control">
+                                @Html.DisplayBooleanFor(model => model.Citizenship_ByBirth)
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="col-sm-4">
+                            @Html.LabelFor(model => model.Citizenship_ByNaturalization)
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="form-control">
+                                @Html.DisplayBooleanFor(model => model.Citizenship_ByNaturalization)
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="col-sm-4">
+                            @Html.LabelFor(model => model.Citizenship_Details)
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="form-control">
+                                @Html.DisplayMultiLineFor(model => model.Citizenship_Details)
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+
+            </div>
+
+            <div class="col-sm-4">
+                <fieldset class="clearfix">
+                    <legend>Address</legend>
+
+                    <div class="form-row">
+                        <div class="col-sm-4">
+                            @Html.LabelFor(model => model.Home)
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="form-control">
+                                @Html.DisplayFor(model => model.Home)
+                            </div>
+                        </div>
+                    </div>
+                
+                    <div class="form-row">
+                        <div class="col-sm-4">
+                            @Html.LabelFor(model => model.Permanent)
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="form-control">
+                                @Html.DisplayFor(model => model.Permanent)
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <br />
+                <fieldset class="clearfix">
+                    <legend>Contact Information</legend>
+
+                    <div class="form-row">
+                        <div class="col-sm-4">
+                            @Html.LabelFor(model => model.Home_TelephoneNo)
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="form-control">
+                                @Html.DisplayFor(model => model.Home_TelephoneNo)
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="col-sm-4">
+                            @Html.LabelFor(model => model.MobileNo)
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="form-control">
+                                @Html.DisplayFor(model => model.MobileNo)
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+
+        </div>
+
+        <br />
+
+        <div class="row">
+            <div class="col-sm-4">
+
+                <fieldset>
+                    <legend>Taxes/Insurance</legend>
+
+                    <div class="form-row">
+                        <div class="col-sm-4">
+                            @Html.LabelFor(model => model.BIRStatus)
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="form-control">
+                                @Html.DisplayFor(model => model.BIRStatus)
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="col-sm-4">
+                            @Html.LabelFor(model => model.TIN)
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="form-control">
+                                @Html.DisplayFor(model => model.TIN)
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="col-sm-4">
+                            @Html.LabelFor(model => model.SSS)
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="form-control">
+                                @Html.DisplayFor(model => model.SSS)
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="col-sm-4">
+                            @Html.LabelFor(model => model.GSIS)
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="form-control">
+                                @Html.DisplayFor(model => model.GSIS)
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="col-sm-4">
+                            @Html.LabelFor(model => model.PHILHEALTH)
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="form-control">
+                                @Html.DisplayFor(model => model.PHILHEALTH)
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="col-sm-4">
+                            @Html.LabelFor(model => model.PAGIBIG)
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="form-control">
+                                @Html.DisplayFor(model => model.PAGIBIG)
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <br />
+
+                <fieldset>
+                    <legend>Government Issued ID</legend>
+
+                    <div class="form-row">
+                        <div class="col-sm-4">
+                            @Html.LabelFor(model => model.PDS_GovIssuedId)
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="form-control">
+                                @Html.DisplayFor(model => model.PDS_GovIssuedId)
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="col-sm-4">
+                            @Html.LabelFor(model => model.PDS_IDLIcensePPNo)
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="form-control">
+                                @Html.DisplayFor(model => model.PDS_IDLIcensePPNo)
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="col-sm-4">
+                            @Html.LabelFor(model => model.PDS_DateOfIssuance)
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="form-control">
+                                @Html.DisplayFor(model => model.PDS_DateOfIssuance)
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="col-sm-4">
+                            @Html.LabelFor(model => model.PDS_PlaceOfIssuance)
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="form-control">
+                                @Html.DisplayFor(model => model.PDS_PlaceOfIssuance)
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+
+            <div class="col-sm-4">
+                <fieldset>
+                    <legend>Spouse</legend>
+
+                    <div class="form-row">
+                        <div class="col-sm-4">
+                            @Html.LabelFor(model => model.Spouse)
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="form-control">
+                                @Html.DisplayFor(model => model.Spouse)
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="col-sm-4">
+                            @Html.LabelFor(model => model.Spouse_Occupation)
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="form-control">
+                                @Html.DisplayFor(model => model.Spouse_Occupation)
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="col-sm-4">
+                            @Html.LabelFor(model => model.Spouse_Employer)
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="form-control">
+                                @Html.DisplayFor(model => model.Spouse_Employer)
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="col-sm-4">
+                            @Html.LabelFor(model => model.Spouse_Employer_TelephoneNo)
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="form-control">
+                                @Html.DisplayFor(model => model.Spouse_Employer_TelephoneNo)
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+
+            <div class="col-sm-4">
+                <fieldset>
+                    <legend>Parents</legend>
+
+                    <div class="form-row">
+                        <div class="col-sm-4">
+                            @Html.LabelFor(model => model.Father)
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="form-control">
+                                @Html.DisplayFor(model => model.Father)
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="col-sm-4">
+                            @Html.LabelFor(model => model.Mother)
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="form-control">
+                                @Html.DisplayFor(model => model.Mother)
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+    }
+    else
+    {
+        @Html.HiddenFor(model => model.InfoId)
+        @Html.HiddenFor(model => model.EmployeeId)
+
+        <div class="scroll" data-scroll-reltowinheight>
+
+            <div class="row">
+                <div class="col-sm-4">
+                    <fieldset>
+                        <legend>Basic Information</legend>
+
+                        <div class="form-row">
+                            <div class="col-sm-4">
+                                @Html.LabelFor(model => model.DOB)
+                            </div>
+                            <div class="col-sm-8">
+                                @Html.TextBoxFor(model => model.DOB, "{0:MM/dd/yyyy}", new { @class = "form-control datepicker" })
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-sm-4">
+                                @Html.LabelFor(model => model.Gender_Desc)
+                            </div>
+                            <div class="col-sm-8">
+                                @Html.DropDownListFor(m => m.Gender, coreApp.SelectItems.getGender(), new { @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-sm-4">
+                                @Html.LabelFor(model => model.CivilStatus_Desc)
+                            </div>
+                            <div class="col-sm-8">
+                                @Html.DropDownListFor(m => m.CivilStatus, coreApp.SelectItems.getCivilStatus(), new { @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-sm-4">
+                                @Html.LabelFor(model => model.Height)
+                            </div>
+                            <div class="col-sm-8">
+                                @Html.TextBoxFor(m => m.Height, new { @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-sm-4">
+                                @Html.LabelFor(model => model.Weight)
+                            </div>
+                            <div class="col-sm-8">
+                                @Html.TextBoxFor(m => m.Weight, new { @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-sm-4">
+                                @Html.LabelFor(model => model.BloodType)
+                            </div>
+                            <div class="col-sm-8">
+                                @Html.DropDownListFor(m => m.BloodType, coreApp.SelectItems.getBloodType(), new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+
+                <div class="col-sm-4">
+                    <fieldset class="clearfix">
+                        <legend>Place of Birth</legend>
+
+                        <div class="form-row">
+                            <div class="col-sm-4">
+                                @Html.LabelFor(model => model.POB_Address)
+                            </div>
+                            <div class="col-sm-8">
+                                @Html.TextBoxFor(m => m.POB_Address, new { @class = "form-control", maxlength = "200" })
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-sm-4">
+                                @Html.LabelFor(model => model.POB_CountryId)
+                            </div>
+                            <div class="col-sm-8">
+                                @Html.DropDownListFor(m => m.POB_CountryId, coreApp.SelectItems.getCountries(), new { @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-sm-4">
+                                @Html.LabelFor(model => model.POB_PostalCode)
+                            </div>
+                            <div class="col-sm-8">
+                                @Html.TextBoxFor(m => m.POB_PostalCode, new { @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-sm-4">
+                                @Html.LabelFor(model => model.Nationality)
+                            </div>
+                            <div class="col-sm-8">
+                                @Html.DropDownListFor(m => m.Nationality_CountryId, coreApp.SelectItems.getNationalities(), new { @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-md-4">
+                                @Html.LabelFor(model => model.Citizenship_Dual)
+                            </div>
+                            <div class="col-md-8">
+                                @Html.Partial("_Helper_CheckBox", "Citizenship_Dual", new ViewDataDictionary { { "value", Model.Citizenship_Dual } })
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-md-4">
+                                @Html.LabelFor(model => model.Citizenship_ByBirth)
+                            </div>
+                            <div class="col-md-8">
+                                @Html.Partial("_Helper_CheckBox", "Citizenship_ByBirth", new ViewDataDictionary { { "value", Model.Citizenship_ByBirth } })
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-md-4">
+                                @Html.LabelFor(model => model.Citizenship_ByNaturalization)
+                            </div>
+                            <div class="col-md-8">
+                                @Html.Partial("_Helper_CheckBox", "Citizenship_ByNaturalization", new ViewDataDictionary { { "value", Model.Citizenship_ByNaturalization } })
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-sm-4">
+                                @Html.LabelFor(model => model.Citizenship_Details)
+                            </div>
+                            <div class="col-sm-8">
+                                @Html.TextAreaFor(m => m.Citizenship_Details, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </fieldset>
+
+                </div>
+
+                <div class="col-sm-4">
+                    <fieldset class="clearfix">
+                        <legend>Home Address</legend>
+
+                        <div class="form-row">
+                            <div class="col-sm-4">
+                                @Html.LabelFor(model => model.Home_Address)
+                            </div>
+                            <div class="col-sm-8">
+                                @Html.TextBoxFor(m => m.Home_Address, new { @class = "form-control", maxlength = "200" })
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-sm-4">
+                                @Html.LabelFor(model => model.Home_CountryId)
+                            </div>
+                            <div class="col-sm-8">
+                                @Html.DropDownListFor(m => m.Home_CountryId, coreApp.SelectItems.getCountries(), new { @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-sm-4">
+                                @Html.LabelFor(model => model.Home_PostalCode)
+                            </div>
+                            <div class="col-sm-8">
+                                @Html.TextBoxFor(m => m.Home_PostalCode, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <br />
+                    <fieldset class="clearfix">
+                        <legend>Permanent Address</legend>
+
+                        <div class="form-row">
+                            <div class="col-sm-4">
+                                @Html.LabelFor(model => model.Perm_Address)
+                            </div>
+                            <div class="col-sm-8">
+                                @Html.TextBoxFor(m => m.Perm_Address, new { @class = "form-control", maxlength = "200" })
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-sm-4">
+                                @Html.LabelFor(model => model.Perm_CountryId)
+                            </div>
+                            <div class="col-sm-8">
+                                @Html.DropDownListFor(m => m.Perm_CountryId, coreApp.SelectItems.getCountries(), new { @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-sm-4">
+                                @Html.LabelFor(model => model.Perm_PostalCode)
+                            </div>
+                            <div class="col-sm-8">
+                                @Html.TextBoxFor(m => m.Perm_PostalCode, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <br />
+                    <fieldset class="clearfix">
+                        <legend>Contact Information</legend>
+
+                        <div class="form-row">
+                            <div class="col-sm-4">
+                                @Html.LabelFor(model => model.Home_TelephoneNo)
+                            </div>
+                            <div class="col-sm-8">
+                                @Html.TextBoxFor(m => m.Home_TelephoneNo, new { @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-sm-4">
+                                @Html.LabelFor(model => model.MobileNo)
+                            </div>
+                            <div class="col-sm-8">
+                                @Html.TextBoxFor(m => m.MobileNo, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+
+            </div>
+
+            <br />
+
+            <div class="row">
+                <div class="col-sm-4">
+                    <fieldset>
+                        <legend>Taxes/Insurance</legend>
+
+                        <div class="form-row">
+                            <div class="col-sm-4">
+                                @Html.LabelFor(model => model.BIRStatus)
+                            </div>
+                            <div class="col-sm-8">
+                                @Html.DropDownListFor(m => m.BIRStatus, coreApp.SelectItems.getBIRStatus(), new { @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-sm-4">
+                                @Html.LabelFor(model => model.TIN)
+                            </div>
+                            <div class="col-sm-8">
+                                @Html.TextBoxFor(m => m.TIN, new { @class = "form-control masked-input", data_mask = "999-999-999", placeholder = "000-000-000" })
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-sm-4">
+                                @Html.LabelFor(model => model.SSS)
+                            </div>
+                            <div class="col-sm-8">
+                                @Html.TextBoxFor(m => m.SSS, new { @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-sm-4">
+                                @Html.LabelFor(model => model.GSIS)
+                            </div>
+                            <div class="col-sm-8">
+                                @Html.TextBoxFor(m => m.GSIS, new { @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-sm-4">
+                                @Html.LabelFor(model => model.PHILHEALTH)
+                            </div>
+                            <div class="col-sm-8">
+                                @Html.TextBoxFor(m => m.PHILHEALTH, new { @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-sm-4">
+                                @Html.LabelFor(model => model.PAGIBIG)
+                            </div>
+                            <div class="col-sm-8">
+                                @Html.TextBoxFor(m => m.PAGIBIG, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <br />
+                    <fieldset class="clearfix">
+                        <legend>Government Issued ID</legend>
+
+                        <div class="form-row">
+                            <div class="col-sm-4">
+                                @Html.LabelFor(model => model.PDS_GovIssuedId)
+                            </div>
+                            <div class="col-sm-8">
+                                @Html.TextBoxFor(m => m.PDS_GovIssuedId, new { @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-sm-4">
+                                @Html.LabelFor(model => model.PDS_IDLIcensePPNo)
+                            </div>
+                            <div class="col-sm-8">
+                                @Html.TextBoxFor(m => m.PDS_IDLIcensePPNo, new { @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-sm-4">
+                                @Html.LabelFor(model => model.PDS_DateOfIssuance)
+                            </div>
+                            <div class="col-sm-8">
+                                @Html.TextBoxFor(m => m.PDS_DateOfIssuance, new { @class = "form-control datepicker" })
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-sm-4">
+                                @Html.LabelFor(model => model.PDS_PlaceOfIssuance)
+                            </div>
+                            <div class="col-sm-8">
+                                @Html.TextBoxFor(m => m.PDS_PlaceOfIssuance, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+
+                <div class="col-sm-4">
+                    <fieldset>
+                        <legend>Spouse</legend>
+
+                        <div class="form-row">
+                            <div class="col-sm-4">
+                                @Html.LabelFor(model => model.Spouse_LastName)
+                            </div>
+                            <div class="col-sm-8">
+                                @Html.TextBoxFor(m => m.Spouse_LastName, new { @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-sm-4">
+                                @Html.LabelFor(model => model.Spouse_FirstName)
+                            </div>
+                            <div class="col-sm-8">
+                                @Html.TextBoxFor(m => m.Spouse_FirstName, new { @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-sm-4">
+                                @Html.LabelFor(model => model.Spouse_MiddleName)
+                            </div>
+                            <div class="col-sm-8">
+                                @Html.TextBoxFor(m => m.Spouse_MiddleName, new { @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-sm-4">
+                                @Html.LabelFor(model => model.Spouse_Occupation)
+                            </div>
+                            <div class="col-sm-8">
+                                @Html.TextBoxFor(m => m.Spouse_Occupation, new { @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-sm-4">
+                                @Html.LabelFor(model => model.Spouse_Employer)
+                            </div>
+                            <div class="col-sm-8">
+                                @Html.TextBoxFor(m => m.Spouse_Employer, new { @class = "form-control", maxlength = "100" })
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-sm-4">
+                                @Html.LabelFor(model => model.Spouse_Employer_TelephoneNo)
+                            </div>
+                            <div class="col-sm-8">
+                                @Html.TextBoxFor(m => m.Spouse_Employer_TelephoneNo, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+
+                <div class="col-sm-4">
+                    <fieldset>
+                        <legend>Father</legend>
+
+                        <div class="form-row">
+                            <div class="col-sm-4">
+                                @Html.LabelFor(model => model.Father_LastName)
+                            </div>
+                            <div class="col-sm-8">
+                                @Html.TextBoxFor(m => m.Father_LastName, new { @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-sm-4">
+                                @Html.LabelFor(model => model.Father_FirstName)
+                            </div>
+                            <div class="col-sm-8">
+                                @Html.TextBoxFor(m => m.Father_FirstName, new { @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-sm-4">
+                                @Html.LabelFor(model => model.Father_MiddleName)
+                            </div>
+                            <div class="col-sm-8">
+                                @Html.TextBoxFor(m => m.Father_MiddleName, new { @class = "form-control" })
+                            </div>
+                        </div>
+
+                    </fieldset>
+
+                    <fieldset>
+                        <legend>Mother</legend>
+
+
+                        <div class="form-row">
+                            <div class="col-sm-4">
+                                @Html.LabelFor(model => model.Mother_LastName)
+                            </div>
+                            <div class="col-sm-8">
+                                @Html.TextBoxFor(m => m.Mother_LastName, new { @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-sm-4">
+                                @Html.LabelFor(model => model.Mother_FirstName)
+                            </div>
+                            <div class="col-sm-8">
+                                @Html.TextBoxFor(m => m.Mother_FirstName, new { @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-sm-4">
+                                @Html.LabelFor(model => model.Mother_MiddleName)
+                            </div>
+                            <div class="col-sm-8">
+                                @Html.TextBoxFor(m => m.Mother_MiddleName, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+        </div>
+            }
+}

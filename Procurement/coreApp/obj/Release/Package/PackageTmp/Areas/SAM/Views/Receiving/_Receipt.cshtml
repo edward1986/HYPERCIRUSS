@@ -1,0 +1,281 @@
+﻿@model coreApp.Areas.SAM.tblReceipt
+
+@{    
+    bool isReadOnly = (bool)ViewBag.uiIsReadOnly;
+    bool includeId = (bool)ViewBag.uiIncludeId;
+    
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.HasBeenSubmitted)
+
+    if (isReadOnly)
+    {
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="form-row">
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.Id)
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-control">
+                            @Html.DisplayFor(model => model.Id)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col-md-3">
+                        P.O. No.
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-control">
+                            @Html.DisplayFor(model => model._PONo)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.InvoiceNo)
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-control">
+                            @Html.DisplayFor(model => model.InvoiceNo)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.InvoiceDate)
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-control">
+                            @Html.DisplayFor(model => model.InvoiceDate)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.DRNo)
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-control">
+                            @Html.DisplayFor(model => model.DRNo)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.ReceivedDate)
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-control">
+                            @Html.DisplayFor(model => model.ReceivedDate)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.ReceivedBy_UserId)
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-control">
+                            @Html.DisplayFor(model => model.ReceivedBy)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.Office_Department)
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-control">
+                            @Html.DisplayFor(model => model.Office_Department)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.FundCluster)
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-control">
+                            @Html.DisplayFor(model => model.FundCluster)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.Delivery)
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-control">
+                            @Html.DisplayFor(model => model.Delivery)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.Status)
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-control">
+                            @Html.DisplayFor(model => model.Status_Desc)
+                            @if (Model.IsReturned)
+                            {
+                                <div class="small">
+                                    &quot;@Model.ReturnMessage&quot;
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+                
+    }
+    else
+    {
+        List<SelectListItem> offices = SelectItems.getOffices();
+        List<Module.DB.tblDepartment> departments = coreApp.Cache.Get_Tables().Departments.Where(x => offices.Any(y => y.Value == x.OfficeId.ToString())).ToList();
+
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="row">
+            <div class="col-sm-12">
+                @if (includeId)
+                {
+                    <div class="form-row">
+                        <div class="col-md-3">
+                            @Html.LabelFor(model => model.Id)
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-control dimmed">
+                                @Html.DisplayFor(model => model.Id)
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="col-md-3">
+                            P.O. No.
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-control dimmed">
+                                @Html.DisplayFor(model => model._PONo)
+                                @Html.HiddenFor(model => model._PONo)
+                                @Html.HiddenFor(model => model.POId)
+                            </div>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="form-row">
+                        <div class="col-md-3">
+                            P.O. No.
+                        </div>
+                        <div class="col-md-9">
+                            @Html.TextBox("SearchPONo", "", new { @class = "form-control" })
+                        </div>
+                    </div>
+                }
+
+                <div class="form-row">
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.ReceivedDate)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(model => model.ReceivedDate, "{0:MM/dd/yyyy}", new { @class = "form-control datepicker" })
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.InvoiceNo)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(model => model.InvoiceNo, new { @class = "form-control" })
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.InvoiceDate)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(model => model.InvoiceDate, "{0:MM/dd/yyyy}", new { @class = "form-control datepicker" })
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.DRNo)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(model => model.DRNo, new { @class = "form-control" })
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col-md-3">
+                        Office
+                    </div>
+                    <div class="col-md-9">
+                        <select id="OfficeId" name="OfficeId" class="form-control" data-department="#DepartmentId" data-department-value="@Model.DepartmentId">
+                            @foreach (var item in offices)
+                                    {
+                                        if (Model._OfficeId == null)
+                                        {
+                                    <option value="@item.Value">@item.Text</option>
+                                }
+                                else
+                                {
+                                    <option value="@item.Value" @(item.Value == Model._OfficeId.ToString() ? "selected" : "")>@item.Text</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col-md-3">
+                        Department
+                    </div>
+                    <div class="col-md-9">
+                        <select id="DepartmentId" name="DepartmentId" class="form-control">
+                            <option value="-1" data-officeid="-1"></option>
+                            @foreach (var item in departments)
+                                    {
+                                <option value="@item.DepartmentId" data-officeid="@item.OfficeId" @(item.DepartmentId == Model.DepartmentId ? "selected" : "")>@item.Department</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.FundCluster)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(model => model.FundCluster, new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        
+       
+    }
+}

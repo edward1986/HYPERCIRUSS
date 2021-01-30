@@ -1,0 +1,35 @@
+﻿<div class="modal" id="modalProcessing" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <img src="~/Assets/images/loading.gif" alt="" />
+                <h6 class="modal-title"></h6>
+            </div>
+            
+        </div>
+    </div>
+</div>    
+
+<script>
+    function modalProcessing(msg, title) {
+        var ret = false;
+
+        if (title == null) title = 'Processing...';
+        if (msg == null) msg = 'Please wait...';
+
+        var modal = $('#modalProcessing').clone();
+
+        modal.find('.modal-title').html(title);
+        modal.find('.modal-body label').html(msg);
+        
+        modal
+            .modal({
+                backdrop: 'static',
+                show: true,
+                keyboard: false
+            });
+
+        return modal;
+    }
+
+</script>

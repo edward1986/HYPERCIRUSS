@@ -1,0 +1,20 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+@section Breadcrumbs {
+    @Html.Partial("_Breadcrumbs")
+}
+
+
+@*@section Scripts {
+    <script type='text/javascript' src='~/Assets/js/widgets/eas.js'></script>
+    <script type='text/javascript' src='~/Assets/js/widgets/dam.js'></script>
+
+   
+}*@
+
+@if (coreApp.Cache.Get().userAccess.IsEmployee)
+{
+    @Html.Partial("_Dashboard")
+}

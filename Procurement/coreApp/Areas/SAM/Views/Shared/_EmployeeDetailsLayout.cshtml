@@ -1,0 +1,48 @@
+﻿@{
+    Layout = "~/Views/Shared/_ModuleLayout.cshtml";
+
+    Module.DB.tblEmployee employee = (Module.DB.tblEmployee)ViewBag.Employee;
+
+
+}
+@section Styles {
+    <style>
+        .btn-group a {
+            border-radius: initial;
+        }
+    </style>
+    @RenderSection("Styles", false)
+}
+
+@section HeaderScripts {
+    @RenderSection("HeaderScripts", required: false)
+}
+
+@section Breadcrumbs {
+    @RenderSection("Breadcrumbs", required: false)
+}
+
+@section Scripts {
+    @RenderSection("Scripts", required: false)
+}
+
+
+
+<div class="block">
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Search Employees</h5>
+                </div>
+                <div class="card-body">
+                    @RenderSection("SearchSection", true)
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-9">
+            @RenderBody()
+        </div>
+    </div>
+</div>
+

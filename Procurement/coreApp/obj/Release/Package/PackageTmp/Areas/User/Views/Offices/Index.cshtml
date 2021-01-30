@@ -1,0 +1,81 @@
+﻿@model List<Module.DB.tblOffice>
+
+@{
+    ViewBag.Title = "Offices";
+    ViewBag.Subtitle = "List";
+
+    Module.DB.tblCampus campus = (Module.DB.tblCampus)ViewBag.Campus;
+
+}
+
+@section Breadcrumbs {
+    @Html.Partial("_Breadcrumbs", new List<Breadcrumb>() {
+        new Breadcrumb { Description = "Campuses", Link = "/HRModule/Campus" },
+        new Breadcrumb { Description = ViewBag.Title }
+    })
+}
+
+@Html.Partial("~/Views/Shared/info/campusInfo.cshtml", "/HRModule/Offices/Index/")
+
+<div class="block">
+    <div class="head bg-default bg-light-ltr noradius">
+        <h2>@ViewBag.Title</h2>
+        <div class="side pull-right">
+            <ul class="buttons">
+                <li>
+                    <button class="btn btn-success btn-create" onclick="$.fn.list('modalCreate', this)">Create</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="content">
+
+        <table class="display table table-bordered table-striped table-list" cellspacing="0" width="100%"
+               modal-target="#modalView" modal-start="view"
+               modal-view-url="/HRModule/Offices/Details/@campus.CampusID/{0}" modal-edit-url="/HRModule/Offices/Edit/@campus.CampusID/{0}" modal-delete-url="/HRModule/Offices/Delete/@campus.CampusID" modal-create-url="/HRModule/Offices/Create/@campus.CampusID">
+            <thead>
+                <tr>
+                    <th class="idcol">
+                        Id
+                    </th>
+                    <th>
+                        Office
+                    </th>
+                    <th>
+                        Contact Number
+                    </th>
+                    <th>
+                        Responsibility Center Code
+                    </th>
+                    <th>
+                        DTR Signatory
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Module.DB.tblOffice item in Model)
+                {
+                    <tr record-id="@item.OfficeId">
+                        <td>
+                            @Html.DisplayFor(modelItem => item.OfficeId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Office)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TelephoneNo)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.RCC)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Signatory)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@Html.Partial("~/Views/Shared/modals/_ModalView.cshtml", "modalView")

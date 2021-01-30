@@ -1,0 +1,319 @@
+﻿@model coreApp.DAL.tblPayrollSummary_Employee
+
+@{    
+    bool isReadOnly = (bool)ViewBag.uiIsReadOnly;
+    bool includeId = (bool)ViewBag.uiIncludeId;
+
+    //int psUseRates = 0;
+    //if (ViewBag.uiPSUseRates != null)
+    //{
+    //    psUseRates = (int)ViewBag.uiPSUseRates;
+    //}
+
+    coreApp.DAL.tblPayrollSummary ps = (coreApp.DAL.tblPayrollSummary)ViewBag.PS;
+
+
+    List<Module.Leave.LeaveChargesModel> LeaveCharges = new List<Module.Leave.LeaveChargesModel>();
+    if (!string.IsNullOrEmpty(Model._leaveCharges))
+    {
+        LeaveCharges = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Module.Leave.LeaveChargesModel>>(Model._leaveCharges);
+    }
+
+    bool IsSalary = ps.PayrollType == (int)coreApp.Enums.PayrollType.Salary;
+
+}
+
+@Html.Hidden("PS_Status", ps.Status)
+@Html.HiddenFor(x => x._HasBreakLogs)
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+            if (isReadOnly)
+            {
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-row">
+                            <div class="col-md-4">
+                                @Html.LabelFor(model => model.PSEmployeeId)
+                            </div>
+                            <div class="col-md-8">
+                                <div class="form-control">
+                                    @Html.DisplayFor(model => model.PSEmployeeId)
+                                </div>
+                            </div>
+                        </div>
+
+                        @if (IsSalary)
+                        {
+                            <div class="form-row">
+                                <div class="col-md-4">
+                                    @Html.LabelFor(model => model.BIRStatus)
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="form-control">
+                                        @Html.DisplayFor(model => model.BIRStatus)
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        
+                        <div class="form-row">
+                            <div class="col-md-4">
+                                @Html.LabelFor(model => model.Rate)
+                            </div>
+                            <div class="col-md-8">
+                                <div class="form-control">
+                                    @Html.DisplayFor(model => model.Rate)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    @if (IsSalary)
+                    {
+                    <div class="col-sm-4">
+                        <div class="form-row">
+                            <div class="col-md-4">
+                                @Html.LabelFor(model => model._TotalWorkingDays)
+                            </div>
+                            <div class="col-md-8">
+                                <div class="form-control">
+                                    @Html.DisplayFor(model => model._TotalWorkingDays)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-4">
+                                @Html.LabelFor(model => model._TotalHolidaysReg)
+                            </div>
+                            <div class="col-md-8">
+                                <div class="form-control">
+                                    @Html.DisplayFor(model => model._TotalHolidaysReg)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-4">
+                                @Html.LabelFor(model => model._TotalHolidaysSpl)
+                            </div>
+                            <div class="col-md-8">
+                                <div class="form-control">
+                                    @Html.DisplayFor(model => model._TotalHolidaysSpl)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-4">
+                                @Html.LabelFor(model => model._TotalHoursWorked)
+                            </div>
+                            <div class="col-md-8">
+                                <div class="form-control">
+                                    @Html.DisplayFor(model => model._TotalHoursWorked)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-4">
+                                @Html.LabelFor(model => model._TotalHoursLate)
+                            </div>
+                            <div class="col-md-8">
+                                <div class="form-control">
+                                    @Html.DisplayFor(model => model._TotalHoursLate)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-4">
+                                @Html.LabelFor(model => model._TotalHoursUndertime)
+                            </div>
+                            <div class="col-md-8">
+                                <div class="form-control">
+                                    @Html.DisplayFor(model => model._TotalHoursUndertime)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-4">
+                                @Html.LabelFor(model => model._TotalLateTolerance)
+                            </div>
+                            <div class="col-md-8">
+                                <div class="form-control">
+                                    @Html.DisplayFor(model => model._TotalLateTolerance)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-4">
+                                @Html.LabelFor(model => model._TotalFlexiTime)
+                            </div>
+                            <div class="col-md-8">
+                                <div class="form-control">
+                                    @Html.DisplayFor(model => model._TotalFlexiTime)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row @(Model._HasBreakLogs ? "hasbreaklogs" : "")" title="@(Model._HasBreakLogs ? "Has break logs. Please update hours on-break" : "")">
+                            <div class="col-md-4">
+                                @Html.LabelFor(model => model._TotalHoursOnBreak)
+                            </div>
+                            <div class="col-md-8">
+                                <div class="form-control">
+                                    @Html.DisplayFor(model => model._TotalHoursOnBreak)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-4">
+                                @Html.LabelFor(model => model._NoOfDaysAbsent)
+                            </div>
+                            <div class="col-md-8">
+                                <div class="form-control">
+                                    @Html.DisplayFor(model => model._NoOfDaysAbsent)
+                                </div>
+                            </div>
+                        </div>
+                    </div>                    
+                    <div class="col-sm-4">                        
+                        @foreach (Module.Leave.LeaveChargesModel leaveCharge in LeaveCharges)
+                        {
+                            <div class="form-row">
+                                <div class="col-md-4">
+                                    @leaveCharge.leaveType.Description
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="form-control">
+                                        @leaveCharge.charge.ToString("#,##0.#")
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        
+                        <div class="form-row">
+                            <div class="col-md-4">
+                                @Html.LabelFor(model => model.OT_Eq)
+                            </div>
+                            <div class="col-md-8">
+                                <div class="form-control">
+                                    @Html.DisplayFor(model => model.OT_Eq)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-4">
+                                @Html.LabelFor(model => model.NP)
+                            </div>
+                            <div class="col-md-8">
+                                <div class="form-control">
+                                    @Html.DisplayFor(model => model.NP)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-4">
+                                @Html.LabelFor(model => model.NP_Eq)
+                            </div>
+                            <div class="col-md-8">
+                                <div class="form-control">
+                                    @Html.DisplayFor(model => model.NP_Eq)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-4">
+                                @Html.LabelFor(model => model.RH_Eq)
+                            </div>
+                            <div class="col-md-8">
+                                <div class="form-control">
+                                    @Html.DisplayFor(model => model.RH_Eq)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-4">
+                                @Html.LabelFor(model => model.SH_Eq)
+                            </div>
+                            <div class="col-md-8">
+                                <div class="form-control">
+                                    @Html.DisplayFor(model => model.SH_Eq)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-4">
+                                @Html.LabelFor(model => model.RD_Eq)
+                            </div>
+                            <div class="col-md-8">
+                                <div class="form-control">
+                                    @Html.DisplayFor(model => model.RD_Eq)
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-md-4">
+                                @Html.LabelFor(model => model.RDRH_Eq)
+                            </div>
+                            <div class="col-md-8">
+                                <div class="form-control">
+                                    @Html.DisplayFor(model => model.RDRH_Eq)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-4">
+                                @Html.LabelFor(model => model.RDSH_Eq)
+                            </div>
+                            <div class="col-md-8">
+                                <div class="form-control">
+                                    @Html.DisplayFor(model => model.RDSH_Eq)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-4">
+                                @Html.LabelFor(model => model.Sun_Eq)
+                            </div>
+                            <div class="col-md-8">
+                                <div class="form-control">
+                                    @Html.DisplayFor(model => model.Sun_Eq)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    }
+                </div>
+
+
+    }
+
+    else
+    {
+        @Html.HiddenFor(model => model.PSId)
+        @Html.HiddenFor(model => model.PSEmployeeId)
+
+        if (includeId)
+        {
+            <div class="form-row">
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.PSEmployeeId)
+                </div>
+                <div class="col-md-9">
+                    <div class="form-control dimmed">
+                        @Html.DisplayFor(model => model.PSEmployeeId)
+                    </div>
+                </div>
+            </div>
+        }
+
+        <div class="form-row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model._TotalHoursOnBreak)
+            </div>
+            <div class="col-md-9">                
+                @Html.TextBoxFor(model => model._TotalHoursOnBreak, new { @class = "form-control" })
+            </div>
+        </div>
+    }
+}

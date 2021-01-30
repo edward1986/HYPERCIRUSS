@@ -1,0 +1,48 @@
+﻿<div class="modal fade" id="modalPrint" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                @*<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>*@
+                <h6 class="modal-title"></h6>
+            </div>
+            <div class="modal-body"></div>
+             <div class="modal-footer btn-group-sm">
+                <button type="button" class="btn btn-sm btn-default btn-primary" data-dismiss="modal">Word</button>
+                <button type="button" class="btn btn-sm btn-primary btn-danger btn-yes">PDF</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function modalPrint(msg, callback, showCallback) {
+        var ret = false;
+
+        var modal = $('#modalPrint').clone();
+        modal.find('.modal-title').html('Confirm');
+        modal.find('.modal-body').html(msg);
+
+        modal.find('.btn-yes').unbind().bind('click', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            ret = true;
+            modal.modal('hide');
+        });
+
+        modal
+            .unbind('hide.bs.modal')
+            .unbind('show.bs.modal')
+            .on('hide.bs.modal', function () {
+                if (callback) callback(ret, modal);
+            })
+            .on('show.bs.modal', function () {
+                if (showCallback) showCallback(modal);
+            })
+            .modal({
+                backdrop: 'static',
+                show: true
+            });
+    }
+
+</script>

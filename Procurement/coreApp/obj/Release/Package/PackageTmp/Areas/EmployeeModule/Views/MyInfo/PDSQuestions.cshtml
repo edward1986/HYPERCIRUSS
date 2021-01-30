@@ -1,0 +1,65 @@
+﻿@model Module.DB.tblEmployee_Info
+@{
+    Layout = "~/Areas/EmployeeModule/Views/Shared/_EmployeeDetailsLayout.cshtml";
+
+    Module.DB.tblEmployee employee = (Module.DB.tblEmployee)ViewBag.Employee;
+
+    ViewBag.Title = "Miscellaneous";
+    ViewBag.Subtitle = "Details";
+
+    ViewBag.uiIsReadOnly = true;
+    ViewBag.uiIncludeId = true;
+
+    ViewBag.EmployeeDetailsActiveTab = "pds-questions";
+
+}
+
+@section Breadcrumbs {
+    @Html.Partial("_Breadcrumbs", new List<Breadcrumb>()
+    {
+        new Breadcrumb { Description = "Employee Main Record", Link = Url.Action("Details", "MyProfile", new { id = employee.EmployeeId, area = "EmployeeModule" } ) },
+        new Breadcrumb { Description = ViewBag.Title }
+    })
+}
+
+@section Scripts {
+    <script>
+        function load(e) {
+            $('ol.questions input[type="radio"]').click(function () {
+                var li = $(this).closest('li');
+                var value = $(this).attr('value');
+
+                li.removeClass('value-yes');
+
+                if (value == 'True') {
+                    li.addClass('value-yes');
+                }
+            });
+        }
+    </script>
+}
+
+<div class="block block-drop-shadow details" modal-target="#modalViewDetails" modal-width="mid-wide" modal-load-callback="load">
+    <div class="head bg-default bg-light-ltr noradius">
+        <h2>@ViewBag.Title</h2>
+        <div class="side pull-right">
+            <ul class="buttons">
+                @if (coreApp.Cache.Get().userAccess.HasPermission("EmployeeInfo"))
+                {
+                    <li><a href="#" class="btn btn-primary btn-edit" data-url="@Url.Action("EditPDSQuestions")">Edit</a></li>
+                }                
+            </ul>
+        </div>
+
+    </div>
+    <div class="content">
+        <fieldset>
+            <legend>PDS Questions</legend>
+
+            @Html.Partial("~/Views/Shared/_PDSQuestions.cshtml", Model)
+        </fieldset>
+
+        
+    </div>
+</div>
+@Html.Partial("~/Views/Shared/modals/_ModalView_FromDetails.cshtml", "modalViewDetails")

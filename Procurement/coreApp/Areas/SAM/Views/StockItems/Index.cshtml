@@ -1,0 +1,219 @@
+﻿@model coreApp.Areas.SAM.StockModel
+
+@{
+
+    ViewBag.Title = "Stock Card";
+    ViewBag.Subtitle = "List";
+
+    coreLib.Objects.PeriodModel pm = (coreLib.Objects.PeriodModel)ViewBag.PeriodModel;
+}
+
+@section Breadcrumbs {
+    @Html.Partial("_Breadcrumbs", new List<Breadcrumb>()
+    {
+        new Breadcrumb { Description = "Supply/Asset Management", Link = Url.Action("Index", "Main", new { area = "SAM" }) },
+        new Breadcrumb { Description = "Stocks", Link = Url.Action("Index", "Stocks", new { area = "SAM" }) },
+        new Breadcrumb { Description = ViewBag.Title }
+    })
+}
+
+@section Styles {
+    <style>
+        table.summary {
+            width: 300px;
+        }
+
+            table.summary td {
+                padding: 2px 4px;
+            }
+    </style>
+    <link rel="stylesheet" href="~/Assets/nextro/assets/css/plugins/bootstrap-datepicker3.min.css">
+}
+
+@section Scripts {
+    <script>
+        function applyPeriod(start, end) {
+            window.location = '/SAM/Stock/Items/Index/@Model.Item.Id/' + start + '/' + end;
+        }
+
+        function print() {
+            modalPrint('@Module.Core.ModuleConstants.PRINT_OPTIONS', function (ret) {
+                 var dlWord = 'true';
+
+                 if (ret) {
+                     dlWord = 'false';
+                 }
+
+                 window.open('@Url.Action("Print", new { itemId = Model.Item.Id, startDate = pm.StartDate.ToString("MM-dd-yyyy"), endDate = pm.EndDate.ToString("MM-dd-yyyy") })?dlWord=' + dlWord, '_blank');
+            });
+        }
+    </script>
+
+    <script src="~/Assets/nextro/assets/js/plugins/bootstrap-datepicker.min.js"></script>
+}
+
+<div class="block">
+    <div class="card">
+        <div class="card-header">
+            <h5>@string.Format("Stock No. {0} - {1}", Model.StockNo, Model.Item.Name)</h5>
+            <div class="card-header-right">
+                <div class="btn-group-sm card-option">
+                    <button class="btn btn-info btn-clean btn-print" onclick="print()">Print</button>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="card-body">
+            <div class="form-group row">
+                <div class="col-sm-3">
+                    @Html.Partial("~/Views/Shared/_Helper_Period.cshtml", pm, new ViewDataDictionary { { "clientCallback", "applyPeriod" } })
+                </div>
+            </div>
+            <div class="dt-responsive table-responsive">
+                <table class="display table table-bordered table-striped table-list" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th>
+                                Date
+                            </th>
+                            <th>
+                                Invoice No.
+                            </th>
+                            <th>
+                                Delivery Receipt No.
+                            </th>
+                            <th>
+                                RIS No.
+                            </th>
+                            <th>
+                                Received By / Issued To
+                            </th>
+                            <th>
+                                IN
+                            </th>
+                            <th>
+                                OUT
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (coreApp.Areas.SAM.StockEntryInfo item in Model.Current_Entries())
+                        {
+                            <tr locked>
+                                <td>
+                                    @Html.DisplayFor(model => item.Date)
+                                </td>
+
+                                @if (item.IsReceipt)
+                                {
+                                    <td>
+                                        @Html.DisplayFor(model => item.Receipt.InvoiceNo)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(model => item.Receipt.DRNo)
+                                    </td>
+                                    <td></td>
+                                    <td>
+                                        @Html.DisplayFor(model => item.Receipt.ReceivedBy)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(model => item.Qty)
+                                    </td>
+                                    <td></td>
+                                }
+                                else
+                                {
+                                    <td></td>
+                                    <td></td>
+                                    <td>
+                                        @Html.DisplayFor(model => item.Issuance._RISNo)
+                                    </td>
+
+                                    <td>
+                                        @Html.DisplayFor(model => item.Issuance._EmployeeName)
+                                        <div class="small">
+                                            @Html.DisplayFor(model => item.Issuance._Office)
+                                        </div>
+                                    </td>
+                                    <td></td>
+                                    <td>
+                                        @Html.DisplayFor(model => item.Qty)
+                                    </td>
+                                }
+                            </tr>
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="5" style="text-align:right">
+                                Total
+                            </td>
+                            <td>
+                                @Model.Current_DR().ToString("#,##0.#")
+                            </td>
+                            <td>
+                                @Model.Current_CR().ToString("#,##0.#")
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="5" style="text-align:right">
+                                Period Balance
+                            </td>
+                            <td>
+                                @Model.Current_Balance().ToString("#,##0.#")
+                            </td>
+                            <td>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+
+            <br />
+            <div style="position:relative">
+                <table border="1" class="summary pull-right">
+                    <tbody>
+                        <tr>
+                            <td>
+                                Previous Balance
+                            </td>
+                            <td>
+                                @Model.Previous_Balance().ToString("#,##0.#")
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Period Balance
+                            </td>
+                            <td>
+                                @Model.Current_Balance().ToString("#,##0.#")
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Next Balance
+                            </td>
+                            <td>
+                                @Model.Next_Balance().ToString("#,##0.#")
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Overall Balance
+                            </td>
+                            <td>
+                                @Model.Balance().ToString("#,##0.#")
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+@Html.Partial("~/Views/Shared/modals/_ModalView.cshtml", "modalView")
+

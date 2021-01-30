@@ -1,0 +1,188 @@
+﻿@using Module.Time;
+@model List<etPeriod>
+@{     
+    TimeSettingsModel settings = new TimeSettingsModel(Module.Time.Procs.TMSettings(DateTime.Now, coreApp.Cache.Get().userAccess.career.Office.OfficeId));
+    DateTime date = (DateTime)ViewBag.Date;
+
+    bool lateToleranceEnabled = false;
+    bool flexiTimeEnabled = false;
+
+    lateToleranceEnabled = settings.LateTolerance > 0;
+    flexiTimeEnabled = settings.FlexiTime > 0;
+
+    string searchType = ViewBag.SearchType;
+}
+
+<h4>@date.ToLongDateString()</h4>
+
+<h3>LIST OF @searchType.ToUpper() EMPLOYEES</h3>
+
+@if (!Model.Any())
+{
+    <span>[No record found]</span>
+}
+else
+{
+    <div class="attendance-table table-responsive">
+        <table border="1" class="attendance-table table static-table">
+            <thead>
+                <tr>
+                    <th>Id No.</th>
+                    <th>Employee</th>
+                    <th class="incol">In</th>
+                    <th class="outcol">Out</th>
+                    <th class="latecol">Late <div class="subtitle">[mins/hrs]</div></th>
+                    <th class="utcol">UTime <div class="subtitle">[mins/hrs]</div></th>
+
+                    @if (lateToleranceEnabled)
+                    {
+                        <th>Late Tol. <div class="subtitle">[mins/hrs]</div></th>
+                    }
+
+                    @if (flexiTimeEnabled)
+                    {
+                        <th>Flexi-Time <div class="subtitle">[mins/hrs]</div></th>
+                    }
+
+                    <th>Work Hrs. <div class="subtitle">[hrs/days]</div></th>
+                    <th>Hrs./Days Worked</th>
+                    <th>OT <div class="subtitle">[hrs/days]</div></th>
+                    <th>NP <div class="subtitle">[hrs/days]</div></th>
+                    <th>RH <div class="subtitle">[days]</div></th>
+                    <th>SH <div class="subtitle">[days]</div></th>
+                    <th>RD <div class="subtitle">[days]</div></th>
+                    <th>RD/RH <div class="subtitle">[days]</div></th>
+                    <th>RD/SH <div class="subtitle">[days]</div></th>
+                    <th>Sun <div class="subtitle">[days]</div></th>
+                    <th>Remarks</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (etPeriod item in Model)
+                {
+                    etDay day = item.Days.First();
+                    List<etTime> tmp = day.Times.Where(x => !x.IsAbsent).ToList();
+
+                    <tr record-id="@item.data.employeeId">
+                        <td>
+                            @item.data.Employee.IdNo
+                        </td>
+                        <td>
+                            @item.data.Employee.FullName
+                        </td>
+                        <td>
+                            @if (tmp.Any())
+                            {
+                                if (tmp.First().Log.Actual_TimeIn != default(DateTime))
+                                {
+                                <span>@tmp.First().Log.Actual_TimeIn.ToString("h:mm tt")</span>
+                                }
+                                else
+                                {
+                                <span>@tmp.First().Log.Computed_TimeIn.ToString("h:mm tt")</span><span class="subtitle">[auto]</span>
+                                }
+                            }
+                        </td>
+
+                        <td>
+                            @if (tmp.Any())
+                            {
+                                if (tmp.Last().Log.Actual_TimeOut != default(DateTime))
+                                {
+                                <span>@tmp.Last().Log.Actual_TimeOut.ToString("h:mm tt")</span>
+                                }
+                                else
+                                {
+                                <span>@tmp.Last().Log.Computed_TimeOut.ToString("h:mm tt")</span> <span class="subtitle">[auto]</span>
+                                }
+                            }
+                        </td>
+
+                        <td>
+                            @day.TotalMinsLate.ToString("#,##0")<br />
+                            @((day.TotalMinsLate / 60).ToString("#,##0.###"))
+                        </td>
+                        <td>
+                            @day.TotalMinsUndertime.ToString("#,##0")<br />
+                            @((day.TotalMinsUndertime / 60).ToString("#,##0.###"))
+                        </td>
+                        @if (lateToleranceEnabled)
+                        {
+                        <td>
+                            @day.minsLateTolerance.ToString("#,##0")<br />
+                            @((day.minsLateTolerance / 60).ToString("#,##0.###"))
+                        </td>
+                        }
+
+                        @if (flexiTimeEnabled)
+                        {
+                        <td>
+                            @day.minsFlexiTime.ToString("#,##0")<br />
+                            @((day.minsFlexiTime / 60).ToString("#,##0.###"))
+                        </td>
+                        }
+                        <td>
+                            @day.TotalWorkHours.ToString("#,##0.###")<br />
+                            @((day.TotalWorkHours / item.data.settings.WorkHoursPerDay).ToString("#,##0.###"))
+                        </td>
+                        <td>
+                            @day.TotalHoursWorked.ToString("#,##0.###")<br />
+                            @day.TotalHoursWorked_DayEq.ToString("#,##0.###")
+                        </td>
+                        <td>
+                            @day.OT.ToString("#,##0.###")<br />@day.OT_Eq.ToString("#,##0.###")
+                        </td>
+                        <td>
+                            @day.NP.ToString("#,##0.###")<br />@day.NP_Eq.ToString("#,##0.###")
+                        </td>
+                        <td>
+                            @day.RH_Eq.ToString("#,##0.###")
+                        </td>
+                        <td>
+                            @day.SH_Eq.ToString("#,##0.###")
+                        </td>
+                        <td>
+                            @day.RD_Eq.ToString("#,##0.###")
+                        </td>
+                        <td>
+                            @day.RDRH_Eq.ToString("#,##0.###")
+                        </td>
+                        <td>
+                            @day.RDSH_Eq.ToString("#,##0.###")
+                        </td>
+                        <td>
+                            @day.Sun_Eq.ToString("#,##0.###")
+                        </td>
+                        <td>
+                            @if (day.IsHoliday)
+                            {
+                                <div class="holiday-text">@day.Holiday.Holiday (@day.Holiday.Type_Desc)</div>
+                            }
+                            @if (day.IsOnTravel)
+                            {
+                                <span>On Travel</span>
+                            }
+                            else if (day.IsWorkDay)
+                            {
+                                if (day.IsOnHalfDayLeave)
+                                {
+                                    <span>On Half-Day Leave</span>
+                                }
+                                else if (day.IsOnLeave)
+                                {
+                                    <span>On Leave</span>
+                                }
+                            }
+                        </td>
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+
+@{ 
+    string sessionId = ViewBag.SessionId;
+    Session.Remove(sessionId);
+}

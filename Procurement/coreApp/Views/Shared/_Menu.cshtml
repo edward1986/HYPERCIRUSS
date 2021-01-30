@@ -1,0 +1,41 @@
+﻿@using coreApp
+@{
+
+   
+    string _area;
+
+    if (Session["area"] != null)
+    {
+        _area = Session["area"].ToString();
+    }
+    else
+    {
+        _area = HttpContext.Current.Request.RequestContext.RouteData.DataTokens["area"].ToString();
+    }
+}
+
+
+<nav class="pc-sidebar ">
+    <div class="navbar-wrapper">
+        <div class="m-header">
+            <a href="/" class="b-brand">
+                <img src="~/assets/nextro/assets/images/cirrus-01.png" alt="" class="logo logo-lg" style="width:80%;">
+                <img src="~/assets/nextro/assets/images/cirrus-01.png" alt="" class="logo logo-sm" style="width:80%;">
+            </a>
+        </div>
+               
+        <div class="navbar-content">
+            @if (_area.ToString() == "Procurement")
+            {
+                @Html.Partial("_ProcurementMenu")
+            }
+            else if (_area.ToString() == "SAM")
+            {
+                @Html.Partial("_SAMMenu")
+            }
+         
+
+        </div>
+    </div>
+</nav>
+

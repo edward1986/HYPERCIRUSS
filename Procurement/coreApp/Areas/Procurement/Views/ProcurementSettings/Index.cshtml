@@ -1,0 +1,103 @@
+﻿@model List<coreApp.Areas.Procurement.DAL.tblSetting>
+
+@{
+    ViewBag.Title = "Settings";
+    ViewBag.Subtitle = "List";
+
+    string effectivity = ViewBag.Effectivity;
+
+}
+
+@section Breadcrumbs {
+    @Html.Partial("_Breadcrumbs", new List<coreApp.Breadcrumb>() { new coreApp.Breadcrumb { Description = ViewBag.Title } })
+}
+
+@section Scripts {
+
+    <script>
+        function load(e) {
+            if ($('tr[record-id="' + e.recordId + '"][data-current-update="true"]').length > 0) {
+                e.modal.find('.btn-delete').addClass('for-edit');
+            } else {
+                e.modal.find('.btn-delete').removeClass('for-edit');
+            }
+        }
+
+    </script>
+
+
+}
+
+@section Styles {
+    <style>
+        .tab-content {
+            min-height: 200px;
+        }
+
+        .table tr th:first-child,
+        .table tr td:first-child {
+            width: 400px;
+        }
+
+        [data-current-update="true"] {
+            color: #4cff00;
+        }
+    </style>
+    <link rel="stylesheet" href="~/assets/nextro/assets/css/plugins/bootstrap-datepicker3.min.css">
+   
+
+}
+
+@*@Html.Partial("~/Views/Shared/info/effectivityInfo.cshtml", "/Procurement/Settings/Index/")*@
+
+<div class="block">
+    <div class="card">
+        <div class="card-body">
+            <div class="dt-responsive table-responsive">
+                <table id="table1" class="display table table-bordered table-striped table-list" cellspacing="0" width="100%"
+                       modal-target="#modalView" modal-start="edit" modal-noview="true" modal-load-callback="load" modal-edit-url="/Procurement/Settings/Edit/@effectivity/{0}" modal-delete-url="/Procurement/Settings/Delete/@effectivity/-1">
+
+                    <thead>
+                        <tr>
+                            <th>Setting</th>
+                            <th>Value</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (coreApp.Areas.Procurement.DAL.tblSetting s in Model.Where(x => x.Category == "Procurement"))
+                        {
+                            string onCurrentUpdate = s.DateUpdated.ToString("MM-dd-yyyy") == effectivity ? "true" : "false";
+
+                            <tr record-id="@s.SettingId" data-current-update="@onCurrentUpdate" data-tableid="table1">
+                                <td>
+                                    @s.Setting
+                                </td>
+                                <td>
+                                    @if (s.ValueType == "bool")
+                                    {
+                                        @(s.SettingValue == "true" ? "Yes" : "No")
+                                    }
+                                    else
+                                    {
+                                        @s.SettingValue
+                                    }
+                                </td>
+                                <td>
+                                    @s.Description
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+              
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+@Html.Partial("~/Views/Shared/modals/_ModalView.cshtml", "modalView")

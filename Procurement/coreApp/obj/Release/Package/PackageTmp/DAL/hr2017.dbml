@@ -1,0 +1,523 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="skyhr_sky" Class="hr2017DataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=DESKTOP-R9K5SN7\SQL;Initial Catalog=skyhr_sky;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="DefaultConnection" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.tblEmployee_Allowances" Member="tblEmployee_Allowances">
+    <Type Name="tblEmployee_Allowance">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="EmployeeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="AllowanceId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblEmployee_Deductions" Member="tblEmployee_Deductions">
+    <Type Name="tblEmployee_Deduction">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="EmployeeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="DeductionId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblEmployee_Loans" Member="tblEmployee_Loans">
+    <Type Name="tblEmployee_Loan">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="LoanId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="EmployeeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="DateEffective" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="PrincipalAmount" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="AnnualInterestRate" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="NoOfPayments" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="MonthlyPayment" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="Enabled" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="SetMode" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblFin_Allowances" Member="tblFin_Allowances">
+    <Type Name="tblFin_Allowance">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="AllowanceId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="EmployeeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="EntryDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Dr" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Cr" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Remarks" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
+      <Column Name="EnteredByUserId" Type="System.String" DbType="NVarChar(128) NOT NULL" CanBeNull="false" />
+      <Column Name="EntryType" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PSId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblFin_CashAdvances" Member="tblFin_CashAdvances">
+    <Type Name="tblFin_CashAdvance">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="EmployeeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="EntryDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Dr" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Cr" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Remarks" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
+      <Column Name="EnteredByUserId" Type="System.String" DbType="NVarChar(128) NOT NULL" CanBeNull="false" />
+      <Column Name="EntryType" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PSId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblFin_Deductions" Member="tblFin_Deductions">
+    <Type Name="tblFin_Deduction">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="DeductionId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="EmployeeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="EntryDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Dr" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Cr" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Remarks" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
+      <Column Name="EnteredByUserId" Type="System.String" DbType="NVarChar(128) NOT NULL" CanBeNull="false" />
+      <Column Name="EntryType" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PSId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblFin_Overdraft" Member="tblFin_Overdrafts">
+    <Type Name="tblFin_Overdraft">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="EmployeeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="EntryDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Dr" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Cr" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Remarks" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
+      <Column Name="EntryType" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="EnteredByUserId" Type="System.String" DbType="NVarChar(128) NOT NULL" CanBeNull="false" />
+      <Column Name="PSId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblFin_PayrollSummary_Employee_Allowances" Member="tblFin_PayrollSummary_Employee_Allowances">
+    <Type Name="tblFin_PayrollSummary_Employee_Allowance">
+      <Column Name="PSAllowanceId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PSEmployeeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="AllowanceId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="AllowanceDesc" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Amount" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblFin_PayrollSummary_Employee_Deductions" Member="tblFin_PayrollSummary_Employee_Deductions">
+    <Type Name="tblFin_PayrollSummary_Employee_Deduction">
+      <Column Name="PSDeductionId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PSEmployeeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="DeductionId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="DeductionDesc" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Amount" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblLicense" Member="tblLicenses">
+    <Type Name="tblLicense">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="LicenseKey" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+    </Type>
+  </Table>
+  <Table Name="db_owner.vwDeviceLogs" Member="vwDeviceLogs">
+    <Type Name="vwDeviceLog">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="DeviceId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IdNo" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="LogDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Mode" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="EmployeeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblFin_Loans" Member="tblFin_Loans">
+    <Type Name="tblFin_Loan">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="LoanId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="EmployeeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="EntryDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Dr" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Cr" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Remarks" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
+      <Column Name="EnteredByUserId" Type="System.String" DbType="NVarChar(128) NOT NULL" CanBeNull="false" />
+      <Column Name="EntryType" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PSId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="EmployeeLoanId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblFin_PayrollSummary_Employee_Loans" Member="tblFin_PayrollSummary_Employee_Loans">
+    <Type Name="tblFin_PayrollSummary_Employee_Loan">
+      <Column Name="PSLoanId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PSEmployeeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="LoanId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="LoanDesc" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Amount" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="EmployeeLoanId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblFin_AllowanceDefs" Member="tblFin_AllowanceDefs">
+    <Type Name="tblFin_AllowanceDef">
+      <Column Name="AllowanceId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Amount" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Recurring" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Editable" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Taxable" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Category" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="AbreviatedDescription" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblFin_DeductionDefs" Member="tblFin_DeductionDefs">
+    <Type Name="tblFin_DeductionDef">
+      <Column Name="DeductionId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Amount" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Recurring" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Editable" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Category" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="AbreviatedDescription" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblFin_LoanDefs" Member="tblFin_LoanDefs">
+    <Type Name="tblFin_LoanDef">
+      <Column Name="LoanId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="AnnualInterestRate" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="DefaultPrincipalAmount" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="DefaultNoOfPayments" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="DefaultMonthlyPayment" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="Editable" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="FixedPrincipalAmount" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="FixedInterestRate" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Enabled" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="AbreviatedDescription" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Category" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblEmployee_References" Member="tblEmployee_References">
+    <Type Name="tblEmployee_Reference">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="EmployeeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Address" Type="System.String" DbType="Text NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Column Name="TelephoneNo" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblEmployee_Children" Member="tblEmployee_Childrens">
+    <Type Name="tblEmployee_Children">
+      <Column Name="ChildId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="EmployeeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="DateOfBirth" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="Gender" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="OnSeparatePage" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblEmployee_WorkExp" Member="tblEmployee_WorkExps">
+    <Type Name="tblEmployee_WorkExp">
+      <Column Name="WEId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="EmployeeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="DateFrom" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="DateTo" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="Position" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Company" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Salary" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="SalaryGrade" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="StatusOfAppointment" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IsGovService" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="DateTo_Present" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="OnSeparatePage" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblEmployee_Educ" Member="tblEmployee_Educs">
+    <Type Name="tblEmployee_Educ">
+      <Column Name="EducId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="EmployeeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="EducLevel" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="School" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Degree" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="YearGraduated" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="UnitsEarned" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="HonorsReceived" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="YearFrom" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="YearTo" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="YearTo_Present" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="OnSeparatePage" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblEmployee_CivilService" Member="tblEmployee_CivilServices">
+    <Type Name="tblEmployee_CivilService">
+      <Column Name="CSId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="EmployeeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CareerService" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Rating" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="DateOfExam" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="POE_Address" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="POE_CountryId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="POE_PostalCode" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="LicenseNo" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="LicenseReleaseDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="OnSeparatePage" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblEmployee_Voluntary" Member="tblEmployee_Voluntaries">
+    <Type Name="tblEmployee_Voluntary">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="EmployeeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Organization" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Address" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="DateFrom" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="DateTo" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="DateTo_Present" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="NoOfHours" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PositionNatureOfWork" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="OnSeparatePage" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblEmployee_OtherInfo" Member="tblEmployee_OtherInfos">
+    <Type Name="tblEmployee_OtherInfo">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="EmployeeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Skills" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="NonAcademic" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Membership" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblEmployee_Training" Member="tblEmployee_Trainings">
+    <Type Name="tblEmployee_Training">
+      <Column Name="TrainingId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="EmployeeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="DateFrom" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="DateTo" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="NoOfHours" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="ConductedBy" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
+      <Column Name="OnSeparatePage" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Type" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblFin_CommissionDefs" Member="tblFin_CommissionDefs">
+    <Type Name="tblFin_CommissionDef">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Rate" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="DirectAmount" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="AsGrossPay" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblFin_Commissions" Member="tblFin_Commissions">
+    <Type Name="tblFin_Commission">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="EmployeeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CommissionDefId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="EntryDate" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="Qty" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="Rate" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="DirectAmount" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="AsGrossPay" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblFin_EmployeePayrollSettings" Member="tblFin_EmployeePayrollSettings">
+    <Type Name="tblFin_EmployeePayrollSetting">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="EmployeeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SSS" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="GSIS" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="PH" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="PAGIBIG" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="WTax" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Allowances" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Deductions" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Loans" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="GSIS_ER" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="GSIS_EC" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="SSS_ER" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="SSS_EC" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="PH_ER" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="PAGIBIG_ER" Type="System.Double" DbType="Float" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TblDeductionRegistration" Member="TblDeductionRegistrations">
+    <Type Name="TblDeductionRegistration">
+      <Column Name="RegistrationID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="EmployeeID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DeductionID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Amount" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="ERShare" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="RangeFrom" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="RangeTo" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TblPayrollDeduction" Member="TblPayrollDeductions">
+    <Type Name="TblPayrollDeduction">
+      <Column Name="DeductionID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="DeductionName" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="DeductionType" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DefaultAmount" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="DefaultShare" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="Schedule" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TblPayrollItems" Member="TblPayrollItems">
+    <Type Name="TblPayrollItem">
+      <Column Name="PayrollItemID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PSEmployeeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="adjustments" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="adjustmentsRemarks" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblPayrollSummary" Member="tblPayrollSummaries">
+    <Type Name="tblPayrollSummary">
+      <Column Name="PSId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PayrollType" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="DateFrom" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="DateTo" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="DateSubmitted" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="DateReturned" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CreatedBy_UserId" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="SubmittedBy_UserId" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="ReturnedBy_UserId" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="DatePosted" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="PostedBy_UserId" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="UseRatesMode" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PayMode" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ExcludeOT" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="ContOptions" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="AgencyShare" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Contributions" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="OverloadType" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TblPayrollActualAllowance" Member="TblPayrollActualAllowances">
+    <Type Name="TblPayrollActualAllowance">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PSEmployeeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="AllowanceID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="AllowanceName" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="Amount" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TblPayrollActualDeduction" Member="TblPayrollActualDeductions">
+    <Type Name="TblPayrollActualDeduction">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PSEmployeeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DeductionId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DeductionName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Type" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Amount" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="ERShare" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="WithShare" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TblTaxTable" Member="TblTaxTables">
+    <Type Name="TblTaxTable">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="TypeID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Label" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="C1" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="C2" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="C3" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="C4" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="C5" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="C6" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblPayrollSummary_Employee" Member="tblPayrollSummary_Employees">
+    <Type Name="tblPayrollSummary_Employee">
+      <Column Name="PSEmployeeId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PSId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="EmployeeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="LastName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="FirstName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="MiddleName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="NameExt" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="BIRStatus" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="OfficeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Office" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="Department" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="Position" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Rate" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="Rate_Secondary" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="GrossIncome" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="TotalIncome" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="NP" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="NP_Eq" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="OT_Eq" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="RH_Eq" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="SH_Eq" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="RD_Eq" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="RDRH_Eq" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="RDSH_Eq" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Sun_Eq" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="[_TotalWorkingDays]" Member="_TotalWorkingDays" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="[_TotalHoursWorked]" Member="_TotalHoursWorked" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="[_TotalHoursLate]" Member="_TotalHoursLate" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="[_TotalHoursUndertime]" Member="_TotalHoursUndertime" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="[_TotalFlexiTime]" Member="_TotalFlexiTime" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="[_TotalLateTolerance]" Member="_TotalLateTolerance" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="[_NoOfDaysAbsent]" Member="_NoOfDaysAbsent" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="[_TotalHolidaysReg]" Member="_TotalHolidaysReg" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="[_TotalHolidaysSpl]" Member="_TotalHolidaysSpl" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="[_fin_GrossSalary]" Member="_fin_GrossSalary" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="[_fin_OT]" Member="_fin_OT" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="[_fin_NP]" Member="_fin_NP" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="[_fin_RH]" Member="_fin_RH" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="[_fin_SH]" Member="_fin_SH" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="[_fin_RD]" Member="_fin_RD" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="[_fin_RDRH]" Member="_fin_RDRH" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="[_fin_RDSH]" Member="_fin_RDSH" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="[_fin_Sun]" Member="_fin_Sun" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="[_fin_AbsencesTardiness]" Member="_fin_AbsencesTardiness" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="[_fin_GrossIncome]" Member="_fin_GrossIncome" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="[_fin_OtherIncome]" Member="_fin_OtherIncome" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="[_fin_TotalIncome]" Member="_fin_TotalIncome" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="[_fin_SSS]" Member="_fin_SSS" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="[_fin_SSS_ER]" Member="_fin_SSS_ER" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="[_fin_SSS_EC]" Member="_fin_SSS_EC" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="[_fin_PH]" Member="_fin_PH" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="[_fin_PH_ER]" Member="_fin_PH_ER" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="[_fin_PAGIBIG]" Member="_fin_PAGIBIG" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="[_fin_PAGIBIG_ER]" Member="_fin_PAGIBIG_ER" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="[_fin_GSIS]" Member="_fin_GSIS" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="[_fin_GSIS_ER]" Member="_fin_GSIS_ER" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="[_fin_GSIS_EC]" Member="_fin_GSIS_EC" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="[_fin_TotalContributions]" Member="_fin_TotalContributions" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="[_fin_WTax]" Member="_fin_WTax" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="[_fin_CA]" Member="_fin_CA" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="[_fin_Overdraft]" Member="_fin_Overdraft" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="[_fin_TotalDeductions]" Member="_fin_TotalDeductions" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="[_fin_NetIncome]" Member="_fin_NetIncome" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="NetIncome" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="[_fin_LastCalculated]" Member="_fin_LastCalculated" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="[_fin_AllowancesTable]" Member="_fin_AllowancesTable" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="[_fin_DeductionsTable]" Member="_fin_DeductionsTable" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="[_fin_LoansTable]" Member="_fin_LoansTable" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="[_leaveCharges]" Member="_leaveCharges" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="[_fin_SA]" Member="_fin_SA" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="[_fin_SA_Remarks]" Member="_fin_SA_Remarks" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="[_fin_AbsencesTardiness_ChargedToVL]" Member="_fin_AbsencesTardiness_ChargedToVL" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="[_fin_ForceRecal_GSIS]" Member="_fin_ForceRecal_GSIS" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="[_fin_ForceRecal_SSS]" Member="_fin_ForceRecal_SSS" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="[_fin_ForceRecal_PH]" Member="_fin_ForceRecal_PH" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="[_fin_ForceRecal_PAGIBIG]" Member="_fin_ForceRecal_PAGIBIG" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="[_fin_ForceRecal_WTAX]" Member="_fin_ForceRecal_WTAX" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="[_fin_13thMP_Data]" Member="_fin_13thMP_Data" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="[_fin_13thMP]" Member="_fin_13thMP" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="[_fin_Bonus_DeductionsData]" Member="_fin_Bonus_DeductionsData" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="[_fin_Bonus_Deductions]" Member="_fin_Bonus_Deductions" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="[_fin_Bonus_EarningsData]" Member="_fin_Bonus_EarningsData" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="[_fin_Bonus_Earnings]" Member="_fin_Bonus_Earnings" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="IdNo" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="MFOId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="MFO" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="IsJO" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="[_TotalWorkingDaysCount]" Member="_TotalWorkingDaysCount" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="[_TotalHoursOnBreak]" Member="_TotalHoursOnBreak" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="[_HasBreakLogs]" Member="_HasBreakLogs" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="[_fin_Breaks]" Member="_fin_Breaks" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="[_NoOfFullDaysAbsent]" Member="_NoOfFullDaysAbsent" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="Settings" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="PayrollEmployeeSettings" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="DaysLate" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CommissionEmployeeSettings" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="[_fin_Commission]" Member="_fin_Commission" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="[_fin_ForceRecal_GSIS_ER]" Member="_fin_ForceRecal_GSIS_ER" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="[_fin_ForceRecal_GSIS_EC]" Member="_fin_ForceRecal_GSIS_EC" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="[_fin_ForceRecal_SSS_ER]" Member="_fin_ForceRecal_SSS_ER" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="[_fin_ForceRecal_SSS_EC]" Member="_fin_ForceRecal_SSS_EC" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="[_fin_ForceRecal_PH_ER]" Member="_fin_ForceRecal_PH_ER" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="[_fin_ForceRecal_PAGIBIG_ER]" Member="_fin_ForceRecal_PAGIBIG_ER" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="[_fin_AbsencesTardiness_ChargedToVL_woPay]" Member="_fin_AbsencesTardiness_ChargedToVL_woPay" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="OverloadRate" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="OverloadHours" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Status" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+</Database>

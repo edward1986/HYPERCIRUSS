@@ -1,0 +1,20 @@
+﻿@using coreApp.DAL
+@model string
+@{
+    int year = (int)ViewBag.Year;
+
+    List<SelectListItem> years = SelectItems.getYears(DateTime.Today.Year + 1, 2017, false);
+}
+
+<select onchange="yearItemSelected(this)" class="year-selection form-control pc-selectpicker" data-style="btn-success">
+    @foreach (SelectListItem o in years)
+    {
+        <option value="@o.Value" @(year.ToString() == o.Value ? "selected" : "")>@o.Text</option>
+    }
+</select>
+
+<script>
+    function yearItemSelected(sel) {
+        window.location = '@Model'.replace('{0}', $(sel).val());
+    }
+</script>

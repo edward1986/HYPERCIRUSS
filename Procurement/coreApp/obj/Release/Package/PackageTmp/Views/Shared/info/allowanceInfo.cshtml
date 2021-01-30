@@ -1,0 +1,22 @@
+﻿@using Module.DB
+@model string
+@{
+    TblPayrollAllowance allowance = (TblPayrollAllowance)ViewBag.Allowance;
+
+    List<TblPayrollAllowance> allowances = (List<TblPayrollAllowance>)ViewBag.Allowances;
+   
+}
+
+<select onchange="itemSelected(this)">
+    @foreach (TblPayrollAllowance a in allowances)
+    {
+        <option value="@a.AllowanceID" @(allowance.AllowanceID == a.AllowanceID ? "selected" : "")>@a.AllowanceName.ToUpper()</option>
+    }
+</select>
+<br />
+
+<script>
+    function itemSelected(sel) {
+        window.location = '@Model' + $(sel).val();
+    }
+</script>

@@ -1,0 +1,20 @@
+﻿@using coreApp.Areas.Procurement.DAL
+@model string
+@{    
+    tblAOB aob = (tblAOB)ViewData["aob"];
+
+    List<SelectListItem> aobs = coreApp.Areas.Procurement.SelectItems.getAOBs(year: aob.Year, showEmptyItem: false);
+}
+
+<select onchange="aobItemSelected(this)" class="form-control pc-selectpicker" data-style="btn-success">
+    @foreach (SelectListItem o in aobs)
+    {
+        <option value="@o.Value" @(aob.Id.ToString() == o.Value ? "selected" : "")>@o.Text</option>
+    }
+</select>
+
+<script>
+    function aobItemSelected(sel) {
+        window.location = '@Model' + $(sel).val();
+    }
+</script>

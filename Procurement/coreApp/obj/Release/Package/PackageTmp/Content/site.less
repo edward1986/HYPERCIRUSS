@@ -1,0 +1,289 @@
+﻿body {
+    padding-bottom: 50px;
+}
+
+body.modal-open {
+    margin-right: initial;
+}
+
+fieldset {
+    margin-top: 20px;
+
+    legend {
+        font-size: 16px;
+        color: lightgray;
+    }
+}
+
+.noradius {
+    border-radius: initial !important;
+}
+
+.fixed-bottom {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+}
+
+.dataTables_filter {
+    display: none;
+}
+
+.table {
+    thead {
+        background-color: darkslategray;
+    }
+}
+
+.modal {
+    .modal-header, .modal-footer {
+        background-color: #2b2b2b;
+    }
+
+    .modal-body {
+        background-color: #2b2b2b;
+    }
+      
+}
+
+/*.modal-view {
+    .modal-body-view {
+        min-height: 200px;
+    }
+}*/
+
+div.radiobox {
+    display: inline-block;
+}
+
+div.radiobox label,
+div.radiobox input,
+div.checkbox input {
+    cursor: pointer;
+}
+
+textarea {
+    min-height: 80px;
+}
+
+.radiobox,
+textarea.form-control,
+input.form-control,
+div.checkbox,
+select.form-control {
+    border: 1px solid transparent;
+}
+
+.period-cont {
+    cursor: pointer;
+    border: 1px solid transparent;
+    display: inline-block;
+    padding: 5px 5px 2px 5px;
+    margin-bottom: 5px;
+}
+
+.radiobox:hover,
+textarea.form-control:hover,
+input.form-control:hover,
+div.checkbox:hover,
+select.form-control:hover,
+.period-cont:hover {
+    border: 1px solid gray;
+}
+
+div.checkbox {
+    line-height: 0;
+
+    .checker {
+        margin-right: 0;
+    }
+
+    label {
+        line-height: inherit;
+    }
+}
+
+div.form-control {
+    height: initial;
+    min-height: 30px;
+    background-color: rgba(0, 0, 0, 0.09);
+}
+
+div.form-control.dimmed {
+    color: gray;
+}
+
+.selectcol {
+    width: 50px;
+}
+
+.idcol {
+    width: 60px;
+}
+
+.subtitle {
+    font-size: smaller;
+}
+
+.events-selection .checkbox {
+    display: inline-block;
+    margin: 0 5px 5px 0;
+}
+
+.input-group-addon {
+    padding: 0 10px;
+}
+
+.info {
+    padding: 5px 0;
+    text-align: right;
+    width: initial !important;
+
+    table {
+        display: inline;
+
+        td {
+            vertical-align: middle;
+            text-align: right;
+            padding-right: 20px;
+
+            h5 {
+                margin-bottom: 0;
+            }
+        }
+
+        .td-photo {
+            position: relative;
+
+            .loyalty-seal {
+                position: absolute;
+                margin-top: -10px;
+                z-index: 99;
+
+                .ribbon {
+                    font-size: 10px;
+                    position: relative;
+                    display: inline-block;
+                    text-align: center;
+                }
+
+                .text {
+                    display: inline-block;
+                    padding: 0.5em 1em;
+                    line-height: 1.2em;
+                    background: #FFD72A;
+                    position: relative;
+                    color: green;
+                    opacity: 0.9;
+                    width: 78px;
+                }
+
+                .ribbon:after, .ribbon:before,
+                .text:before, .text:after,
+                .bold:before {
+                    content: '';
+                    position: absolute;
+                    border-style: solid;
+                }
+
+                .ribbon:before {
+                    top: 0.3em;
+                    left: 0.2em;
+                    width: 100%;
+                    height: 100%;
+                    border: none;
+                    /*background: #EBECED;*/
+                    z-index: -2;
+                }
+
+                .text:before {
+                    bottom: 100%;
+                    left: 0;
+                    border-width: .5em .7em 0 0;
+                    border-color: transparent #FC9544 transparent transparent;
+                    opacity: 0.7;
+                }
+
+                .text:after {
+                    top: 100%;
+                    right: 0;
+                    border-width: .5em 2em 0 0;
+                    border-color: #FC9544 transparent transparent transparent;
+                    opacity: 0.7;
+                }
+
+                .ribbon:after, .bold:before {
+                    top: 0.5em;
+                    right: -2em;
+                    border-width: 1.1em 1em 1.1em 3em;
+                    border-color: #FECC30 transparent #FECC30 #FECC30;
+                    z-index: -1;
+                    opacity: 0.5
+                }
+
+                .bold:before {
+                    border-color: transparent transparent transparent transparent;
+                    top: 0.7em;
+                    right: -2.3em;
+                }
+            }
+        }
+    }
+}
+
+.info.inactive::after {
+    content: 'I N - A C T I V E';
+    background-color: gray;
+    opacity: 0.6;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    text-align: center;
+    padding-top: 30px;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.static-table {
+    td {
+        border: 1px solid #fff;
+    }
+}
+
+.form-row {
+    line-height: initial !important;
+}
+
+
+.radiobox-inline label {
+    cursor: pointer;
+}
+
+input[type="radio"] {
+    width: initial;
+    display: inline;
+}
+
+table {
+    tfoot {
+        input.col-filter {
+            padding: 5px 2px;
+            font-size: 9px;
+            text-align: center;
+        }
+    }
+}
+
+.chosen-search-input {
+    color: #000;
+}
+
+.ui-datepicker-title {
+    select {
+        display: inline !important;
+        max-width: 72px;
+        margin-right: 4px !important;
+    }
+}

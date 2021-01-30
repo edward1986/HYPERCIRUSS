@@ -1,0 +1,72 @@
+﻿@model List<coreApp.DAL.tblPayrollSummary_Employee>
+
+@{
+    ViewBag.Title = "My Payslips";
+    ViewBag.Subtitle = "";
+
+    Module.DB.tblEmployee employee = (Module.DB.tblEmployee)ViewBag.Employee;
+
+}
+
+@section Breadcrumbs {
+    @Html.Partial("_Breadcrumbs", new List<Breadcrumb>()
+    {
+        new Breadcrumb { Description = ViewBag.Title }
+    })
+}
+
+<div class="block">
+    <div class="head bg-default bg-light-ltr noradius">
+        <h2>@ViewBag.Title</h2>
+    </div>
+    <div class="content">
+        <table class="display table table-bordered table-striped table-list" cellspacing="0" width="100%"
+               data-url="/EmployeeModule/MyPayslips/Details/@employee.EmployeeId/{0}">
+            <thead>
+                <tr>
+                    <th class="idcol">
+                        Id
+                    </th>
+                    <th>
+                        Payroll Type
+                    </th>
+                    <th>
+                        Description
+                    </th>
+                    <th>
+                        Period
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (coreApp.DAL.tblPayrollSummary_Employee item in Model)
+                {
+                    coreApp.DAL.tblPayrollSummary ps = item.PS;
+
+                    <tr record-id="@item.PSEmployeeId" newtab>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PSEmployeeId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => ps.PayrollType_Desc)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => ps.Description)
+                        </td>
+                        <td style="white-space: nowrap">
+                            @Html.DisplayFor(modelItem => ps.DateFrom) - @Html.DisplayFor(modelItem => ps.DateTo)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+
+
+
+    </div>
+</div>
+
+
+
+@Html.Partial("~/Views/Shared/modals/_ModalView.cshtml", "modalView")

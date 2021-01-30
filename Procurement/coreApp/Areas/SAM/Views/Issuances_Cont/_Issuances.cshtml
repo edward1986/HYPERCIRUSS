@@ -1,0 +1,121 @@
+﻿@model coreApp.Areas.SAM.IssuanceModel_Cont
+
+<div class="card">
+    <div class="card-header">
+        <h5>@ViewBag.Title</h5>
+    </div>
+    <div class="card-body">
+        <div class="form-group row">
+            <div class="col-sm-6">
+                @Html.Partial("_Contractors", Model.ContractorId, new ViewDataDictionary { { "ShowEmptyItem", false } })
+            </div>
+        </div>
+        <ul class="nav nav-tabs mb-3" id="myTab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active text-uppercase" id="ppmp-tab" data-toggle="tab" href="#tab101" role="tab" aria-controls="home" aria-selected="true">Equipment</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-uppercase" id="profile-tab" data-toggle="tab" href="#tab102" role="tab" aria-controls="profile" aria-selected="false">Semi-Expendables</a>
+            </li>
+        </ul>
+        <div class="content tab-content">
+            <div class="tab-pane active" id="tab101">
+                <div class="dt-responsive table-responsive">
+                    <table id="table1" class="display table table-bordered table-striped table-list use-each" cellspacing="0" width="100%">
+                        <thead>
+                            <tr>
+                                <th>Date Issued</th>
+                                <th>PAR No.</th>
+                                <th>Property No.</th>
+                                <th>Item Name</th>
+                                <th>Status</th>
+                                <th>Warehouse</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (coreApp.Areas.SAM.InventoryItemModel item in Model.Equipment)
+                            {
+                                coreApp.Areas.SAM.tblWarehouse warehouse = DBProcs.get_WarehouseById(item.Tag.Receipt.WarehouseId);
+
+                                <tr record-id="@item.Item.Id" data-tableid="table1" locked>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.LatestLog.AREDate)
+                                    </td>
+                                    <td>
+                                        @if (item.LatestLog._AREType == (int)coreApp.Areas.SAM.Enums.AREType.PAR)
+                                        {
+                                            @Html.DisplayFor(modelItem => item.LatestLog._ARENo)
+                                        }
+                                        else
+                                        {
+                                            @Html.DisplayFor(modelItem => item.LatestLog.PTRNo)
+                                        }
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Item.PropertyNo)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Item._ItemName)
+                                    </td>
+                                    <td>
+                                        @Html.Partial("_inventoryStatus", item.LatestInspection)
+                                    </td>
+                                    <td>
+                                        @(warehouse == null ? "" : warehouse.Description)
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="tab-pane" id="tab102">
+                <div class="dt-responsive table-responsive">
+                    <table id="table2" class="display table table-bordered table-striped table-list use-each" cellspacing="0" width="100%">
+                        <thead>
+                            <tr>
+                                <th>Date Issued</th>
+                                <th>ICS No.</th>
+                                <th>Property No.</th>
+                                <th>Item Name</th>
+                                <th>Warehouse</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (coreApp.Areas.SAM.InventoryItemModel item in Model.SemiExpendables)
+                            {
+                                coreApp.Areas.SAM.tblWarehouse warehouse = DBProcs.get_WarehouseById(item.Tag.Receipt.WarehouseId);
+
+                                <tr record-id="@item.Item.Id" data-tableid="table2" locked>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.LatestLog.AREDate)
+                                    </td>
+                                    <td>
+                                        @if (item.LatestLog._AREType == (int)coreApp.Areas.SAM.Enums.AREType.PAR)
+                                        {
+                                            @Html.DisplayFor(modelItem => item.LatestLog._ARENo)
+                                        }
+                                        else
+                                        {
+                                            @Html.DisplayFor(modelItem => item.LatestLog.PTRNo)
+                                        }
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Item.PropertyNo)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Item._ItemName)
+                                    </td>
+                                    <td>
+                                        @(warehouse == null ? "" : warehouse.Description)
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

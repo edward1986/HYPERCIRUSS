@@ -1,0 +1,18 @@
+﻿@model Module.DB.tblEmployee_Access
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    @Html.HiddenFor(model => model.AccessId)
+    @Html.HiddenFor(model => model.EmployeeId)
+
+    <div class="row">
+        <div class="col-sm-12">
+            @Html.Partial("_AccessList", Model, new ViewDataDictionary { { "ReadOnly", false } })
+        </div>
+    </div>
+
+}
+

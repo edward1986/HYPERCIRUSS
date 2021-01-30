@@ -1,0 +1,48 @@
+﻿@{ 
+    Layout = "~/Views/Shared/_ModuleLayout.cshtml";
+
+    Module.DB.tblEmployee employee = (Module.DB.tblEmployee)ViewBag.Employee;
+
+    string employeeDetailsActiveTab = ViewBag.EmployeeDetailsActiveTab;
+    
+}
+@section Styles {
+    <style>
+        .btn-group a {
+            border-radius: initial;
+        }
+
+        
+    </style>
+    @RenderSection("Styles", false)
+}
+
+@section HeaderScripts {
+    @RenderSection("HeaderScripts", required: false)
+}
+
+@section Breadcrumbs {
+    @RenderSection("Breadcrumbs", required: false)
+}
+
+@section Scripts {
+    @RenderSection("Scripts", required: false)
+}
+
+
+
+<div class="row">
+    <div class="col-md-2">
+        @RenderSection("SearchSection", true)
+    </div>
+    <div class="col-md-10">
+        <div class="details" modal-target="#modalViewDetails_Create" style="margin: 5px 0 0 5px;">
+            <a href="#" class="btn btn-success btn-create" style="margin-bottom:5px;"
+               data-url="@Url.Action("Create", "Employees", new { area = "HRModule" })" data-redirect-url="/HRModule/Employees/Details/{0}">Create New Employee</a>
+        </div>
+        @Html.Partial("~/Views/Shared/modals/_ModalView_FromDetails.cshtml", "modalViewDetails_Create")
+                      
+        @RenderBody()
+    </div>
+</div>
+

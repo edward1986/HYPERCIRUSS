@@ -1,0 +1,53 @@
+﻿@using coreApp.Areas.SAM
+@model string
+@{
+    tblARE are = (tblARE)ViewBag.ARE;
+
+    List<tblARE> ares = (List<tblARE>)ViewBag.AREs;
+
+}
+
+PTR No.
+<select onchange="ptrSelected(this)">
+    @foreach (tblARE o in ares)
+            {
+        <option value="@o.Id" @(are.Id == o.Id ? "selected" : "")>@o.PTRNo | @o._From_Name @(o.FromContractor ? " (Contractor)" : "") > @o._To_Name @(o.ToContractor ? " (Contractor)" : "")</option>
+    }
+</select>
+
+<div style="padding:5px;">
+    <table>
+        <tbody>
+            @if (are.ToContractor)
+            {
+                <tr>
+                    <td>Address</td>
+                    <td>&nbsp;:&nbsp;</td>
+                    <td>@are._To_Address</td>
+                </tr>
+            }
+            else
+            {
+                <tr>
+                    <td>Position</td>
+                    <td>&nbsp;:&nbsp;</td>
+                    <td>@are._To_Position</td>
+                </tr>
+                <tr>
+                    <td>Office/Department</td>
+                    <td>&nbsp;:&nbsp;</td>
+                    <td>@are._To_Office / @are._To_Department</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+<br />
+
+<script>
+    function ptrSelected(sel) {
+        window.location = '@Model' + $(sel).val();
+    }
+</script>

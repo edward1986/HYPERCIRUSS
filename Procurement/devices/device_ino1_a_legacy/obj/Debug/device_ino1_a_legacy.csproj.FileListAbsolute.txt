@@ -1,0 +1,56 @@
+C:\Users\User\Desktop\FOR SKY DELIVERABLES\SkyHR\devices\device_ino1_a_legacy\bin\Debug\device_ino1_a_legacy.dll
+C:\Users\User\Desktop\FOR SKY DELIVERABLES\SkyHR\devices\device_ino1_a_legacy\bin\Debug\device_ino1_a_legacy.pdb
+C:\Users\User\Desktop\FOR SKY DELIVERABLES\SkyHR\devices\device_ino1_a_legacy\bin\Debug\Aspose.Cells.dll
+C:\Users\User\Desktop\FOR SKY DELIVERABLES\SkyHR\devices\device_ino1_a_legacy\bin\Debug\device_core.dll
+C:\Users\User\Desktop\FOR SKY DELIVERABLES\SkyHR\devices\device_ino1_a_legacy\bin\Debug\device_core.pdb
+C:\Users\User\Desktop\FOR SKY DELIVERABLES\SkyHR\devices\device_ino1_a_legacy\bin\Debug\Interop.zkemkeeper.dll
+C:\Users\User\Desktop\FOR SKY DELIVERABLES\SkyHR\devices\device_ino1_a_legacy\obj\Debug\device_ino1_a_legacy.csprojResolveAssemblyReference.cache
+C:\Users\User\Desktop\FOR SKY DELIVERABLES\SkyHR\devices\device_ino1_a_legacy\obj\Debug\Interop.zkemkeeper.dll
+C:\Users\User\Desktop\FOR SKY DELIVERABLES\SkyHR\devices\device_ino1_a_legacy\obj\Debug\device_ino1_a_legacy.csproj.ResolveComReference.cache
+C:\Users\User\Desktop\FOR SKY DELIVERABLES\SkyHR\devices\device_ino1_a_legacy\obj\Debug\device_ino1_a_legacy.csproj.CoreCompileInputs.cache
+C:\Users\User\Desktop\FOR SKY DELIVERABLES\SkyHR\devices\device_ino1_a_legacy\obj\Debug\device_ino1_a_legacy.dll
+C:\Users\User\Desktop\FOR SKY DELIVERABLES\SkyHR\devices\device_ino1_a_legacy\obj\Debug\device_ino1_a_legacy.pdb
+D:\Cleford\System\FOR SKY DELIVERABLES_2\FOR SKY DELIVERABLES\SkyHR\devices\device_ino1_a_legacy\bin\Debug\device_ino1_a_legacy.dll
+D:\Cleford\System\FOR SKY DELIVERABLES_2\FOR SKY DELIVERABLES\SkyHR\devices\device_ino1_a_legacy\bin\Debug\device_ino1_a_legacy.pdb
+D:\Cleford\System\FOR SKY DELIVERABLES_2\FOR SKY DELIVERABLES\SkyHR\devices\device_ino1_a_legacy\bin\Debug\Aspose.Cells.dll
+D:\Cleford\System\FOR SKY DELIVERABLES_2\FOR SKY DELIVERABLES\SkyHR\devices\device_ino1_a_legacy\bin\Debug\device_core.dll
+D:\Cleford\System\FOR SKY DELIVERABLES_2\FOR SKY DELIVERABLES\SkyHR\devices\device_ino1_a_legacy\bin\Debug\device_core.pdb
+D:\Cleford\System\FOR SKY DELIVERABLES_2\FOR SKY DELIVERABLES\SkyHR\devices\device_ino1_a_legacy\obj\Debug\device_ino1_a_legacy.csprojAssemblyReference.cache
+D:\Cleford\System\FOR SKY DELIVERABLES_2\FOR SKY DELIVERABLES\SkyHR\devices\device_ino1_a_legacy\obj\Debug\device_ino1_a_legacy.csproj.CopyComplete
+D:\Cleford\System\FOR SKY DELIVERABLES_2\FOR SKY DELIVERABLES\SkyHR\devices\device_ino1_a_legacy\obj\Debug\device_ino1_a_legacy.dll
+D:\Cleford\System\FOR SKY DELIVERABLES_2\FOR SKY DELIVERABLES\SkyHR\devices\device_ino1_a_legacy\obj\Debug\device_ino1_a_legacy.pdb
+D:\Cleford\System\FOR SKY DELIVERABLES_2\FOR SKY DELIVERABLES\SkyHR\devices\device_ino1_a_legacy\obj\Debug\device_ino1_a_legacy.csproj.CoreCompileInputs.cache
+D:\Systems\SkyHR\SkyHR\devices\device_ino1_a_legacy\bin\Debug\device_ino1_a_legacy.dll
+D:\Systems\SkyHR\SkyHR\devices\device_ino1_a_legacy\bin\Debug\device_ino1_a_legacy.pdb
+D:\Systems\SkyHR\SkyHR\devices\device_ino1_a_legacy\bin\Debug\Aspose.Cells.dll
+D:\Systems\SkyHR\SkyHR\devices\device_ino1_a_legacy\bin\Debug\device_core.dll
+D:\Systems\SkyHR\SkyHR\devices\device_ino1_a_legacy\bin\Debug\device_core.pdb
+D:\Systems\SkyHR\SkyHR\devices\device_ino1_a_legacy\obj\Debug\device_ino1_a_legacy.csprojAssemblyReference.cache
+D:\Systems\SkyHR\SkyHR\devices\device_ino1_a_legacy\obj\Debug\device_ino1_a_legacy.csproj.CoreCompileInputs.cache
+D:\Systems\SkyHR\SkyHR\devices\device_ino1_a_legacy\obj\Debug\device_ino1_a_legacy.csproj.CopyComplete
+D:\Systems\SkyHR\SkyHR\devices\device_ino1_a_legacy\obj\Debug\device_ino1_a_legacy.dll
+D:\Systems\SkyHR\SkyHR\devices\device_ino1_a_legacy\obj\Debug\device_ino1_a_legacy.pdb
+D:\Systems\SkyHR\SkyHR\SkyHR\SkyHR\devices\device_ino1_a_legacy\bin\Debug\device_ino1_a_legacy.dll
+D:\Systems\SkyHR\SkyHR\SkyHR\SkyHR\devices\device_ino1_a_legacy\bin\Debug\device_ino1_a_legacy.pdb
+D:\Systems\SkyHR\SkyHR\SkyHR\SkyHR\devices\device_ino1_a_legacy\bin\Debug\Aspose.Cells.dll
+D:\Systems\SkyHR\SkyHR\SkyHR\SkyHR\devices\device_ino1_a_legacy\bin\Debug\device_core.dll
+D:\Systems\SkyHR\SkyHR\SkyHR\SkyHR\devices\device_ino1_a_legacy\bin\Debug\device_core.pdb
+D:\Systems\SkyHR\SkyHR\SkyHR\SkyHR\devices\device_ino1_a_legacy\obj\Debug\device_ino1_a_legacy.csprojAssemblyReference.cache
+D:\Systems\SkyHR\SkyHR\SkyHR\SkyHR\devices\device_ino1_a_legacy\obj\Debug\device_ino1_a_legacy.csproj.CoreCompileInputs.cache
+D:\Systems\SkyHR\SkyHR\SkyHR\SkyHR\devices\device_ino1_a_legacy\obj\Debug\device_ino1_a_legacy.csproj.CopyComplete
+D:\Systems\SkyHR\SkyHR\SkyHR\SkyHR\devices\device_ino1_a_legacy\obj\Debug\device_ino1_a_legacy.dll
+D:\Systems\SkyHR\SkyHR\SkyHR\SkyHR\devices\device_ino1_a_legacy\obj\Debug\device_ino1_a_legacy.pdb
+D:\Systems\SkyHR\devices\device_ino1_a_legacy\bin\Debug\device_ino1_a_legacy.dll
+D:\Systems\SkyHR\devices\device_ino1_a_legacy\bin\Debug\device_ino1_a_legacy.pdb
+D:\Systems\SkyHR\devices\device_ino1_a_legacy\bin\Debug\Aspose.Cells.dll
+D:\Systems\SkyHR\devices\device_ino1_a_legacy\bin\Debug\device_core.dll
+D:\Systems\SkyHR\devices\device_ino1_a_legacy\bin\Debug\Newtonsoft.Json.dll
+D:\Systems\SkyHR\devices\device_ino1_a_legacy\bin\Debug\device_core.pdb
+D:\Systems\SkyHR\devices\device_ino1_a_legacy\bin\Debug\Newtonsoft.Json.xml
+D:\Systems\SkyHR\devices\device_ino1_a_legacy\obj\Debug\device_ino1_a_legacy.csprojAssemblyReference.cache
+D:\Systems\SkyHR\devices\device_ino1_a_legacy\obj\Debug\Interop.zkemkeeper.dll
+D:\Systems\SkyHR\devices\device_ino1_a_legacy\obj\Debug\device_ino1_a_legacy.csproj.ResolveComReference.cache
+D:\Systems\SkyHR\devices\device_ino1_a_legacy\obj\Debug\device_ino1_a_legacy.csproj.CoreCompileInputs.cache
+D:\Systems\SkyHR\devices\device_ino1_a_legacy\obj\Debug\device_ino1_a_legacy.csproj.CopyComplete
+D:\Systems\SkyHR\devices\device_ino1_a_legacy\obj\Debug\device_ino1_a_legacy.dll
+D:\Systems\SkyHR\devices\device_ino1_a_legacy\obj\Debug\device_ino1_a_legacy.pdb

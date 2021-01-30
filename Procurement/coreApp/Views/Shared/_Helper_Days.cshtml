@@ -1,0 +1,22 @@
+﻿@model Module.DB.Interfaces.ISegment
+
+<table class="days-ui">
+    <tr>
+        <td>Sun</td>
+        <td>Mon</td>
+        <td>Tue</td>
+        <td>Wed</td>
+        <td>Thu</td>
+        <td>Fri</td>
+        <td>Sat</td>
+    </tr>
+    <tr>
+        <td>@Html.Partial("_Helper_CheckBox", "Days_Sun", new ViewDataDictionary { { "value", Model.Days_Sun } })</td>
+        <td>@Html.Partial("_Helper_CheckBox", "Days_Mon", new ViewDataDictionary { { "value", Model.Days_Mon } })</td>
+        <td>@Html.Partial("_Helper_CheckBox", "Days_Tue", new ViewDataDictionary { { "value", Model.Days_Tue } })</td>
+        <td>@Html.Partial("_Helper_CheckBox", "Days_Wed", new ViewDataDictionary { { "value", Model.Days_Wed } })</td>
+        <td>@Html.Partial("_Helper_CheckBox", "Days_Thu", new ViewDataDictionary { { "value", Model.Days_Thu } })</td>
+        <td>@Html.Partial("_Helper_CheckBox", "Days_Fri", new ViewDataDictionary { { "value", Model.Days_Fri } })</td>
+        <td>@Html.Partial("_Helper_CheckBox", "Days_Sat", new ViewDataDictionary { { "value", Model.Days_Sat } })</td>
+    </tr>
+</table>    

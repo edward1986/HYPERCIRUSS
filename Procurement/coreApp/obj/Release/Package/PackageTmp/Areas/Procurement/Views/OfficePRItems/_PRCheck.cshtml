@@ -1,0 +1,66 @@
+﻿@model List<coreApp.Areas.Procurement.Models.GroupedConflictItems>
+
+<style>
+    .conflict-items {
+        padding: 5px;
+        background-color: rgba(255,0,0,0.2);
+        max-height: 240px;
+        overflow: auto;
+    }
+    
+    .conflict-items table {
+        max-width: 75%;
+        margin: 0px auto;
+    }
+</style>
+
+@if (Model.Any())
+{
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="conflict-items">
+                <table class="display table table-bordered table-striped table-list" border="1">
+                    <thead>
+                        <tr>
+                            <th colspan="3">
+                                Items In Conflict !!!
+                            </th>
+                        </tr>
+                        <tr>
+                            <th>PR</th>
+                            <th>Item</th>
+                            <th>Month(s)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            string pr = item.PR.Description;
+
+                            foreach (var ii in item.Items)
+                            {
+                                <tr locked>
+                                    <td>
+                                        @pr
+                                        @if (pr != "")
+                                        {
+                                            <span> [@item.PR.ppmpDescription]</span>
+                                            <div class="small">
+                                                Id: @item.PR.Id | Submitted by: @item.PR.SubmittedBy | @item.PR.SubmitDate
+                                            </div>
+                                        }
+                                        
+                                    </td>
+                                    <td>@ii.Item.ItemName</td>
+                                    <td style="text-align:center">@string.Join(", ", ii.strMonths)</td>
+                                </tr>
+
+                                pr = "";
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+}

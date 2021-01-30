@@ -1,0 +1,220 @@
+﻿
+@{
+    ViewBag.Title = "Set Allowances/Deductions";
+    ViewBag.Subtitle = "";
+
+}
+
+@section Breadcrumbs {
+    @Html.Partial("_Breadcrumbs", new List<Breadcrumb>() { new Breadcrumb { Description = ViewBag.Title } })
+}
+
+@section Styles {
+    <link href="~/Assets/plugins/SmartWizard-master/dist/css/smart_wizard.css" rel="stylesheet" type="text/css" /> 
+    <link href="~/Assets/css/page-wizard.less" rel="stylesheet" type="text/css" />
+}
+
+@section Scripts {
+    <script type='text/javascript' src='~/Assets/plugins/SmartWizard-master/dist/js/jquery.smartWizard.js'></script>
+
+    <script>
+        $(document).ready(function () {
+            var employees = '';
+            var allowances = [];
+            var deductions = [];
+
+            $('#smartwizard').smartWizard({
+                toolbarSettings: {
+                    toolbarPosition: 'top', // none, top, bottom, both
+                }
+            });
+
+            $("#smartwizard").on("leaveStep", function (e, anchorObject, stepNumber, stepDirection) {
+                if (stepNumber == 0) {
+
+                    var selectedItems = $('.search .selectedItems');
+
+                    employees = '';
+
+                    if (selectedItems.val() == '') {
+                        modalMessage('No employee selected', 'Step 1', true);
+                        return false;
+                    } else {
+
+                        employees = selectedItems.val();
+                        return true;
+                    }
+
+                } else if (stepNumber == 1) {
+                    if (stepDirection == 'forward') {
+
+                        var allowanceItems = $('.entry-ui [name="Allowances"]:checked');
+                        var deductionItems = $('.entry-ui [name="Deductions"]:checked');
+
+                        allowances = [];
+                        deductions = [];
+
+                        allowanceItems.each(function (i, v) {
+                            allowances.push($(v).val());
+                        });
+
+                        deductionItems.each(function (i, v) {
+                            deductions.push($(v).val());
+                        });
+
+                        return true;
+                    }
+                } else if (stepNumber == 2) {
+
+                    if (stepDirection == 'forward') {
+
+                        var msg = [];
+
+                        if (employees == '') {
+                            msg.push('No employee selected');
+                        }
+                        
+                        if (msg.length > 0) {
+                            modalMessage(msg, 'Step 3', true);
+                            return false;
+                        } else {
+                                                        
+                            var url = '/HRModule/SetAllowancesDeductions/SaveSelection';
+                            var param = {
+                                employees: employees,
+                                allowances: allowances.length > 0 ? allowances.join(',') : null,
+                                deductions: deductions.length > 0 ? deductions.join(',') : null,
+                                deleteExisting: $('[name="DeleteExisting"]').prop('checked')
+                            };
+
+                            $.post(url, param, function (res) {
+                                if (res.IsSuccessful) {
+                                    return true;
+                                } else {
+                                    modalMessage(res.Err.split('\n'), 'Save Selection', true);
+                                    return false;
+                                }
+                            }, 'json');                            
+                        }
+
+                    }
+
+                }
+            });
+
+            $("#smartwizard").on("showStep", function (e, anchorObject, stepNumber, stepDirection) {
+                if (stepNumber == 2) {
+                    if (stepDirection == 'forward') {
+
+                        var cont = $('#step-3');
+                        
+                        var url = '/HRModule/SetAllowancesDeductions/SelectedEmployees';
+                        var param = { selection: employees };
+
+                        cont.addClass('loading-mask');
+                        var empLoaded = false;
+                        var allowLoaded = false;
+                        var dedLoaded = false;
+
+                        var removeLoading = function () {
+                            if (empLoaded && allowLoaded && dedLoaded) {
+                                cont.removeClass('loading-mask');
+                            }
+                        };
+
+                        $('.selected-employees').load(url, param, function () {
+                            empLoaded = true;
+                            removeLoading();
+                        });
+                        
+                        url = '/HRModule/SetAllowancesDeductions/SelectedAllowances';
+                        param = { selection: allowances.join(',') };
+                                                
+                        $('.selected-allowances').load(url, param, function () {
+                            allowLoaded = true;
+                            removeLoading();
+                        });
+
+
+                        url = '/HRModule/SetAllowancesDeductions/SelectedDeductions';
+                        param = { selection: deductions.join(',') };
+
+                        $('.selected-deductions').load(url, param, function () {
+                            dedLoaded = true;
+                            removeLoading();
+                        });
+                    }
+                }
+            });
+        });
+    </script>
+}
+
+<div class="block">
+    <div class="head bg-default bg-light-ltr noradius">
+        <h2>Set Allowances/Deductions</h2>
+    </div>
+</div>
+
+<div id="smartwizard">
+    <ul>
+        <li><a href="#step-1">Employees<br /><small>Select the employees who will receive the templates</small></a></li>
+        <li><a href="#step-2">Allowances/Deductions<br /><small>Select allowances/deductions</small></a></li>
+        <li><a href="#step-3">Summary<br /><small>Review your selection</small></a></li>
+        <li><a href="#step-4">Confirmation<br /><small>Setting of selection confirmed</small></a></li>
+    </ul>
+
+    <div>
+        <div id="step-1" class="">
+            @Html.Action("Search", "EmployeeSearch", new { area = "HRModule", model = new coreApp.Models.EmployeeSearchModel { DataUrl = "", MultiSelect = true, ExcludeNoCareer = true, ExcludeNoOffice = true } })
+        </div>
+        <div id="step-2" class="">            
+            <div class="row">
+                <div class="col-sm-12">
+                    @Html.Partial("_Helper_CheckBox", "DeleteExisting", new ViewDataDictionary { { "value", false }, { "text", "Delete Existing Items" }, { "input-value", 1 } })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <fieldset>
+                        <legend>Allowances</legend>
+                        @Html.Partial("_AllowanceList", new List<coreApp.DAL.tblFin_AllowanceDef>(), new ViewDataDictionary { { "ReadOnly", false } })
+                    </fieldset>                    
+                
+                    <fieldset>
+                        <legend>Deductions</legend>
+                        @Html.Partial("_DeductionList", new List<coreApp.DAL.tblFin_DeductionDef>(), new ViewDataDictionary { { "ReadOnly", false } })
+                    </fieldset>                    
+                </div>
+            </div>
+        </div>
+        <div id="step-3" class="">
+            <div class="row">
+                <div class="col-sm-4 col-lg-4">
+                    <fieldset>
+                        <legend>Selected Employees</legend>
+
+                        <div class="selected-employees"></div>
+                    </fieldset>
+                </div>
+                <div class="col-sm-4 col-lg-4">
+                    <fieldset>
+                        <legend>Selected Allowances</legend>
+
+                        <div class="selected-allowances"></div>
+                    </fieldset>
+                </div>
+                <div class="col-sm-4 col-lg-4">
+                    <fieldset>
+                        <legend>Selected Deductions</legend>
+
+                        <div class="selected-deductions"></div>
+                    </fieldset>
+                </div>
+            </div>
+        </div>
+        <div id="step-4" class="">
+            <h3>Allowances/Deductions were successfully set</h3>
+        </div>
+    </div>
+</div>

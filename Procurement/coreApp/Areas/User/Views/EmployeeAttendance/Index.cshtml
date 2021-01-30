@@ -1,0 +1,62 @@
+﻿@model Module.Time.AttendanceModel
+
+@{
+    Layout = "~/Areas/HRModule/Views/Shared/_EmployeeDetailsLayout.cshtml";
+
+    ViewBag.Title = "Attendance";
+    ViewBag.Subtitle = "";
+
+    ViewBag.EmployeeDetailsActiveTab = "attendance";
+
+    Module.DB.tblEmployee employee = (Module.DB.tblEmployee)ViewBag.Employee;
+}
+
+@section Breadcrumbs {
+    @Html.Partial("_Breadcrumbs", new List<Breadcrumb>()
+    {
+        new Breadcrumb { Description = "Employee List", Link = Url.Action("Index", "Employees", new { area = "HRModule" }) },
+        new Breadcrumb { Description = "Employee Main Record", Link = Url.Action("Details", "Employees", new { id = employee.EmployeeId, area = "HRModule" } ) },
+        new Breadcrumb { Description = ViewBag.Title }
+    })
+}
+
+@section SearchSection {
+    @Html.Action("Search", "EmployeeSearch", new { model = new coreApp.Models.EmployeeSearchModel { DataUrl = "/HRModule/Employee/Attendance/{0}/" + Model.periodModel.StartDate.ToString("MM-dd-yyyy") + "/" + Model.periodModel.EndDate.ToString("MM-dd-yyyy"), MinimalView = true } })
+}
+
+@section Scripts {
+<script>
+    function applyPeriod(start, end) {
+        window.location = '/HRModule/Employee/Attendance/@employee.EmployeeId/' + start + '/' + end;
+    }
+
+    function printDTR() {
+         var printlink = '@Url.Action("Print", new { employeeId = employee.EmployeeId })';
+            modalPrint('@Module.Core.ModuleConstants.PRINT_OPTIONS', function (ret) {
+                var dlWord = 'true';
+
+                if (ret) {
+                    dlWord = 'false';
+                }
+
+                window.open(printlink + (printlink.indexOf('?') > 0 ? '&' : '?') + 'dlWord=' + dlWord, '_blank');
+            });
+    }
+</script>
+}
+
+<div class="block">
+    <div class="head bg-default bg-light-ltr noradius">
+        <h2>Attendance</h2>
+        <div class="side pull-right">
+            <ul class="buttons">
+                <li><button class="btn btn-info btn-print" onclick="printDTR()">Print DTR</button></li>
+            </ul>
+        </div>
+    </div>
+    <div class="content">
+        @Html.Partial("~/Areas/TimeModule/Views/Shared/_AttendanceByPeriod.cshtml", Model, new ViewDataDictionary { { "clientCallback", "applyPeriod" } })
+    </div>
+</div>
+
+

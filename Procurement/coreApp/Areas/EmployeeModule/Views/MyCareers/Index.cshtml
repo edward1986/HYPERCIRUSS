@@ -1,0 +1,157 @@
+﻿@model List<Module.DB.tblEmployee_Career>
+
+@{
+    Layout = "~/Areas/EmployeeModule/Views/Shared/_EmployeeDetailsLayout.cshtml";
+
+    ViewBag.Title = "Career";
+    ViewBag.Subtitle = "List";
+
+    ViewBag.EmployeeDetailsActiveTab = "careers";
+
+    Module.DB.tblEmployee employee = (Module.DB.tblEmployee)ViewBag.Employee;
+}
+
+@section Breadcrumbs {
+    @Html.Partial("_Breadcrumbs", new List<Breadcrumb>()
+    {
+        new Breadcrumb { Description = "Employee Main Record", Link = Url.Action("Details", "MyProfile", new { id = employee.EmployeeId, area = "EmployeeModule" } ) },
+        new Breadcrumb { Description = ViewBag.Title }
+    })
+}
+
+@section Scripts {
+    <script>
+        function print() {
+             modalPrint('@Module.Core.ModuleConstants.PRINT_OPTIONS', function (ret) {
+                 var dlWord = 'true';
+
+                 if (ret) {
+                     dlWord = 'false';
+                 }
+
+                 window.open('/EmployeeModule/MyCareers/Print?dlWord=' + dlWord, '_blank');
+            });
+         }
+    </script>
+}
+
+<div class="block">
+    <ul class="nav nav-tabs" state-key="settings-tab" state-manager-for="tabs">
+        <li class="active"><a href="#career" data-toggle="tab">Career</a></li>
+        <li class=""><a href="/EmployeeModule/Overload/Index/@employee.EmployeeId">Overload</a></li>
+    </ul>
+
+    <div class="head bg-default bg-light-ltr noradius">
+        <h2>@ViewBag.Title</h2>
+        <div class="side pull-right">
+            <ul class="buttons">
+                <li>
+                    <button class="btn btn-info btn-print" onclick="print()">Print</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="content">
+
+        <table class="display table table-bordered table-striped table-list" cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                    <th class="idcol">
+                        Id
+                    </th>
+                    <th>
+                        Date Effective
+                    </th>
+                    <th>
+                        Event/
+                        Remarks
+                    </th>
+                    <th>
+                        Department
+                    </th>
+                    <th>
+                        Position
+                    </th>
+                    <th>
+                        Level
+                    </th>
+                    <th>
+                        Rate
+                    </th>
+                    <th>
+                        Employment Type
+                    </th>
+                    <th>
+                        Faculty
+                    </th>
+                    <th>
+                        End Event Date
+                    </th>
+                    <th>
+                        End Event/
+                        Remarks
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Module.DB.tblEmployee_Career item in Model)
+                {
+                    <tr record-id="@item.CareerId" locked>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CareerId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DateEffective)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Events_Desc)
+                            @if (!string.IsNullOrEmpty(item.EventRemarks))
+                            {
+                                <hr style="margin:0" />
+                                @Html.DisplayMultiLineFor(model => item.EventRemarks)
+                            }
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Department)
+                            <div class="subtitle">
+                                @Html.DisplayFor(modelItem => item.Office.Office),
+                                @Html.DisplayFor(modelItem => item.Office.OfficeAddress)
+                            </div>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Position.Position)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PositionLevel)
+                        </td>
+                        <td>
+                            @item.Rate.ToString("#,##0.00")
+                            @if (item.IsCustomRate)
+                            {
+                                <div class="subtitle">(Custom Rate)</div>
+                            }
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EmploymentType_Desc)
+                        </td>
+                        <td>
+                            @(item.IsFaculty ? "Yes" : "No")
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EndEventDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EndEvent_Desc)
+                            @if (!string.IsNullOrEmpty(item.EndEventRemarks))
+                            {
+                                <hr style="margin:0" />
+                                @Html.DisplayMultiLineFor(model => item.EndEventRemarks)
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+

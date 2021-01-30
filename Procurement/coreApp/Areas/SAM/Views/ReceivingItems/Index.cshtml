@@ -1,0 +1,186 @@
+﻿@model coreApp.Areas.SAM.POModel
+
+@{
+    ViewBag.Title = "Items";
+    ViewBag.Subtitle = "List";
+
+    coreApp.Areas.SAM.tblReceipt receipt = (coreApp.Areas.SAM.tblReceipt)ViewBag.Receipt;
+
+}
+
+@section Breadcrumbs {
+    @Html.Partial("_Breadcrumbs", new List<Breadcrumb>() {
+        new Breadcrumb { Description = "Receipts", Link = Url.Action("Index", "Receiving", new { area = "SAM" }) },
+        new Breadcrumb { Description = ViewBag.Title }
+    })
+}
+
+@section Styles {
+    <style>
+        .qtycol {
+            width: 150px;
+            text-align: center
+        }
+
+            .qtycol input {
+                text-align: center;
+            }
+    </style>
+
+}
+
+@section Scripts {
+    <script>
+        var oTable;
+
+        function prepDone(table) {
+            oTable = table;
+        }
+
+        function tableBind(obj) {
+
+        }
+
+        function clearEntries() {
+            modalConfirm('Are you sure you want to clear all entries?', function (ret) {
+                if (ret) {
+                    update(true);
+                }
+            });
+        }
+
+        function updateEntries() {
+            modalConfirm('Are you sure you want to update all items?', function (ret) {
+                if (ret) {
+                    update(false);
+                }
+            });
+        }
+
+        function update(clear) {
+            var link = '@Url.Action("UpdateItems", new { receiptId = receipt.Id })';
+
+            var proc = modalProcessing(null, 'Updating...');
+            var items = [];
+            var err = [];
+
+            var obj = $('.main-list');
+
+            var nodes = oTable.rows().nodes();
+
+            for (var i = 0; i < nodes.length; i++) {
+                var tr = $(nodes[i]);
+                var tb = tr.find('.received-qty');
+
+                var td = tb.closest('td');
+                var id = parseInt(td.attr('data-itemid'));
+                var itemName = td.attr('data-itemname');
+                var totalQty = parseInt(td.attr('data-totalqty'));
+                var otherReceivedQty = parseInt(td.attr('data-otherreceivedqty'));
+
+                var item = {
+                    itemId: id,
+                    itemName: itemName,
+                    qty: 0
+                };
+
+                if (!clear && $.isNumeric(tb.val())) {
+
+                    var qty = parseInt(tb.val());
+
+                    if (qty != 0) {
+
+                        if (qty > (totalQty - otherReceivedQty)) {
+                            err.push('Qty is greater than the no. of undelivered items for ' + itemName);
+                        } else {
+                            item.qty = qty;
+                        }
+                    }
+                }
+
+                items.push(item);
+
+            };
+
+            if (err.length > 0) {
+                proc.modal('hide');
+                modalMessage(err, 'Update', true);
+            } else {
+                var data = {
+                    isClear: clear,
+                    data: items
+                };
+
+                $.post(link, data, function (res) {
+
+                    if (res.IsSuccessful) {
+                        sessionStorage.clientMessage = res.Remarks;
+                        window.location = '@Url.Action("Index", "Receiving", new { year = receipt.ReceivedDate.Year })';
+                    } else {
+                                proc.modal('hide');
+                                modalMessage(res.Err.split('\n'), 'Update Items', true);
+                            }
+                        }, 'json');
+            }
+        }
+
+    </script>
+}
+
+<div class="block">
+    <div class="card">
+        <div class="card-header">
+            <h5>@ViewBag.Title</h5>
+            <div class="card-header-right">
+                <div class="btn-group-sm header-button">
+                    <button class="btn btn-primary btn-sm btn-update" onclick="updateEntries()">Update</button>
+                    <button class="btn btn-danger btn-sm btn-clear" onclick="clearEntries()">Clear</button>                    
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            @Html.Partial("~/Areas/SAM/Views/Shared/receiptInfo.cshtml", "/SAM/Receiving/Items/Index/")
+            <div class="dt-responsive table-responsive">
+                <table class="display table table-bordered table-striped table-list main-list" event-tablebind="tableBind" event-settables-done="prepDone" cellspacing="0" width="100%"
+                       modal-target="#modalView" modal-start="view">
+                    <thead>
+                        <tr>
+                            <th>Item</th>
+                            <th>Total Qty</th>
+                            <th>Delivered Qty</th>
+                            <th>Received Qty</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (coreApp.Areas.SAM.POItemModel item in Model.Items.OrderBy(x => x.Item.ItemName))
+                        {
+                            if (item.IsComplete)
+                            {
+                                continue;
+                            }
+
+                            <tr record-id="@item.Item.Id" locked>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Item.ItemName)
+                                </td>
+                                <td class="qtycol">
+                                    @Html.DisplayFor(modelItem => item.Item.Qty)
+                                </td>
+                                <td class="qtycol">
+                                    @Html.DisplayFor(modelItem => item.Delivered)
+                                </td>
+                                <td class="qtycol" data-itemid="@item.Item.Id" data-itemname="@item.Item.ItemName" data-totalqty="@item.Item.Qty" data-otherreceivedqty="@item.Delivered">
+                                    <input type="text" class="int-spinner received-qty" data-allow-negative="false" value="@item.ReceiptQty" />
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@Html.Partial("~/Views/Shared/modals/_ModalView.cshtml", "modalView")
+

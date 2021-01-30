@@ -1,0 +1,188 @@
+﻿@using coreApp
+@{ 
+    coreApp.UserAccess access = coreApp.Cache.Get().userAccess;
+
+    var _area = HttpContext.Current.Request.RequestContext.RouteData.DataTokens["area"];
+    string area = _area == null ? "" : _area.ToString().ToLower();
+}
+
+@if (access.HasAccess("sam_settings"))
+{
+    <li class="dropdown @LayoutUtility.MenuSelector(true, "[NONE],SAM", "Suppliers,CategoryTypes,ItemLife")">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <span class="fa fa-gears"></span>
+            System Settings
+            &nbsp;<i class="fa fa-angle-double-down"></i>
+        </a>
+
+        <ul class="dropdown-menu">
+            <li class="@LayoutUtility.MenuSelector(false, "SAM", "Items")">
+                <a href="@Url.Action("Index", "Items", new { area = "SAM" })">
+                    Items
+                </a>
+            </li>
+            <li class="@LayoutUtility.MenuSelector(false, "SAM", "Suppliers")">
+                <a href="@Url.Action("Index", "Suppliers", new { area = "SAM" })">
+                    Suppliers
+                </a>
+            </li>
+            <li class="@LayoutUtility.MenuSelector(false, "SAM", "Warehouses")">
+                <a href="@Url.Action("Index", "Warehouses", new { area = "SAM" })">
+                    Warehouses
+                </a>
+            </li>
+
+            @if (FixedSettings.IncludeContractors)
+            {
+                <li class="@LayoutUtility.MenuSelector(false, "SAM", "Contractors")">
+                    <a href="@Url.Action("Index", "Contractors", new { area = "SAM" })">
+                        Contractors
+                    </a>
+                </li>
+            }
+                        
+            <li class="@LayoutUtility.MenuSelector(false, "SAM", "CategoryTypes")">
+                <a href="@Url.Action("Index", "CategoryTypes", new { area = "SAM" })">
+                    Category Types
+                </a>
+            </li>
+            <li class="@LayoutUtility.MenuSelector(false, "SAM", "ItemLife")">
+                <a href="@Url.Action("Index", "ItemLife", new { area = "SAM" })">
+                    Item Life
+                </a>
+            </li>
+        </ul>
+    </li>
+}
+
+@if (access.HasAccess("sam_receiving"))
+{
+    <li class="@LayoutUtility.MenuSelector(false, "SAM", "PO,POItems")">
+        <a href="@Url.Action("Index", "PO", new { area = "SAM" })">
+            <span class="fa fa-shopping-cart"></span>
+            Purchase Orders
+        </a>
+    </li>
+    <li class="@LayoutUtility.MenuSelector(false, "SAM", "Receiving")">
+        <a href="@Url.Action("Index", "Receiving", new { area = "SAM" })">
+            <span class="icon-check"></span>
+            Receiving
+        </a>
+    </li>
+}
+
+@if (access.HasAccess("sam_inspection"))
+{
+    <li class="@LayoutUtility.MenuSelector(false, "SAM", "Inspection, InspectionItems")">
+        <a href="@Url.Action("Index", "Inspection", new { area = "SAM" })">
+            <span class="icon-check"></span>
+            Inspection
+        </a>
+    </li>
+}
+
+@if (access.HasAccess("sam_tagging"))
+{
+    <li class="@LayoutUtility.MenuSelector(false, "SAM", "Tagging,TaggingEntry")">
+        <a href="@Url.Action("Index", "Tagging", new { area = "SAM" })">
+            <span class="fa fa-tags"></span>
+            Tagging
+        </a>
+    </li>
+}
+
+@if (access.HasAccess("sam_transactions"))
+{
+    <li class="dropdown @LayoutUtility.MenuSelector(true, "[NONE],SAM", "ARE,AREItems,RIS,RISItems,ICS")">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <span class="fa fa-list"></span>
+            Transactions
+            &nbsp;<i class="fa fa-angle-double-down"></i>
+        </a>
+
+        <ul class="dropdown-menu">
+            <li class="@LayoutUtility.MenuSelector(false, "SAM", "ARE")">
+                <a href="@Url.Action("Index", "ARE", new { area = "SAM" })">
+                    Property Acknowledgement Receipts
+                </a>
+            </li>
+            <li class="@LayoutUtility.MenuSelector(false, "SAM", "PTR")">
+                <a href="@Url.Action("Index", "PTR", new { area = "SAM" })">
+                    Property Transfer Reports
+                </a>
+            </li>
+            <li class="@LayoutUtility.MenuSelector(false, "SAM", "RIS")">
+                <a href="@Url.Action("Index", "RIS", new { area = "SAM" })">
+                    Requisition for Issuance
+                </a>
+            </li>
+            <li class="@LayoutUtility.MenuSelector(false, "SAM", "Return")">
+                <a href="@Url.Action("Index", "Return", new { area = "SAM" })">
+                    Property Return Slips
+                </a>
+            </li>
+            
+        </ul>
+    </li>
+}
+
+@if (access.HasAccess("sam_inspection_equip"))
+{
+    <li class="@LayoutUtility.MenuSelector(false, "SAM", "InventoryInspection,InventoryInspectionItems")">
+        <a href="@Url.Action("Index", "InventoryInspection", new { area = "SAM" })">
+            <span class="fa fa-thumbs-up"></span>
+            Equipment Inspections
+        </a>
+    </li>
+}
+
+@if (access.HasAccess("sam_monitoring"))
+{
+    <li class="dropdown @LayoutUtility.MenuSelector(true, "[NONE],SAM", "Stocks,StockItems,Equipment,InventoryInspection,InventoryInspectionItems")">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <span class="fa fa-archive"></span>
+            Inventory
+            &nbsp;<i class="fa fa-angle-double-down"></i>
+        </a>
+
+        <ul class="dropdown-menu">
+            <li class="@LayoutUtility.MenuSelector(false, "SAM", "Stocks,StockItems")">
+                <a href="@Url.Action("Index", "Stocks", new { area = "SAM" })">
+                    Stocks
+                </a>
+            </li>
+            <li class="@LayoutUtility.MenuSelector(false, "SAM", "Equipment")">
+                <a href="@Url.Action("Index", "Equipment", new { area = "SAM" })">
+                    Equipment
+                </a>
+            </li>
+        </ul>
+    </li>
+
+    <li class="dropdown @LayoutUtility.MenuSelector(true, "[NONE],SAM", "Issuances")">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <span class="fa fa-tv"></span>
+            Monitoring
+            &nbsp;<i class="fa fa-angle-double-down"></i>
+        </a>
+
+        <ul class="dropdown-menu">
+            <li class="@LayoutUtility.MenuSelector(false, "SAM", "Issuances")">
+                <a href="@Url.Action("Index", "Issuances", new { area = "SAM" })">
+                    Employee Issuances
+                </a>
+            </li>
+            @if (FixedSettings.IncludeContractors)
+            {
+                <li class="@LayoutUtility.MenuSelector(false, "SAM", "Issuances_Cont")">
+                    <a href="@Url.Action("Index", "Issuances_Cont", new { area = "SAM" })">
+                        Contractor Issuances
+                    </a>
+                </li>
+            }
+            
+        </ul>
+    </li>
+}
+
+

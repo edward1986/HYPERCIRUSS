@@ -1,0 +1,36 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout_Anonymous.cshtml";
+
+}
+
+
+@section PageContent {
+    <!-- page content wrapper -->
+    <div class="page-content-wrap bg-img-2">
+        <div class="divider"><div class="box"><span class="fa fa-angle-down"></span></div></div>
+
+        <!-- page content holder -->
+        <div class="page-content-holder">
+
+            <div class="row">
+                <div class="col-md-8 this-animate" data-animate="fadeInLeft">
+
+                    <div class="block-heading block-heading-centralized">
+                        
+                        <div class="block-heading-text text-danger">
+                            @Session["AccountErrorMessage"]
+                            
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="col-md-3 this-animate text-center" data-animate="fadeInRight">
+                    <img src="~/Assets/images/error.png" class="img-responsive-mobile" />
+                </div>
+            </div>
+
+        </div>
+        <!-- ./page content holder -->
+    </div>
+    <!-- ./page content wrapper -->    
+}

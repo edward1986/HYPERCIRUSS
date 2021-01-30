@@ -1,0 +1,161 @@
+﻿@model coreApp.Areas.SAM.PTRModel
+
+@{
+    ViewBag.Title = "Items";
+    ViewBag.Subtitle = "List";
+
+    coreApp.Areas.SAM.tblARE are = (coreApp.Areas.SAM.tblARE)ViewBag.ARE;
+
+}
+
+@section Breadcrumbs {
+    @Html.Partial("_Breadcrumbs", new List<Breadcrumb>() {
+        new Breadcrumb { Description = "Supply/Asset Management", Link = Url.Action("Index", "Main", new { area = "SAM" }) },
+        new Breadcrumb { Description = "Property Transfer Reports", Link = Url.Action("Index", "PTR", new { area = "SAM" }) },
+        new Breadcrumb { Description = ViewBag.Title }
+    })
+}
+
+
+@section Scripts {
+    <script>
+        var oTable;
+
+        function prepDone(table) {
+            oTable = table;
+        }
+
+        function tableBind(obj) {
+
+        }
+
+        function updateEntries() {
+            modalConfirm('Are you sure you want to update all items?', function (ret) {
+                if (ret) {
+                    update(false);
+                }
+            });
+        }
+
+        function update() {
+            var link = '@Url.Action("UpdateItems", new { ptrId = are.Id })';
+
+            var proc = modalProcessing(null, 'Updating...');
+            var ids = [];
+
+            var obj = $('.main-list');
+
+            var nodes = oTable.rows().nodes();
+
+            for (var i = 0; i < nodes.length; i++) {
+                var tr = $(nodes[i]);
+
+                var id = parseInt(tr.attr('record-id'));
+                var selected = tr.find('input[type="checkbox"]').prop('checked');
+
+                if (selected) {
+                    ids.push(id);
+                }
+            };
+
+            var data = {
+                data: ids
+            };
+
+            $.post(link, data, function (res) {
+
+                if (res.IsSuccessful) {
+                    sessionStorage.clientMessage = res.Remarks;
+                    window.location.reload(true);
+                } else {
+                    proc.modal('hide');
+                    modalMessage(res.Err.split('\n'), 'Update Items', true);
+                }
+            }, 'json');
+        }
+
+        $(document).ready(function () {
+            var tbl = $('.main-list');
+            var cbH = tbl.find('thead input[type="checkbox"]');
+
+            cbH.click(function (e) {
+                e.stopPropagation();
+            })
+
+            cbH.change(function () {
+                var cb = tbl.find('tbody tr input[type="checkbox"]');                
+                cb.prop('checked', cbH.prop('checked'));
+
+                $.uniform.update(cb);
+            });
+        });
+    </script>
+}
+
+
+
+
+@Html.Partial("~/Areas/SAM/Views/Shared/ptrInfo.cshtml", "/SAM/PTR/Items/Index/")
+
+<div class="block">
+    <div class="head bg-default bg-light-ltr noradius">
+        <h2>Property Acknowledgement Receipt Items</h2>
+        <div class="side pull-right">
+            <ul class="buttons">
+                <li>
+                    <button class="btn btn-primary btn-clean btn-update" onclick="updateEntries()">Update</button>
+                </li> 
+            </ul>
+        </div>
+    </div>
+    <div class="content">        
+        <table class="display table table-bordered table-striped table-list main-list" event-tablebind="tableBind" event-settables-done="prepDone" cellspacing="0" width="100%"
+               modal-target="#modalView" modal-start="view">
+            <thead>
+                <tr>
+                    <th class="idcol">Id</th>
+                    <th>Property No.</th>
+                    <th>Item Name</th>
+                    <th>Acquisition Date</th>
+                    <th>Unit Cost</th>
+                    <th>Estimated Useful Life (months)</th>
+                    <th>
+                        @Html.Partial("_Helper_CheckBox", "Items", new ViewDataDictionary { { "value", false } })
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (coreApp.Areas.SAM.tblAREItem item in Model.From_Items)
+                {
+                    <tr record-id="@item.Id" locked>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Id)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item._PropertyNo)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item._ItemName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item._AcquisitionDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item._UnitCost)
+                        </td>
+                        <td>
+                           @item.RemainingLife(item.GetARE().AREDate)
+                        </td>
+                        <td>
+                            @Html.Partial("_Helper_CheckBox", "Item-" + item.Id, new ViewDataDictionary { { "value", @Model.ItemContains(item._PropertyNo) } })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+    </div>
+</div>
+
+@Html.Partial("~/Views/Shared/modals/_ModalView.cshtml", "modalView")
+

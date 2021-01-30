@@ -1,0 +1,22 @@
+﻿@using coreApp.DAL
+@model string
+@{
+    tblEmployee_Loan loan = (tblEmployee_Loan)ViewBag.Loan;
+
+    List<tblEmployee_Loan> loans = (List<tblEmployee_Loan>)ViewBag.Loans;
+}
+
+Effective:
+<select onchange="itemSelected(this)">
+    @foreach (tblEmployee_Loan o in loans)
+            {
+        <option value="@o.Id" @(loan.Id == o.Id ? "selected" : "")>@o.DateEffective.Value.ToString("dd MMM yyyy")</option>
+    }
+</select>
+<br />
+
+<script>
+    function itemSelected(sel) {
+        window.location = '@Model' + $(sel).val();
+    }
+</script>

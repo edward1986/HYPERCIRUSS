@@ -1,0 +1,96 @@
+﻿@model List<coreApp.Areas.SAM.TagItemModel>
+@{
+    ViewBag.Title = "Items";
+
+    bool showCompleted = (bool)ViewBag.ShowCompleted;
+    int Year = (int)ViewBag.Year;
+}
+
+@section Breadcrumbs {
+@Html.Partial("_Breadcrumbs", new List<Breadcrumb>()
+    {
+        new Breadcrumb { Description = "Supply/Asset Management", Link = Url.Action("Index", "Main", new { area = "SAM" }) },
+        new Breadcrumb { Description = ViewBag.Title }
+    })
+}
+
+<div class="row">
+    <div class="col-sm-12">
+        For the year:
+        @Html.Partial("~/Areas/Procurement/Views/Shared/yearInfo.cshtml", "/SAM/Tagging/Index/{0}")
+        <br />
+    </div>
+</div>
+
+<div class="block">
+    <div class="head bg-default bg-light-ltr noradius">
+        <h2>@ViewBag.Title</h2>
+        <div class="side pull-right">
+            <ul class="buttons">
+                <li>
+                    <a href="@Url.Action("Index", new { showCompleted = !showCompleted })">
+                        <span>
+                            @if (showCompleted)
+                        {
+                            <i class="fa fa-check text-success"></i>
+                        }
+                        else
+                        {
+                            <i class="fa fa-times text-danger"></i>
+                        }
+                            Show Completed Items
+                        </span>                        
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="content">
+        <table class="display table table-bordered table-striped table-list" cellspacing="0" width="100%"
+               data-url="/SAM/Tagging/Entry/Index/@Year/{0}?showCompleted=@showCompleted">
+            <thead>
+                <tr>
+                    <th>P.O. No.</th>
+                    <th>Date Received</th>
+                    <th>Item</th>
+                    <th>Category Type</th>
+                    <th>Received Qty</th>
+                    <th>Tagged Items</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (coreApp.Areas.SAM.TagItemModel item in Model)
+                {
+
+                    <tr record-id="@item.ReceiptItem.Id">
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Receipt._PONo)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Receipt.ReceivedDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.POItem.ItemName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.POItem.CategoryType_Desc)
+                        </td>
+                        <td class="qtycol">
+                            @Html.DisplayFor(modelItem => item.ReceiptItem.Qty)
+                        </td>
+                        <td class="qtycol">
+                            @string.Format("{0}/{1}", item.Tagged, item.ReceiptItem.Qty)
+                            @if (item.IsComplete)
+                            {
+                                <span class="text-success">&nbsp;[complete]</span>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+    </div>
+</div>
+
+@Html.Partial("~/Views/Shared/modals/_ModalView.cshtml", "modalView")

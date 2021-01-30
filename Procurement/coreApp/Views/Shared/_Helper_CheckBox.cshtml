@@ -1,0 +1,50 @@
+﻿@model string
+
+@{
+    bool value = Convert.ToBoolean(ViewData["value"]);
+    bool disabled = Convert.ToBoolean(ViewData["disabled"]);
+    string text = Convert.ToString(ViewData["text"]);
+    string name = Convert.ToString(ViewData["name"]);
+    string dataItem = Convert.ToString(ViewData["data-item"]);
+    string inputValue = Convert.ToString(ViewData["input-value"]);
+    string _class = Convert.ToString(ViewData["class"]);
+    string id = Convert.ToString(ViewData["id"]);
+
+    object style = ViewData["style"];
+    string styleValue = "display:inline-block";
+
+    if (style != null)
+    {
+        styleValue = Convert.ToString(style);
+    }
+}
+
+<div class="checkbox" style="@styleValue">
+
+    <label>
+        <input @(Model == null ? "" : "id=" + Model + " name=" + Model)
+               @(string.IsNullOrEmpty(name) ? "" : "name=" + name)
+               @(string.IsNullOrEmpty(_class) ? "" : "class=" + _class)
+               @(string.IsNullOrEmpty(id) ? "" : "id=" + id)
+               class="form-check-input"
+               type="checkbox"
+               data-item="@dataItem"
+               data-text="@text"
+               @(disabled ? "disabled" : "")
+               @(value ? "checked=checked" : "")
+               value="@(string.IsNullOrEmpty(inputValue) ? "True" : inputValue)" />
+        @(string.IsNullOrEmpty(text) ? "" : (" " + text))
+    </label>
+</div>
+
+<style>
+    .checkbox {
+        margin-left: 0;
+    }
+    .form-check-label {
+        margin-left: 1.5em;
+    }
+</style>
+
+
+

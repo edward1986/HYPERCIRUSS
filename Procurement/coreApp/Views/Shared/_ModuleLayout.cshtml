@@ -1,0 +1,49 @@
+﻿@{ 
+    Layout = "~/Views/Shared/_Taurus.cshtml";
+
+    var _area = HttpContext.Current.Request.RequestContext.RouteData.DataTokens["area"];
+    string area = _area == null ? "" : _area.ToString().ToLower();
+
+}
+@section Styles {
+    @RenderSection("Styles", false)
+}
+
+@section HeaderScripts {
+    @RenderSection("HeaderScripts", required: false)
+}
+
+@section Breadcrumbs {
+    @RenderSection("Breadcrumbs", required: false)
+}
+
+
+<div class="row">
+    <div class="col-md-12">
+
+        @*@if (area == "sam")
+        {
+            UserAccess access = coreApp.Cache.Get().userAccess;
+            coreApp.Areas.SAM.tblWarehouse warehouse = DBProcs.get_Warehouse(access.employee);
+            string whName = warehouse == null ? "[No warehouse defined]" : warehouse.WarehouseName;
+            string whAddress = warehouse == null ? "" : warehouse.Address;
+
+            <div class="alert alert-info">
+                <strong>@whName</strong>
+                <small>(@whAddress)</small>
+            </div>
+        }*@
+
+        @Html.Partial("_Messages")
+
+        @RenderBody()
+
+    </div>
+</div>
+
+
+
+@section Scripts {
+    @RenderSection("Scripts", required: false)
+}
+

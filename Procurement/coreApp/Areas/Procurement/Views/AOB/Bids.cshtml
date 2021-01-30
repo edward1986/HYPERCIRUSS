@@ -1,0 +1,347 @@
+﻿@model coreApp.Areas.Procurement.Models.AOBModel
+@using coreLib.Extensions
+@{
+    int AOBId = (int)ViewBag.AOBId;
+    string Description = (string)ViewBag.Description;
+    int Year = (int)ViewBag.Year;
+    Breadcrumb BC = (Breadcrumb)ViewBag.BC;
+    string ControllerName = (string)ViewBag.ControllerName;
+
+    ViewBag.Title = "Set Bids";
+
+    bool readOnly = false; //Model.apr.HasBeenIncludedInSubmittedAgencyPR();
+
+    List<coreApp.Areas.Procurement.DAL.tblSupplier> suppliers = Model.rfqModel.rfq.Suppliers().OrderBy(x => x.CompanyName).ToList();
+    int i = 1;
+}
+
+@section Breadcrumbs {
+    @Html.Partial("_Breadcrumbs", new List<Breadcrumb>()
+        {
+            new Breadcrumb { Description = "Procurement", Link = Url.Action("Index", "Main", new { area = "Procurement" }) },
+            BC,
+            new Breadcrumb { Description = ViewBag.Title }
+        })
+}
+
+@section Styles {
+    <style>
+        .pr-info td {
+            padding: 2px 5px;
+        }
+
+        .bid {
+            width: 150px;
+            text-align: right
+        }
+
+        .remarks {
+            width: 200px;
+        }
+
+        .centeraligned {
+            text-align: center;
+        }
+
+        .tbunitbid, .tbtotalbid,
+        .rightaligned {
+            text-align: right;
+        }
+
+        .supplier-name {
+            padding-left: 20px !important;
+        }
+
+        .main-list thead th {
+            text-align: center;
+        }
+    </style>
+}
+
+@section Scripts {
+    <script>
+        var aobId = @AOBId;
+        var oTable;
+
+        function prepDone(table) {
+            oTable = table;
+        }
+
+        function tableBind(obj) {
+
+        }
+
+        function clearEntries() {
+            modalConfirm('Are you sure you want to clear all entries?', function (ret) {
+                if (ret) {
+                    update(true);
+                }
+            });
+        }
+
+        function updateEntries() {
+            modalConfirm('Are you sure you want to update all items?', function (ret) {
+                if (ret) {
+                    update(false);
+                }
+            });
+        }
+
+        function update(clear) {
+            var link = '@Url.Action("Bids_Update", ControllerName)';
+            var cat = [];
+            var err = [];
+
+            if (!clear) {
+                var obj = $('.main-list');
+
+                var trs = obj.find('tbody > tr');
+
+                trs.each(function (i, v) {
+                    var tr = $(v);
+                    if (tr.hasClass('supplier-row')) {
+
+                        var itemno = tr.attr('data-itemno');
+                        var itemid = tr.attr('data-itemid');
+                        var supplierId = tr.attr('data-supplierid');
+                        var supplier = tr.attr('data-supplier');
+                        var unitbid = tr.find('.tbunitbid').val();
+                        var totalbid = tr.find('.tbtotalbid').val();
+                        var itembid = tr.find('.tbItemBid').val();
+                        var remarks = tr.find('.tbremarks').val();
+                        var winner = $('[name="Winner_' + itemid + '"].selected').attr('value');
+
+                        if (unitbid != '' && !SITE.Utility.isNumber(unitbid)) {
+                            err.push('Invalid \'Unit Bid\' value in Item No. ' + itemno + ' [' + supplier + ']');
+                        }
+
+                        if (totalbid != '' && !SITE.Utility.isNumber(totalbid)) {
+                            err.push('Invalid \'Total Bid\' value in Item No. ' + itemno + ' [' + supplier + ']');
+                        }
+
+                        if (unitbid != '' || totalbid != '' || remarks != '') {
+
+                            var item = {
+                                AOBId: aobId,
+                                ItemId: tr.attr('data-itemid'),
+                                SupplierId: supplierId,
+                                UnitBid: unitbid == '' ? null : unitbid,
+                                TotalBid: totalbid == '' ? null : totalbid,
+                                Remarks: remarks == '' ? null : remarks,
+                                ItemBid: itembid == '' ? null : itembid,
+                                IsWinner: winner == supplierId
+                            };
+
+                            cat.push(item);
+                        }
+                    }
+                });
+
+            }
+
+            if (err.length > 0) {
+                modalMessage(err, 'Update Items', true);
+            } else {
+
+                $.post(link, { id: aobId, isClear: clear, data: cat }, function (res) {
+                    if (res.IsSuccessful) {
+                        sessionStorage.clientMessage = res.Remarks;
+                        window.location.reload(true);
+                    } else {
+                        modalMessage(res.Err.split('\n'), 'Update Items', true);
+                    }
+                }, 'json');
+
+            }
+        }
+
+        $(document).ready(function () {
+            $('.reset-winners').click(function (e) {
+                $('.radio-winner').prop('checked', false);
+            });
+
+            $('.radio-winner').click(function () {
+                var rb = $(this);
+                var n = rb.attr('name');
+                var v = rb.attr('value');
+                $('[name="' + n + '"]').not('[value="' + v + '"]')
+                    .removeAttr('checked')
+                    .removeClass('selected')
+                    .prop('checked', false);
+
+                rb.addClass('selected');
+            });
+        });
+    </script>
+}
+
+<div class="block">
+    <div class="card">
+        <div class="card-header">
+            <h5>@ViewBag.Title</h5>
+            <div class="card-header-right">
+                <div class="btn-group-sm card-option">
+                    @if (readOnly)
+                    {
+                        <div class="alert alert-info">
+                            [Read Only]
+                        </div>
+                    }
+                    else
+                    {
+                        <button class="btn btn-primary btn-update" onclick="updateEntries()">Update</button>
+                        <button class="btn btn-danger btn-clear" onclick="clearEntries()">Clear Entries</button>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="pr-info">
+                <table>
+                    <tbody>
+                        <tr><td>Description</td><td>:</td><td>@Description</td></tr>
+                        <tr><td>Year</td><td>:</td><td>@Year</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <br />
+            <div class="dt-responsive table-responsive">
+                <table class="display table table-bordered table-striped table-list main-list static-table" event-tablebind="tableBind" event-settables-done="prepDone" cellspacing="0" width="100%"
+                       modal-target="#modalView">
+                    <thead>
+                        <tr>
+                            <th>
+                                Item No.
+                            </th>
+                            <th>
+                                Item Description
+                            </th>
+                            <th>
+                                Qty
+                            </th>
+                            <th>
+                                Unit
+                            </th>
+                            <th>
+                                ABC
+                            </th>
+                            <th>
+                                Unit Bid
+                            </th>
+                            <th>
+                                Total Bid
+                            </th>
+                            <th>
+                                Item Bid
+                            </th>
+                            <th>
+                                Remarks
+                            </th>
+                            <th>
+                                Winner<br />
+                                <a href="#" class="reset-winners">[reset]</a>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (coreApp.Areas.Procurement.DAL.tblPPMPItem _item in Model.ConsolidatedItems.OrderBy(x => x.ItemName))
+                        {
+                            char ii = 'a';
+
+                            <tr record-id="@_item.Id" locked>
+                                <td width="20px">
+                                    @string.Format("{0}. ", i)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => _item.ItemName)
+                                    <div class="small">
+                                        @_item.ItemDescription
+                                    </div>
+                                </td>
+                                <td class="centeraligned">
+                                    @Html.DisplayFor(modelItem => _item.Qty)
+                                </td>
+                                <td class="centeraligned">
+                                    @Html.DisplayFor(modelItem => _item.ItemUnit)
+                                </td>
+                                <td class="rightaligned">
+                                    @Html.DisplayFor(modelItem => _item.OOSAmount)
+                                </td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+
+                            foreach (coreApp.Areas.Procurement.DAL.tblSupplier supplier in suppliers)
+                            {
+                                coreApp.Areas.Procurement.DAL.tblAOB_Bid bid = Model.getBid(supplier.Id, _item.ItemId);
+
+                    <tr class="supplier-row" record-id="-1" data-itemno="@i" data-itemid="@_item.ItemId" data-supplierid="@supplier.Id" data-supplier="@supplier.CompanyName" locked>
+                        <td></td>
+                        <td class="supplier-name">
+                            @string.Format("{0}. {1}", ii, supplier.CompanyName)
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        @if (bid == null)
+                        {
+                            <td class="bid">
+                                @Html.TextBox("UnitBid", _item.Qty, new { @class = "form-control tbunitbid" })
+                            </td>
+                            <td class="bid">
+                                @Html.TextBox("TotalBid", _item.OOSAmount, new { @class = "form-control tbtotalbid" })
+                            </td>
+                            <td class="bid">
+                                @Html.TextArea("ItemBid", _item.ItemName, new { @class = "form-control tbItemBid" })
+                            </td>
+                            <td class="remarks">
+                                @Html.TextArea("Remarks", "", new { @class = "form-control tbremarks" })
+                            </td>
+                            <td style="text-align:center;width:50px">
+                                <div class="radiobox">
+                                    <label>
+                                        <input type="radio" class="radio-winner" name="Winner_@_item.ItemId" value="@_item.ItemId" />
+                                    </label>
+                                </div>
+                            </td>
+                        }
+                        else
+                        {
+                            <td class="bid">
+                                @Html.TextBox("UnitBid", bid.UnitBid, new { @class = "form-control tbunitbid" })
+                            </td>
+                            <td class="bid">
+                                @Html.TextBox("TotalBid", bid.TotalBid, new { @class = "form-control tbtotalbid" })
+                            </td>
+                            <td class="bid">
+                                @Html.TextArea("ItemBid", bid.ItemBid, new { @class = "form-control tbItemBid" })
+                            </td>
+                            <td class="remarks">
+                                @Html.TextArea("Remarks", bid.Remarks, new { @class = "form-control tbremarks" })
+                            </td>
+                            <td style="text-align:center;width:50px">
+                                <div class="radiobox">
+                                    <label>
+                                        <input type="radio" class="radio-winner @(bid.IsWinner ? "selected" : "")" name="Winner_@_item.ItemId" value="@supplier.Id" @(bid.IsWinner ? "checked" : "") />
+                                    </label>
+                                </div>
+                            </td>
+                        }
+                    </tr>
+
+                                ii++;
+                            }
+
+                            i++;
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@Html.Partial("~/Views/Shared/modals/_ModalView.cshtml", "modalView")

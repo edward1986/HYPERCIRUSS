@@ -1,0 +1,32 @@
+﻿
+@{
+    ViewBag.Title = "Employees";
+    ViewBag.Subtitle = "List";
+
+    string DetailsUrl = "/User/Employees/Details/{0}";
+}
+
+@section Breadcrumbs {
+    @Html.Partial("_Breadcrumbs", new List<Breadcrumb>() { new Breadcrumb { Description = ViewBag.Title } })
+}
+
+<div class="block">
+    <div class="card">
+        <div class="card-header">
+            <h5>@ViewBag.Title</h5>
+            <div class="details card-header-right" modal-target="#modalViewDetails">
+
+                <a href="#" class="btn btn-sm btn-success btn-create"
+                   data-url="@Url.Action("Create")" data-redirect-url="@DetailsUrl">Create New Employee</a>
+
+            </div>
+        </div>
+
+        <div class="card-body">
+
+            @Html.Partial("~/Views/Shared/modals/_ModalView_FromDetails.cshtml", "modalViewDetails")
+          
+            @Html.Action("Search", "EmployeeSearch", new { area = "User", model = new coreApp.Models.EmployeeSearchModel { DataUrl = DetailsUrl } })
+        </div>
+    </div>
+</div>

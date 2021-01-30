@@ -1,0 +1,423 @@
+﻿@model Module.Time.AttendanceModel
+@{
+    bool lateToleranceEnabled = false;
+    bool flexiTimeEnabled = false;
+
+    if (Model.period != null)
+    {
+        lateToleranceEnabled = Model.period.data.settings.LateTolerance > 0;
+        flexiTimeEnabled = Model.period.data.settings.FlexiTime > 0;
+    }
+}
+
+<div class="attendance-table table-responsive">
+
+
+    <table border="1" class="attendance-table table static-table">
+        @if (Model.showHeader)
+        {
+            <thead>
+                <tr>
+                    <th class="dtcol">Date</th>
+                    <th class="schedcol">Schedule</th>
+                    <th class="incol">In</th>
+                    <th class="outcol">Out</th>
+                    <th class="latecol">Late <div class="subtitle">[mins/hrs]</div></th>
+                    <th class="utcol">UTime <div class="subtitle">[mins/hrs]</div></th>
+
+                    @if (lateToleranceEnabled)
+                    {
+                        <th>Late Tol. <div class="subtitle">[mins/hrs]</div></th>
+                    }
+
+                    @if (flexiTimeEnabled)
+                    {
+                        <th>Flexi-Time <div class="subtitle">[mins/hrs]</div></th>
+                    }
+
+                    <th>Work Hrs. <div class="subtitle">[hrs/days]</div></th>
+                    <th>Hrs./Days Worked</th>
+                    <th>OT <div class="subtitle">[hrs/days]</div></th>
+                    <th>NP <div class="subtitle">[hrs/days]</div></th>
+                    <th>RH <div class="subtitle">[days]</div></th>
+                    <th>SH <div class="subtitle">[days]</div></th>
+                    <th>RD <div class="subtitle">[days]</div></th>
+                    <th>RD/RH <div class="subtitle">[days]</div></th>
+                    <th>RD/SH <div class="subtitle">[days]</div></th>
+                    <th>Sun <div class="subtitle">[days]</div></th>
+                    <th>Remarks</th>
+                </tr>
+            </thead>
+        }
+
+        <tbody>
+            @if (Model.showList)
+            {
+
+                foreach (Module.Time.etDay day in Model.period.Days)
+                {
+                    var tmp = day.Times.Where(x => !x.IsAbsent);
+
+                    <tr class="@(day.IsHoliday ? "holiday" : "")" data-date="@day.d.ToString("MM-dd-yyyy")">
+                        <td>
+                            @day.d.ToString("M-d-yy")<br />@day.d.ToString("ddd")
+                        </td>
+                        @if (day.NoSchedule)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            <td>
+                                [@day.schedule.Description]
+                                <ul>
+                                    @foreach (Module.Time.etTime time in day.Times)
+                                    {
+                                        <li class="@(time.segment.IsGlobal ? "global-segment" : "")">
+                                            @time.segment.Description (@time.segment.TimeIn.ToString("h:mm tt") - @time.segment.TimeOut.ToString("h:mm tt"))
+                                            @(time.segment.SegmentType != (int)Module.DB.Enums.SegmentType.Regular ? "(" + time.segment.SegmentType_Desc + ")" : "")
+
+                                            @if (!string.IsNullOrEmpty(time.segment.DeviceIds))
+                                            {
+                                                <span>[Log from @String.Join(", ", time.segment.GetDeviceReferences(time.segment.DeviceIds)) Only]</span>
+                                            }
+                                        </li>
+                                    }
+                                </ul>
+                            </td>
+                        }
+                        @if (day.IsHoliday && day.IsAbsent)
+                        {
+                            <td></td>
+                            <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+
+                            if (lateToleranceEnabled)
+                            {
+                                <td></td>
+                            }
+
+                            if (flexiTimeEnabled)
+                            {
+                                <td></td>
+                            }
+
+                            <td></td>
+                            <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <div class="holiday-text">@day.Holiday.Holiday (@day.Holiday.Type_Desc)</div>
+                                    @if (day.IsOnTravel)
+                                    {
+                                        <span>On Travel</span>
+                                    }
+                                    else if (day.IsWorkDay)
+                                    {
+                                        if (day.IsOnHalfDayLeave)
+                                        {
+                                            <span>On Half-Day Leave</span>
+                                        }
+                                        else if (day.IsOnLeave)
+                                        {
+                                            <span>On Leave</span>
+                                        }
+                                        else if (!day.Faculty40_Saturday_Absence)
+                                        {
+                                            <span>Absent</span>
+                                        }
+                                    }
+
+                                </td>
+                        }
+                        else if (day.IsAbsent || day.NoSchedule || !tmp.Any())
+                        {
+                            <td></td>
+                            <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+
+                            if (lateToleranceEnabled)
+                            {
+                                <td></td>
+                            }
+
+                            if (flexiTimeEnabled)
+                            {
+                                <td></td>
+                            }
+
+                            <td></td>
+                            <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    @if (day.IsHoliday)
+                                    {
+                                        <div class="holiday-text">@day.Holiday.Holiday (@day.Holiday.Type_Desc)</div>
+                                    }
+                                    @if (!day.NoSchedule)
+                                    {
+                                        if (day.IsOnTravel)
+                                        {
+                                            <span>On Travel</span>
+                                        }
+                                        else if (day.IsWorkDay)
+                                        {
+                                            if (day.IsOnHalfDayLeave)
+                                            {
+                                                <span>On Half-Day Leave</span>
+                                            }
+                                            else if (day.IsOnLeave)
+                                            {
+                                                <span>On Leave</span>
+                                            }
+                                            else if (!day.Faculty40_Saturday_Absence)
+                                            {
+                                                <span>Absent</span>
+                                            }
+                                        }
+                                    }
+                                </td>
+                        }
+                        else
+                        {
+
+                            <td>
+                                @if (tmp.First().Log.Actual_TimeIn != default(DateTime))
+                                {
+                                    <span>@tmp.First().Log.Actual_TimeIn.ToString("h:mm tt")</span>
+                                }
+                                else
+                                {
+                                    <span>@tmp.First().Log.Computed_TimeIn.ToString("h:mm tt")</span><span class="subtitle">[auto]</span>
+                                }
+                            </td>
+
+                            <td>
+                                @if (tmp.Last().Log.Actual_TimeOut != default(DateTime))
+                                {
+                                    <span>@tmp.Last().Log.Actual_TimeOut.ToString("h:mm tt")</span>
+                                }
+                                else
+                                {
+                                    <span>@tmp.Last().Log.Computed_TimeOut.ToString("h:mm tt")</span> <span class="subtitle">[auto]</span>
+                                }
+                            </td>
+                                <td>
+                                    @day.TotalMinsLate.ToString("#,##0")<br />
+                                    @((day.TotalMinsLate / 60).ToString("#,##0.###"))
+                                </td>
+                                <td>
+                                    @day.TotalMinsUndertime.ToString("#,##0")<br />
+                                    @((day.TotalMinsUndertime / 60).ToString("#,##0.###"))
+                                </td>
+
+                            if (lateToleranceEnabled)
+                            {
+                                <td>
+                                    @day.minsLateTolerance.ToString("#,##0")<br />
+                                    @((day.minsLateTolerance / 60).ToString("#,##0.###"))
+                                </td>
+                            }
+
+                            if (flexiTimeEnabled)
+                            {
+                                <td>
+                                    @day.minsFlexiTime.ToString("#,##0")<br />
+                                    @((day.minsFlexiTime / 60).ToString("#,##0.###"))
+                                </td>
+                            }
+
+                            <td>
+                                @day.TotalWorkHours.ToString("#,##0.###")<br />
+                                @((day.TotalWorkHours / Model.period.data.WorkHoursPerDay).ToString("#,##0.###"))
+                            </td>
+                            <td>
+                                @day.TotalHoursWorked.ToString("#,##0.###")<br />
+                                @day.TotalHoursWorked_DayEq.ToString("#,##0.###")
+                            </td>
+                                <td>
+                                    @day.OT.ToString("#,##0.###")<br />@day.OT_Eq.ToString("#,##0.###")
+                                </td>
+                                <td>
+                                    @day.NP.ToString("#,##0.###")<br />@day.NP_Eq.ToString("#,##0.###")
+                                </td>
+                                <td>
+                                    @day.RH_Eq.ToString("#,##0.###")
+                                </td>
+                                <td>
+                                    @day.SH_Eq.ToString("#,##0.###")
+                                </td>
+                                <td>
+                                    @day.RD_Eq.ToString("#,##0.###")
+                                </td>
+                                <td>
+                                    @day.RDRH_Eq.ToString("#,##0.###")
+                                </td>
+                                <td>
+                                    @day.RDSH_Eq.ToString("#,##0.###")
+                                </td>
+                                <td>
+                                    @day.Sun_Eq.ToString("#,##0.###")
+                                </td>
+                                <td>
+                                    @if (day.IsHoliday)
+                                    {
+                                        <div class="holiday-text">@day.Holiday.Holiday (@day.Holiday.Type_Desc)</div>
+                                    }
+                                    @if (day.IsOnTravel)
+                                    {
+                                        <span>On Travel</span>
+                                    }
+                                    else if (day.IsWorkDay)
+                                    {
+                                        if (day.IsOnHalfDayLeave)
+                                        {
+                                            <span>On Half-Day Leave</span>
+                                        }
+                                        else if (day.IsOnLeave)
+                                        {
+                                            <span>On Leave</span>
+                                        }
+                                    }
+                                </td>
+                        }
+                    </tr>
+                }
+            }
+
+            @if (Model.showTotal)
+            {
+                <tr class="total">
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        @((Model.period.TotalHoursLate * 60).ToString("#,##0.###"))<br />
+                        @Model.period.TotalHoursLate.ToString("#,##0.###")
+                    </td>
+                    <td>
+                        @((Model.period.TotalHoursUndertime * 60).ToString("#,##0.###"))<br />
+                        @Model.period.TotalHoursUndertime.ToString("#,##0.###")
+                    </td>
+
+                    @if (lateToleranceEnabled)
+                    {
+                        <td>
+                            @((Model.period.TotalHoursLateTolerance * 60).ToString("#,##0.###"))<br />
+                            @Model.period.TotalHoursLateTolerance.ToString("#,##0.###")
+                        </td>
+                    }
+
+                    @if (flexiTimeEnabled)
+                    {
+                        <td>
+                            @((Model.period.TotalHoursFlexiTime * 60).ToString("#,##0.###"))<br />
+                            @Model.period.TotalHoursFlexiTime.ToString("#,##0.###")
+                        </td>
+                    }
+
+                    <td>
+                        @Model.period.TotalWorkHours.ToString("#,##0.###")<br />
+                        @((Model.period.TotalWorkHours / Model.period.data.WorkHoursPerDay).ToString("#,##0.###"))
+                    </td>
+                    <td>
+                        @Model.period.TotalHoursWorked.ToString("#,##0.###")<br />
+                        @Model.period.TotalHoursWorked_DayEq.ToString("#,##0.###")
+                    </td>
+                    <td>
+                        @Model.period.TotalOT.ToString("#,##0.###")<br />
+                        @Model.period.TotalOT_Eq.ToString("#,##0.###")
+                    </td>
+                    <td>
+                        @Model.period.TotalNP.ToString("#,##0.###")<br />
+                        @Model.period.TotalNP_Eq.ToString("#,##0.###")
+                    </td>
+                    <td>
+                        @Model.period.TotalRH_Eq.ToString("#,##0.###")
+                    </td>
+                    <td>
+                        @Model.period.TotalSH_Eq.ToString("#,##0.###")
+                    </td>
+                    <td>
+                        @Model.period.TotalRD_Eq.ToString("#,##0.###")
+                    </td>
+                    <td>
+                        @Model.period.TotalRDRH_Eq.ToString("#,##0.###")
+                    </td>
+                    <td>
+                        @Model.period.TotalRDSH_Eq.ToString("#,##0.###")
+                    </td>
+                    <td>
+                        @Model.period.TotalSun_Eq.ToString("#,##0.###")
+                    </td>
+                    <td>
+                        @Model.period.TotalDaysAbsent days Absent<br />
+                        @Model.period.TotalLeaveEq days Leave
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>
+
+@Html.Partial("~/Views/Shared/modals/_ModalView.cshtml", "modalAttDetails")
+
+
+<script>
+    $(document).ready(function () {
+
+        var modal = $('#modalAttDetails');
+        var trs = $('.attendance-table tbody tr');
+
+        var showDialog = function (tr) {
+
+            modal.find('.modal-content').addClass('loading-mask');
+
+            modal.find('.modal-title').html('Attendance Details [' + tr.attr('data-date') + ']');
+            modal.find(".modal-footer button").not('.btn-close').remove();
+            modal.addClass('show-view');
+
+            modal.find('.modal-dialog').css({ width: $(window).width() - 30, height: $(window).height(), 'padding-top': 15, 'padding-bottom': 15 });
+
+            modal.modal({
+                backdrop: 'static',
+                show: true
+            });
+        };
+
+        trs.unbind('click').bind('click', function () {
+            var tr = $(this);
+            var dt = tr.attr('data-date');
+
+            showDialog(tr);
+
+
+            var url = '/TimeModule/Common/AttendanceDetails';
+            var param = {
+                employeeId: @Model.period.data.employeeId,
+                dt: dt
+            };
+            modal.find('.modal-body').load(url, param, function () {
+                modal.find('.modal-content').removeClass('loading-mask');
+            });
+
+        });
+    });
+</script>

@@ -1,0 +1,97 @@
+﻿@model coreApp.DAL.tblEmployee_OtherInfo
+
+@{    
+    bool isReadOnly = (bool)ViewBag.uiIsReadOnly;
+    bool includeId = (bool)ViewBag.uiIncludeId;
+
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    if (isReadOnly)
+    {
+        <div class="row sptextarea">
+            <div class="col-sm-4">
+                <div class="form-row">
+                    <div class="col-sm-4">
+                        @Html.LabelFor(model => model.Skills)
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="form-control">
+                            @Html.DisplayMultiLineFor(model => model.Skills)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-row">
+                    <div class="col-sm-4">
+                        @Html.LabelFor(model => model.NonAcademic)
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="form-control">
+                            @Html.DisplayMultiLineFor(model => model.NonAcademic)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-row">
+                    <div class="col-sm-4">
+                        @Html.LabelFor(model => model.Membership)
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="form-control">
+                            @Html.DisplayMultiLineFor(model => model.Membership)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        @Html.HiddenFor(model => model.Id)
+        @Html.HiddenFor(model => model.EmployeeId)
+
+        <div class="scroll" data-scroll-reltowinheight>
+
+            <div class="col-sm-4">
+                <div class="form-row">
+                    <div class="col-sm-4">
+                        @Html.LabelFor(model => model.Skills)
+                    </div>
+                    <div class="col-sm-8">
+                        @Html.TextAreaFor(model => model.Skills)
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-4">
+                <div class="form-row">
+                    <div class="col-sm-4">
+                        @Html.LabelFor(model => model.NonAcademic)
+                    </div>
+                    <div class="col-sm-8">
+                        @Html.TextAreaFor(model => model.NonAcademic)
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-4">
+                <div class="form-row">
+                    <div class="col-sm-4">
+                        @Html.LabelFor(model => model.Membership)
+                    </div>
+                    <div class="col-sm-8">
+                        @Html.TextAreaFor(model => model.Membership)
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+            }
+}

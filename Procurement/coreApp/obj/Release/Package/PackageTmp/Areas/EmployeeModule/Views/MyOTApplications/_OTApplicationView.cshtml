@@ -1,0 +1,161 @@
+﻿@model Module.DB.tblOTApplication
+
+@Html.HiddenFor(m => m.Id)
+<div>
+    <div class="form-group row">
+        <div class="col-md-3">
+            @Html.LabelFor(model => model.Id)
+        </div>
+        <div class="col-md-9">
+            <div class="form-control">
+                @Html.DisplayFor(model => model.Id)
+            </div>
+        </div>
+    </div>
+
+        <div class="form-group row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.Date_Desc)
+            </div>
+            <div class="col-md-9">
+                <div class="form-control">
+                    @Html.DisplayFor(model => model.Date_Desc)
+                </div>
+            </div>
+        </div>
+
+    <div class="form-group row">
+        <div class="col-md-3">
+            @Html.LabelFor(model => model.Remarks)
+        </div>
+        <div class="col-md-9">
+            <div class="form-control">
+                @Html.DisplayMultiLineFor(model => model.Remarks)
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-md-3">
+            Time
+        </div>
+        <div class="col-md-9">
+            <div class="form-control">
+                @Html.DisplayFor(model => model.TimeString)
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-md-3">
+            @Html.LabelFor(model => model.Breaks)
+        </div>
+        <div class="col-md-9">
+            <div class="form-control">
+                @Html.DisplayFor(model => model.Breaks) Hours
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-md-3">
+            @Html.LabelFor(model => model.Days)
+        </div>
+        <div class="col-md-9">
+            <div class="form-control">
+                @Html.DisplayFor(model => model.Days)
+            </div>
+        </div>
+    </div>
+    
+
+        <div class="form-group row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.DateSubmitted)
+            </div>
+            <div class="col-md-9">
+                <div class="form-control">
+                    @if (Model.HasBeenSubmitted)
+                    {
+                        @Html.DisplayFor(modelItem => Model.DateSubmitted)
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.Application_Status_Desc)
+            </div>
+            <div class="col-md-9">
+                <div class="form-control">
+                    @Html.DisplayFor(model => model.Application_Status_Desc)
+                </div>
+            </div>
+        </div>
+    
+
+        @if (Model.IsApproved)
+        {
+            <div class="form-group row">
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.ApprovedBy)
+                </div>
+                <div class="col-md-9">
+                    <div class="form-control">
+                        @Html.DisplayFor(model => model.ApprovedBy)<br />
+                        @Html.DisplayFor(modelItem => Model.ApproveDate)
+                    </div>
+                </div>
+            </div>
+        }
+        else if (Model.IsDenied)
+        {
+            <div class="form-group row">
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.DeniedBy)
+                </div>
+                <div class="col-md-9">
+                    <div class="form-control">
+                        @Html.DisplayFor(model => model.DeniedBy)<br />
+                        @Html.DisplayFor(modelItem => Model.DenyDate)
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.DenyMessage)
+                </div>
+                <div class="col-md-9">
+                    <div class="form-control">
+                        @Html.DisplayMultiLineFor(model => model.DenyMessage)
+                    </div>
+                </div>
+            </div>
+        }
+        else if (Model.IsReturned)
+        {
+            <div class="form-group row">
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.ReturnedBy)
+                </div>
+                <div class="col-md-9">
+                    <div class="form-control">
+                        @Html.DisplayFor(model => model.ReturnedBy)<br />
+                        @Html.DisplayFor(modelItem => Model.ReturnDate)
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.ReturnMessage)
+                </div>
+                <div class="col-md-9">
+                    <div class="form-control">
+                        @Html.DisplayMultiLineFor(model => model.ReturnMessage)
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>

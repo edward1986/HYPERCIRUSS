@@ -1,0 +1,234 @@
+﻿@model coreApp.DAL.tblEmployee_WorkExp
+
+@{    
+    bool isReadOnly = (bool)ViewBag.uiIsReadOnly;
+    bool includeId = (bool)ViewBag.uiIncludeId;
+
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    if (isReadOnly)
+    {
+        <div class="form-row">
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.WEId)
+            </div>
+            <div class="col-md-8">
+                <div class="form-control">
+                    @Html.DisplayFor(model => model.WEId)
+                </div>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.DateFrom)
+            </div>
+            <div class="col-md-8">
+                <div class="form-control">
+                    @Html.DisplayFor(model => model.DateFrom)
+                </div>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.DateTo)
+            </div>
+            <div class="col-md-8">
+                <div class="form-control">
+                    @Html.DisplayFor(model => model.DateTo_Desc)
+                </div>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.Position)
+            </div>
+            <div class="col-md-8">
+                <div class="form-control">
+                    @Html.DisplayFor(model => model.Position)
+                </div>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.Company)
+            </div>
+            <div class="col-md-8">
+                <div class="form-control">
+                    @Html.DisplayFor(model => model.Company)
+                </div>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.Salary)
+            </div>
+            <div class="col-md-8">
+                <div class="form-control">
+                    @Html.DisplayFor(model => model.Salary)
+                </div>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.SalaryGrade)
+            </div>
+            <div class="col-md-8">
+                <div class="form-control">
+                    @Html.DisplayFor(model => model.SalaryGrade)
+                </div>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.StatusOfAppointment)
+            </div>
+            <div class="col-md-8">
+                <div class="form-control">
+                    @Html.DisplayFor(model => model.StatusOfAppointment_Desc)
+                </div>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.IsGovService)
+            </div>
+            <div class="col-md-8">
+                <div class="form-control">
+                    @Html.DisplayBooleanFor(model => model.IsGovService)
+                </div>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.OnSeparatePage)
+            </div>
+            <div class="col-md-8">
+                <div class="form-control">
+                    @Html.DisplayBooleanFor(model => model.OnSeparatePage)
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        @Html.HiddenFor(model => model.WEId)
+        @Html.HiddenFor(model => model.EmployeeId)
+
+
+        if (includeId)
+        {
+            <div class="form-row">
+                <div class="col-md-4">
+                    @Html.LabelFor(model => model.WEId)
+                </div>
+                <div class="col-md-8">
+                    <div class="form-control dimmed">
+                        @Html.DisplayFor(model => model.WEId)
+                    </div>
+                </div>
+            </div>
+        }
+
+
+
+        <div class="form-row">
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.DateFrom)
+            </div>
+            <div class="col-md-8">
+                @Html.TextBoxFor(model => model.DateFrom, "{0:MM/dd/yyyy}", new { @class = "form-control datepicker" })
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.DateTo)
+            </div>
+            <div class="col-md-8">
+                <div class="input-group">
+                    @Html.TextBoxFor(model => model.DateTo, "{0:MM/dd/yyyy}", new { @class = "datepicker" })
+                    <div class="input-group-addon">
+                        @Html.Partial("_Helper_CheckBox", "DateTo_Present", new ViewDataDictionary { { "value", Model.DateTo_Present == true }, { "text", "To Present" } })
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.Position)
+            </div>
+            <div class="col-md-8">
+                @Html.TextBoxFor(m => m.Position, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.Company)
+            </div>
+            <div class="col-md-8">
+                @Html.TextBoxFor(m => m.Company, new { @class = "form-control", maxlength = "100" })
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.Salary)
+            </div>
+            <div class="col-md-8">
+                @Html.TextBoxFor(m => m.Salary, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.SalaryGrade)
+            </div>
+            <div class="col-md-8">
+                @Html.TextBoxFor(m => m.SalaryGrade, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.StatusOfAppointment)
+            </div>
+            <div class="col-md-8">
+                @Html.DropDownListFor(m => m.StatusOfAppointment, coreApp.SelectItems.getStatusOfAppointment(), new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.IsGovService)
+            </div>
+            <div class="col-md-8">
+                @Html.Partial("_Helper_CheckBox", "IsGovService", new ViewDataDictionary { { "value", Model.IsGovService } })
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.OnSeparatePage)
+            </div>
+            <div class="col-md-8">
+                @Html.Partial("_Helper_CheckBox", "OnSeparatePage", new ViewDataDictionary { { "value", Model.OnSeparatePage } })
+            </div>
+        </div>
+    }
+}

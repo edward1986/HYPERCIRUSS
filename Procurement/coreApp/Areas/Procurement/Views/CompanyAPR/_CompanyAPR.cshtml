@@ -1,0 +1,317 @@
+﻿@model coreApp.Areas.Procurement.DAL.tblAPR
+
+@{
+    bool isReadOnly = (bool)ViewBag.uiIsReadOnly;
+    bool includeId = (bool)ViewBag.uiIncludeId;
+
+}
+
+
+<style>
+
+    .modal-content {
+        width: 60em;
+        margin: auto;
+        border: 0;
+    }
+</style>
+
+@Html.Hidden("Submitted", Model.HasBeenSubmitted)
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+
+    if (isReadOnly)
+    {
+        <div class="row">
+            <div class="col-sm-6">
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Id)
+                    <div class="form-control form-control-sm form-control-sm form-control-sm">
+                        @Html.DisplayFor(model => model.Id)
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Description)
+                    <div class="form-control form-control-sm">
+                        @Html.DisplayFor(model => model.Description)
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.DocStatus_Desc)
+                    <div class="form-control form-control-sm">
+                        @Html.DisplayFor(model => model.DocStatus_Desc)
+                    </div>
+                </div>
+
+                @if (Model.HasBeenSubmitted)
+                {
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.SubmittedBy)
+                        <div class="form-control form-control-sm">
+                            @Html.DisplayFor(model => model.SubmittedBy)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.SubmitDate)
+                        <div class="form-control form-control-sm">
+                            @Html.DisplayFor(model => model.SubmitDate)
+                        </div>
+                    </div>
+                }
+
+                @if (Model.IsReturned)
+                {
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ReturnedBy)
+                        <div class="form-control form-control-sm">
+                            @Html.DisplayFor(model => model.ReturnedBy)
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ReturnMessage)
+                        <div class="form-control form-control-sm">
+                            @Html.DisplayMultiLineFor(model => model.ReturnMessage)
+                        </div>
+                    </div>
+                }
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h6>Request Details</h6>
+                        <hr>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Form_AgencyControlNo)
+                            <div class="form-control form-control-sm">
+                                @Html.DisplayFor(model => model.Form_AgencyControlNo)
+                            </div>
+
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Form_PSAPRNo)
+                            <div class="form-control form-control-sm">
+                                @Html.DisplayFor(model => model.Form_PSAPRNo)
+                            </div>
+                        </div>
+
+                        <h6>Funds Deposited to PS</h6>
+                        <hr>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Form_FundDeposit_CheckNo)
+                            <div class="form-control form-control-sm">
+                                @Html.DisplayFor(model => model.Form_FundDeposit_CheckNo)
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Form_FundDeposit_Amount)
+                            <div class="form-control form-control-sm">
+                                @Html.DisplayFor(model => model.Form_FundDeposit_Amount)
+                            </div>
+
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Form_FundDeposit_AmountInWords)
+                            <div class="form-control form-control-sm">
+                                @Html.DisplayFor(model => model.Form_FundDeposit_AmountInWords)
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <fieldset>
+                    <h6>Request Options</h6>
+                    <hr>
+                    @if (Model.Form_IssueCommonUse == true)
+                    {
+                        <div class="form-group">
+                            Issue common-use supplies/materials
+                            <div class="row">
+                                <div class="col-sm-6" style="padding-right:.5em; padding-left:4em;">
+                                    <label class="col-form-label-sm" style="margin-bottom:0;">Price List No.:</label>
+                                    @Html.DisplayFor(model => model.Form_IssueCommonUse_PriceListNo)
+                                </div>
+                                <div class="col-sm-6" style="padding-left:.5em;">
+                                    <label class="col-form-label-sm" style="margin-bottom:0;">Date:</label>
+                                    @Html.DisplayFor(model => model.Form_IssueCommonUse_PriceListNo_Date)
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                    <div class="form-group">
+                        Mode of Delivery: <u>@Model.ModeOfDelivery_Desc</u>
+
+                    </div>
+
+                    <div class="form-group">
+                        In case fund is not sufficient: <u>@Model.InsufficientFunds_Desc</u>
+                    </div>
+
+                    @if (Model.Form_PurchaseNonCommon == true)
+                    {
+                        <div class="form-group">
+                            Purchase Non-Common Items
+                            <div class="indent">
+                                Attachments:<br />
+                                @Html.DisplayBooleanFor(model => model.Form_PurchaseNonCommon_CompleteSpecs) Complete Specifications<br />
+                                @Html.DisplayBooleanFor(model => model.Form_PurchaseNonCommon_ObR) Obligation Request (ObR)<br />
+                                @Html.DisplayBooleanFor(model => model.Form_PurchaseNonCommon_CBA) Certificate of Budget Allocation (CBA)<br />
+                                @Html.DisplayBooleanFor(model => model.Form_PurchaseNonCommon_Payment) Payment<br />
+                                @Html.DisplayBooleanFor(model => model.Form_PurchaseNonCommon_Others) Others, specify:
+                                @Html.DisplayFor(model => model.Form_PurchaseNonCommon_OthersText)
+                            </div>
+                        </div>
+                    }
+
+                </fieldset>
+            </div>
+        </div>
+
+
+    }
+    else
+    {
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="row">
+            <div class="col-sm-6">
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Description)
+                    @Html.TextBoxFor(model => model.Description, new { @class = "form-control form-control-sm" })
+                </div>
+
+                <h6>Request Details</h6>
+                <hr>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Form_AgencyControlNo)
+                    @Html.TextBoxFor(model => model.Form_AgencyControlNo, new { @class = "form-control form-control-sm" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Form_PSAPRNo)
+                    @Html.TextBoxFor(model => model.Form_PSAPRNo, new { @class = "form-control form-control-sm" })
+                </div>
+
+                <h6>Funds Deposited to PS</h6>
+                <hr>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Form_FundDeposit_CheckNo)
+                    @Html.TextBoxFor(model => model.Form_FundDeposit_CheckNo, new { @class = "form-control form-control-sm" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Form_FundDeposit_Amount)
+                    @Html.TextBoxFor(model => model.Form_FundDeposit_Amount, new { @class = "form-control form-control-sm" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Form_FundDeposit_AmountInWords)
+                    @Html.TextBoxFor(model => model.Form_FundDeposit_AmountInWords, new { @class = "form-control form-control-sm" })
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <h6>Request Options</h6>
+                <hr>
+                <div class="form-group">
+                    @Html.Partial("_Helper_CheckBox", "Form_IssueCommonUse", new ViewDataDictionary { { "value", Model.Form_IssueCommonUse }, { "text", "Issue common-use supplies/materials" } })
+                </div>
+
+                <div class="form-group">
+                    <div class="row" style="margin-top:-1rem;">
+                        <div class="col-sm-6" style="padding-right:.5em; padding-left:4em;">
+                            <label class="col-form-label-sm" style="margin-bottom:0;">Price List No.:</label>
+                            @Html.TextBoxFor(model => model.Form_IssueCommonUse_PriceListNo, new { @class = "form-control form-control-sm" })
+                        </div>
+                        <div class="col-sm-6" style="padding-left:.5em;">
+                            <label class="col-form-label-sm" style="margin-bottom:0;">Date:</label>
+
+                            @Html.TextBoxFor(model => model.Form_IssueCommonUse_PriceListNo_Date, new { @class = "form-control form-control-sm datepicker", Style = "width:100%;" })
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    Mode of Delivery:<br />
+                    <div class="indent">
+                        <div class="custom-control custom-radio">
+                            <input type="radio" name="ModeOfDelivery" id="rdbFastLane" class="custom-control-input input-primary" value="Form_IssueCommonUse_Pickup_FastLane" @(Model.Form_IssueCommonUse_Pickup_FastLane == true ? "checked" : "")>
+                            <label class="custom-control-label" for="rdbFastLane">Pickup (Fast Lane)</label>
+                        </div>
+                        <div class="custom-control custom-radio">
+                            <input type="radio" name="ModeOfDelivery" id="rdbSchedule" class="custom-control-input input-primary" value="Form_IssueCommonUse_Pickup_Schedule" @(Model.Form_IssueCommonUse_Pickup_Schedule == true ? "checked" : "")>
+                            <label class="custom-control-label" for="rdbSchedule">Pickup (Schedule)</label>
+                        </div>
+                        <div class="custom-control custom-radio">
+                            <input type="radio" name="ModeOfDelivery" id="rdbDoorToDoor" class="custom-control-input input-primary" value="Form_IssueCommonUse_Pickup_Delivery" @(Model.Form_IssueCommonUse_Pickup_Delivery == true ? "checked" : "")>
+                            <label class="custom-control-label" for="rdbDoorToDoor">Delivery (Door-to-door)</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    In case fund is not sufficient:<br />
+                    <div class="indent">
+                        <div class="custom-control custom-radio">
+                            <input type="radio" name="InsufficientFunds" id="Form_InsufficientFunds_ReduceQty" class="custom-control-input input-primary" value="Form_InsufficientFunds_ReduceQty" @(Model.Form_InsufficientFunds_ReduceQty == true ? "checked" : "")>
+                            <label class="custom-control-label" for="Form_InsufficientFunds_ReduceQty">Reduce Quantity</label>
+                        </div>
+                        <div class="custom-control custom-radio">
+                            <input type="radio" name="InsufficientFunds" id="Form_InsufficientFunds_Bill" class="custom-control-input input-primary" value="Form_InsufficientFunds_Bill" @(Model.Form_InsufficientFunds_Bill == true ? "checked" : "")>
+                            <label class="custom-control-label" for="Form_InsufficientFunds_Bill">Bill Us</label>
+                        </div>
+                        <div class="custom-control custom-radio">
+                            <input type="radio" name="InsufficientFunds" id="Form_InsufficientFunds_Charge" class="custom-control-input input-primary" value="Form_InsufficientFunds_Charge" @(Model.Form_InsufficientFunds_Charge == true ? "checked" : "")>
+                            <label class="custom-control-label" for="Form_InsufficientFunds_Charge">Charged to unutilized deposit</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="row" style="margin-top:-1rem;">
+                        <div class="col-sm-6" style="padding-right:.5em; padding-left:4em;">
+                            <label class="col-form-label-sm" style="margin-bottom:0;">APR No.:</label>
+                            @Html.TextBoxFor(model => model.Form_InsufficientFunds_Charge_APRNo, new { @class = "form-control form-control-sm" })
+                        </div>
+                        <div class="col-sm-6" style="padding-left:.5em;">
+                            <label class="col-form-label-sm" style="margin-bottom:0;">Date:</label>
+
+                            @Html.TextBoxFor(model => model.Form_InsufficientFunds_Charge_Date, new { @class = "form-control form-control-sm datepicker", Style = "width:100%;" })
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.Partial("_Helper_CheckBox", "Form_PurchaseNonCommon", new ViewDataDictionary { { "value", Model.Form_PurchaseNonCommon }, { "text", "Purchase Non-Common Items" } })
+                    <div class="indent">
+                        Attachments:<br />
+                        @Html.Partial("_Helper_CheckBox", "Form_PurchaseNonCommon_CompleteSpecs", new ViewDataDictionary { { "value", Model.Form_PurchaseNonCommon_CompleteSpecs }, { "text", "Complete Specifications" } })<br />
+                        @Html.Partial("_Helper_CheckBox", "Form_PurchaseNonCommon_ObR", new ViewDataDictionary { { "value", Model.Form_PurchaseNonCommon_ObR }, { "text", "Obligation Request (ObR)" } })<br />
+                        @Html.Partial("_Helper_CheckBox", "Form_PurchaseNonCommon_CBA", new ViewDataDictionary { { "value", Model.Form_PurchaseNonCommon_CBA }, { "text", "Certificate of Budget Allocation (CBA)" } })<br />
+                        @Html.Partial("_Helper_CheckBox", "Form_PurchaseNonCommon_Payment", new ViewDataDictionary { { "value", Model.Form_PurchaseNonCommon_Payment }, { "text", "Payment" } })<br />
+                        @Html.Partial("_Helper_CheckBox", "Form_PurchaseNonCommon_Others", new ViewDataDictionary { { "value", Model.Form_PurchaseNonCommon_Others }, { "text", "Others, specify" } })
+                        @Html.TextBoxFor(model => model.Form_PurchaseNonCommon_OthersText, new { @class = "form-control form-control-sm" })
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    }
+}
+

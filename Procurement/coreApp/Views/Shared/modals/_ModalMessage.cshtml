@@ -1,0 +1,67 @@
+﻿<div class="modal fade" id="modalMessage" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"></h5>
+            </div>
+            <div class="modal-body"></div>
+            <div class="modal-footer btn-group-sm">
+                <button type="button" class="btn btn-primary btn-default btn-ok" data-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div>
+</div>    
+
+<script>
+    function modalMessage(msg, title, isError, zindex, showCallback, hideCallback) {
+        var cont = $('<div />').addClass((isError ? 'text-danger' : 'text-success'));
+
+        if (Array.isArray(msg)) {
+            var m = $('<ul />');
+            msg.forEach(function (v) {
+                v = v.trim();
+                if (v != '') {
+                    m.append($('<li />').append(v));
+                }                
+            });
+
+            cont.append(m);
+        } else {
+            cont.append(msg);
+        }
+
+        modalMsg(cont, title, zindex, showCallback, hideCallback);
+    }
+
+    function modalMsg(body, title, zindex, showCallback, hideCallback) {
+
+        var modal = $('#modalMessage').clone();
+
+        if (zindex) {
+            modal.css('z-index', zindex);
+        }
+
+        modal.find('.modal-title').html(title);
+        modal.find('.modal-body').html(body);
+
+        modal.find('.modal-footer .btn-ok').unbind().click(function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            modal.modal('hide');
+        });
+
+        modal
+            .unbind('show.bs.modal')
+            .on('show.bs.modal', function () {
+                if (showCallback) showCallback(modal);
+            })
+            .on('hide.bs.modal', function () {
+                if (hideCallback) hideCallback(modal);
+            })
+            .modal({
+                backdrop: 'static',
+                show: true
+            });
+    }
+
+</script>

@@ -1,0 +1,273 @@
+﻿@model coreApp.DAL.tblPayrollSummary
+
+@{
+    bool isReadOnly = (bool)ViewBag.uiIsReadOnly;
+    bool includeId = (bool)ViewBag.uiIncludeId;
+
+    Module.Time.TimeSettingsModel settings = new Module.Time.TimeSettingsModel(Module.Time.Procs.TMSettings(Model.DateFrom, Model.OfficeId));
+}
+
+@Html.Hidden("PS_Status", Model.Status)
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    if (isReadOnly)
+    {
+        <div class="form-row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.PSId)
+            </div>
+            <div class="col-md-9">
+                <div class="form-control">
+                    @Html.DisplayFor(model => model.PSId)
+                </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.PayrollType)
+            </div>
+            <div class="col-md-9">
+                <div class="form-control">
+                    @Html.DisplayFor(model => model.PayrollType_Desc)
+                </div>
+            </div>
+        </div>
+
+        if (Model.PayrollType == (int)coreApp.Enums.PayrollType.Salary)
+        {
+            <div class="form-row">
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.PayMode)
+                </div>
+                <div class="col-md-9">
+                    <div class="form-control">
+                        @Html.DisplayFor(model => model.PayMode_Desc)
+                    </div>
+                </div>
+            </div>
+
+            @*<div class="form-row">
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.ContOptions)
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-control">
+                            @Html.DisplayFor(model => model.ContOptions_Desc)
+                        </div>
+                    </div>
+                </div>*@
+
+            <div class="form-row">
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.IncludeOT)
+                </div>
+                <div class="col-md-9">
+                    <div class="form-control">
+                        @Html.DisplayBooleanFor(model => model.IncludeOT)
+                    </div>
+                </div>
+            </div>
+            <div class="form-row @(FixedSettings.UseAgencyShare ? "" : "hidden")">
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.AgencyShare)
+                </div>
+                <div class="col-md-9">
+                    <div class="form-control">
+                        @Html.DisplayFor(model => model.AgencyShare)
+                    </div>
+                </div>
+            </div>
+        }
+
+        if (Model.PayrollType == (int)coreApp.Enums.PayrollType.Overload)
+        {
+            <div class="form-row">
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.OverloadType)
+                </div>
+                <div class="col-md-9">
+                    <div class="form-control">
+                        @Html.DisplayFor(model => model.OverloadType_Desc)
+                    </div>
+                </div>
+            </div>
+        }
+
+        <div class="form-row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.Description)
+            </div>
+            <div class="col-md-9">
+                <div class="form-control">
+                    @Html.DisplayFor(model => model.Description)
+                </div>
+            </div>
+        </div>
+
+        if (Model.PayrollType == (int)coreApp.Enums.PayrollType.Salary || Model.PayrollType == (int)coreApp.Enums.PayrollType._13thMP || Model.PayrollType == (int)coreApp.Enums.PayrollType.Overload)
+        {
+            <div class="form-row">
+                <div class="col-md-3">
+                    Period
+                </div>
+                <div class="col-md-9">
+                    <div class="form-control">
+                        @Html.DisplayFor(model => model.DateFrom) - @Html.DisplayFor(model => model.DateTo)
+                    </div>
+                </div>
+            </div>
+        }
+        <div class="form-row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.Status)
+            </div>
+            <div class="col-md-9">
+                <div class="form-control">
+                    @Html.DisplayFor(model => model.Status_Desc)
+                </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.CreatedBy)
+            </div>
+            <div class="col-md-9">
+                <div class="form-control">
+                    @Html.DisplayFor(model => model.CreatedBy)
+                </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.SubmittedBy)
+            </div>
+            <div class="col-md-9">
+                <div class="form-control">
+                    @Html.DisplayFor(model => model.SubmittedBy)<br />
+                    <span class="subtitle">@Html.DisplayFor(model => model.DateSubmitted)</span>
+                </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.ReturnedBy)
+            </div>
+            <div class="col-md-9">
+                <div class="form-control">
+                    @Html.DisplayFor(model => model.ReturnedBy)<br />
+                    <span class="subtitle">@Html.DisplayFor(model => model.DateReturned)</span>
+                </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.PostedBy)
+            </div>
+            <div class="col-md-9">
+                <div class="form-control">
+                    @Html.DisplayFor(model => model.PostedBy)<br />
+                    <span class="subtitle">@Html.DisplayFor(model => model.DatePosted)</span>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        @Html.HiddenFor(model => model.PSId)
+        @Html.HiddenFor(model => model.DateFrom)
+        @Html.HiddenFor(model => model.DateTo)
+        @Html.HiddenFor(model => model.Contributions)
+
+        if (includeId)
+        {
+            <div class="form-row">
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.PSId)
+                </div>
+                <div class="col-md-9">
+                    <div class="form-control dimmed">
+                        @Html.DisplayFor(model => model.PSId)
+                    </div>
+                </div>
+            </div>
+        }
+        <div class="form-row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.PayrollType)
+            </div>
+            <div class="col-md-9">
+                @Html.DropDownListFor(m => m.PayrollType, SelectItems.getPayrollTypes(), new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-row paymode">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.PayMode)
+            </div>
+            <div class="col-md-9">
+                @Html.DropDownListFor(m => m.PayMode, SelectItems.getPayModes(), new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-row overloadtype">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.OverloadType)
+            </div>
+            <div class="col-md-9">
+                @Html.DropDownListFor(m => m.OverloadType, SelectItems.getOverloadTypes(), new { @class = "form-control" })
+            </div>
+        </div>
+        @*<div class="form-row paymode">
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.ContOptions)
+                </div>
+                <div class="col-md-9">
+                    @Html.DropDownListFor(m => m.ContOptions, SelectItems.getContributionOptions(), new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-row paymode contributions">
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.Contributions)
+                </div>
+                <div class="col-md-9">
+                    @foreach (var item in Model.GetContributions(settings))
+                    {
+                        @Html.Partial("_Helper_CheckBox", "_Contributions", new ViewDataDictionary { { "value", item.Value }, { "text", System.Enum.GetName(typeof(coreApp.Enums.Contributions), item.Key) } })
+                    }
+                </div>
+            </div>*@
+        <div class="form-row excludeot">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.IncludeOT)
+            </div>
+            <div class="col-md-9">
+                @Html.Partial("_Helper_CheckBox", "IncludeOT", new ViewDataDictionary { { "value", Model.IncludeOT } })
+            </div>
+        </div>
+        <div class="form-row @(FixedSettings.UseAgencyShare ? "" : "hidden")">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.AgencyShare)
+            </div>
+            <div class="col-md-9">
+                @Html.TextBoxFor(model => model.AgencyShare, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.Description)
+            </div>
+            <div class="col-md-9">
+                @Html.TextBoxFor(model => model.Description, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-row period">
+            <div class="col-md-3">
+                Period
+            </div>
+            <div class="col-md-9">
+                @Html.Partial("_Helper_Period", new coreLib.Objects.PeriodModel(Model.DateFrom, Model.DateTo), new ViewDataDictionary { { "clientCallback", "applyPeriod" }, { "class", "form-control" } })
+            </div>
+        </div>
+    }
+}

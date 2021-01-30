@@ -1,0 +1,161 @@
+﻿@model Module.Leave.employeeLeave
+
+@{
+    ViewBag.Title = "My Leave Credits";
+    ViewBag.Subtitle = "";
+
+    Module.DB.tblEmployee employee = (Module.DB.tblEmployee)ViewBag.Employee;
+    Module.DB.tblLeaveType leaveType = (Module.DB.tblLeaveType)ViewBag.LeaveType;
+}
+
+@section Breadcrumbs {
+    @Html.Partial("_Breadcrumbs", new List<Breadcrumb>()
+    {
+        new Breadcrumb { Description = ViewBag.Title }
+    })
+}
+
+@section Scripts {
+    <script>
+        function printLeaveCard() {
+            var printlink = '@Url.Action("PrintLeaveCard", new { employeeId = employee.EmployeeId, leaveTypeId = leaveType.Id })';
+            modalPrint('@Module.Core.ModuleConstants.PRINT_OPTIONS', function (ret) {
+                var dlWord = 'true';
+
+                if (ret) {
+                    dlWord = 'false';
+                }
+
+                window.open(printlink + (printlink.indexOf('?') > 0 ? '&' : '?') + 'dlWord=' + dlWord, '_blank');
+            });
+        }
+    </script>
+}
+
+<div class="block">
+    <div class="head bg-default bg-light-ltr noradius">
+        <h2>@ViewBag.Title</h2>
+        <div class="side pull-right">
+            <ul class="buttons">
+                <li><button class="btn btn-info btn-clean btn-print-leavecard" onclick="printLeaveCard()">Print Leave Card</button></li>
+            </ul>
+        </div>
+    </div>
+    <div class="content">
+        @Html.Partial("~/Areas/LeaveModule/Views/Shared/leaveTypeInfo.cshtml", "/EmployeeModule/MyLeaveCredits/Index/" + employee.EmployeeId + "/")
+
+        @if (Model.hasApplicableCareer)
+        {
+            <table class="display table table-bordered table-striped table-list" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <th>
+                            Date
+                        </th>
+                        <th>
+                            Description
+                        </th>
+                        <th>
+                            Entry Type
+                        </th>
+                        <th>
+                            Dr
+                        </th>
+                        <th>
+                            Cr
+                        </th>
+                        <th>
+                            Include Rest Days
+                        </th>
+                        <th>
+                            Remarks
+                        </th>
+                        <th>
+                            Entered By
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (Module.DB.tblEmployee_LeaveCredit item in Model.table)
+                    {
+                        bool notEmployeeRequested = !new Module.DB.Procs.procs_tblEmployee_LeaveCredit(item).HasApplication();
+
+                        <tr record-id="@item.CreditId" @(item.EntryType == 0 ? "locked" : "")>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.StartDate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Date_Desc)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.EntryType_Desc)
+                            </td>
+                            <td>
+                                @item.Dr
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Cr)
+                            </td>
+                            <td>
+                                @Html.DisplayBooleanFor(modelItem => item.IncludeRestDays)
+                            </td>
+                            <td>
+                                @Html.DisplayMultiLineFor(model => item.Remarks)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(model => item.EnteredBy)
+
+                                @if (item.EntryType == (int)Module.DB.Enums.LeaveEntryType.Manual && notEmployeeRequested)
+                                { }
+                            </td>
+
+                        </tr>
+                    }
+                </tbody>
+
+            </table>
+        }
+        else
+        {
+            <div class="text-danger">
+                <i class="fa fa-warning"></i> This leave type is not applicable
+            </div>
+        }
+    </div>
+</div>
+
+
+@if (Model.hasApplicableCareer)
+{
+    <table class="leave-totals">
+        <tbody>
+            <tr>
+                <td>Total Dr:</td>
+                <td>@Model.TotalDrCr(true) </td>
+            </tr>
+            <tr>
+                <td>Total Cr:</td>
+                <td>@Model.TotalDrCr(false)</td>
+            </tr>
+            <tr>
+                <td>Balance:</td>
+                <td>@Model.LeaveBalance()</td>
+            </tr>
+        </tbody>
+    </table>
+}
+
+
+<style>
+    .leave-totals {
+        width: 150px;
+    }
+
+        .leave-totals tr td:first-child {
+            width: 100px;
+        }
+
+        .leave-totals tr td:last-child {
+            text-align: right;
+        }
+</style>

@@ -1,0 +1,95 @@
+﻿@model Module.DB.tblEmployee_Career
+
+<small>@(Model.Office == null ? "" : Model.Office.Office)</small>
+@Html.TextBoxFor(model => model.Department, new { @class = "form-control", @readonly = "readonly", style = "cursor:pointer", data_toggle = "modal", data_target = "#SelectDepartmentModal" })
+@Html.HiddenFor(model => model.DepartmentId)
+
+<div class="modal fade" id="SelectDepartmentModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Select Department</h4>
+            </div>
+            <div class="modal-body">
+                
+            </div>
+            <div class="alert alert-danger" style="margin-bottom:0;display:none">
+                No item selected
+            </div>
+             <div class="modal-footer btn-group-sm">
+                <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-sm btn-primary apply-btn">Apply</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    var rawData = @Html.Raw(ViewBag.OfficeTree);
+    var office_department_tree_data = {};
+
+    rawData.forEach(function(o){
+        office_department_tree_data[o.Office.Name] = {
+            additionalParameters: {
+                children: {}
+            },
+            text: o.Office.Name,
+            type: 'folder',
+            attr: {
+                'data-id': o.Office.Id,
+                'data-name': o.Office.Name
+            }
+        };
+
+        o.Departments.forEach(function(d){
+            office_department_tree_data[o.Office.Name].additionalParameters.children[d.Name] = {
+                text: d.Name,
+                type: 'item',
+                attr: {
+                    'data-id': d.Id,
+                    'data-name': d.Name
+                }
+            };
+        });
+    });
+
+    $(document).ready(function(){
+        var win = $('#SelectDepartmentModal');
+
+        win.on('show.bs.modal', function (e) {
+            win.find('.alert').hide();
+        })
+
+        var getSelection = function(){
+            var ret = null;
+
+            var selectedItem = $('#office-department-tree').find('li.tree-item.tree-selected');
+            if(selectedItem.length > 0){
+                ret = {
+                    Id: selectedItem.attr('data-id'),
+                    Name: selectedItem.attr('data-name'),
+                    Parent: selectedItem.closest('li.tree-branch').attr('data-name')
+                };
+            }
+
+            return ret;
+        };
+
+        win.find('.apply-btn').click(function(){
+            var selectedItem = getSelection();
+            if(selectedItem) {
+                $('#OfficeName').val(selectedItem.Parent);
+                $('#Department').val(selectedItem.Name);
+                $('#DepartmentId').val(selectedItem.Id);
+
+                win.modal('hide');
+            }else{
+                win.find('.alert').show();
+            }
+
+            
+        });
+    });
+</script>

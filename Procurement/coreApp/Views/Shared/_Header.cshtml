@@ -1,0 +1,62 @@
+﻿
+@using Microsoft.AspNet.Identity
+
+@if (Request.IsAuthenticated)
+{
+    <header class="pc-header ">
+        <div class="header-wrapper">
+            <div class="mr-auto pc-mob-drp">
+                @if (ViewContext.RouteData.DataTokens["area"].ToString() == "Procurement" || Session["area"].ToString() == "Procurement")
+                {
+                    <h5 class="pc-h-item">Procurement Management System</h5>
+                }
+                else if (ViewContext.RouteData.DataTokens["area"].ToString() == "SAM" || Session["area"].ToString() == "SAM")
+                {
+                    <h5 class="pc-h-item">Supply and Assets Management System</h5>
+                }
+
+            </div>
+
+            <div class="ml-auto">
+                <ul class="list-unstyled">
+
+                    <li class="dropdown pc-h-item" modal-target="#modalViewDetails_ChangePassword" modal-title="Change Password">
+                        <a class="pc-head-link dropdown-toggle arrow-none mr-0" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                            <img src="~/assets/nextro/assets/images/user/empty.png" alt="user-image" class="user-avtar">
+                            <span>
+                                <span class="user-name">@User.Identity.Name<i data-feather="chevron-down"></i></span>
+
+                                <span class="user-desc">User</span>
+                            </span>
+                        </a>
+                        @using (Html.BeginForm("LogOff", "Account", new { area = "" }, FormMethod.Post, new { id = "logoutForm" }))
+                        {
+                            <div class="dropdown-menu dropdown-menu-right pc-h-dropdown">
+
+                                <div class="dropdown-header">
+                                    <h6 class="text-overflow m-0">Welcome !</h6>
+                                </div>
+
+                                <div class="details dropdown-item" modal-target="#modalViewDetails_ChangePassword" modal-title="Change Password">
+                                    <i data-feather="user"></i>
+                                    <a href="#" style="text-decoration:none;" class="btn-open" data-url="@Url.Action("ChangePassword", "Manage", new { area = "" })" data-redirect-url="{page-reload}">Change Password</a>
+                                </div>
+
+                                <a href="javascript:document.getElementById('logoutForm').submit()" class="dropdown-item">
+                                    <i data-feather="power"></i>
+                                    <span>Logout</span>
+                                </a>
+
+                            </div>
+                        }
+
+                    </li>
+                </ul>
+
+            </div>
+
+        </div>
+    </header>
+}
+
+@Html.Partial("~/Views/Shared/modals/_ModalView_FromDetails.cshtml", "modalViewDetails_ChangePassword")

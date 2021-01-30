@@ -1,0 +1,98 @@
+﻿@model List<coreApp.Areas.Procurement.DAL.tblSupplier>
+@{
+    ViewBag.Title = "Suppliers";
+
+}
+
+@section Breadcrumbs {
+@Html.Partial("_Breadcrumbs", new List<Breadcrumb>()
+    {
+        new Breadcrumb { Description = "Supply/Asset Management", Link = Url.Action("Index", "Main", new { area = "SAM" }) },
+        new Breadcrumb { Description = ViewBag.Title }
+    })
+}
+<div class="block">
+    <div class="card">
+        <div class="card-header">
+            <h5>@ViewBag.Title</h5>
+            <div class="card-header-right">
+                <div class="btn-group-sm card-option">
+                    <button class="btn btn-success btn-create" onclick="$.fn.list('modalCreate', this)">Create</button>                    
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="dt-responsive table-responsive">
+                <table class="display table table-bordered table-striped table-list" cellspacing="0" width="100%"
+                       modal-target="#modalView" modal-start="view"
+                       modal-view-url="/SAM/Suppliers/Details/{0}" modal-edit-url="/SAM/Suppliers/Edit/{0}" modal-delete-url="/SAM/Suppliers/Delete" modal-create-url="/SAM/Suppliers/Create">
+                    <thead>
+                        <tr>
+                            <th>
+                                Company Name
+                            </th>
+                            <th>
+                                Address
+                            </th>
+                            <th>
+                                TIN
+                            </th>
+                            <th>
+                                VAT
+                            </th>
+                            <th>
+                                Email
+                            </th>
+                            <th>
+                                Telephone No.
+                            </th>
+                            <th>
+                                Mobile No.
+                            </th>
+                            <th>
+                                Notes
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (coreApp.Areas.Procurement.DAL.tblSupplier item in Model)
+                        {
+                            <tr record-id="@item.Id">
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CompanyName)
+                                </td>
+                                <td>
+                                    @Html.DisplayMultiLineFor(modelItem => item.Address)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.TIN)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.VAT_Desc)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Email)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.TelephoneNo)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.MobileNo)
+                                </td>
+                                <td>
+                                    @if (item.HasNotes)
+                                    {
+                                        <i class="fa fa-sticky-note-o"></i>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    @Html.Partial("~/Views/Shared/modals/_ModalView.cshtml", "modalView")

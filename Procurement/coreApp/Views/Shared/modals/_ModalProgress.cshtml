@@ -1,0 +1,141 @@
+﻿<div class="modal fade" id="modalProgress" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title"></h6>
+            </div>
+            <div class="modal-body">
+                <div class="progress progress-striped progress-small active">
+                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;height:20px"></div>
+                </div>
+                <div class="progress-label" style="text-align:center;color:#fff"></div>
+                <div class="progress-results text-danger"></div>
+            </div>
+             <div class="modal-footer btn-group-sm">
+                <button type="button" class="btn btn-default btn-clean btn-cancel">Cancel</button>
+                <button type="button" class="btn btn-primary btn-clean btn-continue">Continue</button>
+            </div>
+        </div>
+    </div>
+</div>    
+
+<style>
+    #modalProgress .progress-results:empty {
+        display: none;
+    }
+
+    #modalProgress .progress-results {
+        max-height: 200px;
+        overflow: auto;
+    }
+</style>
+
+<script>
+    var modalProgress = {
+        title: '',
+        continueButtonText: '',
+        cancelable: true,
+        cancelledCallback: null,
+        continueCallback: null,
+        showCallback: null,        
+        currentValue: 0,
+        maxValue: 100,
+        showLabel: true,
+        _modal: null,
+        _btnContinue: null,
+        _btnCancel: null,
+        _progressBar: null,
+        _progressLabel: null,
+        progressResults: null,
+        init: function () {
+            var me = this;
+
+            me._modal = $('#modalProgress').clone();
+            var header_title = me._modal.find('.modal-title');
+            me._btnCancel = me._modal.find('.btn-cancel');
+            me._btnContinue = me._modal.find('.btn-continue');
+            me._progressBar = me._modal.find('.progress-bar');
+            me._progressLabel = me._modal.find('.progress-label');
+            me.progressResults = me._modal.find('.progress-results');
+
+            header_title.html(me.title);
+            me._progressBar.parent().addClass('active');
+
+            if (me.continueButtonText != '') {
+                me._btnContinue.html(me.continueButtonText);
+            }
+
+            me._btnContinue.hide();
+            
+            me._btnContinue.unbind().bind('click', function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+
+                me._modal.modal('hide');
+
+                if (me.continueCallback) {
+                    me.continueCallback();
+                }
+            });
+
+            me._btnCancel.unbind().bind('click', function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+
+                me._modal.modal('hide');
+
+                if (me.cancelledCallback) {
+                    me.cancelledCallback();
+                }
+            });
+
+            me.progressResults.empty();
+            me._setButtons(false);
+            
+            me._modal
+                .on('shown.bs.modal', function (e) {
+                    if (me.showCallback) {
+                        me.showCallback(me);
+                    }
+                })
+                .modal({
+                    backdrop: 'static',
+                    show: true
+                });
+        },
+        showProgress: function () {
+            var me = this;
+            var v = Math.round((me.currentValue / me.maxValue) * 100);
+
+            me._progressBar.attr('aria-valuenow', v);
+            me._progressBar.css('width', v + '%');
+
+            if (me.showLabel) {
+                var text = me.currentValue + '/' + me.maxValue + ' completed (' + v + '%)';
+                me._progressLabel.html(text);
+            }
+        },
+        _setButtons: function (isCompleted) {
+            var me = this;
+            if (isCompleted) {
+                me._btnCancel.hide();
+                me._btnContinue.show();
+            } else {
+                me._btnContinue.hide();
+
+                if (me.cancelable) {
+                    me._btnCancel.show();
+                } else {
+                    me._btnCancel.hide();
+                }
+            }
+        },
+        completed: function () {
+            var me = this;
+            me._progressBar.parent().removeClass('active');
+            me._setButtons(true);
+        }
+    };
+    
+
+</script>

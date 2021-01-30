@@ -1,0 +1,78 @@
+﻿@model List<coreApp.Areas.SAM.tblContractor>
+@{
+    ViewBag.Title = "Contractors";
+
+}
+
+@section Breadcrumbs {
+    @Html.Partial("_Breadcrumbs", new List<Breadcrumb>()
+        {
+            new Breadcrumb { Description = "Supply/Asset Management", Link = Url.Action("Index", "Main", new { area = "SAM" }) },
+            new Breadcrumb { Description = ViewBag.Title }
+        })
+}
+
+<div class="block">
+    <div class="card">
+        <div class="card-header">
+            <h5>@ViewBag.Title</h5>
+            <div class="card-header-right">
+                <div class="btn-group-sm card-option">
+                    <button class="btn btn-success btn-create" onclick="$.fn.list('modalCreate', this)">Create</button>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="dt-responsive table-responsive">
+                <table class="display table table-bordered table-striped table-list" cellspacing="0" width="100%"
+                       modal-target="#modalView" modal-start="view"
+                       modal-view-url="/SAM/Contractors/Details/{0}" modal-edit-url="/SAM/Contractors/Edit/{0}" modal-delete-url="/SAM/Contractors/Delete" modal-create-url="/SAM/Contractors/Create">
+                    <thead>
+                        <tr>
+                            <th>
+                                Company Name
+                            </th>
+                            <th>
+                                Address
+                            </th>
+                            <th>
+                                Telephone No.
+                            </th>
+                            <th>
+                                Representative
+                            </th>
+                            <th>
+                                Representative's Mobile No.
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (coreApp.Areas.SAM.tblContractor item in Model)
+                        {
+                            <tr record-id="@item.Id">
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CompanyName)
+                                </td>
+                                <td>
+                                    @Html.DisplayMultiLineFor(modelItem => item.Address)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.TelephoneNo)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Representative)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Representative_MobileNo)
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@Html.Partial("~/Views/Shared/modals/_ModalView.cshtml", "modalView")

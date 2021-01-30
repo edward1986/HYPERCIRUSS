@@ -1,0 +1,65 @@
+﻿@model List<Module.DB.tblBulletinBoard>
+
+<style>
+    .dashboard-item .bulletin-board .dataTables_length,
+    .dashboard-item .bulletin-board .dataTables_info,
+    .dashboard-item .bulletin-board .dataTables_paginate {
+        display: none;
+    }
+
+    .dashboard-item .bulletin-board .dataTable .first-col {
+        width: 30%;
+    }
+</style>
+
+<div class="bulletin-board head bg-dot20">
+    <h2>Bulletin Board</h2>
+    <div class="side pull-right">
+
+        <ul class="buttons">
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    <span class="icon-cogs"></span>
+                </a>
+
+                <ul class="dropdown-menu">
+                    <li>
+                        <a href="/HRModule/BulletinBoardView/Index">More posts...</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    @if (Model.Count == 0)
+    {
+        <div style="color:gray;clear:both">No item to show</div>
+    }
+    else
+    {
+        <table class="display table table-bordered table-striped table-list" data-url="/HRModule/BulletinBoardView/Details?id={0}">
+            <thead style="display:none">
+                <tr>
+                    <th class="first-col"></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Module.DB.tblBulletinBoard item in Model)
+                {
+                    <tr record-id="@item.Id" newtab>
+                        <td class="first-col">
+                            @item.DateOfPosting.ToString("dd MMM yyyy h:mm tt")
+                        </td>
+                        <td>
+                            @item.Title
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    
+</div>
+
+

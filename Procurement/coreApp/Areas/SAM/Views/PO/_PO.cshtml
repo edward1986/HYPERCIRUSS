@@ -1,0 +1,357 @@
+﻿@model coreApp.Areas.SAM.tblPO
+
+@{
+    bool isReadOnly = (bool)ViewBag.uiIsReadOnly;
+    bool includeId = (bool)ViewBag.uiIncludeId;
+
+    int? whId = coreApp.Cache.Get().userAccess.employee.WarehouseId;
+
+    coreApp.Areas.SAM.POModel poModel = new coreApp.Areas.SAM.POModel(Model);
+    coreApp.Areas.SAM.tblWarehouse warehouse = DBProcs.get_WarehouseById(Model.WarehouseId);
+}
+
+<style>
+    .modal-content {
+        width: 50em;
+    }
+</style>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.Locked)
+
+    if (isReadOnly)
+    {
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group row">
+                    <div class="col-md">
+                        @Html.LabelFor(model => model.Id)
+                        <div class="form-control">
+                            @Html.DisplayFor(model => model.Id)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-md">
+                        @Html.LabelFor(model => model.PODate)
+                        <div class="form-control">
+
+                            @Html.DisplayFor(model => model.PODate)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-md">
+                        @Html.LabelFor(model => model.PRNo)
+                        <div class="form-control">
+                            @Html.DisplayFor(model => model.PRNo)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-md">
+                        @Html.LabelFor(model => model.SupplierId)
+                        <div class="form-control">
+                            @Html.DisplayFor(model => model._SupplierName)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-md">
+                        @Html.LabelFor(model => model.Form_PlaceOfDelivery)
+                        <div class="form-control">
+                            @Html.DisplayFor(model => model.Form_PlaceOfDelivery)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-md">
+                        @Html.LabelFor(model => model.Form_DeliveryTerm)
+                        <div class="form-control">
+                            @Html.DisplayFor(model => model.Form_DeliveryTerm)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-md">
+                        @Html.LabelFor(model => model.OfficeId)
+                        <div class="form-control">
+                            @Html.DisplayFor(model => model.Office_Desc)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group row">
+                    <div class="col-md">
+                        @Html.LabelFor(model => model.PONo)
+                        <div class="form-control">
+                            @Html.DisplayFor(model => model.PONo)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-md">
+                        @Html.LabelFor(model => model.MOP)
+                        <div class="form-control">
+                            @Html.DisplayFor(model => model.MOP)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-md">
+                        @Html.LabelFor(model => model.PRDate)
+                        <div class="form-control">
+                            @Html.DisplayFor(model => model.PRDate)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-md">
+                        <label>Address</label>
+                        <div class="form-control">
+                            @Html.DisplayMultiLineFor(model => model._SupplierAddress)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-md">
+                        @Html.LabelFor(model => model.Form_DateOfDelivery)
+                        <div class="form-control">
+                            @Html.DisplayFor(model => model.Form_DateOfDelivery)
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md">
+                        @Html.LabelFor(model => model.Form_PaymentTerm)
+                        <div class="form-control">
+                            @Html.DisplayFor(model => model.Form_PaymentTerm)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-md">
+                        @Html.LabelFor(model => model.CreatedBy_UserId)
+                        <div class="form-control">
+                            @Html.DisplayFor(model => model.CreatedBy)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr class="m-t-0" />
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group row">
+                    <div class="col-md">
+                        <label>Amount</label>
+                        <div class="form-control">
+                            @poModel.Amount.ToString("#,##0.00")
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group row">
+                    <div class="col-md">
+                        <label> Delivery Status</label>
+                        <div class="form-control">
+                            @poModel.Status_Desc
+
+                            @if (poModel.Status == coreApp.Areas.SAM.Enums.POStatus.Partial)
+                            {
+                                <span>&nbsp;(@((poModel.DeliveryPercentage * 100).ToString("0.#"))% Delivered)</span>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        if (Model.Locked)
+        {
+            <div class="form-group row">
+                <div class="col-md-3">
+
+                </div>
+                <div class="col-md-9">
+                    <div class="form-control">
+                        <i class="fa fa-lock"></i> Imported
+                    </div>
+                </div>
+            </div>
+        }
+        <div class="form-group row">
+            <div class="col-md">
+                <label>Warehouse</label>
+                <div class="form-control">
+                    @warehouse.WarehouseName &nbsp;
+
+                    @if (Model.IsWarehouseLocked(whId))
+                    {
+                        <i class="fa fa-lock"></i>
+                    }
+                </div>
+            </div>
+        </div>
+
+
+    }
+    else
+    {
+        @Html.HiddenFor(model => model.Id)
+
+        if (includeId)
+        {
+            @*<div class="form-row">
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.Id)
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-control dimmed">
+                            @Html.DisplayFor(model => model.Id)
+                        </div>
+                    </div>
+                </div>*@
+
+            <div class="form-group row">
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.PONo)
+                </div>
+                <div class="col-md-9">
+                    <div class="form-control dimmed">
+                        @Html.DisplayFor(model => model.PONo)
+                        @Html.HiddenFor(model => model.PONo)
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="form-group row">
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.PONo)
+                </div>
+                <div class="col-md-9">
+                    @*@Html.TextBoxFor(model => model.PONo, new { @class = "form-control masked-input", data_mask = "999-999", placeholder = "000-000" })*@
+                    @Html.TextBoxFor(model => model.PONo, new { @class = "form-control" })
+                </div>
+            </div>
+        }
+
+
+        <div class="form-group row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.PODate)
+            </div>
+            <div class="col-md-9">
+                @Html.TextBoxFor(model => model.PODate, new { @class = "form-control datepicker" })
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.MOP)
+            </div>
+            <div class="col-md-9">
+                @Html.TextBoxFor(model => model.MOP, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.PRNo)
+            </div>
+            <div class="col-md-9">
+                @Html.TextBoxFor(model => model.PRNo, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.PRDate)
+            </div>
+            <div class="col-md-9">
+                @Html.TextBoxFor(model => model.PRDate, new { @class = "form-control datepicker" })
+
+            </div>
+        </div>
+        
+        @*<div class="form-group row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.CreatedBy_UserId)
+            </div>
+            <div class="col-md-9">
+                @Html.DropDownListFor(model => model.CreatedBy_UserId, coreApp.Areas.SAM.SelectItems.getUsers("",-1, -1, true, -1, coreApp.Cache.Get().userAccess.user.Id), new { @class = "form-control pc-selectpicker" })
+            </div>
+        </div>*@
+        <div class="form-group row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.SupplierId)
+            </div>
+            <div class="col-md-9">
+                @Html.DropDownListFor(model => model.SupplierId, coreApp.Areas.Procurement.SelectItems.getSuppliers(), new { @class = "form-control pc-selectpicker" })
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.Form_PlaceOfDelivery)
+            </div>
+            <div class="col-md-9">
+                @Html.TextBoxFor(model => model.Form_PlaceOfDelivery, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.Form_DateOfDelivery)
+            </div>
+            <div class="col-md-9">
+                @Html.TextBoxFor(model => model.Form_DateOfDelivery, new { @class = "form-control datepicker" })
+
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.Form_DeliveryTerm)
+            </div>
+            <div class="col-md-9">
+                @Html.TextBoxFor(model => model.Form_DeliveryTerm, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.Form_PaymentTerm)
+            </div>
+            <div class="col-md-9">
+                @Html.TextBoxFor(model => model.Form_PaymentTerm, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.OfficeId)
+            </div>
+            <div class="col-md-9">
+                @Html.DropDownListFor(model => model.OfficeId, SelectItems.getOffices(showCampus: false), new { @class = "form-control" })
+            </div>
+        </div>
+    }
+}

@@ -1,0 +1,381 @@
+﻿@model List<Module.DB.tblLeaveApplication>
+
+@{
+    ViewBag.Title = "Leave Applications";
+    ViewBag.Subtitle = "List";
+    bool isPending = (bool)ViewBag.isPending;
+
+    Module.DB.tblEmployee employee = (Module.DB.tblEmployee)ViewBag.Employee;
+
+}
+
+@section Breadcrumbs {
+    @Html.Partial("_Breadcrumbs", new List<Breadcrumb>() { new Breadcrumb { Description = ViewBag.Title } })
+}
+
+@section Scripts {
+    <script>
+        function load(e) {
+            if (e.viewType == 'view') {
+                var hasBeenServed = $('#HasBeenServed').val() == 'True';
+                var editBtn = e.modal.find('.btn-edit');
+                var deleteBtn = e.modal.find('.btn-delete');
+
+                var printBtn = e.modal.find('.btn-print');
+                var returnBtn = e.modal.find('.btn-return');
+                var denyBtn = e.modal.find('.btn-deny');
+                var approveBtn = e.modal.find('.btn-approve');
+                var revertApprovalBtn = e.modal.find('.btn-revert-approval');
+
+                var title = 'Leave Application';
+
+                var returnlink = returnBtn.attr('data-link-tmp');
+
+                returnBtn.unbind('click').bind('click', function (ee) {
+                    ee.preventDefault();
+
+                    modalInput(title, 'Are you sure you want to return this leave application?<br /><br />Your message:', function (ret, userInput) {
+                        if (ret) {
+                            $.post(returnlink, { message: userInput }, function (res) {
+                                if (res.IsSuccessful) {
+                                    sessionStorage.clientMessage = res.Remarks;
+                                    window.location.reload(true);
+                                } else {
+                                    modalMessage(res.Err.split('\n'), title, true);
+                                }
+                            }, 'json');
+                        }
+                    }, 'textarea');
+
+                });
+
+                var denylink = denyBtn.attr('data-link-tmp');
+
+                denyBtn.unbind('click').bind('click', function (ee) {
+                    ee.preventDefault();
+
+                    modalInput(title, 'Are you sure you want to deny this leave application?<br /><br />Your message:', function (ret, userInput) {
+                        if (ret) {
+                            $.post(denylink, { message: userInput }, function (res) {
+                                if (res.IsSuccessful) {
+                                    sessionStorage.clientMessage = res.Remarks;
+                                    window.location.reload(true);
+                                } else {
+                                    modalMessage(res.Err.split('\n'), title, true);
+                                }
+                            }, 'json');
+                        }
+                    }, 'textarea');
+
+                });
+                                
+                var revertApprovallink = revertApprovalBtn.attr('data-link-tmp');
+
+                revertApprovalBtn.unbind('click').bind('click', function (ee) {
+                    ee.preventDefault();
+
+                    modalConfirm('Are you sure you want to revert approval of this leave application?', function (ret) {
+                        if (ret) {
+                            $.post(revertApprovallink, null, function (res) {
+                                if (res.IsSuccessful) {
+                                    sessionStorage.clientMessage = res.Remarks;
+                                    window.location.reload(true);
+                                } else {
+                                    modalMessage(res.Err.split('\n'), title, true);
+                                }
+                            }, 'json');
+                        }
+                    });
+
+                });
+
+                var printlink = printBtn.attr('data-link-tmp');
+
+                printBtn.unbind('click').bind('click', function (ee) {
+                    ee.preventDefault();
+
+                    modalPrint('@Module.Core.ModuleConstants.PRINT_OPTIONS', function (ret) {
+                        var dlWord = 'true';
+
+                        if (ret) {
+                            dlWord = 'false';
+                        }
+
+                        window.open(printlink + '?dlWord=' + dlWord, '_blank');
+                    });
+                });
+
+                var link = approveBtn.attr('data-link-tmp');
+
+                approveBtn.unbind('click').bind('click', function (ee) {
+                    ee.preventDefault();
+                    
+                    modalConfirm('', function (ret, modal) {
+                        var body = modal.find('.modal-body');
+                        var noWithPay = body.find('#NoWithPay');
+                        var withPay = body.find('.with-pay');
+                        var withoutPay = body.find('.without-pay');
+
+                        if (ret) {
+
+                            var getLWOPItems = function () {
+                                var ret = [];
+
+                                withoutPay.find('[type="checkbox"]:checked').each(function (i, v) {
+                                    var data = $(v).closest('.lwop-item').attr('data-lwop');
+                                    ret.push(data);
+                                });
+
+                                return ret;
+                            };
+
+                            var data = {
+                                NoWithPay: noWithPay.prop('checked'),
+                                LWP: withPay.attr('data-lwp'),
+                                LWOP: JSON.stringify(getLWOPItems())
+                            };
+
+                            $.post(link, data, function (res) {
+                                if (res.IsSuccessful) {
+                                    sessionStorage.clientMessage = res.Remarks;
+                                    window.location.reload(true);
+                                } else {
+                                    modalMessage(res.Err.split('\n'), title, true);
+                                }
+                            }, 'json');
+                        }
+                    }, function (modal) {
+
+                        var applicationId = e.modal.find('#Id').val();
+                        var url = '/HRModule/LeaveApplications/ApproveUI?id=' + applicationId;
+
+                        var body = modal.find('.modal-body');
+
+                        body.addClass('loading-mask');
+                        body.load(url, function () {
+                            setCheckboxes(body);
+                            setPeriod(body);
+                            setLeaveEntry(body, {
+                                updateCallback: getLWOP
+                            });
+
+                            var noWithPay = body.find('#NoWithPay');
+                            var leaveEntry = body.find('.leave-entry');
+                                                        
+                            noWithPay.click(function () {
+                                var cb = $(this);
+                                
+                                if (cb.prop('checked')) {
+                                    leaveEntry.hide();
+                                } else {
+                                    leaveEntry.show();
+                                }
+
+                                getLWOP();
+                            });
+
+                            getLWOP();
+                            body.removeClass('loading-mask');
+                        });
+                    });
+
+                });
+
+                editBtn.hide();
+                deleteBtn.hide();
+
+                if (hasBeenServed) {
+                    returnBtn.hide();
+                    denyBtn.hide();
+                    approveBtn.hide();
+                    revertApprovalBtn.show();
+                } else {
+                    returnBtn.show();
+                    denyBtn.show();
+                    approveBtn.show();
+                    revertApprovalBtn.hide();
+                }
+            }
+
+
+            return e;
+        }
+
+        function applyPeriod(start, end, sender) {
+            $.fn.leaveEntry('update', {
+                src: sender,
+                updateCallback: getLWOP
+            });
+
+            getLWOP();
+        }
+
+        function getLWOP() {
+            var approveUI = $('.approve-ui');
+            var leaveEntry = approveUI.find('.leave-entry');
+            var applicationId = approveUI.attr('data-applicationid');
+            var noWithPay = approveUI.find('#NoWithPay').prop('checked');
+            var withPayCont = approveUI.find('.with-pay');
+
+            var approvedWithPayData = {
+                StartDate: leaveEntry.find('.period-cont').attr('data-start-date'),
+                EndDate: leaveEntry.find('.period-cont').attr('data-end-date'),
+                StartDate_IsHalfDay: leaveEntry.find('.startdate-halfday [type="checkbox"]').prop('checked'),
+                EndDate_IsHalfDay: leaveEntry.find('.enddate-halfday [type="checkbox"]').prop('checked'),
+                IncludeRestDays: leaveEntry.find('.include-restdays [type="checkbox"]').prop('checked')
+            };
+
+            var strApprovedWithPayData = JSON.stringify(approvedWithPayData);
+            withPayCont.attr('data-lwp', strApprovedWithPayData)
+
+            var url = '/HRModule/LeaveApplications/GetLWOP?id=' + applicationId + '&approvedWithPay=' + (noWithPay ? '' : strApprovedWithPayData);
+
+            var withoutPay = approveUI.find('.without-pay');
+            var btns = withoutPay.closest('.modal-dialog').find('.modal-footer button');
+            
+            withoutPay.addClass('loading-mask');
+            btns.attr('disabled', 'disabled');
+
+            withoutPay.load(url, function () {
+                setCheckboxes(withoutPay);
+
+                btns.removeAttr('disabled');
+                withoutPay.removeClass('loading-mask');
+            });
+        }
+    </script>
+}
+
+<div class="block">
+    <div class="head bg-default bg-light-ltr noradius">
+        <h2>@ViewBag.Title</h2>
+    </div>
+    <ul class="nav nav-tabs" state-key="settings-tab" state-manager-for="tabs">
+        <li class="@(isPending ? "active" : "")"><a href="@(isPending ? "#" : "/HRModule/LeaveApplications")" data-toggle="@(isPending ? "tab" : "")">Pending</a></li>
+        <li class="@(isPending ? "" : "active")"><a href="@(isPending ? "LeaveApplications/approved" : "#")" data-toggle="@(isPending ? "" : "tab")">Approved</a></li>
+    </ul>
+    <div class="content">
+        <table class="display table table-bordered table-striped table-list" cellspacing="0" width="100%"
+               modal-target="#modalView" modal-start="view" modal-load-callback="load"
+               modal-view-url="/HRModule/LeaveApplications/Details/{0}">
+            <thead>
+                <tr>
+                    <th class="idcol">
+                        Id
+                    </th>
+                    <th>
+                        Employee
+                    </th>
+                    <th>
+                        Leave Type
+                    </th>
+                    <th>
+                        Period
+                    </th>
+                    <th>
+                        Approved With-Pay
+                    </th>
+                    <th>
+                        Approved Without-Pay
+                    </th>
+                    <th>
+                        Reason
+                    </th>
+                    <th>
+                        Has Support File
+                    </th>
+                    <th>
+                        Submitted
+                    </th>
+                    <th>
+                        Served By
+                    </th>
+                    <th>
+                        Status
+                    </th>
+                    <th>
+                        Message
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Module.DB.tblLeaveApplication item in Model)
+                {
+                    List<coreApp.DAL.leaveEntryModel> LWOP = new List<coreApp.DAL.leaveEntryModel>();
+
+                    if (!string.IsNullOrEmpty(item.Approved_WithoutPay_Data))
+                    {
+                        string[] tmp = Newtonsoft.Json.JsonConvert.DeserializeObject<string[]>(item.Approved_WithoutPay_Data);
+                        LWOP = tmp.Select(x => Newtonsoft.Json.JsonConvert.DeserializeObject<coreApp.DAL.leaveEntryModel>(x)).ToList();
+                    }
+
+                    <tr record-id="@item.Id">
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Id)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.employee.FullName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.LeaveType.Description)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Date_Desc)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Approved_Date_Desc)
+                        </td>
+                        <td>
+                            @Html.Partial("~/Areas/EmployeeModule/Views/MyLeaveApplications/_wopay.cshtml", item)
+                        </td>
+                        <td>
+                            @Html.DisplayMultiLineFor(modelItem => item.Reason)
+                        </td>
+                        <td>
+                            @Html.DisplayBooleanFor(modelItem => item.HasSupportFile)
+                        </td>
+                        <td>
+                            @if (item.HasBeenSubmitted)
+                            {
+                                @Html.DisplayFor(modelItem => item.DateSubmitted)
+                            }
+                        </td>
+                        <td>
+                            @if (item.IsApproved)
+                            {
+                                @Html.DisplayFor(modelItem => item.ApprovedBy)<br />
+                                @Html.DisplayFor(modelItem => item.ApproveDate)
+                            }
+                            else if (item.IsDenied)
+                            {
+                                @Html.DisplayFor(modelItem => item.DeniedBy)<br />
+                                @Html.DisplayFor(modelItem => item.DenyDate)
+                            }
+                            else if (item.IsReturned)
+                            {
+                                @Html.DisplayFor(modelItem => item.ReturnedBy)<br />
+                                @Html.DisplayFor(modelItem => item.ReturnDate)
+                            }
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Application_Status_Desc)
+                        </td>
+                        <td>
+                            @if (item.IsDenied)
+                            {
+                                @Html.DisplayMultiLineFor(modelItem => item.DenyMessage)
+                            }
+                            else if (item.IsReturned)
+                            {
+                                @Html.DisplayMultiLineFor(modelItem => item.ReturnMessage)
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+    </div>
+</div>
+
+@Html.Partial("~/Views/Shared/modals/_ModalView.cshtml", "modalView")

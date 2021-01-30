@@ -1,0 +1,61 @@
+﻿@model List<Module.DB.tblDepartment>
+
+@{
+    ViewBag.Title = "Departments";
+    ViewBag.Subtitle = "List";
+
+    Module.DB.tblOffice office = (Module.DB.tblOffice)ViewBag.Office;
+
+}
+
+@section Breadcrumbs {
+    @Html.Partial("_Breadcrumbs", new List<Breadcrumb>() {
+        new Breadcrumb { Description = "Campuses", Link = "/HRModule/Campus" },
+        new Breadcrumb { Description = "Offices", Link = "/HRModule/Offices/Index/" + @office.CampusID },
+        new Breadcrumb { Description = ViewBag.Title }
+    })
+}
+
+@Html.Partial("~/Views/Shared/info/officeInfo.cshtml", "/HRModule/Departments/Index/")
+
+<div class="block">
+    <div class="head bg-default bg-light-ltr noradius">
+        <h2>@ViewBag.Title</h2>
+        <div class="side pull-right">
+            <ul class="buttons">
+                <li>
+                    <button class="btn btn-success btn-create" onclick="$.fn.list('modalCreate', this)">Create</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="content">        
+        <table class="display table table-bordered table-striped table-list" cellspacing="0" width="100%"
+               modal-target="#modalView" modal-start="view"
+               modal-view-url="/HRModule/Departments/Details/@office.OfficeId/{0}" modal-edit-url="/HRModule/Departments/Edit/@office.OfficeId/{0}" modal-delete-url="/HRModule/Departments/Delete/@office.OfficeId" modal-create-url="/HRModule/Departments/Create/@office.OfficeId">
+            <thead>
+                <tr>
+                    <th class="idcol">ID</th>
+                    <th>Department</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Module.DB.tblDepartment item in Model)
+                {
+                    <tr record-id="@item.DepartmentId">
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DepartmentId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Department)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+    </div>
+</div>
+
+@Html.Partial("~/Views/Shared/modals/_ModalView.cshtml", "modalView")
+

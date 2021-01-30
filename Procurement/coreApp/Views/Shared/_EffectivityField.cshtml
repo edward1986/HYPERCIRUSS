@@ -1,0 +1,16 @@
+﻿@model string
+@{
+    string effectivity = ViewBag.effectivity;
+
+    List<DateTime> effectivites = (List<DateTime>)ViewBag.Effectivities;
+
+    string e = effectivity ?? Module.Core.ModuleConstants.DEFAULT_EFFECTIVITY;
+}
+
+<div class="effectivity-field">
+    <input type="hidden" name="@Model" class="effectivity-field-hf" />
+    <select class="form-control pc-selectpicker">
+        <option value="@e" selected>@e</option>
+        <option value="NEW"></option>
+    </select>
+</div>

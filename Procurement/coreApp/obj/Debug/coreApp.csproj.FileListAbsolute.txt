@@ -1,0 +1,1046 @@
+D:\Systems\SkyHR\coreApp\bin\coreApp.dll.config
+D:\Systems\SkyHR\coreApp\bin\coreApp.dll
+D:\Systems\SkyHR\coreApp\bin\coreApp.pdb
+D:\Systems\SkyHR\coreApp\bin\coreLib.dll
+D:\Systems\SkyHR\coreApp\bin\device_core.dll
+D:\Systems\SkyHR\coreApp\bin\device_granding.dll
+D:\Systems\SkyHR\coreApp\bin\device_ino1_a.dll
+D:\Systems\SkyHR\coreApp\bin\device_ino1_a_legacy.dll
+D:\Systems\SkyHR\coreApp\bin\device_zkteco_f8.dll
+D:\Systems\SkyHR\coreApp\bin\Microsoft.Bcl.AsyncInterfaces.dll
+D:\Systems\SkyHR\coreApp\bin\Module.Core.dll
+D:\Systems\SkyHR\coreApp\bin\Module.DB.dll
+D:\Systems\SkyHR\coreApp\bin\Module.Leave.dll
+D:\Systems\SkyHR\coreApp\bin\Module.Time.dll
+D:\Systems\SkyHR\coreApp\bin\System.Memory.dll
+D:\Systems\SkyHR\coreApp\bin\System.Runtime.CompilerServices.Unsafe.dll
+D:\Systems\SkyHR\coreApp\bin\System.Threading.Tasks.Extensions.dll
+D:\Systems\SkyHR\coreApp\bin\_Encryption.dll
+D:\Systems\SkyHR\coreApp\bin\Interop.zkemkeeper.dll
+D:\Systems\SkyHR\coreApp\bin\coreLib.pdb
+D:\Systems\SkyHR\coreApp\bin\device_core.pdb
+D:\Systems\SkyHR\coreApp\bin\Module.Core.pdb
+D:\Systems\SkyHR\coreApp\bin\Module.DB.pdb
+D:\Systems\SkyHR\coreApp\bin\Module.DB.dll.config
+D:\Systems\SkyHR\coreApp\bin\Module.Leave.pdb
+D:\Systems\SkyHR\coreApp\bin\Module.Time.pdb
+D:\Systems\SkyHR\coreApp\bin\device_granding.pdb
+D:\Systems\SkyHR\coreApp\bin\device_ino1_a.pdb
+D:\Systems\SkyHR\coreApp\bin\device_ino1_a_legacy.pdb
+D:\Systems\SkyHR\coreApp\bin\device_zkteco_f8.pdb
+D:\Systems\SkyHR\coreApp\obj\Debug\coreApp.csprojAssemblyReference.cache
+D:\Systems\SkyHR\coreApp\obj\Debug\Interop.zkemkeeper.dll
+D:\Systems\SkyHR\coreApp\obj\Debug\coreApp.csproj.ResolveComReference.cache
+D:\Systems\SkyHR\coreApp\obj\Debug\coreApp.csproj.CoreCompileInputs.cache
+D:\Systems\SkyHR\coreApp\obj\Debug\coreApp.csproj.CopyComplete
+D:\Systems\SkyHR\coreApp\obj\Debug\coreApp.dll
+D:\Systems\SkyHR\coreApp\obj\Debug\coreApp.pdb
+D:\Systems\SkyHR\coreApp\bin\Microsoft.Win32.Primitives.dll
+D:\Systems\SkyHR\coreApp\bin\netstandard.dll
+D:\Systems\SkyHR\coreApp\bin\System.AppContext.dll
+D:\Systems\SkyHR\coreApp\bin\System.Collections.Concurrent.dll
+D:\Systems\SkyHR\coreApp\bin\System.Collections.dll
+D:\Systems\SkyHR\coreApp\bin\System.Collections.NonGeneric.dll
+D:\Systems\SkyHR\coreApp\bin\System.Collections.Specialized.dll
+D:\Systems\SkyHR\coreApp\bin\System.ComponentModel.dll
+D:\Systems\SkyHR\coreApp\bin\System.ComponentModel.EventBasedAsync.dll
+D:\Systems\SkyHR\coreApp\bin\System.ComponentModel.Primitives.dll
+D:\Systems\SkyHR\coreApp\bin\System.ComponentModel.TypeConverter.dll
+D:\Systems\SkyHR\coreApp\bin\System.Console.dll
+D:\Systems\SkyHR\coreApp\bin\System.Data.Common.dll
+D:\Systems\SkyHR\coreApp\bin\System.Diagnostics.Contracts.dll
+D:\Systems\SkyHR\coreApp\bin\System.Diagnostics.Debug.dll
+D:\Systems\SkyHR\coreApp\bin\System.Diagnostics.FileVersionInfo.dll
+D:\Systems\SkyHR\coreApp\bin\System.Diagnostics.Process.dll
+D:\Systems\SkyHR\coreApp\bin\System.Diagnostics.StackTrace.dll
+D:\Systems\SkyHR\coreApp\bin\System.Diagnostics.TextWriterTraceListener.dll
+D:\Systems\SkyHR\coreApp\bin\System.Diagnostics.Tools.dll
+D:\Systems\SkyHR\coreApp\bin\System.Diagnostics.TraceSource.dll
+D:\Systems\SkyHR\coreApp\bin\System.Diagnostics.Tracing.dll
+D:\Systems\SkyHR\coreApp\bin\System.Drawing.Primitives.dll
+D:\Systems\SkyHR\coreApp\bin\System.Dynamic.Runtime.dll
+D:\Systems\SkyHR\coreApp\bin\System.Globalization.Calendars.dll
+D:\Systems\SkyHR\coreApp\bin\System.Globalization.dll
+D:\Systems\SkyHR\coreApp\bin\System.Globalization.Extensions.dll
+D:\Systems\SkyHR\coreApp\bin\System.IO.Compression.dll
+D:\Systems\SkyHR\coreApp\bin\System.IO.Compression.ZipFile.dll
+D:\Systems\SkyHR\coreApp\bin\System.IO.dll
+D:\Systems\SkyHR\coreApp\bin\System.IO.FileSystem.dll
+D:\Systems\SkyHR\coreApp\bin\System.IO.FileSystem.DriveInfo.dll
+D:\Systems\SkyHR\coreApp\bin\System.IO.FileSystem.Primitives.dll
+D:\Systems\SkyHR\coreApp\bin\System.IO.FileSystem.Watcher.dll
+D:\Systems\SkyHR\coreApp\bin\System.IO.IsolatedStorage.dll
+D:\Systems\SkyHR\coreApp\bin\System.IO.MemoryMappedFiles.dll
+D:\Systems\SkyHR\coreApp\bin\System.IO.Pipes.dll
+D:\Systems\SkyHR\coreApp\bin\System.IO.UnmanagedMemoryStream.dll
+D:\Systems\SkyHR\coreApp\bin\System.Linq.dll
+D:\Systems\SkyHR\coreApp\bin\System.Linq.Expressions.dll
+D:\Systems\SkyHR\coreApp\bin\System.Linq.Parallel.dll
+D:\Systems\SkyHR\coreApp\bin\System.Linq.Queryable.dll
+D:\Systems\SkyHR\coreApp\bin\System.Net.Http.dll
+D:\Systems\SkyHR\coreApp\bin\System.Net.NameResolution.dll
+D:\Systems\SkyHR\coreApp\bin\System.Net.NetworkInformation.dll
+D:\Systems\SkyHR\coreApp\bin\System.Net.Ping.dll
+D:\Systems\SkyHR\coreApp\bin\System.Net.Primitives.dll
+D:\Systems\SkyHR\coreApp\bin\System.Net.Requests.dll
+D:\Systems\SkyHR\coreApp\bin\System.Net.Security.dll
+D:\Systems\SkyHR\coreApp\bin\System.Net.Sockets.dll
+D:\Systems\SkyHR\coreApp\bin\System.Net.WebHeaderCollection.dll
+D:\Systems\SkyHR\coreApp\bin\System.Net.WebSockets.Client.dll
+D:\Systems\SkyHR\coreApp\bin\System.Net.WebSockets.dll
+D:\Systems\SkyHR\coreApp\bin\System.ObjectModel.dll
+D:\Systems\SkyHR\coreApp\bin\System.Reflection.dll
+D:\Systems\SkyHR\coreApp\bin\System.Reflection.Extensions.dll
+D:\Systems\SkyHR\coreApp\bin\System.Reflection.Primitives.dll
+D:\Systems\SkyHR\coreApp\bin\System.Resources.Reader.dll
+D:\Systems\SkyHR\coreApp\bin\System.Resources.ResourceManager.dll
+D:\Systems\SkyHR\coreApp\bin\System.Resources.Writer.dll
+D:\Systems\SkyHR\coreApp\bin\System.Runtime.CompilerServices.VisualC.dll
+D:\Systems\SkyHR\coreApp\bin\System.Runtime.dll
+D:\Systems\SkyHR\coreApp\bin\System.Runtime.Extensions.dll
+D:\Systems\SkyHR\coreApp\bin\System.Runtime.Handles.dll
+D:\Systems\SkyHR\coreApp\bin\System.Runtime.InteropServices.dll
+D:\Systems\SkyHR\coreApp\bin\System.Runtime.InteropServices.RuntimeInformation.dll
+D:\Systems\SkyHR\coreApp\bin\System.Runtime.Numerics.dll
+D:\Systems\SkyHR\coreApp\bin\System.Runtime.Serialization.Formatters.dll
+D:\Systems\SkyHR\coreApp\bin\System.Runtime.Serialization.Json.dll
+D:\Systems\SkyHR\coreApp\bin\System.Runtime.Serialization.Primitives.dll
+D:\Systems\SkyHR\coreApp\bin\System.Runtime.Serialization.Xml.dll
+D:\Systems\SkyHR\coreApp\bin\System.Security.Claims.dll
+D:\Systems\SkyHR\coreApp\bin\System.Security.Cryptography.Algorithms.dll
+D:\Systems\SkyHR\coreApp\bin\System.Security.Cryptography.Csp.dll
+D:\Systems\SkyHR\coreApp\bin\System.Security.Cryptography.Encoding.dll
+D:\Systems\SkyHR\coreApp\bin\System.Security.Cryptography.Primitives.dll
+D:\Systems\SkyHR\coreApp\bin\System.Security.Cryptography.X509Certificates.dll
+D:\Systems\SkyHR\coreApp\bin\System.Security.Principal.dll
+D:\Systems\SkyHR\coreApp\bin\System.Security.SecureString.dll
+D:\Systems\SkyHR\coreApp\bin\System.Text.Encoding.dll
+D:\Systems\SkyHR\coreApp\bin\System.Text.Encoding.Extensions.dll
+D:\Systems\SkyHR\coreApp\bin\System.Text.RegularExpressions.dll
+D:\Systems\SkyHR\coreApp\bin\System.Threading.dll
+D:\Systems\SkyHR\coreApp\bin\System.Threading.Overlapped.dll
+D:\Systems\SkyHR\coreApp\bin\System.Threading.Tasks.dll
+D:\Systems\SkyHR\coreApp\bin\System.Threading.Tasks.Parallel.dll
+D:\Systems\SkyHR\coreApp\bin\System.Threading.Thread.dll
+D:\Systems\SkyHR\coreApp\bin\System.Threading.ThreadPool.dll
+D:\Systems\SkyHR\coreApp\bin\System.Threading.Timer.dll
+D:\Systems\SkyHR\coreApp\bin\System.ValueTuple.dll
+D:\Systems\SkyHR\coreApp\bin\System.Xml.ReaderWriter.dll
+D:\Systems\SkyHR\coreApp\bin\System.Xml.XDocument.dll
+D:\Systems\SkyHR\coreApp\bin\System.Xml.XmlDocument.dll
+D:\Systems\SkyHR\coreApp\bin\System.Xml.XmlSerializer.dll
+D:\Systems\SkyHR\coreApp\bin\System.Xml.XPath.dll
+D:\Systems\SkyHR\coreApp\bin\System.Xml.XPath.XDocument.dll
+D:\Systems\SkyHR\coreApp\bin\Microsoft.AspNetCore.Antiforgery.dll
+D:\Systems\SkyHR\coreApp\bin\Microsoft.AspNetCore.Authentication.Abstractions.dll
+D:\Systems\SkyHR\coreApp\bin\Microsoft.AspNetCore.Authentication.Core.dll
+D:\Systems\SkyHR\coreApp\bin\Microsoft.AspNetCore.Authorization.dll
+D:\Systems\SkyHR\coreApp\bin\Microsoft.AspNetCore.Authorization.Policy.dll
+D:\Systems\SkyHR\coreApp\bin\Microsoft.AspNetCore.Cryptography.Internal.dll
+D:\Systems\SkyHR\coreApp\bin\Microsoft.AspNetCore.DataProtection.Abstractions.dll
+D:\Systems\SkyHR\coreApp\bin\Microsoft.AspNetCore.DataProtection.dll
+D:\Systems\SkyHR\coreApp\bin\Microsoft.AspNetCore.Diagnostics.Abstractions.dll
+D:\Systems\SkyHR\coreApp\bin\Microsoft.AspNetCore.Hosting.Abstractions.dll
+D:\Systems\SkyHR\coreApp\bin\Microsoft.AspNetCore.Hosting.Server.Abstractions.dll
+D:\Systems\SkyHR\coreApp\bin\Microsoft.AspNetCore.Html.Abstractions.dll
+D:\Systems\SkyHR\coreApp\bin\Microsoft.AspNetCore.Http.Abstractions.dll
+D:\Systems\SkyHR\coreApp\bin\Microsoft.AspNetCore.Http.dll
+D:\Systems\SkyHR\coreApp\bin\Microsoft.AspNetCore.Http.Extensions.dll
+D:\Systems\SkyHR\coreApp\bin\Microsoft.AspNetCore.Http.Features.dll
+D:\Systems\SkyHR\coreApp\bin\Microsoft.AspNetCore.JsonPatch.dll
+D:\Systems\SkyHR\coreApp\bin\Microsoft.AspNetCore.Mvc.Abstractions.dll
+D:\Systems\SkyHR\coreApp\bin\Microsoft.AspNetCore.Mvc.Core.dll
+D:\Systems\SkyHR\coreApp\bin\Microsoft.AspNetCore.Mvc.DataAnnotations.dll
+D:\Systems\SkyHR\coreApp\bin\Microsoft.AspNetCore.Mvc.Formatters.Json.dll
+D:\Systems\SkyHR\coreApp\bin\Microsoft.AspNetCore.Mvc.ViewFeatures.dll
+D:\Systems\SkyHR\coreApp\bin\Microsoft.AspNetCore.ResponseCaching.Abstractions.dll
+D:\Systems\SkyHR\coreApp\bin\Microsoft.AspNetCore.Routing.Abstractions.dll
+D:\Systems\SkyHR\coreApp\bin\Microsoft.AspNetCore.Routing.dll
+D:\Systems\SkyHR\coreApp\bin\Microsoft.AspNetCore.WebUtilities.dll
+D:\Systems\SkyHR\coreApp\bin\Microsoft.DotNet.PlatformAbstractions.dll
+D:\Systems\SkyHR\coreApp\bin\Microsoft.Extensions.DependencyModel.dll
+D:\Systems\SkyHR\coreApp\bin\Microsoft.Extensions.FileProviders.Abstractions.dll
+D:\Systems\SkyHR\coreApp\bin\Microsoft.Extensions.Hosting.Abstractions.dll
+D:\Systems\SkyHR\coreApp\bin\Microsoft.Extensions.Localization.Abstractions.dll
+D:\Systems\SkyHR\coreApp\bin\Microsoft.Extensions.Localization.dll
+D:\Systems\SkyHR\coreApp\bin\Microsoft.Extensions.ObjectPool.dll
+D:\Systems\SkyHR\coreApp\bin\Microsoft.Extensions.WebEncoders.dll
+D:\Systems\SkyHR\coreApp\bin\Microsoft.Net.Http.Headers.dll
+D:\Systems\SkyHR\coreApp\bin\Microsoft.Win32.Registry.dll
+D:\Systems\SkyHR\coreApp\bin\Newtonsoft.Json.Bson.dll
+D:\Systems\SkyHR\coreApp\bin\System.Buffers.dll
+D:\Systems\SkyHR\coreApp\bin\System.Security.AccessControl.dll
+D:\Systems\SkyHR\coreApp\bin\System.Security.Cryptography.Xml.dll
+D:\Systems\SkyHR\coreApp\bin\System.Security.Permissions.dll
+D:\Systems\SkyHR\coreApp\bin\System.Security.Principal.Windows.dll
+D:\Systems\SkyHR\coreApp\bin\System.Text.Encodings.Web.dll
+D:\Systems\SkyHR\coreApp\bin\Microsoft.AspNetCore.Antiforgery.xml
+D:\Systems\SkyHR\coreApp\bin\Microsoft.AspNetCore.Authentication.Abstractions.xml
+D:\Systems\SkyHR\coreApp\bin\Microsoft.AspNetCore.Authentication.Core.xml
+D:\Systems\SkyHR\coreApp\bin\Microsoft.AspNetCore.Authorization.xml
+D:\Systems\SkyHR\coreApp\bin\Microsoft.AspNetCore.Authorization.Policy.xml
+D:\Systems\SkyHR\coreApp\bin\Microsoft.AspNetCore.Cryptography.Internal.xml
+D:\Systems\SkyHR\coreApp\bin\Microsoft.AspNetCore.DataProtection.xml
+D:\Systems\SkyHR\coreApp\bin\Microsoft.AspNetCore.DataProtection.Abstractions.xml
+D:\Systems\SkyHR\coreApp\bin\Microsoft.AspNetCore.Diagnostics.Abstractions.xml
+D:\Systems\SkyHR\coreApp\bin\Microsoft.AspNetCore.Hosting.Abstractions.xml
+D:\Systems\SkyHR\coreApp\bin\Microsoft.AspNetCore.Hosting.Server.Abstractions.xml
+D:\Systems\SkyHR\coreApp\bin\Microsoft.AspNetCore.Html.Abstractions.xml
+D:\Systems\SkyHR\coreApp\bin\Microsoft.AspNetCore.Http.xml
+D:\Systems\SkyHR\coreApp\bin\Microsoft.AspNetCore.Http.Abstractions.xml
+D:\Systems\SkyHR\coreApp\bin\Microsoft.AspNetCore.Http.Extensions.xml
+D:\Systems\SkyHR\coreApp\bin\Microsoft.AspNetCore.Http.Features.xml
+D:\Systems\SkyHR\coreApp\bin\Microsoft.AspNetCore.JsonPatch.xml
+D:\Systems\SkyHR\coreApp\bin\Microsoft.AspNetCore.Mvc.Abstractions.xml
+D:\Systems\SkyHR\coreApp\bin\Microsoft.AspNetCore.Mvc.Core.xml
+D:\Systems\SkyHR\coreApp\bin\Microsoft.AspNetCore.Mvc.DataAnnotations.xml
+D:\Systems\SkyHR\coreApp\bin\Microsoft.AspNetCore.Mvc.Formatters.Json.xml
+D:\Systems\SkyHR\coreApp\bin\Microsoft.AspNetCore.Mvc.ViewFeatures.xml
+D:\Systems\SkyHR\coreApp\bin\Microsoft.AspNetCore.ResponseCaching.Abstractions.xml
+D:\Systems\SkyHR\coreApp\bin\Microsoft.AspNetCore.Routing.xml
+D:\Systems\SkyHR\coreApp\bin\Microsoft.AspNetCore.Routing.Abstractions.xml
+D:\Systems\SkyHR\coreApp\bin\Microsoft.AspNetCore.WebUtilities.xml
+D:\Systems\SkyHR\coreApp\bin\Microsoft.Extensions.FileProviders.Abstractions.xml
+D:\Systems\SkyHR\coreApp\bin\Microsoft.Extensions.Hosting.Abstractions.xml
+D:\Systems\SkyHR\coreApp\bin\Microsoft.Extensions.Localization.xml
+D:\Systems\SkyHR\coreApp\bin\Microsoft.Extensions.Localization.Abstractions.xml
+D:\Systems\SkyHR\coreApp\bin\Microsoft.Extensions.ObjectPool.xml
+D:\Systems\SkyHR\coreApp\bin\Microsoft.Extensions.WebEncoders.xml
+D:\Systems\SkyHR\coreApp\bin\Microsoft.Net.Http.Headers.xml
+D:\Systems\SkyHR\coreApp\bin\Newtonsoft.Json.Bson.xml
+D:\Systems\SkyHR\coreApp\bin\System.Buffers.xml
+D:\Systems\SkyHR\coreApp\bin\System.Text.Encodings.Web.xml
+D:\Systems\SkyHR\coreApp\obj\Debug\coreApp.dll.config
+D:\Systems\Procurement\coreApp\bin\coreApp.dll.config
+D:\Systems\Procurement\coreApp\bin\coreApp.dll
+D:\Systems\Procurement\coreApp\bin\coreApp.pdb
+D:\Systems\Procurement\coreApp\bin\Microsoft.Win32.Primitives.dll
+D:\Systems\Procurement\coreApp\bin\netstandard.dll
+D:\Systems\Procurement\coreApp\bin\System.AppContext.dll
+D:\Systems\Procurement\coreApp\bin\System.Collections.Concurrent.dll
+D:\Systems\Procurement\coreApp\bin\System.Collections.dll
+D:\Systems\Procurement\coreApp\bin\System.Collections.NonGeneric.dll
+D:\Systems\Procurement\coreApp\bin\System.Collections.Specialized.dll
+D:\Systems\Procurement\coreApp\bin\System.ComponentModel.dll
+D:\Systems\Procurement\coreApp\bin\System.ComponentModel.EventBasedAsync.dll
+D:\Systems\Procurement\coreApp\bin\System.ComponentModel.Primitives.dll
+D:\Systems\Procurement\coreApp\bin\System.ComponentModel.TypeConverter.dll
+D:\Systems\Procurement\coreApp\bin\System.Console.dll
+D:\Systems\Procurement\coreApp\bin\System.Data.Common.dll
+D:\Systems\Procurement\coreApp\bin\System.Diagnostics.Contracts.dll
+D:\Systems\Procurement\coreApp\bin\System.Diagnostics.Debug.dll
+D:\Systems\Procurement\coreApp\bin\System.Diagnostics.FileVersionInfo.dll
+D:\Systems\Procurement\coreApp\bin\System.Diagnostics.Process.dll
+D:\Systems\Procurement\coreApp\bin\System.Diagnostics.StackTrace.dll
+D:\Systems\Procurement\coreApp\bin\System.Diagnostics.TextWriterTraceListener.dll
+D:\Systems\Procurement\coreApp\bin\System.Diagnostics.Tools.dll
+D:\Systems\Procurement\coreApp\bin\System.Diagnostics.TraceSource.dll
+D:\Systems\Procurement\coreApp\bin\System.Diagnostics.Tracing.dll
+D:\Systems\Procurement\coreApp\bin\System.Drawing.Primitives.dll
+D:\Systems\Procurement\coreApp\bin\System.Dynamic.Runtime.dll
+D:\Systems\Procurement\coreApp\bin\System.Globalization.Calendars.dll
+D:\Systems\Procurement\coreApp\bin\System.Globalization.dll
+D:\Systems\Procurement\coreApp\bin\System.Globalization.Extensions.dll
+D:\Systems\Procurement\coreApp\bin\System.IO.Compression.dll
+D:\Systems\Procurement\coreApp\bin\System.IO.Compression.ZipFile.dll
+D:\Systems\Procurement\coreApp\bin\System.IO.dll
+D:\Systems\Procurement\coreApp\bin\System.IO.FileSystem.dll
+D:\Systems\Procurement\coreApp\bin\System.IO.FileSystem.DriveInfo.dll
+D:\Systems\Procurement\coreApp\bin\System.IO.FileSystem.Primitives.dll
+D:\Systems\Procurement\coreApp\bin\System.IO.FileSystem.Watcher.dll
+D:\Systems\Procurement\coreApp\bin\System.IO.IsolatedStorage.dll
+D:\Systems\Procurement\coreApp\bin\System.IO.MemoryMappedFiles.dll
+D:\Systems\Procurement\coreApp\bin\System.IO.Pipes.dll
+D:\Systems\Procurement\coreApp\bin\System.IO.UnmanagedMemoryStream.dll
+D:\Systems\Procurement\coreApp\bin\System.Linq.dll
+D:\Systems\Procurement\coreApp\bin\System.Linq.Expressions.dll
+D:\Systems\Procurement\coreApp\bin\System.Linq.Parallel.dll
+D:\Systems\Procurement\coreApp\bin\System.Linq.Queryable.dll
+D:\Systems\Procurement\coreApp\bin\System.Net.Http.dll
+D:\Systems\Procurement\coreApp\bin\System.Net.NameResolution.dll
+D:\Systems\Procurement\coreApp\bin\System.Net.NetworkInformation.dll
+D:\Systems\Procurement\coreApp\bin\System.Net.Ping.dll
+D:\Systems\Procurement\coreApp\bin\System.Net.Primitives.dll
+D:\Systems\Procurement\coreApp\bin\System.Net.Requests.dll
+D:\Systems\Procurement\coreApp\bin\System.Net.Security.dll
+D:\Systems\Procurement\coreApp\bin\System.Net.Sockets.dll
+D:\Systems\Procurement\coreApp\bin\System.Net.WebHeaderCollection.dll
+D:\Systems\Procurement\coreApp\bin\System.Net.WebSockets.Client.dll
+D:\Systems\Procurement\coreApp\bin\System.Net.WebSockets.dll
+D:\Systems\Procurement\coreApp\bin\System.ObjectModel.dll
+D:\Systems\Procurement\coreApp\bin\System.Reflection.dll
+D:\Systems\Procurement\coreApp\bin\System.Reflection.Extensions.dll
+D:\Systems\Procurement\coreApp\bin\System.Reflection.Primitives.dll
+D:\Systems\Procurement\coreApp\bin\System.Resources.Reader.dll
+D:\Systems\Procurement\coreApp\bin\System.Resources.ResourceManager.dll
+D:\Systems\Procurement\coreApp\bin\System.Resources.Writer.dll
+D:\Systems\Procurement\coreApp\bin\System.Runtime.CompilerServices.VisualC.dll
+D:\Systems\Procurement\coreApp\bin\System.Runtime.dll
+D:\Systems\Procurement\coreApp\bin\System.Runtime.Extensions.dll
+D:\Systems\Procurement\coreApp\bin\System.Runtime.Handles.dll
+D:\Systems\Procurement\coreApp\bin\System.Runtime.InteropServices.dll
+D:\Systems\Procurement\coreApp\bin\System.Runtime.InteropServices.RuntimeInformation.dll
+D:\Systems\Procurement\coreApp\bin\System.Runtime.Numerics.dll
+D:\Systems\Procurement\coreApp\bin\System.Runtime.Serialization.Formatters.dll
+D:\Systems\Procurement\coreApp\bin\System.Runtime.Serialization.Json.dll
+D:\Systems\Procurement\coreApp\bin\System.Runtime.Serialization.Primitives.dll
+D:\Systems\Procurement\coreApp\bin\System.Runtime.Serialization.Xml.dll
+D:\Systems\Procurement\coreApp\bin\System.Security.Claims.dll
+D:\Systems\Procurement\coreApp\bin\System.Security.Cryptography.Algorithms.dll
+D:\Systems\Procurement\coreApp\bin\System.Security.Cryptography.Csp.dll
+D:\Systems\Procurement\coreApp\bin\System.Security.Cryptography.Encoding.dll
+D:\Systems\Procurement\coreApp\bin\System.Security.Cryptography.Primitives.dll
+D:\Systems\Procurement\coreApp\bin\System.Security.Cryptography.X509Certificates.dll
+D:\Systems\Procurement\coreApp\bin\System.Security.Principal.dll
+D:\Systems\Procurement\coreApp\bin\System.Security.SecureString.dll
+D:\Systems\Procurement\coreApp\bin\System.Text.Encoding.dll
+D:\Systems\Procurement\coreApp\bin\System.Text.Encoding.Extensions.dll
+D:\Systems\Procurement\coreApp\bin\System.Text.RegularExpressions.dll
+D:\Systems\Procurement\coreApp\bin\System.Threading.dll
+D:\Systems\Procurement\coreApp\bin\System.Threading.Overlapped.dll
+D:\Systems\Procurement\coreApp\bin\System.Threading.Tasks.dll
+D:\Systems\Procurement\coreApp\bin\System.Threading.Tasks.Parallel.dll
+D:\Systems\Procurement\coreApp\bin\System.Threading.Thread.dll
+D:\Systems\Procurement\coreApp\bin\System.Threading.ThreadPool.dll
+D:\Systems\Procurement\coreApp\bin\System.Threading.Timer.dll
+D:\Systems\Procurement\coreApp\bin\System.ValueTuple.dll
+D:\Systems\Procurement\coreApp\bin\System.Xml.ReaderWriter.dll
+D:\Systems\Procurement\coreApp\bin\System.Xml.XDocument.dll
+D:\Systems\Procurement\coreApp\bin\System.Xml.XmlDocument.dll
+D:\Systems\Procurement\coreApp\bin\System.Xml.XmlSerializer.dll
+D:\Systems\Procurement\coreApp\bin\System.Xml.XPath.dll
+D:\Systems\Procurement\coreApp\bin\System.Xml.XPath.XDocument.dll
+D:\Systems\Procurement\coreApp\bin\coreLib.dll
+D:\Systems\Procurement\coreApp\bin\device_granding.dll
+D:\Systems\Procurement\coreApp\bin\device_ino1_a.dll
+D:\Systems\Procurement\coreApp\bin\device_ino1_a_legacy.dll
+D:\Systems\Procurement\coreApp\bin\device_zkteco_f8.dll
+D:\Systems\Procurement\coreApp\bin\Microsoft.AspNetCore.Antiforgery.dll
+D:\Systems\Procurement\coreApp\bin\Microsoft.AspNetCore.Authentication.Abstractions.dll
+D:\Systems\Procurement\coreApp\bin\Microsoft.AspNetCore.Authentication.Core.dll
+D:\Systems\Procurement\coreApp\bin\Microsoft.AspNetCore.Authorization.dll
+D:\Systems\Procurement\coreApp\bin\Microsoft.AspNetCore.Authorization.Policy.dll
+D:\Systems\Procurement\coreApp\bin\Microsoft.AspNetCore.Cryptography.Internal.dll
+D:\Systems\Procurement\coreApp\bin\Microsoft.AspNetCore.DataProtection.Abstractions.dll
+D:\Systems\Procurement\coreApp\bin\Microsoft.AspNetCore.DataProtection.dll
+D:\Systems\Procurement\coreApp\bin\Microsoft.AspNetCore.Diagnostics.Abstractions.dll
+D:\Systems\Procurement\coreApp\bin\Microsoft.AspNetCore.Hosting.Abstractions.dll
+D:\Systems\Procurement\coreApp\bin\Microsoft.AspNetCore.Hosting.Server.Abstractions.dll
+D:\Systems\Procurement\coreApp\bin\Microsoft.AspNetCore.Html.Abstractions.dll
+D:\Systems\Procurement\coreApp\bin\Microsoft.AspNetCore.Http.Abstractions.dll
+D:\Systems\Procurement\coreApp\bin\Microsoft.AspNetCore.Http.dll
+D:\Systems\Procurement\coreApp\bin\Microsoft.AspNetCore.Http.Extensions.dll
+D:\Systems\Procurement\coreApp\bin\Microsoft.AspNetCore.Http.Features.dll
+D:\Systems\Procurement\coreApp\bin\Microsoft.AspNetCore.JsonPatch.dll
+D:\Systems\Procurement\coreApp\bin\Microsoft.AspNetCore.Mvc.Abstractions.dll
+D:\Systems\Procurement\coreApp\bin\Microsoft.AspNetCore.Mvc.Core.dll
+D:\Systems\Procurement\coreApp\bin\Microsoft.AspNetCore.Mvc.DataAnnotations.dll
+D:\Systems\Procurement\coreApp\bin\Microsoft.AspNetCore.Mvc.Formatters.Json.dll
+D:\Systems\Procurement\coreApp\bin\Microsoft.AspNetCore.Mvc.ViewFeatures.dll
+D:\Systems\Procurement\coreApp\bin\Microsoft.AspNetCore.ResponseCaching.Abstractions.dll
+D:\Systems\Procurement\coreApp\bin\Microsoft.AspNetCore.Routing.Abstractions.dll
+D:\Systems\Procurement\coreApp\bin\Microsoft.AspNetCore.Routing.dll
+D:\Systems\Procurement\coreApp\bin\Microsoft.AspNetCore.WebUtilities.dll
+D:\Systems\Procurement\coreApp\bin\Microsoft.Bcl.AsyncInterfaces.dll
+D:\Systems\Procurement\coreApp\bin\Microsoft.DotNet.PlatformAbstractions.dll
+D:\Systems\Procurement\coreApp\bin\Microsoft.Extensions.DependencyModel.dll
+D:\Systems\Procurement\coreApp\bin\Microsoft.Extensions.FileProviders.Abstractions.dll
+D:\Systems\Procurement\coreApp\bin\Microsoft.Extensions.Hosting.Abstractions.dll
+D:\Systems\Procurement\coreApp\bin\Microsoft.Extensions.Localization.Abstractions.dll
+D:\Systems\Procurement\coreApp\bin\Microsoft.Extensions.Localization.dll
+D:\Systems\Procurement\coreApp\bin\Microsoft.Extensions.ObjectPool.dll
+D:\Systems\Procurement\coreApp\bin\Microsoft.Extensions.WebEncoders.dll
+D:\Systems\Procurement\coreApp\bin\Microsoft.Net.Http.Headers.dll
+D:\Systems\Procurement\coreApp\bin\Microsoft.Win32.Registry.dll
+D:\Systems\Procurement\coreApp\bin\Module.Core.dll
+D:\Systems\Procurement\coreApp\bin\Module.DB.dll
+D:\Systems\Procurement\coreApp\bin\Newtonsoft.Json.Bson.dll
+D:\Systems\Procurement\coreApp\bin\System.Buffers.dll
+D:\Systems\Procurement\coreApp\bin\System.Memory.dll
+D:\Systems\Procurement\coreApp\bin\System.Runtime.CompilerServices.Unsafe.dll
+D:\Systems\Procurement\coreApp\bin\System.Security.AccessControl.dll
+D:\Systems\Procurement\coreApp\bin\System.Security.Cryptography.Xml.dll
+D:\Systems\Procurement\coreApp\bin\System.Security.Permissions.dll
+D:\Systems\Procurement\coreApp\bin\System.Security.Principal.Windows.dll
+D:\Systems\Procurement\coreApp\bin\System.Text.Encodings.Web.dll
+D:\Systems\Procurement\coreApp\bin\System.Threading.Tasks.Extensions.dll
+D:\Systems\Procurement\coreApp\bin\_Encryption.dll
+D:\Systems\Procurement\coreApp\bin\device_core.dll
+D:\Systems\Procurement\coreApp\bin\Interop.zkemkeeper.dll
+D:\Systems\Procurement\coreApp\bin\coreLib.pdb
+D:\Systems\Procurement\coreApp\bin\Module.Core.pdb
+D:\Systems\Procurement\coreApp\bin\Module.DB.pdb
+D:\Systems\Procurement\coreApp\bin\Module.DB.dll.config
+D:\Systems\Procurement\coreApp\bin\device_granding.pdb
+D:\Systems\Procurement\coreApp\bin\device_ino1_a.pdb
+D:\Systems\Procurement\coreApp\bin\device_ino1_a_legacy.pdb
+D:\Systems\Procurement\coreApp\bin\device_zkteco_f8.pdb
+D:\Systems\Procurement\coreApp\bin\Microsoft.AspNetCore.Antiforgery.xml
+D:\Systems\Procurement\coreApp\bin\Microsoft.AspNetCore.Authentication.Abstractions.xml
+D:\Systems\Procurement\coreApp\bin\Microsoft.AspNetCore.Authentication.Core.xml
+D:\Systems\Procurement\coreApp\bin\Microsoft.AspNetCore.Authorization.xml
+D:\Systems\Procurement\coreApp\bin\Microsoft.AspNetCore.Authorization.Policy.xml
+D:\Systems\Procurement\coreApp\bin\Microsoft.AspNetCore.Cryptography.Internal.xml
+D:\Systems\Procurement\coreApp\bin\Microsoft.AspNetCore.DataProtection.xml
+D:\Systems\Procurement\coreApp\bin\Microsoft.AspNetCore.DataProtection.Abstractions.xml
+D:\Systems\Procurement\coreApp\bin\Microsoft.AspNetCore.Diagnostics.Abstractions.xml
+D:\Systems\Procurement\coreApp\bin\Microsoft.AspNetCore.Hosting.Abstractions.xml
+D:\Systems\Procurement\coreApp\bin\Microsoft.AspNetCore.Hosting.Server.Abstractions.xml
+D:\Systems\Procurement\coreApp\bin\Microsoft.AspNetCore.Html.Abstractions.xml
+D:\Systems\Procurement\coreApp\bin\Microsoft.AspNetCore.Http.xml
+D:\Systems\Procurement\coreApp\bin\Microsoft.AspNetCore.Http.Abstractions.xml
+D:\Systems\Procurement\coreApp\bin\Microsoft.AspNetCore.Http.Extensions.xml
+D:\Systems\Procurement\coreApp\bin\Microsoft.AspNetCore.Http.Features.xml
+D:\Systems\Procurement\coreApp\bin\Microsoft.AspNetCore.JsonPatch.xml
+D:\Systems\Procurement\coreApp\bin\Microsoft.AspNetCore.Mvc.Abstractions.xml
+D:\Systems\Procurement\coreApp\bin\Microsoft.AspNetCore.Mvc.Core.xml
+D:\Systems\Procurement\coreApp\bin\Microsoft.AspNetCore.Mvc.DataAnnotations.xml
+D:\Systems\Procurement\coreApp\bin\Microsoft.AspNetCore.Mvc.Formatters.Json.xml
+D:\Systems\Procurement\coreApp\bin\Microsoft.AspNetCore.Mvc.ViewFeatures.xml
+D:\Systems\Procurement\coreApp\bin\Microsoft.AspNetCore.ResponseCaching.Abstractions.xml
+D:\Systems\Procurement\coreApp\bin\Microsoft.AspNetCore.Routing.xml
+D:\Systems\Procurement\coreApp\bin\Microsoft.AspNetCore.Routing.Abstractions.xml
+D:\Systems\Procurement\coreApp\bin\Microsoft.AspNetCore.WebUtilities.xml
+D:\Systems\Procurement\coreApp\bin\Microsoft.Extensions.FileProviders.Abstractions.xml
+D:\Systems\Procurement\coreApp\bin\Microsoft.Extensions.Hosting.Abstractions.xml
+D:\Systems\Procurement\coreApp\bin\Microsoft.Extensions.Localization.xml
+D:\Systems\Procurement\coreApp\bin\Microsoft.Extensions.Localization.Abstractions.xml
+D:\Systems\Procurement\coreApp\bin\Microsoft.Extensions.ObjectPool.xml
+D:\Systems\Procurement\coreApp\bin\Microsoft.Extensions.WebEncoders.xml
+D:\Systems\Procurement\coreApp\bin\Microsoft.Net.Http.Headers.xml
+D:\Systems\Procurement\coreApp\bin\Newtonsoft.Json.Bson.xml
+D:\Systems\Procurement\coreApp\bin\System.Buffers.xml
+D:\Systems\Procurement\coreApp\bin\System.Text.Encodings.Web.xml
+D:\Systems\Procurement\coreApp\bin\device_core.pdb
+D:\Systems\Procurement\coreApp\obj\Debug\coreApp.csprojAssemblyReference.cache
+D:\Systems\Procurement\coreApp\obj\Debug\coreApp.dll.config
+D:\Systems\Procurement\coreApp\obj\Debug\Interop.zkemkeeper.dll
+D:\Systems\Procurement\coreApp\obj\Debug\coreApp.csproj.ResolveComReference.cache
+D:\Systems\Procurement\coreApp\obj\Debug\coreApp.csproj.CoreCompileInputs.cache
+D:\Systems\Procurement\coreApp\obj\Debug\coreApp.csproj.CopyComplete
+D:\Systems\Procurement\coreApp\obj\Debug\coreApp.dll
+D:\Systems\Procurement\coreApp\obj\Debug\coreApp.pdb
+D:\Systems\Procurement - Copy\coreApp\bin\coreApp.dll.config
+D:\Systems\Procurement - Copy\coreApp\bin\coreApp.dll
+D:\Systems\Procurement - Copy\coreApp\bin\coreApp.pdb
+D:\Systems\Procurement - Copy\coreApp\bin\Microsoft.Win32.Primitives.dll
+D:\Systems\Procurement - Copy\coreApp\bin\netstandard.dll
+D:\Systems\Procurement - Copy\coreApp\bin\System.AppContext.dll
+D:\Systems\Procurement - Copy\coreApp\bin\System.Collections.Concurrent.dll
+D:\Systems\Procurement - Copy\coreApp\bin\System.Collections.dll
+D:\Systems\Procurement - Copy\coreApp\bin\System.Collections.NonGeneric.dll
+D:\Systems\Procurement - Copy\coreApp\bin\System.Collections.Specialized.dll
+D:\Systems\Procurement - Copy\coreApp\bin\System.ComponentModel.dll
+D:\Systems\Procurement - Copy\coreApp\bin\System.ComponentModel.EventBasedAsync.dll
+D:\Systems\Procurement - Copy\coreApp\bin\System.ComponentModel.Primitives.dll
+D:\Systems\Procurement - Copy\coreApp\bin\System.ComponentModel.TypeConverter.dll
+D:\Systems\Procurement - Copy\coreApp\bin\System.Console.dll
+D:\Systems\Procurement - Copy\coreApp\bin\System.Data.Common.dll
+D:\Systems\Procurement - Copy\coreApp\bin\System.Diagnostics.Contracts.dll
+D:\Systems\Procurement - Copy\coreApp\bin\System.Diagnostics.Debug.dll
+D:\Systems\Procurement - Copy\coreApp\bin\System.Diagnostics.FileVersionInfo.dll
+D:\Systems\Procurement - Copy\coreApp\bin\System.Diagnostics.Process.dll
+D:\Systems\Procurement - Copy\coreApp\bin\System.Diagnostics.StackTrace.dll
+D:\Systems\Procurement - Copy\coreApp\bin\System.Diagnostics.TextWriterTraceListener.dll
+D:\Systems\Procurement - Copy\coreApp\bin\System.Diagnostics.Tools.dll
+D:\Systems\Procurement - Copy\coreApp\bin\System.Diagnostics.TraceSource.dll
+D:\Systems\Procurement - Copy\coreApp\bin\System.Diagnostics.Tracing.dll
+D:\Systems\Procurement - Copy\coreApp\bin\System.Drawing.Primitives.dll
+D:\Systems\Procurement - Copy\coreApp\bin\System.Dynamic.Runtime.dll
+D:\Systems\Procurement - Copy\coreApp\bin\System.Globalization.Calendars.dll
+D:\Systems\Procurement - Copy\coreApp\bin\System.Globalization.dll
+D:\Systems\Procurement - Copy\coreApp\bin\System.Globalization.Extensions.dll
+D:\Systems\Procurement - Copy\coreApp\bin\System.IO.Compression.dll
+D:\Systems\Procurement - Copy\coreApp\bin\System.IO.Compression.ZipFile.dll
+D:\Systems\Procurement - Copy\coreApp\bin\System.IO.dll
+D:\Systems\Procurement - Copy\coreApp\bin\System.IO.FileSystem.dll
+D:\Systems\Procurement - Copy\coreApp\bin\System.IO.FileSystem.DriveInfo.dll
+D:\Systems\Procurement - Copy\coreApp\bin\System.IO.FileSystem.Primitives.dll
+D:\Systems\Procurement - Copy\coreApp\bin\System.IO.FileSystem.Watcher.dll
+D:\Systems\Procurement - Copy\coreApp\bin\System.IO.IsolatedStorage.dll
+D:\Systems\Procurement - Copy\coreApp\bin\System.IO.MemoryMappedFiles.dll
+D:\Systems\Procurement - Copy\coreApp\bin\System.IO.Pipes.dll
+D:\Systems\Procurement - Copy\coreApp\bin\System.IO.UnmanagedMemoryStream.dll
+D:\Systems\Procurement - Copy\coreApp\bin\System.Linq.dll
+D:\Systems\Procurement - Copy\coreApp\bin\System.Linq.Expressions.dll
+D:\Systems\Procurement - Copy\coreApp\bin\System.Linq.Parallel.dll
+D:\Systems\Procurement - Copy\coreApp\bin\System.Linq.Queryable.dll
+D:\Systems\Procurement - Copy\coreApp\bin\System.Net.Http.dll
+D:\Systems\Procurement - Copy\coreApp\bin\System.Net.NameResolution.dll
+D:\Systems\Procurement - Copy\coreApp\bin\System.Net.NetworkInformation.dll
+D:\Systems\Procurement - Copy\coreApp\bin\System.Net.Ping.dll
+D:\Systems\Procurement - Copy\coreApp\bin\System.Net.Primitives.dll
+D:\Systems\Procurement - Copy\coreApp\bin\System.Net.Requests.dll
+D:\Systems\Procurement - Copy\coreApp\bin\System.Net.Security.dll
+D:\Systems\Procurement - Copy\coreApp\bin\System.Net.Sockets.dll
+D:\Systems\Procurement - Copy\coreApp\bin\System.Net.WebHeaderCollection.dll
+D:\Systems\Procurement - Copy\coreApp\bin\System.Net.WebSockets.Client.dll
+D:\Systems\Procurement - Copy\coreApp\bin\System.Net.WebSockets.dll
+D:\Systems\Procurement - Copy\coreApp\bin\System.ObjectModel.dll
+D:\Systems\Procurement - Copy\coreApp\bin\System.Reflection.dll
+D:\Systems\Procurement - Copy\coreApp\bin\System.Reflection.Extensions.dll
+D:\Systems\Procurement - Copy\coreApp\bin\System.Reflection.Primitives.dll
+D:\Systems\Procurement - Copy\coreApp\bin\System.Resources.Reader.dll
+D:\Systems\Procurement - Copy\coreApp\bin\System.Resources.ResourceManager.dll
+D:\Systems\Procurement - Copy\coreApp\bin\System.Resources.Writer.dll
+D:\Systems\Procurement - Copy\coreApp\bin\System.Runtime.CompilerServices.VisualC.dll
+D:\Systems\Procurement - Copy\coreApp\bin\System.Runtime.dll
+D:\Systems\Procurement - Copy\coreApp\bin\System.Runtime.Extensions.dll
+D:\Systems\Procurement - Copy\coreApp\bin\System.Runtime.Handles.dll
+D:\Systems\Procurement - Copy\coreApp\bin\System.Runtime.InteropServices.dll
+D:\Systems\Procurement - Copy\coreApp\bin\System.Runtime.InteropServices.RuntimeInformation.dll
+D:\Systems\Procurement - Copy\coreApp\bin\System.Runtime.Numerics.dll
+D:\Systems\Procurement - Copy\coreApp\bin\System.Runtime.Serialization.Formatters.dll
+D:\Systems\Procurement - Copy\coreApp\bin\System.Runtime.Serialization.Json.dll
+D:\Systems\Procurement - Copy\coreApp\bin\System.Runtime.Serialization.Primitives.dll
+D:\Systems\Procurement - Copy\coreApp\bin\System.Runtime.Serialization.Xml.dll
+D:\Systems\Procurement - Copy\coreApp\bin\System.Security.Claims.dll
+D:\Systems\Procurement - Copy\coreApp\bin\System.Security.Cryptography.Algorithms.dll
+D:\Systems\Procurement - Copy\coreApp\bin\System.Security.Cryptography.Csp.dll
+D:\Systems\Procurement - Copy\coreApp\bin\System.Security.Cryptography.Encoding.dll
+D:\Systems\Procurement - Copy\coreApp\bin\System.Security.Cryptography.Primitives.dll
+D:\Systems\Procurement - Copy\coreApp\bin\System.Security.Cryptography.X509Certificates.dll
+D:\Systems\Procurement - Copy\coreApp\bin\System.Security.Principal.dll
+D:\Systems\Procurement - Copy\coreApp\bin\System.Security.SecureString.dll
+D:\Systems\Procurement - Copy\coreApp\bin\System.Text.Encoding.dll
+D:\Systems\Procurement - Copy\coreApp\bin\System.Text.Encoding.Extensions.dll
+D:\Systems\Procurement - Copy\coreApp\bin\System.Text.RegularExpressions.dll
+D:\Systems\Procurement - Copy\coreApp\bin\System.Threading.dll
+D:\Systems\Procurement - Copy\coreApp\bin\System.Threading.Overlapped.dll
+D:\Systems\Procurement - Copy\coreApp\bin\System.Threading.Tasks.dll
+D:\Systems\Procurement - Copy\coreApp\bin\System.Threading.Tasks.Parallel.dll
+D:\Systems\Procurement - Copy\coreApp\bin\System.Threading.Thread.dll
+D:\Systems\Procurement - Copy\coreApp\bin\System.Threading.ThreadPool.dll
+D:\Systems\Procurement - Copy\coreApp\bin\System.Threading.Timer.dll
+D:\Systems\Procurement - Copy\coreApp\bin\System.ValueTuple.dll
+D:\Systems\Procurement - Copy\coreApp\bin\System.Xml.ReaderWriter.dll
+D:\Systems\Procurement - Copy\coreApp\bin\System.Xml.XDocument.dll
+D:\Systems\Procurement - Copy\coreApp\bin\System.Xml.XmlDocument.dll
+D:\Systems\Procurement - Copy\coreApp\bin\System.Xml.XmlSerializer.dll
+D:\Systems\Procurement - Copy\coreApp\bin\System.Xml.XPath.dll
+D:\Systems\Procurement - Copy\coreApp\bin\System.Xml.XPath.XDocument.dll
+D:\Systems\Procurement - Copy\coreApp\bin\coreLib.dll
+D:\Systems\Procurement - Copy\coreApp\bin\device_granding.dll
+D:\Systems\Procurement - Copy\coreApp\bin\device_ino1_a.dll
+D:\Systems\Procurement - Copy\coreApp\bin\device_ino1_a_legacy.dll
+D:\Systems\Procurement - Copy\coreApp\bin\device_zkteco_f8.dll
+D:\Systems\Procurement - Copy\coreApp\bin\Microsoft.AspNetCore.Antiforgery.dll
+D:\Systems\Procurement - Copy\coreApp\bin\Microsoft.AspNetCore.Authentication.Abstractions.dll
+D:\Systems\Procurement - Copy\coreApp\bin\Microsoft.AspNetCore.Authentication.Core.dll
+D:\Systems\Procurement - Copy\coreApp\bin\Microsoft.AspNetCore.Authorization.dll
+D:\Systems\Procurement - Copy\coreApp\bin\Microsoft.AspNetCore.Authorization.Policy.dll
+D:\Systems\Procurement - Copy\coreApp\bin\Microsoft.AspNetCore.Cryptography.Internal.dll
+D:\Systems\Procurement - Copy\coreApp\bin\Microsoft.AspNetCore.DataProtection.Abstractions.dll
+D:\Systems\Procurement - Copy\coreApp\bin\Microsoft.AspNetCore.DataProtection.dll
+D:\Systems\Procurement - Copy\coreApp\bin\Microsoft.AspNetCore.Diagnostics.Abstractions.dll
+D:\Systems\Procurement - Copy\coreApp\bin\Microsoft.AspNetCore.Hosting.Abstractions.dll
+D:\Systems\Procurement - Copy\coreApp\bin\Microsoft.AspNetCore.Hosting.Server.Abstractions.dll
+D:\Systems\Procurement - Copy\coreApp\bin\Microsoft.AspNetCore.Html.Abstractions.dll
+D:\Systems\Procurement - Copy\coreApp\bin\Microsoft.AspNetCore.Http.Abstractions.dll
+D:\Systems\Procurement - Copy\coreApp\bin\Microsoft.AspNetCore.Http.dll
+D:\Systems\Procurement - Copy\coreApp\bin\Microsoft.AspNetCore.Http.Extensions.dll
+D:\Systems\Procurement - Copy\coreApp\bin\Microsoft.AspNetCore.Http.Features.dll
+D:\Systems\Procurement - Copy\coreApp\bin\Microsoft.AspNetCore.JsonPatch.dll
+D:\Systems\Procurement - Copy\coreApp\bin\Microsoft.AspNetCore.Mvc.Abstractions.dll
+D:\Systems\Procurement - Copy\coreApp\bin\Microsoft.AspNetCore.Mvc.Core.dll
+D:\Systems\Procurement - Copy\coreApp\bin\Microsoft.AspNetCore.Mvc.DataAnnotations.dll
+D:\Systems\Procurement - Copy\coreApp\bin\Microsoft.AspNetCore.Mvc.Formatters.Json.dll
+D:\Systems\Procurement - Copy\coreApp\bin\Microsoft.AspNetCore.Mvc.ViewFeatures.dll
+D:\Systems\Procurement - Copy\coreApp\bin\Microsoft.AspNetCore.ResponseCaching.Abstractions.dll
+D:\Systems\Procurement - Copy\coreApp\bin\Microsoft.AspNetCore.Routing.Abstractions.dll
+D:\Systems\Procurement - Copy\coreApp\bin\Microsoft.AspNetCore.Routing.dll
+D:\Systems\Procurement - Copy\coreApp\bin\Microsoft.AspNetCore.WebUtilities.dll
+D:\Systems\Procurement - Copy\coreApp\bin\Microsoft.Bcl.AsyncInterfaces.dll
+D:\Systems\Procurement - Copy\coreApp\bin\Microsoft.DotNet.PlatformAbstractions.dll
+D:\Systems\Procurement - Copy\coreApp\bin\Microsoft.Extensions.DependencyModel.dll
+D:\Systems\Procurement - Copy\coreApp\bin\Microsoft.Extensions.FileProviders.Abstractions.dll
+D:\Systems\Procurement - Copy\coreApp\bin\Microsoft.Extensions.Hosting.Abstractions.dll
+D:\Systems\Procurement - Copy\coreApp\bin\Microsoft.Extensions.Localization.Abstractions.dll
+D:\Systems\Procurement - Copy\coreApp\bin\Microsoft.Extensions.Localization.dll
+D:\Systems\Procurement - Copy\coreApp\bin\Microsoft.Extensions.ObjectPool.dll
+D:\Systems\Procurement - Copy\coreApp\bin\Microsoft.Extensions.WebEncoders.dll
+D:\Systems\Procurement - Copy\coreApp\bin\Microsoft.Net.Http.Headers.dll
+D:\Systems\Procurement - Copy\coreApp\bin\Microsoft.Win32.Registry.dll
+D:\Systems\Procurement - Copy\coreApp\bin\Module.Core.dll
+D:\Systems\Procurement - Copy\coreApp\bin\Module.DB.dll
+D:\Systems\Procurement - Copy\coreApp\bin\Newtonsoft.Json.Bson.dll
+D:\Systems\Procurement - Copy\coreApp\bin\System.Buffers.dll
+D:\Systems\Procurement - Copy\coreApp\bin\System.Memory.dll
+D:\Systems\Procurement - Copy\coreApp\bin\System.Runtime.CompilerServices.Unsafe.dll
+D:\Systems\Procurement - Copy\coreApp\bin\System.Security.AccessControl.dll
+D:\Systems\Procurement - Copy\coreApp\bin\System.Security.Cryptography.Xml.dll
+D:\Systems\Procurement - Copy\coreApp\bin\System.Security.Permissions.dll
+D:\Systems\Procurement - Copy\coreApp\bin\System.Security.Principal.Windows.dll
+D:\Systems\Procurement - Copy\coreApp\bin\System.Text.Encodings.Web.dll
+D:\Systems\Procurement - Copy\coreApp\bin\System.Threading.Tasks.Extensions.dll
+D:\Systems\Procurement - Copy\coreApp\bin\_Encryption.dll
+D:\Systems\Procurement - Copy\coreApp\bin\device_core.dll
+D:\Systems\Procurement - Copy\coreApp\bin\Interop.zkemkeeper.dll
+D:\Systems\Procurement - Copy\coreApp\bin\coreLib.pdb
+D:\Systems\Procurement - Copy\coreApp\bin\Module.Core.pdb
+D:\Systems\Procurement - Copy\coreApp\bin\Module.DB.pdb
+D:\Systems\Procurement - Copy\coreApp\bin\Module.DB.dll.config
+D:\Systems\Procurement - Copy\coreApp\bin\device_granding.pdb
+D:\Systems\Procurement - Copy\coreApp\bin\device_ino1_a.pdb
+D:\Systems\Procurement - Copy\coreApp\bin\device_ino1_a_legacy.pdb
+D:\Systems\Procurement - Copy\coreApp\bin\device_zkteco_f8.pdb
+D:\Systems\Procurement - Copy\coreApp\bin\Microsoft.AspNetCore.Antiforgery.xml
+D:\Systems\Procurement - Copy\coreApp\bin\Microsoft.AspNetCore.Authentication.Abstractions.xml
+D:\Systems\Procurement - Copy\coreApp\bin\Microsoft.AspNetCore.Authentication.Core.xml
+D:\Systems\Procurement - Copy\coreApp\bin\Microsoft.AspNetCore.Authorization.xml
+D:\Systems\Procurement - Copy\coreApp\bin\Microsoft.AspNetCore.Authorization.Policy.xml
+D:\Systems\Procurement - Copy\coreApp\bin\Microsoft.AspNetCore.Cryptography.Internal.xml
+D:\Systems\Procurement - Copy\coreApp\bin\Microsoft.AspNetCore.DataProtection.xml
+D:\Systems\Procurement - Copy\coreApp\bin\Microsoft.AspNetCore.DataProtection.Abstractions.xml
+D:\Systems\Procurement - Copy\coreApp\bin\Microsoft.AspNetCore.Diagnostics.Abstractions.xml
+D:\Systems\Procurement - Copy\coreApp\bin\Microsoft.AspNetCore.Hosting.Abstractions.xml
+D:\Systems\Procurement - Copy\coreApp\bin\Microsoft.AspNetCore.Hosting.Server.Abstractions.xml
+D:\Systems\Procurement - Copy\coreApp\bin\Microsoft.AspNetCore.Html.Abstractions.xml
+D:\Systems\Procurement - Copy\coreApp\bin\Microsoft.AspNetCore.Http.xml
+D:\Systems\Procurement - Copy\coreApp\bin\Microsoft.AspNetCore.Http.Abstractions.xml
+D:\Systems\Procurement - Copy\coreApp\bin\Microsoft.AspNetCore.Http.Extensions.xml
+D:\Systems\Procurement - Copy\coreApp\bin\Microsoft.AspNetCore.Http.Features.xml
+D:\Systems\Procurement - Copy\coreApp\bin\Microsoft.AspNetCore.JsonPatch.xml
+D:\Systems\Procurement - Copy\coreApp\bin\Microsoft.AspNetCore.Mvc.Abstractions.xml
+D:\Systems\Procurement - Copy\coreApp\bin\Microsoft.AspNetCore.Mvc.Core.xml
+D:\Systems\Procurement - Copy\coreApp\bin\Microsoft.AspNetCore.Mvc.DataAnnotations.xml
+D:\Systems\Procurement - Copy\coreApp\bin\Microsoft.AspNetCore.Mvc.Formatters.Json.xml
+D:\Systems\Procurement - Copy\coreApp\bin\Microsoft.AspNetCore.Mvc.ViewFeatures.xml
+D:\Systems\Procurement - Copy\coreApp\bin\Microsoft.AspNetCore.ResponseCaching.Abstractions.xml
+D:\Systems\Procurement - Copy\coreApp\bin\Microsoft.AspNetCore.Routing.xml
+D:\Systems\Procurement - Copy\coreApp\bin\Microsoft.AspNetCore.Routing.Abstractions.xml
+D:\Systems\Procurement - Copy\coreApp\bin\Microsoft.AspNetCore.WebUtilities.xml
+D:\Systems\Procurement - Copy\coreApp\bin\Microsoft.Extensions.FileProviders.Abstractions.xml
+D:\Systems\Procurement - Copy\coreApp\bin\Microsoft.Extensions.Hosting.Abstractions.xml
+D:\Systems\Procurement - Copy\coreApp\bin\Microsoft.Extensions.Localization.xml
+D:\Systems\Procurement - Copy\coreApp\bin\Microsoft.Extensions.Localization.Abstractions.xml
+D:\Systems\Procurement - Copy\coreApp\bin\Microsoft.Extensions.ObjectPool.xml
+D:\Systems\Procurement - Copy\coreApp\bin\Microsoft.Extensions.WebEncoders.xml
+D:\Systems\Procurement - Copy\coreApp\bin\Microsoft.Net.Http.Headers.xml
+D:\Systems\Procurement - Copy\coreApp\bin\Newtonsoft.Json.Bson.xml
+D:\Systems\Procurement - Copy\coreApp\bin\System.Buffers.xml
+D:\Systems\Procurement - Copy\coreApp\bin\System.Text.Encodings.Web.xml
+D:\Systems\Procurement - Copy\coreApp\bin\device_core.pdb
+D:\Systems\Procurement - Copy\coreApp\obj\Debug\coreApp.csprojAssemblyReference.cache
+D:\Systems\Procurement - Copy\coreApp\obj\Debug\coreApp.dll.config
+D:\Systems\Procurement - Copy\coreApp\obj\Debug\Interop.zkemkeeper.dll
+D:\Systems\Procurement - Copy\coreApp\obj\Debug\coreApp.csproj.ResolveComReference.cache
+D:\Systems\Procurement - Copy\coreApp\obj\Debug\coreApp.csproj.CoreCompileInputs.cache
+D:\Systems\Procurement - Copy\coreApp\obj\Debug\coreApp.csproj.CopyComplete
+D:\Systems\Procurement - Copy\coreApp\obj\Debug\coreApp.dll
+D:\Systems\Procurement - Copy\coreApp\obj\Debug\coreApp.pdb
+D:\Procurement\coreApp\obj\Debug\coreApp.csprojAssemblyReference.cache
+D:\Procurement\coreApp\obj\Debug\coreApp.dll.config
+D:\Procurement\coreApp\obj\Debug\Interop.zkemkeeper.dll
+D:\Procurement\coreApp\obj\Debug\coreApp.csproj.ResolveComReference.cache
+D:\Procurement\coreApp\obj\Debug\coreApp.csproj.CoreCompileInputs.cache
+D:\Procurement\coreApp\bin\coreApp.dll.config
+D:\Procurement\coreApp\bin\coreApp.dll
+D:\Procurement\coreApp\bin\coreApp.pdb
+D:\Procurement\coreApp\bin\Microsoft.Win32.Primitives.dll
+D:\Procurement\coreApp\bin\netstandard.dll
+D:\Procurement\coreApp\bin\System.AppContext.dll
+D:\Procurement\coreApp\bin\System.Collections.Concurrent.dll
+D:\Procurement\coreApp\bin\System.Collections.dll
+D:\Procurement\coreApp\bin\System.Collections.NonGeneric.dll
+D:\Procurement\coreApp\bin\System.Collections.Specialized.dll
+D:\Procurement\coreApp\bin\System.ComponentModel.dll
+D:\Procurement\coreApp\bin\System.ComponentModel.EventBasedAsync.dll
+D:\Procurement\coreApp\bin\System.ComponentModel.Primitives.dll
+D:\Procurement\coreApp\bin\System.ComponentModel.TypeConverter.dll
+D:\Procurement\coreApp\bin\System.Console.dll
+D:\Procurement\coreApp\bin\System.Data.Common.dll
+D:\Procurement\coreApp\bin\System.Diagnostics.Contracts.dll
+D:\Procurement\coreApp\bin\System.Diagnostics.Debug.dll
+D:\Procurement\coreApp\bin\System.Diagnostics.FileVersionInfo.dll
+D:\Procurement\coreApp\bin\System.Diagnostics.Process.dll
+D:\Procurement\coreApp\bin\System.Diagnostics.StackTrace.dll
+D:\Procurement\coreApp\bin\System.Diagnostics.TextWriterTraceListener.dll
+D:\Procurement\coreApp\bin\System.Diagnostics.Tools.dll
+D:\Procurement\coreApp\bin\System.Diagnostics.TraceSource.dll
+D:\Procurement\coreApp\bin\System.Diagnostics.Tracing.dll
+D:\Procurement\coreApp\bin\System.Drawing.Primitives.dll
+D:\Procurement\coreApp\bin\System.Dynamic.Runtime.dll
+D:\Procurement\coreApp\bin\System.Globalization.Calendars.dll
+D:\Procurement\coreApp\bin\System.Globalization.dll
+D:\Procurement\coreApp\bin\System.Globalization.Extensions.dll
+D:\Procurement\coreApp\bin\System.IO.Compression.dll
+D:\Procurement\coreApp\bin\System.IO.Compression.ZipFile.dll
+D:\Procurement\coreApp\bin\System.IO.dll
+D:\Procurement\coreApp\bin\System.IO.FileSystem.dll
+D:\Procurement\coreApp\bin\System.IO.FileSystem.DriveInfo.dll
+D:\Procurement\coreApp\bin\System.IO.FileSystem.Primitives.dll
+D:\Procurement\coreApp\bin\System.IO.FileSystem.Watcher.dll
+D:\Procurement\coreApp\bin\System.IO.IsolatedStorage.dll
+D:\Procurement\coreApp\bin\System.IO.MemoryMappedFiles.dll
+D:\Procurement\coreApp\bin\System.IO.Pipes.dll
+D:\Procurement\coreApp\bin\System.IO.UnmanagedMemoryStream.dll
+D:\Procurement\coreApp\bin\System.Linq.dll
+D:\Procurement\coreApp\bin\System.Linq.Expressions.dll
+D:\Procurement\coreApp\bin\System.Linq.Parallel.dll
+D:\Procurement\coreApp\bin\System.Linq.Queryable.dll
+D:\Procurement\coreApp\bin\System.Net.Http.dll
+D:\Procurement\coreApp\bin\System.Net.NameResolution.dll
+D:\Procurement\coreApp\bin\System.Net.NetworkInformation.dll
+D:\Procurement\coreApp\bin\System.Net.Ping.dll
+D:\Procurement\coreApp\bin\System.Net.Primitives.dll
+D:\Procurement\coreApp\bin\System.Net.Requests.dll
+D:\Procurement\coreApp\bin\System.Net.Security.dll
+D:\Procurement\coreApp\bin\System.Net.Sockets.dll
+D:\Procurement\coreApp\bin\System.Net.WebHeaderCollection.dll
+D:\Procurement\coreApp\bin\System.Net.WebSockets.Client.dll
+D:\Procurement\coreApp\bin\System.Net.WebSockets.dll
+D:\Procurement\coreApp\bin\System.ObjectModel.dll
+D:\Procurement\coreApp\bin\System.Reflection.dll
+D:\Procurement\coreApp\bin\System.Reflection.Extensions.dll
+D:\Procurement\coreApp\bin\System.Reflection.Primitives.dll
+D:\Procurement\coreApp\bin\System.Resources.Reader.dll
+D:\Procurement\coreApp\bin\System.Resources.ResourceManager.dll
+D:\Procurement\coreApp\bin\System.Resources.Writer.dll
+D:\Procurement\coreApp\bin\System.Runtime.CompilerServices.VisualC.dll
+D:\Procurement\coreApp\bin\System.Runtime.dll
+D:\Procurement\coreApp\bin\System.Runtime.Extensions.dll
+D:\Procurement\coreApp\bin\System.Runtime.Handles.dll
+D:\Procurement\coreApp\bin\System.Runtime.InteropServices.dll
+D:\Procurement\coreApp\bin\System.Runtime.InteropServices.RuntimeInformation.dll
+D:\Procurement\coreApp\bin\System.Runtime.Numerics.dll
+D:\Procurement\coreApp\bin\System.Runtime.Serialization.Formatters.dll
+D:\Procurement\coreApp\bin\System.Runtime.Serialization.Json.dll
+D:\Procurement\coreApp\bin\System.Runtime.Serialization.Primitives.dll
+D:\Procurement\coreApp\bin\System.Runtime.Serialization.Xml.dll
+D:\Procurement\coreApp\bin\System.Security.Claims.dll
+D:\Procurement\coreApp\bin\System.Security.Cryptography.Algorithms.dll
+D:\Procurement\coreApp\bin\System.Security.Cryptography.Csp.dll
+D:\Procurement\coreApp\bin\System.Security.Cryptography.Encoding.dll
+D:\Procurement\coreApp\bin\System.Security.Cryptography.Primitives.dll
+D:\Procurement\coreApp\bin\System.Security.Cryptography.X509Certificates.dll
+D:\Procurement\coreApp\bin\System.Security.Principal.dll
+D:\Procurement\coreApp\bin\System.Security.SecureString.dll
+D:\Procurement\coreApp\bin\System.Text.Encoding.dll
+D:\Procurement\coreApp\bin\System.Text.Encoding.Extensions.dll
+D:\Procurement\coreApp\bin\System.Text.RegularExpressions.dll
+D:\Procurement\coreApp\bin\System.Threading.dll
+D:\Procurement\coreApp\bin\System.Threading.Overlapped.dll
+D:\Procurement\coreApp\bin\System.Threading.Tasks.dll
+D:\Procurement\coreApp\bin\System.Threading.Tasks.Parallel.dll
+D:\Procurement\coreApp\bin\System.Threading.Thread.dll
+D:\Procurement\coreApp\bin\System.Threading.ThreadPool.dll
+D:\Procurement\coreApp\bin\System.Threading.Timer.dll
+D:\Procurement\coreApp\bin\System.ValueTuple.dll
+D:\Procurement\coreApp\bin\System.Xml.ReaderWriter.dll
+D:\Procurement\coreApp\bin\System.Xml.XDocument.dll
+D:\Procurement\coreApp\bin\System.Xml.XmlDocument.dll
+D:\Procurement\coreApp\bin\System.Xml.XmlSerializer.dll
+D:\Procurement\coreApp\bin\System.Xml.XPath.dll
+D:\Procurement\coreApp\bin\System.Xml.XPath.XDocument.dll
+D:\Procurement\coreApp\bin\coreLib.dll
+D:\Procurement\coreApp\bin\device_granding.dll
+D:\Procurement\coreApp\bin\device_ino1_a.dll
+D:\Procurement\coreApp\bin\device_ino1_a_legacy.dll
+D:\Procurement\coreApp\bin\device_zkteco_f8.dll
+D:\Procurement\coreApp\bin\Microsoft.AspNetCore.Antiforgery.dll
+D:\Procurement\coreApp\bin\Microsoft.AspNetCore.Authentication.Abstractions.dll
+D:\Procurement\coreApp\bin\Microsoft.AspNetCore.Authentication.Core.dll
+D:\Procurement\coreApp\bin\Microsoft.AspNetCore.Authorization.dll
+D:\Procurement\coreApp\bin\Microsoft.AspNetCore.Authorization.Policy.dll
+D:\Procurement\coreApp\bin\Microsoft.AspNetCore.Cryptography.Internal.dll
+D:\Procurement\coreApp\bin\Microsoft.AspNetCore.DataProtection.Abstractions.dll
+D:\Procurement\coreApp\bin\Microsoft.AspNetCore.DataProtection.dll
+D:\Procurement\coreApp\bin\Microsoft.AspNetCore.Diagnostics.Abstractions.dll
+D:\Procurement\coreApp\bin\Microsoft.AspNetCore.Hosting.Abstractions.dll
+D:\Procurement\coreApp\bin\Microsoft.AspNetCore.Hosting.Server.Abstractions.dll
+D:\Procurement\coreApp\bin\Microsoft.AspNetCore.Html.Abstractions.dll
+D:\Procurement\coreApp\bin\Microsoft.AspNetCore.Http.Abstractions.dll
+D:\Procurement\coreApp\bin\Microsoft.AspNetCore.Http.dll
+D:\Procurement\coreApp\bin\Microsoft.AspNetCore.Http.Extensions.dll
+D:\Procurement\coreApp\bin\Microsoft.AspNetCore.Http.Features.dll
+D:\Procurement\coreApp\bin\Microsoft.AspNetCore.JsonPatch.dll
+D:\Procurement\coreApp\bin\Microsoft.AspNetCore.Mvc.Abstractions.dll
+D:\Procurement\coreApp\bin\Microsoft.AspNetCore.Mvc.Core.dll
+D:\Procurement\coreApp\bin\Microsoft.AspNetCore.Mvc.DataAnnotations.dll
+D:\Procurement\coreApp\bin\Microsoft.AspNetCore.Mvc.Formatters.Json.dll
+D:\Procurement\coreApp\bin\Microsoft.AspNetCore.Mvc.ViewFeatures.dll
+D:\Procurement\coreApp\bin\Microsoft.AspNetCore.ResponseCaching.Abstractions.dll
+D:\Procurement\coreApp\bin\Microsoft.AspNetCore.Routing.Abstractions.dll
+D:\Procurement\coreApp\bin\Microsoft.AspNetCore.Routing.dll
+D:\Procurement\coreApp\bin\Microsoft.AspNetCore.WebUtilities.dll
+D:\Procurement\coreApp\bin\Microsoft.Bcl.AsyncInterfaces.dll
+D:\Procurement\coreApp\bin\Microsoft.DotNet.PlatformAbstractions.dll
+D:\Procurement\coreApp\bin\Microsoft.Extensions.DependencyModel.dll
+D:\Procurement\coreApp\bin\Microsoft.Extensions.FileProviders.Abstractions.dll
+D:\Procurement\coreApp\bin\Microsoft.Extensions.Hosting.Abstractions.dll
+D:\Procurement\coreApp\bin\Microsoft.Extensions.Localization.Abstractions.dll
+D:\Procurement\coreApp\bin\Microsoft.Extensions.Localization.dll
+D:\Procurement\coreApp\bin\Microsoft.Extensions.ObjectPool.dll
+D:\Procurement\coreApp\bin\Microsoft.Extensions.WebEncoders.dll
+D:\Procurement\coreApp\bin\Microsoft.Net.Http.Headers.dll
+D:\Procurement\coreApp\bin\Microsoft.Win32.Registry.dll
+D:\Procurement\coreApp\bin\Module.Core.dll
+D:\Procurement\coreApp\bin\Module.DB.dll
+D:\Procurement\coreApp\bin\Newtonsoft.Json.Bson.dll
+D:\Procurement\coreApp\bin\System.Buffers.dll
+D:\Procurement\coreApp\bin\System.Memory.dll
+D:\Procurement\coreApp\bin\System.Runtime.CompilerServices.Unsafe.dll
+D:\Procurement\coreApp\bin\System.Security.AccessControl.dll
+D:\Procurement\coreApp\bin\System.Security.Cryptography.Xml.dll
+D:\Procurement\coreApp\bin\System.Security.Permissions.dll
+D:\Procurement\coreApp\bin\System.Security.Principal.Windows.dll
+D:\Procurement\coreApp\bin\System.Text.Encodings.Web.dll
+D:\Procurement\coreApp\bin\System.Threading.Tasks.Extensions.dll
+D:\Procurement\coreApp\bin\device_core.dll
+D:\Procurement\coreApp\bin\Interop.zkemkeeper.dll
+D:\Procurement\coreApp\bin\coreLib.pdb
+D:\Procurement\coreApp\bin\Module.Core.pdb
+D:\Procurement\coreApp\bin\Module.DB.pdb
+D:\Procurement\coreApp\bin\Module.DB.dll.config
+D:\Procurement\coreApp\bin\device_granding.pdb
+D:\Procurement\coreApp\bin\device_ino1_a.pdb
+D:\Procurement\coreApp\bin\device_ino1_a_legacy.pdb
+D:\Procurement\coreApp\bin\device_zkteco_f8.pdb
+D:\Procurement\coreApp\bin\Microsoft.AspNetCore.Antiforgery.xml
+D:\Procurement\coreApp\bin\Microsoft.AspNetCore.Authentication.Abstractions.xml
+D:\Procurement\coreApp\bin\Microsoft.AspNetCore.Authentication.Core.xml
+D:\Procurement\coreApp\bin\Microsoft.AspNetCore.Authorization.xml
+D:\Procurement\coreApp\bin\Microsoft.AspNetCore.Authorization.Policy.xml
+D:\Procurement\coreApp\bin\Microsoft.AspNetCore.Cryptography.Internal.xml
+D:\Procurement\coreApp\bin\Microsoft.AspNetCore.DataProtection.xml
+D:\Procurement\coreApp\bin\Microsoft.AspNetCore.DataProtection.Abstractions.xml
+D:\Procurement\coreApp\bin\Microsoft.AspNetCore.Diagnostics.Abstractions.xml
+D:\Procurement\coreApp\bin\Microsoft.AspNetCore.Hosting.Abstractions.xml
+D:\Procurement\coreApp\bin\Microsoft.AspNetCore.Hosting.Server.Abstractions.xml
+D:\Procurement\coreApp\bin\Microsoft.AspNetCore.Html.Abstractions.xml
+D:\Procurement\coreApp\bin\Microsoft.AspNetCore.Http.xml
+D:\Procurement\coreApp\bin\Microsoft.AspNetCore.Http.Abstractions.xml
+D:\Procurement\coreApp\bin\Microsoft.AspNetCore.Http.Extensions.xml
+D:\Procurement\coreApp\bin\Microsoft.AspNetCore.Http.Features.xml
+D:\Procurement\coreApp\bin\Microsoft.AspNetCore.JsonPatch.xml
+D:\Procurement\coreApp\bin\Microsoft.AspNetCore.Mvc.Abstractions.xml
+D:\Procurement\coreApp\bin\Microsoft.AspNetCore.Mvc.Core.xml
+D:\Procurement\coreApp\bin\Microsoft.AspNetCore.Mvc.DataAnnotations.xml
+D:\Procurement\coreApp\bin\Microsoft.AspNetCore.Mvc.Formatters.Json.xml
+D:\Procurement\coreApp\bin\Microsoft.AspNetCore.Mvc.ViewFeatures.xml
+D:\Procurement\coreApp\bin\Microsoft.AspNetCore.ResponseCaching.Abstractions.xml
+D:\Procurement\coreApp\bin\Microsoft.AspNetCore.Routing.xml
+D:\Procurement\coreApp\bin\Microsoft.AspNetCore.Routing.Abstractions.xml
+D:\Procurement\coreApp\bin\Microsoft.AspNetCore.WebUtilities.xml
+D:\Procurement\coreApp\bin\Microsoft.Extensions.FileProviders.Abstractions.xml
+D:\Procurement\coreApp\bin\Microsoft.Extensions.Hosting.Abstractions.xml
+D:\Procurement\coreApp\bin\Microsoft.Extensions.Localization.xml
+D:\Procurement\coreApp\bin\Microsoft.Extensions.Localization.Abstractions.xml
+D:\Procurement\coreApp\bin\Microsoft.Extensions.ObjectPool.xml
+D:\Procurement\coreApp\bin\Microsoft.Extensions.WebEncoders.xml
+D:\Procurement\coreApp\bin\Microsoft.Net.Http.Headers.xml
+D:\Procurement\coreApp\bin\Newtonsoft.Json.Bson.xml
+D:\Procurement\coreApp\bin\System.Buffers.xml
+D:\Procurement\coreApp\bin\System.Text.Encodings.Web.xml
+D:\Procurement\coreApp\bin\device_core.pdb
+D:\Procurement\coreApp\obj\Debug\coreApp.csproj.CopyComplete
+D:\Procurement\coreApp\obj\Debug\coreApp.dll
+D:\Procurement\coreApp\obj\Debug\coreApp.pdb
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\coreApp.dll.config
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\coreApp.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\coreApp.pdb
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\Microsoft.Win32.Primitives.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\netstandard.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\System.AppContext.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\System.Collections.Concurrent.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\System.Collections.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\System.Collections.NonGeneric.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\System.Collections.Specialized.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\System.ComponentModel.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\System.ComponentModel.EventBasedAsync.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\System.ComponentModel.Primitives.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\System.ComponentModel.TypeConverter.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\System.Console.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\System.Data.Common.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\System.Diagnostics.Contracts.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\System.Diagnostics.Debug.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\System.Diagnostics.FileVersionInfo.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\System.Diagnostics.Process.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\System.Diagnostics.StackTrace.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\System.Diagnostics.TextWriterTraceListener.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\System.Diagnostics.Tools.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\System.Diagnostics.TraceSource.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\System.Diagnostics.Tracing.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\System.Drawing.Primitives.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\System.Dynamic.Runtime.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\System.Globalization.Calendars.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\System.Globalization.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\System.Globalization.Extensions.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\System.IO.Compression.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\System.IO.Compression.ZipFile.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\System.IO.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\System.IO.FileSystem.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\System.IO.FileSystem.DriveInfo.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\System.IO.FileSystem.Primitives.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\System.IO.FileSystem.Watcher.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\System.IO.IsolatedStorage.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\System.IO.MemoryMappedFiles.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\System.IO.Pipes.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\System.IO.UnmanagedMemoryStream.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\System.Linq.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\System.Linq.Expressions.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\System.Linq.Parallel.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\System.Linq.Queryable.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\System.Net.Http.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\System.Net.NameResolution.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\System.Net.NetworkInformation.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\System.Net.Ping.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\System.Net.Primitives.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\System.Net.Requests.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\System.Net.Security.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\System.Net.Sockets.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\System.Net.WebHeaderCollection.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\System.Net.WebSockets.Client.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\System.Net.WebSockets.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\System.ObjectModel.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\System.Reflection.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\System.Reflection.Extensions.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\System.Reflection.Primitives.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\System.Resources.Reader.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\System.Resources.ResourceManager.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\System.Resources.Writer.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\System.Runtime.CompilerServices.VisualC.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\System.Runtime.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\System.Runtime.Extensions.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\System.Runtime.Handles.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\System.Runtime.InteropServices.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\System.Runtime.InteropServices.RuntimeInformation.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\System.Runtime.Numerics.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\System.Runtime.Serialization.Formatters.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\System.Runtime.Serialization.Json.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\System.Runtime.Serialization.Primitives.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\System.Runtime.Serialization.Xml.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\System.Security.Claims.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\System.Security.Cryptography.Algorithms.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\System.Security.Cryptography.Csp.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\System.Security.Cryptography.Encoding.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\System.Security.Cryptography.Primitives.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\System.Security.Cryptography.X509Certificates.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\System.Security.Principal.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\System.Security.SecureString.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\System.Text.Encoding.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\System.Text.Encoding.Extensions.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\System.Text.RegularExpressions.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\System.Threading.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\System.Threading.Overlapped.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\System.Threading.Tasks.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\System.Threading.Tasks.Parallel.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\System.Threading.Thread.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\System.Threading.ThreadPool.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\System.Threading.Timer.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\System.ValueTuple.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\System.Xml.ReaderWriter.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\System.Xml.XDocument.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\System.Xml.XmlDocument.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\System.Xml.XmlSerializer.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\System.Xml.XPath.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\System.Xml.XPath.XDocument.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\coreLib.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\device_granding.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\device_ino1_a.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\device_ino1_a_legacy.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\device_zkteco_f8.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\Microsoft.AspNetCore.Antiforgery.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\Microsoft.AspNetCore.Authentication.Abstractions.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\Microsoft.AspNetCore.Authentication.Core.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\Microsoft.AspNetCore.Authorization.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\Microsoft.AspNetCore.Authorization.Policy.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\Microsoft.AspNetCore.Cryptography.Internal.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\Microsoft.AspNetCore.DataProtection.Abstractions.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\Microsoft.AspNetCore.DataProtection.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\Microsoft.AspNetCore.Diagnostics.Abstractions.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\Microsoft.AspNetCore.Hosting.Abstractions.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\Microsoft.AspNetCore.Hosting.Server.Abstractions.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\Microsoft.AspNetCore.Html.Abstractions.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\Microsoft.AspNetCore.Http.Abstractions.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\Microsoft.AspNetCore.Http.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\Microsoft.AspNetCore.Http.Extensions.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\Microsoft.AspNetCore.Http.Features.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\Microsoft.AspNetCore.JsonPatch.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\Microsoft.AspNetCore.Mvc.Abstractions.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\Microsoft.AspNetCore.Mvc.Core.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\Microsoft.AspNetCore.Mvc.DataAnnotations.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\Microsoft.AspNetCore.Mvc.Formatters.Json.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\Microsoft.AspNetCore.Mvc.ViewFeatures.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\Microsoft.AspNetCore.ResponseCaching.Abstractions.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\Microsoft.AspNetCore.Routing.Abstractions.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\Microsoft.AspNetCore.Routing.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\Microsoft.AspNetCore.WebUtilities.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\Microsoft.Bcl.AsyncInterfaces.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\Microsoft.DotNet.PlatformAbstractions.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\Microsoft.Extensions.DependencyModel.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\Microsoft.Extensions.FileProviders.Abstractions.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\Microsoft.Extensions.Hosting.Abstractions.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\Microsoft.Extensions.Localization.Abstractions.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\Microsoft.Extensions.Localization.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\Microsoft.Extensions.ObjectPool.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\Microsoft.Extensions.WebEncoders.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\Microsoft.Net.Http.Headers.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\Microsoft.Win32.Registry.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\Module.Core.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\Module.DB.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\Newtonsoft.Json.Bson.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\System.Buffers.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\System.Memory.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\System.Security.AccessControl.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\System.Security.Cryptography.Xml.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\System.Security.Permissions.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\System.Security.Principal.Windows.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\System.Text.Encodings.Web.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\System.Threading.Tasks.Extensions.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\device_core.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\Interop.zkemkeeper.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\coreLib.pdb
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\Module.Core.pdb
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\Module.DB.pdb
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\Module.DB.dll.config
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\device_granding.pdb
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\device_ino1_a.pdb
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\device_ino1_a_legacy.pdb
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\device_zkteco_f8.pdb
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\Microsoft.AspNetCore.Antiforgery.xml
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\Microsoft.AspNetCore.Authentication.Abstractions.xml
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\Microsoft.AspNetCore.Authentication.Core.xml
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\Microsoft.AspNetCore.Authorization.xml
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\Microsoft.AspNetCore.Authorization.Policy.xml
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\Microsoft.AspNetCore.Cryptography.Internal.xml
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\Microsoft.AspNetCore.DataProtection.xml
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\Microsoft.AspNetCore.DataProtection.Abstractions.xml
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\Microsoft.AspNetCore.Diagnostics.Abstractions.xml
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\Microsoft.AspNetCore.Hosting.Abstractions.xml
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\Microsoft.AspNetCore.Hosting.Server.Abstractions.xml
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\Microsoft.AspNetCore.Html.Abstractions.xml
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\Microsoft.AspNetCore.Http.xml
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\Microsoft.AspNetCore.Http.Abstractions.xml
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\Microsoft.AspNetCore.Http.Extensions.xml
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\Microsoft.AspNetCore.Http.Features.xml
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\Microsoft.AspNetCore.JsonPatch.xml
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\Microsoft.AspNetCore.Mvc.Abstractions.xml
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\Microsoft.AspNetCore.Mvc.Core.xml
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\Microsoft.AspNetCore.Mvc.DataAnnotations.xml
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\Microsoft.AspNetCore.Mvc.Formatters.Json.xml
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\Microsoft.AspNetCore.Mvc.ViewFeatures.xml
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\Microsoft.AspNetCore.ResponseCaching.Abstractions.xml
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\Microsoft.AspNetCore.Routing.xml
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\Microsoft.AspNetCore.Routing.Abstractions.xml
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\Microsoft.AspNetCore.WebUtilities.xml
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\Microsoft.Extensions.FileProviders.Abstractions.xml
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\Microsoft.Extensions.Hosting.Abstractions.xml
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\Microsoft.Extensions.Localization.xml
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\Microsoft.Extensions.Localization.Abstractions.xml
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\Microsoft.Extensions.ObjectPool.xml
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\Microsoft.Extensions.WebEncoders.xml
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\Microsoft.Net.Http.Headers.xml
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\Newtonsoft.Json.Bson.xml
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\System.Buffers.xml
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\System.Text.Encodings.Web.xml
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\bin\device_core.pdb
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\obj\Debug\coreApp.csprojAssemblyReference.cache
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\obj\Debug\coreApp.dll.config
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\obj\Debug\coreApp.csproj.ResolveComReference.cache
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\obj\Debug\coreApp.csproj.CoreCompileInputs.cache
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\obj\Debug\coreApp.csproj.CopyComplete
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\obj\Debug\coreApp.dll
+C:\Users\Lorilla Family\source\repos\Cirrus\Procurement\coreApp\obj\Debug\coreApp.pdb

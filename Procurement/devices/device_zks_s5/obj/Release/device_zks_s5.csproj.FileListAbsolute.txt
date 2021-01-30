@@ -1,0 +1,4 @@
+D:\Repository\hrms-eu\devices\device_zks_s5\obj\Release\device_zks_s5.csprojResolveAssemblyReference.cache
+D:\Repository\hrms-eu\devices\device_zks_s5\obj\Release\Interop.MSDATASRC.dll
+D:\Repository\hrms-eu\devices\device_zks_s5\obj\Release\Interop.VBRUN.dll
+D:\Repository\hrms-eu\devices\device_zks_s5\obj\Release\device_zks_s5.csproj.ResolveComReference.cache

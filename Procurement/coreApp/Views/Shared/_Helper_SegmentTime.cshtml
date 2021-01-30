@@ -1,0 +1,55 @@
+﻿@model Module.DB.Interfaces.ISegment
+@{
+    bool IsTimeIn = Convert.ToBoolean(ViewData["IsTimeIn"]);
+}
+
+@if (IsTimeIn)
+{
+    <div>
+        @Model.TimeIn.ToString("h:mm tt")
+        @if (!Model.MustTimeIn)
+        {
+            <span class="subtitle">[optional]</span>
+        }
+    </div>
+    <div class="log-period">
+        Log Period:
+        @Model.TimeInFrom.ToString("h:mm tt")
+        @if (Model.TimeInFrom_IsPrev)
+        {
+            <span class="subtitle">[prev]</span>
+        }
+        - @Model.TimeInTo.ToString("h:mm tt")
+        @if (Model.TimeInTo_IsNext)
+        {
+            <span class="subtitle">[next]</span>
+        }
+    </div>
+}
+else
+{
+    <div>
+        @Model.TimeOut.ToString("h:mm tt")
+        @if (!Model.MustTimeOut)
+        {
+            <span class="subtitle">[optional]</span>
+        }
+        @if (Model.TimeOut_IsNext)
+        {
+            <span class="subtitle">[next]</span>
+        }
+    </div>
+    <div class="log-period">
+        Log Period:
+        @Model.TimeOutFrom.ToString("h:mm tt")
+        @if (Model.TimeOutFrom_IsNext)
+        {
+            <span class="subtitle">[next]</span>
+        }
+        - @Model.TimeOutTo.ToString("h:mm tt")
+        @if (Model.TimeOutTo_IsNext)
+        {
+            <span class="subtitle">[next]</span>
+        }
+    </div>
+}

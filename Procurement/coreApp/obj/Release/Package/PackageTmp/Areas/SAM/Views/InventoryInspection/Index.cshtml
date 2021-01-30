@@ -1,0 +1,84 @@
+﻿@model List<coreApp.Areas.SAM.tblInventoryInspection>
+@{
+    ViewBag.Title = "Equipment Inspections";
+
+    int Year = (int)ViewBag.Year;
+
+}
+
+@section Breadcrumbs {
+@Html.Partial("_Breadcrumbs", new List<Breadcrumb>()
+    {
+        new Breadcrumb { Description = "Supply/Asset Management", Link = Url.Action("Index", "Main", new { area = "SAM" }) },
+        new Breadcrumb { Description = ViewBag.Title }
+    })
+}
+
+@section Scripts {
+    <script>
+        function postSubmit(res, e) {
+            if (e.viewType == 'create') {
+                if (res.IsSuccessful) {
+                    sessionStorage.clientMessage = res.Remarks;
+                    window.location = '@Url.Action("Index", "InventoryInspectionItems")/' + res.Data;
+
+                    return false;
+                }
+            }
+            return true;
+        }
+    </script>
+}
+
+<div class="row">
+    <div class="col-sm-12">
+        For the year:
+        @Html.Partial("~/Areas/Procurement/Views/Shared/yearInfo.cshtml", "/SAM/Inventory/Inspections/Index/{0}")
+        <br />
+    </div>
+</div>
+
+<div class="block">
+    <div class="head bg-default bg-light-ltr noradius">
+        <h2>@ViewBag.Title</h2>
+        <div class="side pull-right">
+            <ul class="buttons">
+                <li>
+                    <button class="btn btn-success btn-create" onclick="$.fn.list('modalCreate', this)">Create</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="content">
+        <table class="display table table-bordered table-striped table-list" cellspacing="0" width="100%"
+               modal-target="#modalView" modal-start="view" modal-postsubmit-callback="postSubmit"
+               modal-view-url="/SAM/Inventory/Inspection/Details/@Year/{0}" modal-edit-url="/SAM/Inventory/Inspection/Edit/@Year/{0}" modal-delete-url="/SAM/Inventory/Inspection/Delete/@Year" modal-create-url="/SAM/Inventory/Inspection/Create/@Year">
+            <thead>
+                <tr>
+                    <th>
+                       Report Date
+                    </th>
+                    <th>
+                        Inspected By
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (coreApp.Areas.SAM.tblInventoryInspection item in Model)
+                {                    
+                    <tr record-id="@item.Id">
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ReportDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.InspectedBy)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+    </div>
+</div>
+
+@Html.Partial("~/Views/Shared/modals/_ModalView.cshtml", "modalView")

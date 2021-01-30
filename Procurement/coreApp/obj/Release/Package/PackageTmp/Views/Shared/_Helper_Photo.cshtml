@@ -1,0 +1,25 @@
+﻿@{ 
+    string url = Convert.ToString(ViewData["url"]);
+    string controlName = Convert.ToString(ViewData["control-name"]);
+    bool readOnly = Convert.ToBoolean(ViewData["readonly"]);
+    bool noRemove = Convert.ToBoolean(ViewData["no-remove"]);
+}
+
+@if (readOnly)
+{
+    <div class="photo-cont">
+        <img src="@url" />
+    </div>
+}
+else
+{
+    <div class="photo-cont">
+        <input type="file" name="@controlName" style="margin-bottom:5px" />
+        <img src="@url" />
+        @if (!noRemove)
+        {
+            <br />
+            @Html.Partial("_Helper_CheckBox", controlName + "_Remove", new ViewDataDictionary { { "text", "Remove Photo" }, { "class", "remove-photo" } })
+        }
+    </div>
+}

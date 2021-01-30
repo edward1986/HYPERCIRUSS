@@ -1,0 +1,267 @@
+﻿@model List<Module.DB.tblTravelApplication>
+
+@{
+    ViewBag.Title = "Travel Applications";
+    ViewBag.Subtitle = "List";
+
+    bool isPending = (bool)ViewBag.isPending;
+
+    Module.DB.tblEmployee employee = (Module.DB.tblEmployee)ViewBag.Employee;
+
+}
+
+@section Breadcrumbs {
+    @Html.Partial("_Breadcrumbs", new List<Breadcrumb>() { new Breadcrumb { Description = ViewBag.Title } })
+}
+
+@section Scripts {
+    <script>
+        function load(e) {
+            if (e.viewType == 'view') {
+                var hasBeenServed = $('#HasBeenServed').val() == 'True';
+                var editBtn = e.modal.find('.btn-edit');
+                var deleteBtn = e.modal.find('.btn-delete');
+
+                var printBtn = e.modal.find('.btn-print');
+                var returnBtn = e.modal.find('.btn-return');
+                var denyBtn = e.modal.find('.btn-deny');
+                var approveBtn = e.modal.find('.btn-approve');
+                var revertApprovalBtn = e.modal.find('.btn-revert-approval');
+
+                var title = 'Travel Application';
+
+                var returnlink = returnBtn.attr('data-link-tmp');
+
+                returnBtn.unbind('click').bind('click', function (ee) {
+                    ee.preventDefault();
+
+                    modalInput(title, 'Are you sure you want to return this Travel application?<br /><br />Your message:', function (ret, userInput) {
+                        if (ret) {
+                            $.post(returnlink, { message: userInput }, function (res) {
+                                if (res.IsSuccessful) {
+                                    sessionStorage.clientMessage = res.Remarks;
+                                    window.location.reload(true);
+                                } else {
+                                    modalMessage(res.Err.split('\n'), title, true);
+                                }
+                            }, 'json');
+                        }
+                    }, 'textarea');
+
+                });
+
+                var denylink = denyBtn.attr('data-link-tmp');
+
+                denyBtn.unbind('click').bind('click', function (ee) {
+                    ee.preventDefault();
+
+                    modalInput(title, 'Are you sure you want to deny this Travel application?<br /><br />Your message:', function (ret, userInput) {
+                        if (ret) {
+                            $.post(denylink, { message: userInput }, function (res) {
+                                if (res.IsSuccessful) {
+                                    sessionStorage.clientMessage = res.Remarks;
+                                    window.location.reload(true);
+                                } else {
+                                    modalMessage(res.Err.split('\n'), title, true);
+                                }
+                            }, 'json');
+                        }
+                    }, 'textarea');
+
+                });
+                                
+                var revertApprovallink = revertApprovalBtn.attr('data-link-tmp');
+
+                revertApprovalBtn.unbind('click').bind('click', function (ee) {
+                    ee.preventDefault();
+
+                    modalConfirm('Are you sure you want to revert approval of this Travel application?', function (ret) {
+                        if (ret) {
+                            $.post(revertApprovallink, null, function (res) {
+                                if (res.IsSuccessful) {
+                                    sessionStorage.clientMessage = res.Remarks;
+                                    window.location.reload(true);
+                                } else {
+                                    modalMessage(res.Err.split('\n'), title, true);
+                                }
+                            }, 'json');
+                        }
+                    });
+
+                });
+
+                var printlink = printBtn.attr('data-link-tmp');
+
+                printBtn.unbind('click').bind('click', function (ee) {
+                    ee.preventDefault();
+
+                    modalPrint('@Module.Core.ModuleConstants.PRINT_OPTIONS', function (ret) {
+                        var dlWord = 'true';
+
+                        if (ret) {
+                            dlWord = 'false';
+                        }
+
+                        window.open(printlink + '?dlWord=' + dlWord, '_blank');
+                    });
+                });
+
+                var link = approveBtn.attr('data-link-tmp');
+
+                approveBtn.unbind('click').bind('click', function (ee) {
+                    ee.preventDefault();
+                    
+                    modalConfirm('Are you sure you want to approve this application?', function (ret, modal) {
+                        var body = modal.find('.modal-body');
+                        
+                        if (ret) {
+                            
+                            $.post(link, null, function (res) {
+                                if (res.IsSuccessful) {
+                                    sessionStorage.clientMessage = res.Remarks;
+                                    window.location.reload(true);
+                                } else {
+                                    modalMessage(res.Err.split('\n'), title, true);
+                                }
+                            }, 'json');
+                        }
+                    });
+
+                });
+
+                editBtn.hide();
+                deleteBtn.hide();
+
+                if (hasBeenServed) {
+                    returnBtn.hide();
+                    denyBtn.hide();
+                    approveBtn.hide();
+                    revertApprovalBtn.show();
+                } else {
+                    returnBtn.show();
+                    denyBtn.show();
+                    approveBtn.show();
+                    revertApprovalBtn.hide();
+                }
+            }
+
+
+            return e;
+        }
+    </script>
+}
+
+<div class="block">
+    <div class="head bg-default bg-light-ltr noradius">
+        <h2>@ViewBag.Title</h2>
+    </div>
+    <ul class="nav nav-tabs" state-key="settings-tab" state-manager-for="tabs">
+        <li class="@(isPending ? "active" : "")"><a href="@(isPending ? "#" : "/HRModule/TravelApplications")" data-toggle="@(isPending ? "tab" : "")">Pending</a></li>
+        <li class="@(isPending ? "" : "active")"><a href="@(isPending ? "TravelApplications/approved" : "#")" data-toggle="@(isPending ? "" : "tab")">Approved</a></li>
+    </ul>
+    <div class="content">
+        <table class="display table table-bordered table-striped table-list" cellspacing="0" width="100%"
+               modal-target="#modalView" modal-start="view" modal-load-callback="load"
+               modal-view-url="/HRModule/TravelApplications/Details/{0}">
+            <thead>
+                <tr>
+                    <th class="idcol">
+                        Id
+                    </th>
+                    <th>
+                        Employee
+                    </th>
+                    <th>
+                        Period
+                    </th>
+                    <th>
+                        Purpose
+                    </th>
+                    <th>
+                        Destination
+                    </th>
+                    <th>
+                        Has Support File
+                    </th>
+                    <th>
+                        Submitted
+                    </th>
+                    <th>
+                        Served By
+                    </th>
+                    <th>
+                        Status
+                    </th>
+                    <th>
+                        Message
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Module.DB.tblTravelApplication item in Model)
+                {
+
+                    <tr record-id="@item.Id">
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Id)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.employee.FullName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Date_Desc)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Purpose)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Destination)
+                        </td>
+                        <td>
+                            @Html.DisplayBooleanFor(modelItem => item.HasSupportFile)
+                        </td>
+                        <td>
+                            @if (item.HasBeenSubmitted)
+                            {
+                                @Html.DisplayFor(modelItem => item.DateSubmitted)
+                            }
+                        </td>
+                        <td>
+                            @if (item.IsApproved)
+                            {
+                                @Html.DisplayFor(modelItem => item.ApprovedBy)<br />
+                                @Html.DisplayFor(modelItem => item.ApproveDate)
+                            }
+                            else if (item.IsDenied)
+                            {
+                                @Html.DisplayFor(modelItem => item.DeniedBy)<br />
+                                @Html.DisplayFor(modelItem => item.DenyDate)
+                            }
+                            else if (item.IsReturned)
+                            {
+                                @Html.DisplayFor(modelItem => item.ReturnedBy)<br />
+                                @Html.DisplayFor(modelItem => item.ReturnDate)
+                            }
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Application_Status_Desc)
+                        </td>
+                        <td>
+                            @if (item.IsDenied)
+                            {
+                                @Html.DisplayMultiLineFor(modelItem => item.DenyMessage)
+                            }
+                            else if (item.IsReturned)
+                            {
+                                @Html.DisplayMultiLineFor(modelItem => item.ReturnMessage)
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+    </div>
+</div>
+
+@Html.Partial("~/Views/Shared/modals/_ModalView.cshtml", "modalView")

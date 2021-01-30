@@ -1,0 +1,77 @@
+﻿@model List<coreApp.Areas.SAM.tblAREItem>
+
+@{
+    ViewBag.Title = "Items";
+    ViewBag.Subtitle = "List";
+
+    coreApp.Areas.SAM.tblARE are = (coreApp.Areas.SAM.tblARE)ViewBag.ARE;
+
+}
+
+@section Breadcrumbs {
+    @Html.Partial("_Breadcrumbs", new List<Breadcrumb>() {
+        new Breadcrumb { Description = "Supply/Asset Management", Link = Url.Action("Index", "Main", new { area = "SAM" }) },
+        new Breadcrumb { Description = "Property Acknowledgement Receipts", Link = Url.Action("Index", "ARE", new { area = "SAM" }) },
+        new Breadcrumb { Description = ViewBag.Title }
+    })
+}
+
+@Html.Partial("~/Areas/SAM/Views/Shared/areInfo.cshtml", "/SAM/ARE/Items/Index/")
+
+<div class="block">
+    <div class="head bg-default bg-light-ltr noradius">
+        <h2>Property Acknowledgement Receipt Items</h2>
+        <div class="side pull-right">
+            <ul class="buttons">
+                <li>
+                    <button class="btn btn-success btn-create" onclick="$.fn.list('modalCreate', this)">Add Item</button>
+                </li>         
+            </ul>
+        </div>
+    </div>
+    <div class="content">        
+        <table class="display table table-bordered table-striped table-list" cellspacing="0" width="100%"
+               modal-target="#modalView" modal-start="view" modal-edit-width="mid-wide" modal-create-width="mid-wide"
+               modal-view-url="/SAM/ARE/Items/Details/@are.Id/{0}" modal-edit-url="/SAM/ARE/Items/Edit/@are.Id/{0}" modal-delete-url="/SAM/ARE/Items/Delete/@are.Id" modal-create-url="/SAM/ARE/Items/Create/@are.Id">
+            <thead>
+                <tr>
+                    <th class="idcol">Id</th>
+                    <th>Property No.</th>
+                    <th>Item Name</th>
+                    <th>Acquisition Date</th>
+                    <th>Unit Cost</th>
+                    <th>Estimated Useful Life (months)</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (coreApp.Areas.SAM.tblAREItem item in Model)
+                {
+                    <tr record-id="@item.Id">
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Id)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item._PropertyNo)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item._ItemName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item._AcquisitionDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item._UnitCost)
+                        </td>
+                        <td>
+                            @item.RemainingLife(item.GetARE().AREDate)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+    </div>
+</div>
+
+@Html.Partial("~/Views/Shared/modals/_ModalView.cshtml", "modalView")
+

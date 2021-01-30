@@ -1,0 +1,110 @@
+﻿
+@model List<Module.DB.tblEmployeeOverload>
+
+@{
+    Layout = "~/Areas/HRModule/Views/Shared/_EmployeeDetailsLayout.cshtml";
+
+    ViewBag.Title = "Overload";
+    ViewBag.Subtitle = "List";
+
+    Module.DB.tblEmployee employee = (Module.DB.tblEmployee)ViewBag.Employee;
+
+}
+
+@section Breadcrumbs {
+    @Html.Partial("_Breadcrumbs", new List<Breadcrumb>()
+    {
+        new Breadcrumb { Description = "Employee List", Link = Url.Action("Index", "Employees", new { area = "HRModule" }) },
+        new Breadcrumb { Description = "Employee Main Record", Link = Url.Action("Details", "Employees", new { id = employee.EmployeeId, area = "HRModule" } ) },
+        new Breadcrumb { Description = ViewBag.Title }
+    })
+}
+
+@section SearchSection {
+    @Html.Action("Search", "EmployeeSearch", new { model = new coreApp.Models.EmployeeSearchModel { DataUrl = "/HRModule/Employee/Overload/Index/{0}", MinimalView = true } })
+}
+
+@section Scripts {
+    <script>
+
+        function applyPeriod(start, end) {
+            $('#StartDate').val(start);
+            $('#EndDate').val(end);
+        }
+    </script>
+}
+
+<div class="block">
+
+    <ul class="nav nav-tabs" state-key="settings-tab" state-manager-for="tabs">
+        <li class=""><a href="/HRModule/Employee/Career/Index/@employee.EmployeeId">Career</a></li>
+        <li class="active"><a href="#Overload" data-toggle="tab">Overload</a></li>
+    </ul>
+
+    <div class="content">
+        <div class="head bg-default bg-light-ltr noradius">
+            <div class="side pull-right">
+                <ul class="buttons">
+                    <li><button class="btn btn-success btn-create" onclick="$.fn.list('modalCreate', this)">Create</button></li>
+
+                </ul>
+            </div>
+        </div>
+
+        <table class="display table table-bordered table-striped table-list" cellspacing="0" width="100%"
+               modal-target="#modalView" modal-start="view"
+               modal-view-url="/HRModule/Employee/Overload/Details/@employee.EmployeeId/{0}" modal-edit-url="/HRModule/Employee/Overload/Edit/@employee.EmployeeId/{0}" modal-delete-url="/HRModule/Employee/Overload/Delete/@employee.EmployeeId" modal-create-url="/HRModule/Employee/Overload/Create/@employee.EmployeeId">
+            <thead>
+                <tr>
+                    <th class="idcol">
+                        ID
+                    </th>
+                    <th>
+                        Type
+                    </th>
+                    <th>
+                        Range
+                    </th>
+                    <th>
+                        Hourly Rate
+                    </th>
+                    <th>
+                        Hours/Week
+                    </th>
+                    <th>
+                        Total Hours
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Module.DB.tblEmployeeOverload item in Model)
+                {
+                <tr record-id="@item.OverloadID">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.OverloadID)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.OverloadTypes)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Date_Desc)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.HourlyRate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.HoursPerWeek)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TotalHours)
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+@Html.Partial("~/Views/Shared/modals/_ModalView.cshtml", "modalView")
+

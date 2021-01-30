@@ -1,0 +1,22 @@
+﻿@using Module.DB
+@model string
+@{
+    tblGroup group = (tblGroup)ViewBag.Group;
+
+    List<tblGroup> groups = (List<tblGroup>)ViewBag.Groups;
+}
+
+<select onchange="itemSelected(this)">
+    @foreach (tblGroup o in groups)
+            {
+        <option value="@o.Id" @(group.Id == o.Id ? "selected" : "")>@o.GroupName.ToUpper()</option>
+    }
+</select>
+
+<br />
+
+<script>
+    function itemSelected(sel) {
+        window.location = '@Model' + $(sel).val();
+    }
+</script>

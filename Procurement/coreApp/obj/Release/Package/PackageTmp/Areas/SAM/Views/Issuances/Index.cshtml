@@ -1,0 +1,22 @@
+﻿
+@{
+    ViewBag.Title = "Employee Issuances";
+    ViewBag.Subtitle = "List";
+
+    string DetailsUrl = "/SAM/Issuances/Details/{0}";
+}
+
+@section Breadcrumbs {
+    @Html.Partial("_Breadcrumbs", new List<Breadcrumb>() { new Breadcrumb { Description = ViewBag.Title } })
+}
+
+<div class="block">
+    <div class="head bg-default bg-light-ltr noradius">
+        <h2>@ViewBag.Title</h2>
+    </div>
+</div>
+
+<br />
+@Html.Action("Search", "EmployeeSearch", new { area = "HRModule", model = new coreApp.Models.EmployeeSearchModel { DataUrl = DetailsUrl } })
+
+

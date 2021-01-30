@@ -1,0 +1,15 @@
+C:\Users\renebert\Documents\Visual Studio 2013\Projects\hrms-eu\hrms-eu\devices\zks_console\bin\Release\zks_console.exe.config
+C:\Users\renebert\Documents\Visual Studio 2013\Projects\hrms-eu\hrms-eu\devices\zks_console\obj\Release\Interop.SB100BPCLib.dll
+C:\Users\renebert\Documents\Visual Studio 2013\Projects\hrms-eu\hrms-eu\devices\zks_console\obj\Release\AxInterop.SB100BPCLib.dll
+C:\Users\renebert\Documents\Visual Studio 2013\Projects\hrms-eu\hrms-eu\devices\zks_console\obj\Release\zks_console.csproj.ResolveComReference.cache
+C:\Users\renebert\Documents\Visual Studio 2013\Projects\hrms-eu\hrms-eu\devices\zks_console\obj\Release\zks_console.Form1.resources
+C:\Users\renebert\Documents\Visual Studio 2013\Projects\hrms-eu\hrms-eu\devices\zks_console\obj\Release\zks_console.csproj.GenerateResource.Cache
+C:\Users\renebert\Documents\Visual Studio 2013\Projects\hrms-eu\hrms-eu\devices\zks_console\bin\Release\zks_console.exe
+C:\Users\renebert\Documents\Visual Studio 2013\Projects\hrms-eu\hrms-eu\devices\zks_console\bin\Release\zks_console.pdb
+C:\Users\renebert\Documents\Visual Studio 2013\Projects\hrms-eu\hrms-eu\devices\zks_console\bin\Release\Interop.SB100BPCLib.dll
+C:\Users\renebert\Documents\Visual Studio 2013\Projects\hrms-eu\hrms-eu\devices\zks_console\bin\Release\AxInterop.SB100BPCLib.dll
+C:\Users\renebert\Documents\Visual Studio 2013\Projects\hrms-eu\hrms-eu\devices\zks_console\obj\Release\zks_console.exe
+C:\Users\renebert\Documents\Visual Studio 2013\Projects\hrms-eu\hrms-eu\devices\zks_console\obj\Release\zks_console.pdb
+C:\Users\renebert\Documents\Visual Studio 2013\Projects\hrms-eu\hrms-eu\devices\zks_console\obj\Release\zks_console.csprojResolveAssemblyReference.cache
+C:\Users\renebert\Documents\Visual Studio 2013\Projects\hrms-eu\hrms-eu\devices\zks_console\bin\Release\device_core.dll
+C:\Users\renebert\Documents\Visual Studio 2013\Projects\hrms-eu\hrms-eu\devices\zks_console\bin\Release\device_core.pdb

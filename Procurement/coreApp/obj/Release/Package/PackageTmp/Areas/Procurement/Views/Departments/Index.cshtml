@@ -1,0 +1,84 @@
+﻿@model List<Module.DB.tblDepartment>
+
+@{
+    ViewBag.Title = "Departments";
+    ViewBag.Subtitle = "List";
+
+    Module.DB.tblOffice office = (Module.DB.tblOffice)ViewBag.Office;
+
+}
+
+@section Breadcrumbs {
+    @Html.Partial("_Breadcrumbs", new List<Breadcrumb>() {
+        new Breadcrumb { Description = "System Settings" },
+        new Breadcrumb { Description = "Offices", Link = "/Procurement/Offices/Index/" + @office.CampusID },
+        new Breadcrumb { Description = ViewBag.Title }
+    })
+}
+
+@section Styles {
+
+    <link rel="stylesheet" href="~/Assets/nextro/assets/css/plugins/bootstrap-select.min.css">
+
+}
+
+@section Scripts {
+
+    <script src="~/assets/nextro/assets/js/plugins/select2.full.min.js"></script>
+    <script src="~/assets/nextro/assets/js/pages/form-select-custom.js"></script>
+    <script src="~/Assets/nextro/assets/js/plugins/bootstrap-datepicker.min.js"></script>
+    <script src="~/Assets/nextro/assets/js/plugins/bootstrap-select.min.js"></script>
+
+    <script>
+        $('.pc-selectpicker').selectpicker();
+        $(function () { });
+    </script>
+
+}
+
+<div class="card">
+    <div class="card-body">
+        @Html.Partial("~/Views/Shared/info/officeInfo.cshtml", "/Procurement/Departments/Index/")
+    </div>
+</div>
+<div class="block">
+    <div class="card">
+        <div class="card-header">
+            <h5>@ViewBag.Title</h5>
+            <div class="card-header-right">
+                <button class="btn btn-success btn-sm btn-create" onclick="$.fn.list('modalCreate', this)">Create</button>
+
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="dt-responsive table-responsive">
+                <table class="display table table-bordered table-striped table-list" cellspacing="0" width="100%"
+                       modal-target="#modalView" modal-start="view"
+                       modal-view-url="/Procurement/Departments/Details/@office.OfficeId/{0}" modal-edit-url="/Procurement/Departments/Edit/@office.OfficeId/{0}" modal-delete-url="/Procurement/Departments/Delete/@office.OfficeId" modal-create-url="/Procurement/Departments/Create/@office.OfficeId">
+                    <thead>
+                        <tr>
+                            <th class="idcol">ID</th>
+                            <th>Department</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (Module.DB.tblDepartment item in Model)
+                        {
+                            <tr record-id="@item.DepartmentId">
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.DepartmentId)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Department)
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@Html.Partial("~/Views/Shared/modals/_ModalView.cshtml", "modalView")

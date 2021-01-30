@@ -1,0 +1,12 @@
+C:\Users\User\Desktop\FOR SKY DELIVERABLES\SkyHR\devices\device_ino1_a\obj\Release\device_ino1_a.csprojResolveAssemblyReference.cache
+C:\Users\User\Desktop\FOR SKY DELIVERABLES\SkyHR\devices\device_ino1_a\obj\Release\Interop.zkemkeeper.dll
+C:\Users\User\Desktop\FOR SKY DELIVERABLES\SkyHR\devices\device_ino1_a\obj\Release\device_ino1_a.csproj.ResolveComReference.cache
+C:\Users\User\Desktop\FOR SKY DELIVERABLES\SkyHR\devices\device_ino1_a\obj\Release\device_ino1_a.csproj.CoreCompileInputs.cache
+C:\Users\User\Desktop\FOR SKY DELIVERABLES\SkyHR\devices\device_ino1_a\bin\Release\device_ino1_a.dll
+C:\Users\User\Desktop\FOR SKY DELIVERABLES\SkyHR\devices\device_ino1_a\bin\Release\device_ino1_a.pdb
+C:\Users\User\Desktop\FOR SKY DELIVERABLES\SkyHR\devices\device_ino1_a\bin\Release\Aspose.Cells.dll
+C:\Users\User\Desktop\FOR SKY DELIVERABLES\SkyHR\devices\device_ino1_a\bin\Release\device_core.dll
+C:\Users\User\Desktop\FOR SKY DELIVERABLES\SkyHR\devices\device_ino1_a\bin\Release\device_core.pdb
+C:\Users\User\Desktop\FOR SKY DELIVERABLES\SkyHR\devices\device_ino1_a\bin\Release\Interop.zkemkeeper.dll
+C:\Users\User\Desktop\FOR SKY DELIVERABLES\SkyHR\devices\device_ino1_a\obj\Release\device_ino1_a.dll
+C:\Users\User\Desktop\FOR SKY DELIVERABLES\SkyHR\devices\device_ino1_a\obj\Release\device_ino1_a.pdb

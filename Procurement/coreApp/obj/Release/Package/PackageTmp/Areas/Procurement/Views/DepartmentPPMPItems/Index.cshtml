@@ -1,0 +1,43 @@
+﻿@model coreApp.Areas.Procurement.DAL.tblPPMP
+@using coreLib.Extensions
+@{
+    ViewBag.Title = "PPMP Items";
+    
+}
+
+@section Breadcrumbs {
+    @Html.Partial("_Breadcrumbs", new List<Breadcrumb>()
+    {
+         new Breadcrumb { Description = "Departments" },
+        new Breadcrumb { Description = "Department PPMP", Link = Url.Action("Index", "DepartmentPPMP", new { area = "Procurement", year = Model.Year }) },
+        new Breadcrumb { Description = ViewBag.Title }
+    })
+}
+
+@section Styles {
+    <link href="~/Areas/Procurement/Assets/css/common.less" rel="stylesheet" type="text/css">
+    <link href="~/Areas/Procurement/Assets/css/itemlist.less" rel="stylesheet" type="text/css">
+}
+
+@section Scripts {
+    
+    <script>
+        var ppmpId = @Model.Id;
+        var isCompany = false;
+        var dialogIsReadOnly = @(Model.HasBeenSubmitted ? "true" : "false");
+        var mainListUrl = '@Url.Action("MainList", new { ppmpId = Model.Id, year = Model.Year })';
+        var itemListUrl = '@Url.Action("ItemList", new { ppmpId = Model.Id, year = Model.Year })';
+        var saveItemUrl = '@Url.Action("SaveItem", new { ppmpId = Model.Id })';
+        var deleteItemUrl = '@Url.Action("DeleteItem", new { ppmpId = Model.Id })';
+        var clearItemsUrl = '@Url.Action("ClearItems", new { ppmpId = Model.Id })';
+        var submitUrl = '@Url.Action("Submit", "DepartmentPPMP", new { year = Model.Year, id = Model.Id })';
+        var printUrl = '@Url.Action("Print", "DepartmentPPMP", new { year = Model.Year, id = Model.Id })';
+    </script>
+
+    <script type="text/javascript" src="~/Areas/Procurement/Assets/js/objects.js"></script>
+    <script type="text/javascript" src="~/Areas/Procurement/Assets/js/pagestart.js"></script>
+}
+
+<div class="mainlist-cont @(Model.HasBeenSubmitted ? "submitted" : "")"></div>
+
+@Html.Partial("_ItemQty")

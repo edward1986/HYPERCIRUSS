@@ -1,0 +1,43 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout_Anonymous.cshtml";
+
+    string msg = "";
+    bool hasMessage = Session["ApplicationErrorMessage"] != null;
+
+    if (hasMessage)
+    {
+        msg = Session["ApplicationErrorMessage"].ToString();
+        Session["ApplicationErrorMessage"] = null;
+    }
+
+    string backUrl = "";
+    bool hasBackUrl = Session["error_backurl"] != null;
+
+    if (hasBackUrl)
+    {
+        backUrl = Session["error_backurl"].ToString();
+        Session["error_backurl"] = null;
+    }
+}
+
+<div class="login-block" style="width:600px">
+    <div class="block block-transparent">
+        
+        <div class="content controls npt">
+
+            <div class="alert alert-danger">
+                @if (hasMessage)
+                {
+                    @Html.DisplayMultiLine(msg)
+                }                
+            </div>
+
+            @if (hasBackUrl)
+            {
+                <a href="@backUrl">Back</a>
+            }
+           
+        </div>
+    </div>
+</div>
+

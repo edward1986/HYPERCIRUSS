@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.15
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LicenseGenerator", "LicenseGenerator.csproj", "{FF5C7A0E-F752-4408-894C-E156E0206DE6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Licenses", "..\Licenses\Licenses.csproj", "{B027FA21-05A5-43BB-BFFA-DF57EC017F83}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FF5C7A0E-F752-4408-894C-E156E0206DE6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF5C7A0E-F752-4408-894C-E156E0206DE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF5C7A0E-F752-4408-894C-E156E0206DE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF5C7A0E-F752-4408-894C-E156E0206DE6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B027FA21-05A5-43BB-BFFA-DF57EC017F83}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B027FA21-05A5-43BB-BFFA-DF57EC017F83}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B027FA21-05A5-43BB-BFFA-DF57EC017F83}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B027FA21-05A5-43BB-BFFA-DF57EC017F83}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5DF66C91-3248-49FD-8004-BB3A95502721}
+	EndGlobalSection
+EndGlobal

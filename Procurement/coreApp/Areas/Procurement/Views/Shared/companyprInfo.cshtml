@@ -1,0 +1,20 @@
+﻿@using coreApp.Areas.Procurement.DAL
+@model string
+@{    
+    tblCompanyPR pr = (tblCompanyPR)ViewData["pr"];
+
+    List<SelectListItem> prs = coreApp.Areas.Procurement.SelectItems.getCompanyPRs(year: pr.Year, showEmptyItem: false);
+}
+
+<select onchange="companyprItemSelected(this)" class="form-control pc-selectpicker" data-style="btn-success">
+    @foreach (SelectListItem o in prs)
+    {
+        <option value="@o.Value" @(pr.Id.ToString() == o.Value ? "selected" : "")>@o.Text</option>
+    }
+</select>
+
+<script>
+    function companyprItemSelected(sel) {
+        window.location = '@Model' + $(sel).val();
+    }
+</script>

@@ -1,0 +1,57 @@
+﻿@using coreApp.Areas.SAM
+@model string
+@{
+    tblReceipt receipt = (tblReceipt)ViewBag.Receipt;
+
+    List<tblReceipt> receipts = (List<tblReceipt>)ViewBag.Receipts;
+    
+}
+
+P.O. No.
+<select onchange="receiptSelected(this)">
+    @foreach (tblReceipt o in receipts)
+    {
+        <option value="@o.Id" @(receipt.Id == o.Id ? "selected" : "")>@string.Format("{0} (Received: {1})", o._PONo, o.ReceivedDate.ToShortDateString())</option>
+    }
+</select>
+
+<div style="padding:5px;">
+    <table>
+        <tbody>
+            <tr>
+                <td>Supplier</td>
+                <td>:&nbsp;</td>
+                <td>@receipt._SupplierName</td>
+            </tr>
+            <tr>
+                <td>Invoice No.</td>
+                <td>:&nbsp;</td>
+                <td>@receipt.InvoiceNo</td>
+            </tr>
+            <tr>
+                <td>Invoice Date</td>
+                <td>:&nbsp;</td>
+                <td>@(receipt.InvoiceDate == null ? "" : receipt.InvoiceDate.Value.ToShortDateString())</td>
+            </tr>
+            <tr>
+                <td>Delivery Receipt No.</td>
+                <td>:&nbsp;</td>
+                <td>@receipt.DRNo</td>
+            </tr>
+            <tr>
+                <td>Date Received</td>
+                <td>:&nbsp;</td>
+                <td>@receipt.ReceivedDate.ToShortDateString()</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+<br />
+
+<script>
+    function receiptSelected(sel) {
+        window.location = '@Model' + $(sel).val();
+    }
+</script>

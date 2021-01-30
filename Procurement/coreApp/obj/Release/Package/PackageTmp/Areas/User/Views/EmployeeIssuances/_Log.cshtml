@@ -1,0 +1,52 @@
+﻿@model coreApp.Areas.SAM.AREItemModel
+
+@{    
+    bool isReadOnly = (bool)ViewBag.uiIsReadOnly;
+    bool includeId = (bool)ViewBag.uiIncludeId;
+
+
+}
+
+<div class="form-row">
+    <div class="col-md-3">
+        @Html.LabelFor(model => model.Item.Id)
+    </div>
+    <div class="col-md-8">
+        <div class="form-control">
+            @Html.DisplayFor(model => model.Item.Id)
+        </div>
+    </div>
+</div>
+
+<div class="form-row">
+    <div class="col-md-3">
+        @Html.LabelFor(model => model.Item._PropertyNo)
+    </div>
+    <div class="col-md-8">
+        <div class="form-control">
+            @Html.DisplayFor(model => model.Item._PropertyNo)
+        </div>
+    </div>
+</div>
+
+<div class="form-row">
+    <div class="col-md-3">
+        @Html.LabelFor(model => model.Item._ItemName)
+    </div>
+    <div class="col-md-8">
+        <div class="form-control">
+            @Html.DisplayFor(model => model.Item._ItemName)
+        </div>
+    </div>
+</div>
+
+<div class="form-row">
+    <div class="col-md-3">
+        Date Received
+    </div>
+    <div class="col-md-8">
+        <div class="form-control">
+            @Html.DisplayFor(model => model.ARE.AREDate)
+        </div>
+    </div>
+</div>

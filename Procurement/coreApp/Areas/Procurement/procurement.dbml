@@ -1,0 +1,424 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="procurement" Class="procurementDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=DESKTOP-R9K5SN7\SQL;Initial Catalog=procurement;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="Procurement" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.tblOfficeAllocations" Member="tblOfficeAllocations">
+    <Type Name="tblOfficeAllocation">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="OfficeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Year" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FundId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Amount" Type="System.Double" DbType="Float" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblFundAllocations" Member="tblFundAllocations">
+    <Type Name="tblFundAllocation">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="FundId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Year" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Amount" Type="System.Double" DbType="Float" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblUnits" Member="tblUnits">
+    <Type Name="tblUnit">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Unit" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblDepartmentAllocations" Member="tblDepartmentAllocations">
+    <Type Name="tblDepartmentAllocation">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="DepartmentId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Year" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Amount" Type="System.Double" DbType="Float" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblConsolidatedPR" Member="tblConsolidatedPRs">
+    <Type Name="tblConsolidatedPR">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Year" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PRIds" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="CompanyPRIds" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="CreatedBy_UserId" Type="System.String" DbType="NVarChar(128) NOT NULL" CanBeNull="false" />
+      <Column Name="CreateDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="SubmittedBy_UserId" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="SubmitDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ApprovedBy_UserId" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="ApproveDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ReturnDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ReturnMessage" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="ReturnedBy_UserId" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="FundIds" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="CategoryIds" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Months" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="[_TotalAmount]" Member="_TotalAmount" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Form_PRNo" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Form_Purpose" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblPR" Member="tblPRs">
+    <Type Name="tblPR">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="OfficeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Year" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CreatedBy_UserId" Type="System.String" DbType="NVarChar(128) NOT NULL" CanBeNull="false" />
+      <Column Name="CreateDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="SubmittedBy_UserId" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="SubmitDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ApprovedBy_UserId" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="ApproveDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ReturnDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ReturnMessage" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="ReturnedBy_UserId" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="PPMPIds" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="CategoryIds" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Months" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Form_PRNo" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Form_Purpose" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="[_TotalAmount]" Member="_TotalAmount" Type="System.Double" DbType="Float" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblAPR_OOS" Member="tblAPR_OOs">
+    <Type Name="tblAPR_OO">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="APRId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ItemId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Qty" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="NewPrice" Type="System.Double" DbType="Float" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblPPMPItems" Member="tblPPMPItems">
+    <Type Name="tblPPMPItem">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PPMPId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ItemId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="M1" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="M2" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="M3" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="M4" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="M5" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="M6" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="M7" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="M8" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="M9" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="M10" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="M11" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="M12" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="APPId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PRId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CPRId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CPR_OOS" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CPR_NewPrice" Type="System.Double" DbType="Float" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblAPR" Member="tblAPRs">
+    <Type Name="tblAPR">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Year" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="APPIds" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="CategoryIds" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Months" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="FundIds" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="SubmittedBy_UserId" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="SubmitDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Form_AgencyControlNo" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Form_PSAPRNo" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Form_IssueCommonUse" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Form_IssueCommonUse_PriceListNo" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Form_IssueCommonUse_PriceListNo_Date" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="Form_IssueCommonUse_Pickup_FastLane" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Form_IssueCommonUse_Pickup_Schedule" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Form_IssueCommonUse_Pickup_Delivery" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Form_InsufficientFunds_ReduceQty" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Form_InsufficientFunds_Bill" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Form_InsufficientFunds_Charge" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Form_InsufficientFunds_Charge_APRNo" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Form_InsufficientFunds_Charge_Date" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="Form_PurchaseNonCommon" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Form_PurchaseNonCommon_CompleteSpecs" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Form_PurchaseNonCommon_ObR" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Form_PurchaseNonCommon_Others" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Form_PurchaseNonCommon_OthersText" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="Form_PurchaseNonCommon_CBA" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Form_PurchaseNonCommon_Payment" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Form_FundDeposit" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Form_FundDeposit_CheckNo" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Form_FundDeposit_Amount" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Form_FundDeposit_AmountInWords" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="ReturnDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ReturnMessage" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="ReturnedBy_UserId" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="[_TotalAmount]" Member="_TotalAmount" Type="System.Double" DbType="Float" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblRFQ" Member="tblRFQs">
+    <Type Name="tblRFQ">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Year" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CreatedBy_UserId" Type="System.String" DbType="NVarChar(128) NOT NULL" CanBeNull="false" />
+      <Column Name="CreateDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="SubmittedBy_UserId" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="SubmitDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ApprovedBy_UserId" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="ApproveDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ReturnDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ReturnMessage" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="ReturnedBy_UserId" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="CPRIds" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="CategoryIds" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Months" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="[_TotalAmount]" Member="_TotalAmount" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Form_PHILGEPS" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Form_Deadline" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Form_Canvasser" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="SupplierIds" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblMOP" Member="tblMOPs">
+    <Type Name="tblMOP">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PRId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CategoryId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ModeOfProcurement" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Type" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="AllowPartial" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblAOB" Member="tblAOBs">
+    <Type Name="tblAOB">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Year" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CreatedBy_UserId" Type="System.String" DbType="NVarChar(128) NOT NULL" CanBeNull="false" />
+      <Column Name="CreateDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="SubmittedBy_UserId" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="SubmitDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ApprovedBy_UserId" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="ApproveDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ReturnDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ReturnMessage" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="ReturnedBy_UserId" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="RFQIds" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="CategoryIds" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Months" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Form_OpeningDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblCompanyPR" Member="tblCompanyPRs">
+    <Type Name="tblCompanyPR">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Year" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CreatedBy_UserId" Type="System.String" DbType="NVarChar(128) NOT NULL" CanBeNull="false" />
+      <Column Name="CreateDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="SubmittedBy_UserId" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="SubmitDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ReturnDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ReturnMessage" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="ReturnedBy_UserId" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="APRId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Form_PRNo" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Form_Purpose" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="[_TotalAmount]" Member="_TotalAmount" Type="System.Double" DbType="Float" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblPO" Member="tblPOs">
+    <Type Name="tblPO">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Year" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CreatedBy_UserId" Type="System.String" DbType="NVarChar(128) NOT NULL" CanBeNull="false" />
+      <Column Name="CreateDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="SubmittedBy_UserId" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="SubmitDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ApprovedBy_UserId" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="ApproveDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ReturnDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ReturnMessage" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="ReturnedBy_UserId" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="AOBIds" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="CategoryIds" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Months" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Form_PlaceOfDelivery" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Form_DateOfDelivery" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="Form_DeliveryTerm" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Form_PaymentTerm" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblCategories" Member="tblCategories">
+    <Type Name="tblCategory">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Code" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Category" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Type" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblSettings" Member="tblSettings">
+    <Type Name="tblSetting">
+      <Column Name="SettingId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Setting" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="SettingValue" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="Category" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="ValueType" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblSettings_Effectivity" Member="tblSettings_Effectivities">
+    <Type Name="tblSettings_Effectivity">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="DateEffective" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="SettingId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[_Value]" Member="_Value" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblAPP" Member="tblAPPs">
+    <Type Name="tblAPP">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Year" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PPMPIds" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="SubmittedBy_UserId" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="SubmitDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ApprovedBy_UserId" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="ApproveDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ReturnDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ReturnMessage" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="ReturnedBy_UserId" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="CategoryIds" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Months" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="[_TotalAmount]" Member="_TotalAmount" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="InDBMs" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+    </Type>
+  </Table>
+  <Table Name="dbo.vTotalAllocation" Member="vTotalAllocations">
+    <Type Name="vTotalAllocation">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Fund" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Allocated" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="YearAllocated" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="YearReceived" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Received" Type="System.Double" DbType="Float" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblItems" Member="tblItems">
+    <Type Name="tblItem">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(500) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="CategoryId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UnitId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="InDBM" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Year" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="OrigPrice" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="[_StockNo]" Member="_StockNo" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="MFO" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblPPMP" Member="tblPPMPs">
+    <Type Name="tblPPMP">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PPMPNumber" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="OfficeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="DepartmentId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Year" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SubmittedBy_UserId" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="SubmitDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ApprovedBy_UserId" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="ApproveDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ReturnDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ReturnMessage" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="ReturnedBy_UserId" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="CreatedBy_UserId" Type="System.String" DbType="NVarChar(128) NOT NULL" CanBeNull="false" />
+      <Column Name="CreateDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="PPMPIds" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="CategoryIds" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Months" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="FundId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="[_TotalAmount_InDBM]" Member="_TotalAmount_InDBM" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="[_TotalAmount_NotInDBM]" Member="_TotalAmount_NotInDBM" Type="System.Double" DbType="Float" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblAppItems" Member="tblAppItems">
+    <Type Name="tblAppItem">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="AppId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PPMPNumber" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="PPMPId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="MOP" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Advertisement" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="Submission" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="NoticeOfAward" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="ContractSigning" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="MOOE" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="CO" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Total" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Remarks" Type="System.String" DbType="NVarChar(300)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblAOB_Bids" Member="tblAOB_Bids">
+    <Type Name="tblAOB_Bid">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="AOBId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ItemId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ItemBid" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="SupplierId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UnitBid" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="TotalBid" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Remarks" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="IsWinner" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblFunds" Member="tblFunds">
+    <Type Name="tblFund">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Fund" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Fund_Cluster" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblSuppliers" Member="tblSuppliers">
+    <Type Name="tblSupplier">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="CompanyName" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Address" Type="System.String" DbType="Text NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="TelephoneNo" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="MobileNo" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ContactPerson" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Gender" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Notes" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="TIN" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="VAT" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblNOAItems" Member="tblNOAItems">
+    <Type Name="tblNOAItem">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="NOAId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ConsolidatedPRId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Amount" Type="System.Double" DbType="Float" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblNOA" Member="tblNOAs">
+    <Type Name="tblNOA">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="DateBid" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="DateCreated" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="Year" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ConsolidatedPRId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SupplierId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SubmittedBy_UserId" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="SubmitDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ApprovedBy_UserId" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="ApproveDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ReturnDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ReturnMessage" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="ReturnedBy_UserId" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+    </Type>
+  </Table>
+</Database>

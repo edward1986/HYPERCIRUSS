@@ -1,0 +1,55 @@
+﻿@model List<Module.DB.tblGroup>
+@{ 
+    bool readOnly = Convert.ToBoolean(ViewData["ReadOnly"]);
+
+    List<Module.DB.tblGroup> groups = coreApp.Cache.Get_Tables().Groups;
+    bool selectedAll = groups
+                        .Join(Model, a => a.Id, b => b.Id, (a, b) => b)
+                        .Count() == groups.Count;
+}
+
+<style>
+    .access-list-cont .entry-ui ul {
+        list-style: none;
+    }
+</style>
+
+<div class="access-list-cont">
+
+    @if (readOnly)
+    {
+        <div class="view-ui">
+            <ul>
+                @foreach(Module.DB.tblGroup item in Model.OrderBy(x => x.GroupName))
+                {
+                    <li>
+                        @item.GroupName
+                    </li>
+                }
+            </ul>
+        </div>
+        
+    }
+    else
+    {
+        <div class="entry-ui select-all select-all-parent-inverse">
+            <ul>
+                <li>
+                    @Html.Partial("_Helper_CheckBox", "", new ViewDataDictionary { { "value", selectedAll }, { "text", "Select All" } })
+
+                    <ul>
+                        @foreach (Module.DB.tblGroup item in groups.OrderBy(x => x.GroupName))
+                        {
+                            <li>
+                                @Html.Partial("_Helper_CheckBox", "Groups", new ViewDataDictionary { { "value", Model.Any(x => x.Id == item.Id) }, { "text", item.GroupName }, { "input-value", item.Id } })
+                            </li>
+                        }
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+    }
+
+
+</div>

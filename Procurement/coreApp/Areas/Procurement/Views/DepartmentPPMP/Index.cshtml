@@ -1,0 +1,195 @@
+﻿@model coreApp.Areas.Procurement.Models.DepartmentPPMPModel
+@using coreLib.Extensions
+@{
+    ViewBag.Title = "Department PPMPs";
+
+    int Year = (int)ViewBag.Year;
+
+    double totalAmountReceived = Model.utility.TotalAmountReceived();
+    double totalAmountOfSubmittedPPMPs = Model.utility.TotalAmountOfSubmittedPPMPs();
+    double balance = Model.utility.Balance();
+
+    bool negativeFunds = totalAmountReceived < 0;
+    bool negativeBalance = balance < 0;
+}
+
+@section Breadcrumbs {
+
+    @Html.Partial("_Breadcrumbs", new List<Breadcrumb>()
+    {
+        new Breadcrumb { Description = "Departments" },
+        new Breadcrumb { Description = ViewBag.Title }
+    })
+}
+
+@section Styles {
+    <link href="~/Areas/Procurement/Assets/css/common.less" rel="stylesheet" type="text/css">
+}
+
+@section Scripts {
+    <script>
+        function load(e) {
+            if (e.viewType == 'view') {
+
+                var editBtn = e.modal.find('.btn-edit');
+                var deleteBtn = e.modal.find('.btn-delete');
+                var submitBtn = e.modal.find('.btn-submit');
+                var printBtn = e.modal.find('.btn-print');
+
+                var link = submitBtn.attr('data-link-tmp');
+
+                submitBtn.unbind('click').bind('click', function (ee) {
+                    ee.preventDefault();
+
+                    modalConfirm('Are you sure you want to submit this document?', function (ret) {
+                        if (ret) {
+                            e.modal.modal('hide');
+                            var proc = modalProcessing();
+
+                            $.post(link, null, function (res) {
+                                proc.modal('hide');
+
+                                if (res.IsSuccessful) {
+                                    sessionStorage.clientMessage = res.Remarks;
+                                    window.location.reload(true);
+                                } else {
+                                    modalMessage(res.Err.split('\n'), 'Department PPMP', true);
+                                }
+                            }, 'json');
+                        }
+                    });
+
+                });
+
+                var printlink = printBtn.attr('data-link-tmp');
+
+                printBtn.unbind('click').bind('click', function (ee) {
+                    ee.preventDefault();
+
+                    modalPrint('@Module.Core.ModuleConstants.PRINT_OPTIONS', function (ret) {
+                        var dlWord = 'true';
+
+                        if (ret) {
+                            dlWord = 'false';
+                        }
+
+                        window.open(printlink + '?dlWord=' + dlWord, '_blank');
+                    });
+                });
+
+                var hasBeenSubmitted = e.modal.find('[name="Submitted"]').val() == 'True';
+                if (hasBeenSubmitted) {
+                    editBtn.hide();
+                    deleteBtn.hide();
+                    submitBtn.hide();
+                } else {
+                    editBtn.show();
+                    deleteBtn.show();
+                    submitBtn.show();
+                }
+            }
+        }
+    </script>
+}
+
+<div class="block">
+    <div class="card">
+        <div class="card-header">
+            <h5>@ViewBag.Title</h5>
+            <div class="card-header-right">
+                <div class="btn-group card-option">
+                    <button class="btn btn-success btn-create btn-sm" onclick="$.fn.list('modalCreate', this)">Create</button>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+
+            <div class="row">
+                <div class="col-sm-6">
+                    For the year:
+                    @Html.Partial("~/Areas/Procurement/Views/Shared/yearInfo.cshtml", "/Procurement/DepartmentPPMP/Index/{0}")
+                    <br />
+                    <br />
+                    <fieldset>
+                        <legend class="title">@Model.Department<span class="small">, @Model.Office.Office</span></legend>
+                    </fieldset>
+                </div>
+                <div class="col-sm-6" style="text-align:right">
+                    <table class="tblbalance">
+                        <tbody>
+                            <tr class="@(negativeFunds ? "negative-value" : "")"><td>Total Amount Received:</td><td>@totalAmountReceived.ToCurrencyString(negativeIsEncloseInParenthesis: true)</td></tr>
+                            <tr><td>Total Amount of Submitted PPMPs:</td><td>@totalAmountOfSubmittedPPMPs.ToCurrencyString()</td></tr>
+                            <tr class="@(negativeBalance ? "negative-value" : "")"><td>Balance:</td><td>@balance.ToCurrencyString(negativeIsEncloseInParenthesis: true)</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="dt-responsive table-responsive">
+                <table class="display table table-bordered table-striped table-list" cellspacing="0" width="100%"
+                       modal-target="#modalView" modal-start="view" modal-load-callback="load"
+                       modal-view-url="/Procurement/DepartmentPPMP/Details/@Year/{0}" modal-edit-url="/Procurement/DepartmentPPMP/Edit/@Year/{0}" modal-delete-url="/Procurement/DepartmentPPMP/Delete/@Year" modal-create-url="/Procurement/DepartmentPPMP/Create/@Year">
+                    <thead>
+                        <tr>
+                            <th>
+                                Description
+                            </th>
+                            <th>
+                                Total Amount
+                            </th>
+                            <th>
+                                Status
+                            </th>
+                            <th>
+                                Submitted By
+                            </th>
+                            <th>
+                                Returned By
+                            </th>
+                            <th>
+                                Return Message
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.PPMPs)
+                        {
+                            <tr record-id="@item.Id">
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Description)
+                                </td>
+                                <td style="text-align:right">
+                                    @item._TotalAmount.ToCurrencyString()
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.DocStatus_Desc)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.SubmittedBy)<br />
+                                    @Html.DisplayFor(modelItem => item.SubmitDate)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ReturnedBy)<br />
+                                    @Html.DisplayFor(modelItem => item.ReturnDate)
+                                </td>
+                                <td>
+                                    @Html.DisplayMultiLineFor(modelItem => item.ReturnMessage)
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+
+
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@Html.Partial("~/Views/Shared/modals/_ModalView.cshtml", "modalView")
+
+<style>
+    .modal-content {
+        width: 40rem;
+    }
+</style>

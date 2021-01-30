@@ -1,0 +1,14 @@
+﻿@model List<Module.DB.tblOffice>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="row">
+        <div class="col-sm-12">            
+            @Html.Partial("_OfficeList", Model, new ViewDataDictionary { { "ReadOnly", false }, { "ShowFullList", true }, { "Offices_FullList", ViewBag.Offices_FullList } })
+           
+        </div>       
+    </div>
+
+}

@@ -1,0 +1,467 @@
+﻿@model Module.DB.tblEmployee_Career
+
+@{
+    int departmentId = (int)ViewBag.departmentId;
+    int officeId = (int)ViewBag.officeId;
+    int campusId = (int)ViewBag.campusId;
+
+    bool isReadOnly = (bool)ViewBag.uiIsReadOnly;
+    bool includeId = (bool)ViewBag.uiIncludeId;
+
+}
+
+@using (Html.BeginForm(new { id = "frmSubmit" }))
+{
+    @Html.AntiForgeryToken()
+
+    if (isReadOnly)
+    {
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-row">
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.CareerId)
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-control">
+                            @Html.DisplayFor(model => model.CareerId)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.Events_Desc)
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-control">
+                            @Html.DisplayFor(model => model.Events_Desc)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.EventRemarks)
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-control">
+                            @Html.DisplayFor(model => model.EventRemarks)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.DateEffective)
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-control">
+                            @Html.DisplayFor(model => model.DateEffective)
+                        </div>
+                    </div>
+                </div>
+
+                @if (FixedSettings.UseMFO)
+                {
+                    <div class="form-row">
+                        <div class="col-md-3">
+                            @Html.LabelFor(model => model.MFOId)
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-control">
+                                @Html.DisplayFor(model => model.MFO_Desc)
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                <div class="form-row">
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.Office.Office)
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-control">
+                            @Html.DisplayFor(model => model.Office.Campus.Campus)<br />
+                            @Html.DisplayFor(model => model.Office.Office)<br />
+                            <small>
+                                @Html.DisplayFor(model => model.Office.Campus.Address)
+                            </small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.Department)
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-control">
+                            @Html.DisplayFor(model => model.Department)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.Position)
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-control">
+                            @Html.DisplayFor(model => model.Position.Position)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.SalaryGrade)
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-control">
+                            @Html.DisplayFor(model => model.SalaryGrade)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.PositionLevel)
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-control">
+                            @Html.DisplayFor(model => model.PositionLevel)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.Rate)
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-control">
+                            @Html.DisplayFor(model => model.Rate)
+                            @if (Model.IsCustomRate)
+                            {
+                                <div class="subtitle">(Custom Rate)</div>
+                            }
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.EmploymentType)
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-control">
+                            @Html.DisplayFor(model => model.EmploymentType_Desc)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.IsFaculty)
+                        @if (Model.IsDesignated)
+                        {
+                            <br />
+                            <small>(with Designation)</small>
+                        }
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-control">
+                            @Html.DisplayBooleanFor(model => model.IsFaculty)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.Fund)
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-control">
+                            @Html.DisplayFor(model => model.Fund)
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-sm-6">
+
+                <div class="form-row">
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.EndEvent)
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-control">
+                            @Html.DisplayFor(model => model.EndEvent_Desc)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.EndEventDate)
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-control">
+                            @Html.DisplayFor(model => model.EndEventDate)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.EndEventRemarks)
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-control">
+                            @Html.DisplayFor(model => model.EndEventRemarks)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        //List<SelectListItem> offices = SelectItems.getOffices();
+        //List<Module.DB.tblDepartment> departments = coreApp.Cache.Get_Tables().Departments.Where(x => offices.Any(y => y.Value.Split(',')[y.Value.Split(',').Length > 1 ? 1 : 0] == x.OfficeId.ToString())).ToList();
+
+        @Html.HiddenFor(model => model.EmployeeId)
+        @Html.HiddenFor(model => model.CareerId)
+        @Html.HiddenFor(model => model.Events)
+
+        <div class="row">
+            <div class="col-sm-6">
+
+                @if (includeId)
+                {
+                    <div class="form-row">
+                        <div class="col-md-3">
+                            @Html.LabelFor(model => model.CareerId)
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-control dimmed">
+                                @Html.DisplayFor(model => model.CareerId)
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                <div class="form-row">
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.Events)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.Partial("_SelectCareerEvents")
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.EventRemarks)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.TextAreaFor(model => model.EventRemarks, new { @class = "form-control", maxlength = "200" })
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.DateEffective)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(model => model.DateEffective, "{0:MM/dd/yyyy}", new { @class = "form-control datepicker" })
+                    </div>
+                </div>
+
+                @if (FixedSettings.UseMFO)
+                {
+                    <div class="form-row">
+                        <div class="col-md-3">
+                            @Html.LabelFor(model => model.MFOId)
+                        </div>
+                        <div class="col-md-9">
+                            @Html.DropDownListFor(m => m.MFOId, coreApp.SelectItems.getMFOs(), new { @class = "form-control" })
+                        </div>
+                    </div>
+                }
+
+                @*<div class="form-row">
+                        <div class="col-md-3">
+                            @Html.LabelFor(model => model.Office)
+                        </div>
+                        <div class="col-md-9">
+                            <select id="OfficeId" name="OfficeId" class="form-control" data-department="#DepartmentId" data-department-value="@Model.DepartmentId">
+                                @foreach (var item in offices)
+                                {
+                                    if (Model.Office == null)
+                                    {
+                                        <option value="@item.Value.Split(',').Length > 1 ? 1 : 0]">@item.Text</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@item.Value.Split(',').Length > 1 ? 1 : 0]" @(item.Value == Model.Office.OfficeId.ToString() ? "selected" : "")>@item.Text</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="col-md-3">
+                            @Html.LabelFor(model => model.Department)
+                        </div>
+                        <div class="col-md-9">
+                            <select id="DepartmentId" name="DepartmentId" class="form-control">
+                                <option value="-1" data-officeid="-1"></option>
+                                @foreach (var item in departments)
+                                {
+                                    <option value="@item.OfficeId" data-officeid="@item.OfficeId" @(item.DepartmentId == Model.DepartmentId ? "selected" : "")>@item.Department</option>
+                                }
+                            </select>
+                        </div>
+                    </div>*@
+
+                <div class="form-row">
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.Campus)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.DropDownList("searchCampus", SelectItems.getCampuses(), new { @class = "form-control search-campusid", data_department = "#searchCareerOffice", data_office_value = "-1", @id = "careerCampus", @onchange = "filterCareerOffice()" })
+
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.Office)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.DropDownList("searchOffice", SelectItems.getOffices(), new { @class = "form-control search-officeid", data_department = "", data_department_value = "-1", @id = "careerOffice", @onchange = "filterCareerDepartment()" })
+
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.Department)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.DropDownListFor(model => model.DepartmentId, SelectItems.getDepartments("", departmentId == 0 || officeId == 0 ? true : false, departmentId == 0 || officeId == 0 ? "-1" : Model.Office.OfficeId + "," + Model.DepartmentId), new { @class = "form-control search-departmentid", @id = "careerDepartment" })
+
+                    </div>
+                </div>
+
+                <div class="setDepartment" onload="setDepartment(@departmentId, @officeId, @campusId)"></div>
+
+                <div class="form-row">
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.Position)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.DropDownListFor(m => m.PositionId, coreApp.SelectItems.getPositions(), new { @class = "form-control" })
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.SalaryGrade)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.DropDownListFor(m => m.SalaryGrade, coreApp.SelectItems.getSalaryGrades(), new { @class = "form-control" })
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.PositionLevel)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.DropDownListFor(m => m.PositionLevel, coreApp.SelectItems.getMaxLevel(8), new { @class = "form-control" })
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.CustomRate)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(model => model.CustomRate, new { @class = "form-control" })
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.EmploymentType)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.DropDownListFor(m => m.EmploymentType, coreApp.SelectItems.getEmploymentType(), new { @class = "form-control" })
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.IsDesignated)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.Partial("_Helper_CheckBox", "IsDesignated", new ViewDataDictionary { { "value", Model.IsDesignated } })
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.Fund)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(model => model.Fund, new { @class = "form-control" })
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-sm-6">
+                <div class="form-row">
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.EndEvent)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.DropDownListFor(m => m.EndEvent, coreApp.SelectItems.getCareerEvents(true), new { @class = "form-control" })
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.EndEventDate)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(model => model.EndEventDate, "{0:MM/dd/yyyy}", new { @class = "form-control datepicker" })
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.EndEventRemarks)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.TextAreaFor(model => model.EndEventRemarks, new { @class = "form-control", maxlength = "200" })
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    }
+
+}
+
+<script>
+
+    $(function () {
+        $('div.setDepartment').trigger('onload');
+    });
+
+</script>
+

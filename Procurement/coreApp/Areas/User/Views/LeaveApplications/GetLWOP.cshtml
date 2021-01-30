@@ -1,0 +1,15 @@
+﻿@model List<coreApp.DAL.leaveEntryModel>
+
+
+@{
+    int i = 0;
+    foreach (var item in Model)
+    {
+        i++;
+
+        <div class="lwop-item" data-lwop="@Newtonsoft.Json.JsonConvert.SerializeObject(item)">
+            @Html.Partial("_Helper_CheckBox", "WOPay" + i, new ViewDataDictionary { { "value", true }, { "text", item.Date_Desc } })
+        </div>
+        <br />
+    }
+}

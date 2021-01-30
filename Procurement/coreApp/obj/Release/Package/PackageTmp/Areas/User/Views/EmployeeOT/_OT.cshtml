@@ -1,0 +1,277 @@
+﻿@model Module.DB.tblEmployee_OT
+
+@{
+    bool isReadOnly = (bool)ViewBag.uiIsReadOnly;
+    bool includeId = (bool)ViewBag.uiIncludeId;
+
+    Module.DB.tblOTApplication application = Model.GetApplication();
+}
+
+@Html.Hidden("FromApplication", application != null)
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    if (isReadOnly)
+    {
+        <div class="form-row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.Id)
+            </div>
+            <div class="col-md-9">
+                <div class="form-control">
+                    @Html.DisplayFor(model => model.Id)
+                </div>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.Description)
+            </div>
+            <div class="col-md-9">
+                <div class="form-control">
+                    @Html.DisplayFor(model => model.Description)
+                </div>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.InclusiveDays)
+            </div>
+            <div class="col-md-9">
+                <div class="form-control">
+                    @Html.DisplayFor(model => model.InclusiveDays)
+                </div>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.TimeIn)
+            </div>
+            <div class="col-md-9">
+                <div class="form-control">
+                    @Html.Partial("_Helper_SegmentTime", Model, new ViewDataDictionary { { "IsTimeIn", true } })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.TimeOut)
+            </div>
+            <div class="col-md-9">
+                <div class="form-control">
+                    @Html.Partial("_Helper_SegmentTime", Model, new ViewDataDictionary { { "IsTimeIn", false } })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.SkipLastLog)
+            </div>
+            <div class="col-md-9">
+                <div class="form-control">
+                    @Html.DisplayBooleanFor(model => model.SkipLastLog)
+                </div>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.OTRateOnly)
+            </div>
+            <div class="col-md-9">
+                <div class="form-control">
+                    @Html.DisplayBooleanFor(model => model.OTRateOnly)
+                </div>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.Breaks)
+            </div>
+            <div class="col-md-9">
+                <div class="form-control">
+                    @Html.DisplayFor(model => model.Breaks)
+                </div>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.Days)
+            </div>
+            <div class="col-md-9">
+                <div class="form-control">
+                    @Html.DisplayFor(model => model.Days)
+                </div>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.Remarks)
+            </div>
+            <div class="col-md-9">
+                <div class="form-control">
+                    @Html.DisplayMultiLineFor(model => model.Remarks)
+                </div>
+            </div>
+        </div>
+
+        if (application == null)
+        {
+            <div class="form-row">
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.CreateDate)
+                </div>
+                <div class="col-md-9">
+                    <div class="form-control">
+                        @Html.DisplayFor(model => model.CreateDate)
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="form-row">
+                <div class="col-md-3">
+                    @Html.LabelFor(model => application.ApprovedBy)
+                </div>
+                <div class="col-md-9">
+                    <div class="form-control">
+                        @Html.DisplayFor(model => application.ApprovedBy)
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="col-md-3">
+                    @Html.LabelFor(model => application.ApproveDate)
+                </div>
+                <div class="col-md-9">
+                    <div class="form-control">
+                        @Html.DisplayFor(model => application.ApproveDate)
+                    </div>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        @Html.HiddenFor(model => model.Id)
+        @Html.HiddenFor(model => model.EmployeeId)
+        @Html.Hidden("StartDate")
+        @Html.Hidden("EndDate")
+
+        if (includeId)
+        {
+            <div class="form-row">
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.Id)
+                </div>
+                <div class="col-md-9">
+                    <div class="form-control dimmed">
+                        @Html.DisplayFor(model => model.Id)
+                    </div>
+                </div>
+            </div>
+        }
+
+        <div class="form-row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.Description)
+            </div>
+            <div class="col-md-9">
+                @Html.TextBoxFor(model => model.Description, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-md-3">
+                Period
+            </div>
+            <div class="col-md-9">
+                @Html.Partial("_Helper_Period", new coreLib.Objects.PeriodModel(Model.StartDate, Model.EndDate), new ViewDataDictionary { { "clientCallback", "applyPeriod" }, { "class", "form-control" } })
+            </div>
+        </div>
+
+        @Html.Partial("_Helper_SegmentTimeEdit")
+
+        <div class="form-row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.MustTimeIn)
+            </div>
+            <div class="col-md-9">
+                @Html.Partial("_Helper_CheckBox", "MustTimeIn", new ViewDataDictionary { { "value", Model.MustTimeIn } })
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.MustTimeOut)
+            </div>
+            <div class="col-md-9">
+                @Html.Partial("_Helper_CheckBox", "MustTimeOut", new ViewDataDictionary { { "value", Model.MustTimeOut } })
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.SkipLastLog)
+            </div>
+            <div class="col-md-9">
+                @Html.Partial("_Helper_CheckBox", "SkipLastLog", new ViewDataDictionary { { "value", Model.SkipLastLog } })
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.OTRateOnly)
+            </div>
+            <div class="col-md-9">
+                @Html.Partial("_Helper_CheckBox", "OTRateOnly", new ViewDataDictionary { { "value", Model.OTRateOnly } })
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.Breaks)
+            </div>
+            <div class="col-md-9">
+                <div class="input-group">
+                    @Html.TextBoxFor(model => model.Breaks, new { @class = "form-control" })
+                    <div class="input-group-addon">
+                        Hours
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.Days)
+            </div>
+            <div class="col-md-9">
+                @Html.Partial("_Helper_Days")
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.Remarks)
+            </div>
+            <div class="col-md-9">
+                @Html.TextAreaFor(m => m.Remarks, new { @class = "form-control" })
+            </div>
+        </div>
+
+
+    }
+}

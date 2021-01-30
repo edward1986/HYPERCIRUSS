@@ -1,0 +1,195 @@
+﻿@model List<coreApp.Areas.Procurement.DAL.tblMOP>
+@using coreLib.Extensions
+@{
+    int PRId = (int)ViewBag.PRId;
+    string PRDescription = (string)ViewBag.PRDescription;
+    int PRYear = (int)ViewBag.PRYear;
+    Breadcrumb BC = (Breadcrumb)ViewBag.BC;
+    string ControllerName = (string)ViewBag.ControllerName;
+
+
+    ViewBag.Title = "Set Modes of Procurement";
+
+    List<coreApp.Areas.Procurement.DAL.tblMOP> consolidated = Model;
+    bool readOnly = false; //Model.apr.HasBeenIncludedInSubmittedAgencyPR();
+}
+
+@section Breadcrumbs {
+    @Html.Partial("_Breadcrumbs", new List<Breadcrumb>()
+        {
+            new Breadcrumb { Description = "Procurement" },
+            BC,
+            new Breadcrumb { Description = ViewBag.Title }
+        })
+}
+
+@section Styles {
+    <style>
+        .pr-info td {
+            padding: 2px 5px;
+        }
+
+        .mop {
+            width: 300px;
+            text-align: center
+        }
+
+        .rightaligned {
+            text-align: right;
+        }
+    </style>
+}
+
+@section Scripts {
+    <script>
+        var prId = @PRId;
+        var oTable;
+
+        function prepDone(table) {
+            oTable = table;
+        }
+
+        function tableBind(obj) {
+
+        }
+
+        function clearEntries() {
+            modalConfirm('Are you sure you want to clear all entries?', function (ret) {
+                if (ret) {
+                    update(true);
+                }
+            });
+        }
+
+        function updateEntries() {
+            modalConfirm('Are you sure you want to update all items?', function (ret) {
+                if (ret) {
+                    update(false);
+                }
+            });
+        }
+
+        function update(clear) {
+            var link = '@Url.Action("MOP_Update", ControllerName)';
+            var cat = [];
+            var err = [];
+
+            if (!clear) {
+                var obj = $('.main-list');
+
+                var nodes = oTable.rows().nodes();
+
+                for (var i = 0; i < nodes.length; i++) {
+                    var tr = $(nodes[i]);
+                    var dd = tr.find('.dd-mop');
+                    var cb = tr.find('.cbAllowpartial');
+
+                    var item = {
+                        PRId: prId,
+                        CategoryId: tr.attr('data-categoryid'),
+                        ModeOfProcurement: dd.val(),
+                        AllowPartial: cb.prop('checked')
+                    };
+
+                    cat.push(item);
+                };
+            }
+
+            if (err.length > 0) {
+                modalMessage(err, 'Update Items', true);
+            } else {
+
+                $.post(link, { id: prId, isClear: clear, data: cat }, function (res) {
+                    if (res.IsSuccessful) {
+                        sessionStorage.clientMessage = res.Remarks;
+                        window.location.reload(true);
+                    } else {
+                        modalMessage(res.Err.split('\n'), 'Update Items', true);
+                    }
+                }, 'json');
+
+            }
+        }
+
+    </script>
+}
+
+<div class="block">
+    <div class="card">
+        <div class="card-header">
+            <h5>@ViewBag.Title</h5>
+            @if (readOnly)
+            {
+                <div class="alert alert-info text-center">
+                    [Read Only]
+                </div>
+            }
+            else
+            {
+                <div class="card-header-right">
+                    <div class="btn-group card-option">
+                        <div class="btn-group-sm header-button">
+                            <button class="btn btn-primary btn-clean btn-update" onclick="updateEntries()">Update</button>
+                            <button class="btn btn-danger btn-clean btn-clear" onclick="clearEntries()">Clear Entries</button>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="card-body">
+            <div class="pr-info">
+                <table>
+                    <tbody>
+                        <tr><td>Description</td><td>:</td><td>@PRDescription</td></tr>
+                        <tr><td>Year</td><td>:</td><td>@PRYear</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <br />
+            @Html.Hidden("Ids", string.Join(",", consolidated.Select(x => x.Id)))
+            <div class="dt-responsive table-responsive">
+                <table class="display table table-bordered table-striped table-list main-list" event-tablebind="tableBind" event-settables-done="prepDone" cellspacing="0" width="100%"
+                       modal-target="#modalView">
+                    <thead>
+                        <tr>
+                            <th>
+                                Category
+                            </th>
+                            <th class="rightaligned">
+                                Amount
+                            </th>
+                            <th class="mop">
+                                Mode of Procurement
+                            </th>
+                            <th>
+                                Allow Partial
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (coreApp.Areas.Procurement.DAL.tblMOP _item in Model)
+                        {
+
+                            <tr record-id="@_item.Id" data-categoryid="@_item.CategoryId" locked>
+                                <td>
+                                    @Html.DisplayFor(modelItem => _item.Category_Desc)
+                                </td>
+                                <td class="rightaligned">
+                                    @Html.DisplayFor(modelItem => _item._Amount)
+                                </td>
+                                <td class="mop">
+                                    @Html.DropDownListFor(m => _item.CategoryId, coreApp.Areas.Procurement.SelectItems.getModesOfProcurement("[Not Set]", _item.ModeOfProcurement), new { @class = "form-control dd-mop" })
+                                </td>
+                                <td>
+                                    @Html.Partial("_Helper_CheckBox", null, new ViewDataDictionary { { "name", "allowPartial" }, { "value", _item.AllowPartial == true }, { "class", "cbAllowpartial" }, { "data-item", _item.CategoryId } })
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@Html.Partial("~/Views/Shared/modals/_ModalView.cshtml", "modalView")

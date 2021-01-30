@@ -1,0 +1,127 @@
+﻿@model Module.DB.tblEmployeeOverload
+
+@{
+    bool isReadOnly = (bool)ViewBag.uiIsReadOnly;
+    bool includeId = (bool)ViewBag.uiIncludeId;
+
+}
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    if (isReadOnly)
+    {
+        <div class="row">
+            <div class="form-row">
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.OverloadTypes)
+                </div>
+                <div class="col-md-9">
+                    <div class="form-control">
+                        @Html.DisplayFor(model => model.OverloadTypes)
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.Date_Desc)
+                </div>
+                <div class="col-md-9">
+                    <div class="form-control">
+                        @Html.DisplayFor(model => model.Date_Desc)
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.HourlyRate)
+                </div>
+                <div class="col-md-3">
+                    <div class="form-control">
+                        @Html.DisplayFor(model => model.HourlyRate)
+
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.HoursPerWeek)
+                </div>
+                <div class="col-md-3">
+                    <div class="form-control">
+                        @Html.DisplayFor(model => model.HoursPerWeek)
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.TotalHours)
+                </div>
+                <div class="col-md-3">
+                    <div class="form-control">
+                        @Html.DisplayFor(model => model.TotalHours)
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        @Html.HiddenFor(model => model.EmployeeID)
+        @Html.HiddenFor(model => model.OverloadID)
+        @Html.HiddenFor(model => model.StartDate)
+        @Html.HiddenFor(model => model.EndDate)
+
+        <div class="row">
+            <div class="form-row">
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.OverloadType)
+                </div>
+                <div class="col-md-9">
+                    @Html.DropDownListFor(m => m.OverloadType, coreApp.SelectItems.getOverloadTypes(), new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-md-3">
+                    Period
+                </div>
+                <div class="col-md-9">
+                    @Html.Partial("_Helper_Period", new coreLib.Objects.PeriodModel(Model.StartDate, Model.EndDate), new ViewDataDictionary { { "clientCallback", "applyPeriod" }, { "class", "form-control" } })
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.HourlyRate)
+                </div>
+                <div class="col-md-3">
+                    @Html.TextBoxFor(model => model.HourlyRate, new { @class = "form-control" })
+
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.HoursPerWeek)
+                </div>
+                <div class="col-md-3">
+                    @Html.TextBoxFor(model => model.HoursPerWeek, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.TotalHours)
+                </div>
+                <div class="col-md-3">
+                    @Html.TextBoxFor(model => model.TotalHours, new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+
+    }
+}
+
+<script>
+    $(window).load(function () {
+        $('textarea').unbind();
+    });
+</script>

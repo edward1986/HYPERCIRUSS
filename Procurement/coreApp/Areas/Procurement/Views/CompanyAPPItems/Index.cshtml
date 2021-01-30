@@ -1,0 +1,304 @@
+﻿@model coreApp.Areas.Procurement.DAL.tblAPP
+@using coreLib.Extensions
+@using coreLib.Objects
+
+@{
+    ViewBag.Title = "APP Items";
+
+    bool fromAPR = false;
+    if (Session["FromAPR"] != null)
+    {
+        fromAPR = (bool)Session["FromAPR"];
+    }
+
+    bool isCompany = HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString() == "CompanyAPPItems";
+
+    List<SelectListItemExt> ppmps = (List<SelectListItemExt>)ViewBag.PPMPs;
+    List<SelectListItem> inDBM = (List<SelectListItem>)ViewBag.InDBM;
+    List<SelectListItem> categories = (List<SelectListItem>)ViewBag.Categories;
+    List<SelectListItem> months = (List<SelectListItem>)ViewBag.Months;
+
+    ViewBag.appId = Model.Id;
+}
+
+@section Breadcrumbs {
+    @Html.Partial("_Breadcrumbs", new List<Breadcrumb>()
+    {
+        new Breadcrumb { Description = "Procurement" },
+        fromAPR ? new Breadcrumb { Description = "APRs", Link = Url.Action("Index", "CompanyAPR", new { area = "Procurement", year = Model.Year }) } :
+                new Breadcrumb { Description = "APP", Link = Url.Action("Index", "CompanyAPP", new { area = "Procurement", year = Model.Year }) },
+        new Breadcrumb { Description = ViewBag.Title }
+    })
+}
+
+@section Styles {
+    <link href="~/Areas/Procurement/Assets/css/common.less" rel="stylesheet" type="text/css">
+    <link href="~/Areas/Procurement/Assets/css/itemlist.less" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="~/Assets/nextro/assets/css/plugins/bootstrap-datepicker3.min.css">
+}
+
+@section Scripts {
+
+    <script>
+        var appId = @Model.Id;
+        var isCompany = true;
+        var dialogIsReadOnly = true;
+        var mainListUrl = '@Url.Action("MainList_Company", new { appId = Model.Id, year = Model.Year })';
+        var itemListUrl = '@Url.Action("ItemList", new { appId = Model.Id, year = Model.Year })';
+        var saveItemUrl = '@Url.Action("SaveItem", new { appId = Model.Id })';
+        var deleteItemUrl = '@Url.Action("DeleteItem", new { appId = Model.Id })';
+        var clearItemsUrl = '@Url.Action("ClearItems", new { appId = Model.Id })';
+        var submitUrl = '@Url.Action("Submit", "CompanyAPP", new { year = Model.Year, id = Model.Id })';
+        var printUrl = '@Url.Action("Print", "CompanyAPP", new { year = Model.Year, id = Model.Id })';
+        var importItemsUrl = '@Url.Action("ImportItems", new { appId = Model.Id })';
+        var removeConsolidatedItemUrl = '@Url.Action("RemoveConsolidatedItem", new { appId = Model.Id })';
+        var removeCategoryUrl = '@Url.Action("RemoveCategory", new { appId = Model.Id })';
+        var removeMonthUrl = '@Url.Action("RemoveMonth", new { appId = Model.Id })';
+
+        function tableBind(obj) {
+            setItemUI();
+        }
+
+        function setItemUI() {
+
+            var printBtn = $('.btn-print');
+            var submitBtn = $('.btn-submit');
+
+            if (hasConflicts) {
+                printBtn.hide();
+                submitBtn.hide();
+            } else {
+                printBtn.show();
+                //submitBtn.show();
+            }
+        }
+
+        function load(e) {
+            if (e.viewType == 'view') {
+
+                var editBtn = e.modal.find('.btn-edit');
+                var deleteBtn = e.modal.find('.btn-delete');
+
+                var hasBeenSubmitted = "@Model.HasBeenSubmitted";
+
+                if (hasBeenSubmitted == "True") {
+                    editBtn.hide();
+                    deleteBtn.hide();
+                } else {
+                    editBtn.show();
+                    deleteBtn.hide();
+                };
+            };
+        }
+
+
+    </script>
+
+    <script type="text/javascript" src="~/Areas/Procurement/Assets/js/objects.js"></script>
+    <script type="text/javascript" src="~/Areas/Procurement/Assets/js/pagestart.js"></script>
+    <script src="~/Assets/nextro/assets/js/plugins/bootstrap-datepicker.min.js"></script>
+}
+
+
+<div class="mainlist-cont @(Model.HasBeenSubmitted ? "submitted" : "")"></div>
+
+@Html.Partial("_ItemQty")
+
+@Html.Partial("_AppItems", Model.AppItems)
+
+<div class="modal fade" id="modalImport" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title"></h6>
+
+            </div>
+            <div class="modal-body">
+                <div class="ppmp-select">
+                    @if (!Model.HasBeenSubmitted)
+                    {
+                        <div class="form-row">
+                            <div class="col-sm">
+                                <table class="display table table-bordered table-striped table-list selection-list static-table">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                @Html.Partial("_Helper_CheckBox", null, new ViewDataDictionary { { "name", "SelectAll" }, { "value", !ppmps.Any(x => !x.Selected) }, { "class", "selectall" } })
+                                            </th>
+                                            @if (isCompany)
+                                            {
+                                                <th>
+                                                    Office
+                                                </th>
+                                                <th>
+                                                    Description
+                                                </th>
+                                                @*<th>
+                                        Fund
+                                    </th>*@
+                                            }
+                                            else
+                                            {
+                                                <th>
+                                                    Department
+                                                </th>
+                                                <th>
+                                                    Description
+                                                </th>
+                                            }
+
+                                            <th>
+                                                Submitted By
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in ppmps)
+                                        {
+                                            coreApp.Areas.Procurement.DAL.tblPPMP ppmp = (coreApp.Areas.Procurement.DAL.tblPPMP)item.Data["ppmp"];
+
+                                            <tr locked>
+                                                <td style="text-align:center;width:50px">
+                                                    @Html.Partial("_Helper_CheckBox", null, new ViewDataDictionary { { "name", "PPMP" }, { "value", item.Selected }, { "class", "selectitem" }, { "data-item", ppmp.Id } })
+                                                </td>
+                                                @*@if (isCompany)
+                                    {
+                                        <td>
+                                            @Html.DisplayFor(modelItem => ppmp.Office.Office)
+                                        </td>
+                                        <td>
+                                            @ppmp.Description
+                                        </td>
+                                        <td>
+                                            @ppmp.Fund.Fund
+                                        </td>
+                                    }
+                                    else
+                                    {*@
+                                                <td>
+                                                    @*@Html.DisplayFor(modelItem => ppmp.Department.Department)<br />*@
+                                                    @Html.DisplayFor(modelItem => ppmp.Office.Office)
+                                                </td>
+                                                <td>
+                                                    @ppmp.Description
+                                                </td>
+                                                @*}*@
+
+                                                <td style="width:250px">
+                                                    @Html.DisplayFor(modelItem => ppmp.SubmittedBy)<br />
+                                                    @Html.DisplayFor(modelItem => ppmp.SubmitDate)
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-sm-2">
+                                <table class="display table table-bordered table-striped table-list indbm-list static-table">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                @Html.Partial("_Helper_CheckBox", null, new ViewDataDictionary { { "name", "InDBMSelectAll" }, { "value", !inDBM.Any(x => !x.Selected) }, { "class", "selectall" } })
+                                            </th>
+                                            <th>
+                                                In DBM
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in inDBM)
+                                        {
+                                            <tr locked>
+                                                <td style="text-align:center;width:50px">
+                                                    @Html.Partial("_Helper_CheckBox", null, new ViewDataDictionary { { "name", "InDBM" }, { "value", item.Selected }, { "class", "selectitem" }, { "data-item", int.Parse(item.Value) } })
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.Text)
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="col-sm-8">
+                                <table class="display table table-bordered table-striped table-list category-list static-table">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                @Html.Partial("_Helper_CheckBox", null, new ViewDataDictionary { { "name", "CategorySelectAll" }, { "value", !categories.Any(x => !x.Selected) }, { "class", "selectall" } })
+                                            </th>
+                                            <th>
+                                                Category
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in categories)
+                                        {
+                                            <tr locked>
+                                                <td style="text-align:center;width:50px">
+                                                    @Html.Partial("_Helper_CheckBox", null, new ViewDataDictionary { { "name", "Category" }, { "value", item.Selected }, { "class", "selectitem" }, { "data-item", int.Parse(item.Value) } })
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.Text)
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="col-sm-2">
+                                <table class="display table table-bordered table-striped table-list period-list static-table">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                @Html.Partial("_Helper_CheckBox", null, new ViewDataDictionary { { "name", "PeriodSelectAll" }, { "value", !months.Any(x => !x.Selected) }, { "class", "selectall" } })
+                                            </th>
+                                            <th>
+                                                Month
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in months)
+                                        {
+                                            <tr locked>
+                                                <td style="text-align:center;width:50px">
+                                                    @Html.Partial("_Helper_CheckBox", null, new ViewDataDictionary { { "name", "Period" }, { "value", item.Selected }, { "class", "selectitem" }, { "data-item", int.Parse(item.Value) } })
+                                                </td>
+                                                <td>
+                                                    @item.Text
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    }
+
+                </div>
+            </div>
+            <div class="modal-footer btn-group-sm">
+                <button type="button" class="btn btn-default btn-clean btn-cancel" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary btn-clean btn-ok">Ok</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<style>
+
+    .modal-content {
+        border: none;
+        width: 70em;
+        margin: auto;
+    }
+</style>
+
+@Html.Partial("~/Views/Shared/modals/_ModalView.cshtml", "modalView")
+

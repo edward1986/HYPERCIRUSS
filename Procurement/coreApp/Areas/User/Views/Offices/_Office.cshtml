@@ -1,0 +1,116 @@
+﻿@model Module.DB.tblOffice
+
+@{
+    bool isReadOnly = (bool)ViewBag.uiIsReadOnly;
+    bool includeId = (bool)ViewBag.uiIncludeId;
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    if (isReadOnly)
+    {
+        <div class="form-row">
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.OfficeId)
+            </div>
+            <div class="col-md-8">
+                <div class="form-control">
+                    @Html.DisplayFor(model => model.OfficeId)
+                </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.Office)
+            </div>
+            <div class="col-md-8">
+                <div class="form-control">
+                    @Html.DisplayFor(model => model.Office)
+                </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.ShortName)
+            </div>
+            <div class="col-md-8">
+                <div class="form-control">
+                    @Html.DisplayFor(model => model.ShortName)
+                </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.TelephoneNo)
+            </div>
+            <div class="col-md-8">
+                <div class="form-control">
+                    @Html.DisplayFor(model => model.TelephoneNo)
+                </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.RCC)
+            </div>
+            <div class="col-md-8">
+                <div class="form-control">
+                    @Html.DisplayFor(model => model.RCC)
+                </div>
+            </div>
+        </div>        
+    }
+    else
+    {
+        @Html.HiddenFor(model => model.OfficeId)
+        @Html.HiddenFor(model => model.CampusID)
+
+        if (includeId)
+        {
+            <div class="form-row">
+                <div class="col-md-4">
+                    @Html.LabelFor(model => model.OfficeId)
+                </div>
+                <div class="col-md-8">
+                    <div class="form-control dimmed">
+                        @Html.DisplayFor(model => model.OfficeId)
+                    </div>
+                </div>
+            </div>
+        }
+        <div class="form-row">
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.Office)
+            </div>
+            <div class="col-md-8">
+                @Html.TextBoxFor(model => model.Office, new { @class = "form-control", maxlength = "200" })
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-4">
+                <label>Short Name</label>
+            </div>
+            <div class="col-md-8">
+                @Html.TextBoxFor(model => model.ShortName, new { @class = "form-control", maxlength = "200" })
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.TelephoneNo)
+            </div>
+            <div class="col-md-8">
+                @Html.TextBoxFor(model => model.TelephoneNo, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.RCC)
+            </div>
+            <div class="col-md-8">
+                @Html.TextBoxFor(model => model.RCC, new { @class = "form-control" })
+            </div>
+        </div>      
+    }
+}
