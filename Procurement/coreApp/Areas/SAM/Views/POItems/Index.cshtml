@@ -43,16 +43,7 @@
         }
 
         $('#modalView').on('shown.bs.modal', function () {
-            var button = document.createElement('input');
-            button.setAttribute('type', 'submit');
-            button.setAttribute('ID', 'btnSendMailClone');
-            button.setAttribute('value', 'Submit');
-            button.setAttribute('onclick', 'btnSendMail_Click()');
-            button.setAttribute('form', 'myform');
-            @*document.body.appendChild(button);
-            button.setAttribute("class", "btn btn-primary");
-            $('#button').addClass('myClass');
-            $('#btnSendMailClone').addClass('center')
+            
 
             $('.chosen-select', this).chosen('destroy').chosen({
                 width: "95%",
