@@ -41,28 +41,69 @@
 
             return e;
         }
-
+        var chosenModal = $('#chosenModal')
         $('#modalView').on('shown.bs.modal', function () {
-            
+
 
             $('.chosen-select', this).chosen('destroy').chosen({
                 width: "95%",
-                no_results_text: "No result found. Press enter to add "
+                no_results_text: "No result found. Press TAB to add "
             }).on('chosen:no_results', function (evt, data) {
                 jQuery(data.chosen.container).on('keydown', function (event) {
-                    if (13 == event.keyCode && !jQuery(data.chosen.form_field).find('option[value="' + data.chosen.get_search_text() + '"]').length) {
-                        event.preventDefault();
-                        jQuery(data.chosen.form_field).append('<option value="' + data.chosen.get_search_text() + '" selected>' + data.chosen.get_search_text() + '</option>');
+
+                    if (9 == event.keyCode && !jQuery(data.chosen.form_field).find('option[value="' + data.chosen.get_search_text() + '"]').length) {
+                        chosenModal.modal("show")
+                        @*jQuery(data.chosen.form_field).append('<option value="' + data.chosen.get_search_text() + '" selected>' + data.chosen.get_search_text() + '</option>');
                         jQuery(data.chosen.form_field).trigger('chosen:updated');
-                        data.chosen.result_highlight = data.chosen.search_results.find('li.active-result').lasteturn;
-                        data.chosen.result_select(evt);
+                        data.chosen.result_highlight = data.chosen.search_results.find('li.active-result').lastreturn;
+                        data.chosen.result_select(evt);*@
                     }
                 });
             });
         });
+
+
+
+
+      @* $.ajax({
+            type: "POST",
+            url: '@Url.Action("Create", "Items")',
+            data: '{ Name: "A", Description: "Lorem Ipsum", CategoryId: 94, UnitId: 1078, Year: 2021, InDBM: 1, OrigPrice: 1078 }',
+            contentType: "application/json; charset=utf-8",
+            success: function (response) {
+
+
+            },
+            failure: function (response) {
+                alert(response.responseText);
+            },
+            error: function (response) {
+                alert(response.responseText);
+            }
+        });*@
+
+
     </script>
 }
-
+<div id="chosenModal" style="z-index: 1150;" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Modal body text goes here.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="block">
     <div class="card">
         <div class="card-header">
