@@ -57,7 +57,7 @@
         $('#modalView').on('shown.bs.modal', function () {
 
 
-            $('.chosen-select', this).chosen('destroy').chosen({
+            $('.chosen-select').chosen('destroy').chosen({
                 no_results_text: "No result found. Press TAB to add "
             }).on('chosen:no_results', function (evt, data) {
                 jQuery(data.chosen.container).on('keydown', function (event) {
