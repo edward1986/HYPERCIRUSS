@@ -81,25 +81,19 @@
                                 $("#bodyToast").text(data.Err == "" ? data.Remarks : data.Err)
                                 chosenToast.toast('show')
                                 if (data.IsSuccessful) {
+                                    $("[name='Name']").val("");
+                                    $("[name='Description']").val("");
+                                    $("[name='CategoryId']").val("");
+                                    $("[name='UnitId']").val("");
+                                    $("[name='Year']").val("");
+                                    $("[name='InDBM']").val("");
+                                    $("[name='OrigPrice']").val("");
                                     chosenModal.modal("hide")
                                     $('#Procurement_ItemId').append('<option value="' + data.Data + '" selected="selected">' + Name + '</option>');
                                     $('#Procurement_ItemId').trigger("chosen:updated");
                                 }
                                 
                             }, "json");
-
-
-                            @*jQuery(data.chosen.form_field).append('<option value="' + data.chosen.get_search_text() + '" selected>' + data.chosen.get_search_text() + '</option>');
-                            jQuery(data.chosen.form_field).trigger('chosen:updated');
-                            data.chosen.result_highlight = data.chosen.search_results.find('li.active-result').lastreturn;
-                            data.chosen.result_select(evt);
-                            $("[name='Name']").val("");
-                            $("[name='Description']").val("");
-                            $("[name='CategoryId']").val("");
-                            $("[name='UnitId']").val("");
-                            $("[name='Year']").val("");
-                            $("[name='InDBM']").val("");
-                            $("[name='OrigPrice']").val("");*@
                         });
 
                     }
