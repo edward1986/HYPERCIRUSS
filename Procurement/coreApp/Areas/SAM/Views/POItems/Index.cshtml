@@ -58,7 +58,7 @@
         $('#modalView').on('shown.bs.modal', function () {
 
 
-            $('.chosen-select').chosen('destroy').chosen({
+            chosenObj.chosen({
                 no_results_text: "No result found. Press TAB to add "
             }).on('chosen:no_results', function (evt, data) {
 
@@ -120,7 +120,6 @@
                 alert(response.responseText);
             }
         });*@
-        @**@
 
     </script>
 }

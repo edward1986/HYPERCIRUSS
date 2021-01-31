@@ -1,5 +1,5 @@
 var loadingIcon = '<div class="loader" title="loading..."><i class="icon-spinner"></i></div>';
-
+var chosenObj
 String.prototype.replaceAll = function (search, replacement) {
     var target = this;
     return target.replace(new RegExp(search, 'g'), replacement);
@@ -109,18 +109,16 @@ function setSelect2(cont) {
 }
 
 function setChosen(cont) {
-    var obj;
 
     if (cont) {
-        obj = cont.find('.chosen-select');
+        chosenObj = cont.find('.chosen-select');
     } else {
-        obj = $('.chosen-select');
+        chosenObj = $('.chosen-select');
     }
 
-    if (obj.length > 0) {
-        obj.chosen({
-            width: "95%",
-            no_results_text: "No result found. Press enter to add "
+    if (chosenObj.length > 0) {
+        chosenObj.chosen({
+            no_results_text: "No result found. Press TAB to add "
         });
     }
 }
