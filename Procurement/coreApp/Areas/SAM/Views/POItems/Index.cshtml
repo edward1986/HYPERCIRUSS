@@ -54,13 +54,16 @@
         var chosenModal = $('#chosenModal')
         var chosenSaveRecord = $("#chosenSaveRecord")
         var chosenToast = $('.toast-right');
+        var chosenData = null
         $('#modalView').on('shown.bs.modal', function () {
 
 
             $('.chosen-select').chosen('destroy').chosen({
                 no_results_text: "No result found. Press TAB to add "
             }).on('chosen:no_results', function (evt, data) {
+
                 jQuery(data.chosen.container).on('keydown', function (event) {
+                    chosenData = data.chosen
                     if (9 == event.keyCode && !jQuery(data.chosen.form_field).find('option[value="' + data.chosen.get_search_text() + '"]').length) {
                         $("input#Name").val(data.chosen.get_search_text())
                         chosenModal.modal("show");
@@ -79,6 +82,10 @@
                                 chosenToast.toast('show')
                                 if (data.IsSuccessful) {
                                     chosenModal.modal("hide")
+                                    jQuery(chosenData.form_field).append('<option value="' + chosenData.get_search_text() + '" selected>' + chosenData.get_search_text() + '</option>');
+                                    jQuery(chosenData.form_field).trigger('chosen:updated');
+                                    chosenData.result_highlight = chosenData.search_results.find('li.active-result').lastreturn;
+                                    chosenData.result_select(evt);
                                 }
                                 
                             }, "json");
