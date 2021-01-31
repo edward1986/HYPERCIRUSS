@@ -95,7 +95,7 @@ namespace coreApp.Areas.SAM.Controllers
 
                         context.tblItems.InsertOnSubmit(item);
                         context.SubmitChanges();
-
+                        res.Data = item;
                         res.Remarks = "Record was successfully created";
                     }
                     else
