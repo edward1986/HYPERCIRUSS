@@ -21,6 +21,16 @@
 
 @section Scripts {
     <script>
+
+        $(document).on('show.bs.modal', '.modal', function (event) {
+            var zIndex = 1040 + (10 * $('.modal:visible').length);
+            $(this).css('z-index', zIndex);
+            setTimeout(function () {
+                $('.modal-backdrop').not('.modal-stack').css('z-index', zIndex - 1).addClass('modal-stack');
+            }, 0);
+        });
+
+
         function load(e) {
 
             if (e.viewType == 'view') {
@@ -42,21 +52,51 @@
             return e;
         }
         var chosenModal = $('#chosenModal')
+        var chosenSaveRecord = $("#chosenSaveRecord")
+        var chosenToast = $('.toast-right');
         $('#modalView').on('shown.bs.modal', function () {
 
 
             $('.chosen-select', this).chosen('destroy').chosen({
-                width: "95%",
                 no_results_text: "No result found. Press TAB to add "
             }).on('chosen:no_results', function (evt, data) {
                 jQuery(data.chosen.container).on('keydown', function (event) {
-
                     if (9 == event.keyCode && !jQuery(data.chosen.form_field).find('option[value="' + data.chosen.get_search_text() + '"]').length) {
-                        chosenModal.modal("show")
-                        @*jQuery(data.chosen.form_field).append('<option value="' + data.chosen.get_search_text() + '" selected>' + data.chosen.get_search_text() + '</option>');
-                        jQuery(data.chosen.form_field).trigger('chosen:updated');
-                        data.chosen.result_highlight = data.chosen.search_results.find('li.active-result').lastreturn;
-                        data.chosen.result_select(evt);*@
+                        $("input#Name").val(data.chosen.get_search_text())
+                        chosenModal.modal("show");
+                        chosenSaveRecord.on("click", function (event) {
+                            var token = $("[name='__RequestVerificationToken']").val();
+                            var Name = $("[name='Name']").val();
+                            var Description = $("[name='Description']").val();
+                            var CategoryId = $("[name='CategoryId']").val();
+                            var UnitId = $("[name='UnitId']").val();
+                            var Year = $("[name='Year']").val();
+                            var InDBM = $("[name='InDBM']").val();
+                            var OrigPrice = $("[name='OrigPrice']").val();
+                            $.post('@Url.Action("Create", "Items")', { __RequestVerificationToken: token, Name: Name, Description: Description, CategoryId: CategoryId, UnitId: UnitId, Year: Year, InDBM: InDBM, OrigPrice: OrigPrice }, function (data) {
+                                $("#bodyToast").text("")
+                                $("#bodyToast").text(data.Err == "" ? data.Remarks : data.Err)
+                                chosenToast.toast('show')
+                                if (data.IsSuccessful) {
+                                    chosenModal.modal("hide")
+                                }
+                                
+                            }, "json");
+
+
+                            @*jQuery(data.chosen.form_field).append('<option value="' + data.chosen.get_search_text() + '" selected>' + data.chosen.get_search_text() + '</option>');
+                            jQuery(data.chosen.form_field).trigger('chosen:updated');
+                            data.chosen.result_highlight = data.chosen.search_results.find('li.active-result').lastreturn;
+                            data.chosen.result_select(evt);
+                            $("[name='Name']").val("");
+                            $("[name='Description']").val("");
+                            $("[name='CategoryId']").val("");
+                            $("[name='UnitId']").val("");
+                            $("[name='Year']").val("");
+                            $("[name='InDBM']").val("");
+                            $("[name='OrigPrice']").val("");*@
+                        });
+
                     }
                 });
             });
@@ -81,108 +121,197 @@
                 alert(response.responseText);
             }
         });*@
-
+        @**@
 
     </script>
 }
-<div id="chosenModal" style="z-index: 1150;" class="modal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Modal title</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <p>Modal body text goes here.</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary">Save changes</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>
+<div style="z-index: 1100; position:absolute;top: -8rem;right: 1rem;">
+    <div class="toast toast-right fade hide" role="alert" aria-live="assertive" data-delay="3000" aria-atomic="true">
+        <div class="toast-header">
+            <img src="/assets/nextro/assets/images/favicon.svg" alt="" class="img-fluid m-r-5" style="width:20px;">
+            <strong class="mr-auto">Bootstrap</strong>
+            <button type="button" class="m-l-5 mb-1 mt-1 close" data-dismiss="toast" aria-label="Close">
+                <span>×</span>
+            </button>
+        </div>
+        <div id="bodyToast" class="toast-body">
+           
         </div>
     </div>
-</div>
-<div class="block">
-    <div class="card">
-        <div class="card-header">
-            <h5>@ViewBag.Title</h5>
-            <div class="card-header-right">
-                <div class="btn-group card-option">
-                    @if (po.Locked)
-                    {
-                        <label><i class="fa fa-lock"></i> Imported</label>
-                    }
-                    else
-                    {
-                        <button class="btn btn-success btn-sm btn-create" onclick="$.fn.list('modalCreate', this)">Create</button>
-                    }
+    </div>
 
+    <div id="chosenModal" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Create Items</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                                <label for="Name">Name</label>
+                            </div>
+                            <div class="col-md-9">
+                                <input class="form-control" data-val="true" data-val-required="The Name field is required." id="Name" name="Name" type="text" value="">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                                <label for="Description">Description</label>
+                            </div>
+                            <div class="col-md-9">
+                                <input class="form-control" id="Description" name="Description" type="text" value="">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                                <label for="Category">Category</label>
+                            </div>
+                            <div class="col-md-9">
+                                @Html.DropDownList("CategoryId", coreApp.Areas.Procurement.SelectItems.getCategories(), new { @class = "form-control pc-selectpicker" })
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                                <label for="Unit">Unit</label>
+                            </div>
+                            <div class="col-md-9">
+                                @Html.DropDownList("UnitId", coreApp.Areas.Procurement.SelectItems.getUnits(), new { @class = "form-control pc-selectpicker" })
+
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                                <label for="InDBM">In DBM</label>
+                            </div>
+                            <div class="col-md-9">
+
+
+                                <div class="checkbox" style="display:inline-block">
+
+                                    <label>
+                                        <input id="InDBM" name="InDBM" class="form-check-input" type="checkbox" data-item="" data-text="" value="True">
+
+                                    </label>
+                                </div>
+
+                                <style>
+                                    .checkbox {
+                                        margin-left: 0;
+                                    }
+
+                                    .form-check-label {
+                                        margin-left: 1.5em;
+                                    }
+                                </style>
+
+
+
+
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                                <label>Original Price</label>
+                            </div>
+                            <div class="col-md-9">
+                                <input class="form-control" data-val="true" data-val-number="The field OrigPrice must be a number." data-val-range="Invalid Price value" data-val-range-max="9999999999" data-val-range-min="1E-06" data-val-required="The OrigPrice field is required." id="OrigPrice" name="OrigPrice" type="text" value="0">
+                            </div>
+                        </div>
+                    }
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="chosenSaveRecord" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
-        <div class="card-body">
-            @Html.Partial("~/Areas/SAM/Views/Shared/poInfo.cshtml", "/SAM/PO/Items/Index/")
-            <div class="dt-responsive table-responsive">
-                <table class="display table table-bordered table-striped table-list" cellspacing="0" width="100%"
-                       modal-target="#modalView" modal-start="view" modal-load-callback="load"
-                       modal-view-url="/SAM/PO/Items/Details/@po.Id/{0}" modal-edit-url="/SAM/PO/Items/Edit/@po.Id/{0}" modal-delete-url="/SAM/PO/Items/Delete/@po.Id" modal-create-url="/SAM/PO/Items/Create/@po.Id">
-                    <thead>
-                        <tr>
-                            <th class="idcol">Id</th>
-                            <th>Item Name</th>
-                            <th>Unit</th>
-                            <th>Category</th>
-                            <th>Category Type</th>
-                            <th>Qty</th>
-                            <th>Unit Cost</th>
-                            <th>Amount</th>
-                            <th>Delivered (Equiv.)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (coreApp.Areas.SAM.POItemModel _item in Model)
+    </div>
+    <div class="block">
+        <div class="card">
+            <div class="card-header">
+                <h5>@ViewBag.Title</h5>
+                <div class="card-header-right">
+                    <div class="btn-group card-option">
+                        @if (po.Locked)
                         {
-                            coreApp.Areas.SAM.tblPOItem item = _item.Item;
-
-                            <tr record-id="@item.Id">
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Id)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.ItemName)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item._Unit)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item._Category)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.CategoryType_Desc)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Qty)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.UnitCost)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Amount)
-                                </td>
-                                <td>
-                                    @string.Format("{0} ({1})", _item.Delivered, _item.DeliveryEquiv.ToString("#,##0.00"))
-                                </td>
-                            </tr>
+                            <label><i class="fa fa-lock"></i> Imported</label>
                         }
-                    </tbody>
+                        else
+                        {
+                            <button class="btn btn-success btn-sm btn-create" onclick="$.fn.list('modalCreate', this)">Create</button>
+                        }
 
-                </table>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                @Html.Partial("~/Areas/SAM/Views/Shared/poInfo.cshtml", "/SAM/PO/Items/Index/")
+                <div class="dt-responsive table-responsive">
+                    <table class="display table table-bordered table-striped table-list" cellspacing="0" width="100%"
+                           modal-target="#modalView" modal-start="view" modal-load-callback="load"
+                           modal-view-url="/SAM/PO/Items/Details/@po.Id/{0}" modal-edit-url="/SAM/PO/Items/Edit/@po.Id/{0}" modal-delete-url="/SAM/PO/Items/Delete/@po.Id" modal-create-url="/SAM/PO/Items/Create/@po.Id">
+                        <thead>
+                            <tr>
+                                <th class="idcol">Id</th>
+                                <th>Item Name</th>
+                                <th>Unit</th>
+                                <th>Category</th>
+                                <th>Category Type</th>
+                                <th>Qty</th>
+                                <th>Unit Cost</th>
+                                <th>Amount</th>
+                                <th>Delivered (Equiv.)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (coreApp.Areas.SAM.POItemModel _item in Model)
+                            {
+                                coreApp.Areas.SAM.tblPOItem item = _item.Item;
+
+                                <tr record-id="@item.Id">
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Id)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ItemName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item._Unit)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item._Category)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.CategoryType_Desc)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Qty)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.UnitCost)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Amount)
+                                    </td>
+                                    <td>
+                                        @string.Format("{0} ({1})", _item.Delivered, _item.DeliveryEquiv.ToString("#,##0.00"))
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+
+                    </table>
+                </div>
             </div>
         </div>
-    </div>
 
-</div>
-@Html.Partial("~/Views/Shared/modals/_ModalView.cshtml", "modalView")
+    </div>
+    @Html.Partial("~/Views/Shared/modals/_ModalView.cshtml", "modalView")
 

@@ -106,7 +106,7 @@ function setSelect2(cont) {
     if (obj.length > 0) {
         obj.select2();
     }
-}   
+}
 
 function setChosen(cont) {
     var obj;
