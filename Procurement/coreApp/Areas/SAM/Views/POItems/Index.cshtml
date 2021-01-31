@@ -82,7 +82,7 @@
                                 chosenToast.toast('show')
                                 if (data.IsSuccessful) {
                                     chosenModal.modal("hide")
-                                    $('#Procurement_ItemId').append('<option value="" selected="selected">' + Name + '</option>');
+                                    $('#Procurement_ItemId').append('<option value="' + data.Data + '" selected="selected">' + Name + '</option>');
                                     $('#Procurement_ItemId').trigger("chosen:updated");
                                 }
                                 

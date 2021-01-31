@@ -74,7 +74,7 @@ namespace coreApp.Areas.SAM.Controllers
         [ValidateAntiForgeryToken]
         public JsonResult Create(tblItem model)
         {
-            queryResult res = new queryResult { IsSuccessful = true, Data = null, Err = "", Remarks = "" };
+            queryResult res = new queryResult { IsSuccessful = true,  Data = null, Err = "", Remarks = "" };
 
             try
             {
@@ -95,7 +95,7 @@ namespace coreApp.Areas.SAM.Controllers
 
                         context.tblItems.InsertOnSubmit(item);
                         context.SubmitChanges();
-                        res.Data = item;
+                        res.Data = item.Id;
                         res.Remarks = "Record was successfully created";
                     }
                     else
