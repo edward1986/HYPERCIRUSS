@@ -21,7 +21,7 @@
 
 @section Scripts {
     <script>
-
+        $.fn.modal.Constructor.prototype.enforceFocus = function () { };
         $(document).on('show.bs.modal', '.modal', function (event) {
             var zIndex = 1040 + (10 * $('.modal:visible').length);
             $(this).css('z-index', zIndex);
@@ -127,7 +127,7 @@
     </div>
     </div>
 
-    <div id="chosenModal" class="modal" tabindex="-1" role="dialog">
+    <div id="chosenModal" class="modal" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
