@@ -117,9 +117,11 @@ function setChosen(cont) {
     }
 
     if (chosenObj.length > 0) {
+
         chosenObj.chosen({
             no_results_text: "No result found. Press TAB to add "
-        });
+        })
+
     }
 }
 
