@@ -55,18 +55,18 @@
         var chosenSaveRecord = $("#chosenSaveRecord")
         var chosenToast = $('.toast-right');
         var chosenData = null
-        $('#modalView').on('shown.bs.modal', function () {
+        $('#modalView').on('shown.bs.modal', function() {
 
 
             chosenObj.chosen({
                 no_results_text: "No result found. Press TAB to add "
-            }).on('chosen:no_results', function (evt, data) {
+            }).on('chosen:no_results', function(evt, data) {
 
-                jQuery(data.chosen.container).off('keydown').on('keydown', function (event) {
+                jQuery(data.chosen.container).off('keydown').on('keydown', function(event) {
                     if ($('#Procurement_ItemId').trigger("chosen:open") && 9 == event.keyCode && !jQuery(data.chosen.form_field).find('option[value="' + data.chosen.get_search_text() + '"]').length) {
                         $("input#Name").val(data.chosen.get_search_text())
                         chosenModal.modal("show");
-                        chosenSaveRecord.off('click').on("click", function (event) {
+                        chosenSaveRecord.off('click').on("click", function(event) {
                             var token = $("[name='__RequestVerificationToken']").val();
                             var Name = $("[name='Name']").val();
                             var Description = $("[name='Description']").val();
@@ -76,7 +76,16 @@
                             var InDBM = $("[name='InDBM']").val();
                             var OrigPrice = $("[name='OrigPrice']").val();
 
-                            $.post('@Url.Action("Create", "Items")', { __RequestVerificationToken: token, Name: Name, Description: Description, CategoryId: CategoryId, UnitId: UnitId, Year: Year, InDBM: InDBM, OrigPrice: OrigPrice }, function (data) {
+                            $.post('@Url.Action("Create", "Items")', {
+                                __RequestVerificationToken: token,
+                                Name: Name,
+                                Description: Description,
+                                CategoryId: CategoryId,
+                                UnitId: UnitId,
+                                Year: Year,
+                                InDBM: InDBM,
+                                OrigPrice: OrigPrice
+                            }, function(data) {
                                 $("#bodyToast").text("")
                                 $("#chosenHeader").text("")
                                 $("#bodyToast").html(data.Err == "" ? data.Remarks : data.Err.replace(/\n/g, '<br/>'))
@@ -98,27 +107,6 @@
                 });
             });
         });
-
-
-
-
-      @* $.ajax({
-            type: "POST",
-            url: '@Url.Action("Create", "Items")',
-            data: '{ Name: "A", Description: "Lorem Ipsum", CategoryId: 94, UnitId: 1078, Year: 2021, InDBM: 1, OrigPrice: 1078 }',
-            contentType: "application/json; charset=utf-8",
-            success: function (response) {
-
-
-            },
-            failure: function (response) {
-                alert(response.responseText);
-            },
-            error: function (response) {
-                alert(response.responseText);
-            }
-        });*@
-
     </script>
 }
 <div style="z-index: 1100; position:absolute;top: -8rem;right: 1rem;">
