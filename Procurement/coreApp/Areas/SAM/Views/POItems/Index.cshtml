@@ -66,7 +66,7 @@
                 jQuery(data.chosen.container).on('keydown', function(event) {
                     if ($('#Procurement_ItemId').trigger("chosen:open") && 9 == event.keyCode && !jQuery(data.chosen.form_field).find('option[value="' + data.chosen.get_search_text() + '"]').length) {
                         $("input#Name").val(data.chosen.get_search_text())
-                        chosenModal.modal("toggle");
+                        chosenModal.modal("show");
                         chosenSaveRecord.off('click').on("click", function(event) {
                             var token = $("[name='__RequestVerificationToken']").val();
                             var Name = $("[name='Name']").val();
