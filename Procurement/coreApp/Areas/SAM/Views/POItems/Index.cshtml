@@ -45,7 +45,7 @@
                 } else {
                     btnEdit.show();
                     btnDelete.show();
-                }
+                }   
 
             }
 
@@ -62,7 +62,7 @@
                 no_results_text: "No result found. Press TAB to add "
             }).on('chosen:no_results', function (evt, data) {
 
-                jQuery(data.chosen.container).on('keydown', function (event) {
+                jQuery(data.chosen.container).off('keydown').on('keydown', function (event) {
 
                     if (9 == event.keyCode && !jQuery(data.chosen.form_field).find('option[value="' + data.chosen.get_search_text() + '"]').length) {
                         $("input#Name").val(data.chosen.get_search_text())
@@ -79,13 +79,13 @@
 
                             $.post('@Url.Action("Create", "Items")', { __RequestVerificationToken: token, Name: Name, Description: Description, CategoryId: CategoryId, UnitId: UnitId, Year: Year, InDBM: InDBM, OrigPrice: OrigPrice }, function (data) {
                                 $("#bodyToast").text("")
-                                $("#bodyToast").text(data.Err == "" ? data.Remarks : data.Err)
+                                $("#chosenHeader").text("")
+                                $("#bodyToast").html(data.Err == "" ? data.Remarks : data.Err.replace(/\n/g, '<br/>'))
+                                $("#chosenHeader").text(data.Err == "" ? " Item Recorded" : " Something went wrong")
                                 chosenToast.toast('show')
                                 if (data.IsSuccessful) {
                                     $("[name='Name']").val("");
                                     $("[name='Description']").val("");
-                                    $("[name='CategoryId']").val("");
-                                    $("[name='UnitId']").val("");
                                     $("[name='Year']").val("");
                                     $("[name='OrigPrice']").val("");
                                     chosenModal.modal("hide")
@@ -126,7 +126,7 @@
     <div class="toast toast-right fade hide" role="alert" aria-live="assertive" data-delay="3000" aria-atomic="true">
         <div class="toast-header">
             <img src="/assets/nextro/assets/images/favicon.svg" alt="" class="img-fluid m-r-5" style="width:20px;">
-            <strong class="mr-auto">Bootstrap</strong>
+            <strong id="chosenHeader" class="mr-auto"></strong>
             <button type="button" class="m-l-5 mb-1 mt-1 close" data-dismiss="toast" aria-label="Close">
                 <span>×</span>
             </button>

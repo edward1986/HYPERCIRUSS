@@ -97,7 +97,6 @@ namespace coreApp.Areas.SAM.Controllers
                         context.SubmitChanges();
                         res.Data = item.Id;
                         res.Remarks = "Record was successfully created";
-                        return Json(res);
                     }
                     else
                     {
