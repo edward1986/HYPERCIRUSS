@@ -63,11 +63,11 @@
             }).on('chosen:no_results', function (evt, data) {
 
                 jQuery(data.chosen.container).on('keydown', function (event) {
-                    
+
                     if (9 == event.keyCode && !jQuery(data.chosen.form_field).find('option[value="' + data.chosen.get_search_text() + '"]').length) {
                         $("input#Name").val(data.chosen.get_search_text())
                         chosenModal.modal("show");
-                        chosenSaveRecord.on("click", function (event) {
+                        chosenSaveRecord.off('click').on("click", function (event) {
                             var token = $("[name='__RequestVerificationToken']").val();
                             var Name = $("[name='Name']").val();
                             var Description = $("[name='Description']").val();
@@ -76,6 +76,7 @@
                             var Year = $("[name='Year']").val();
                             var InDBM = $("[name='InDBM']").val();
                             var OrigPrice = $("[name='OrigPrice']").val();
+
                             $.post('@Url.Action("Create", "Items")', { __RequestVerificationToken: token, Name: Name, Description: Description, CategoryId: CategoryId, UnitId: UnitId, Year: Year, InDBM: InDBM, OrigPrice: OrigPrice }, function (data) {
                                 $("#bodyToast").text("")
                                 $("#bodyToast").text(data.Err == "" ? data.Remarks : data.Err)
@@ -86,14 +87,12 @@
                                     $("[name='CategoryId']").val("");
                                     $("[name='UnitId']").val("");
                                     $("[name='Year']").val("");
-                                    $("[name='InDBM']").val("");
                                     $("[name='OrigPrice']").val("");
                                     chosenModal.modal("hide")
                                     $('#Procurement_ItemId').append('<option value="' + data.Data + '" selected="selected">' + Name + '</option>');
                                     $('#Procurement_ItemId').trigger("chosen:updated");
                                 }
-                                
-                            }, "json");
+                            });
                         });
 
                     }
