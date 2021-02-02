@@ -15,6 +15,7 @@ using coreApp.Areas.Procurement.Interfaces;
 using Aspose.Words;
 using reports.Aspose;
 using Module.DB;
+using Newtonsoft.Json;
 
 namespace coreApp.Areas.SAM.Controllers
 {
@@ -39,7 +40,9 @@ namespace coreApp.Areas.SAM.Controllers
             {
                 var model = context.tblPOs.Where(x => x.PODate.Year == Year).Select(item => new { POModel = POModel(item), Item = item })
                     .ToList();
-                return Json(model, JsonRequestBehavior.AllowGet);
+
+                JsonSerializerSettings jss = new JsonSerializerSettings { ReferenceLoopHandling = ReferenceLoopHandling.Ignore };
+                return Json(new { Success = true, model = JsonConvert.SerializeObject(model, Formatting.Indented, jss) }, JsonRequestBehavior.AllowGet);
             }
         }
 

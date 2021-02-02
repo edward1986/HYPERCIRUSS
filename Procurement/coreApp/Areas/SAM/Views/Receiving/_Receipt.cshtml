@@ -158,107 +158,111 @@
         }
         else
         {
-            <table id="searchpono" class="display">
-                <thead>
-                    <tr>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        
-                        <td></td>
-                    </tr>
-                </tbody>
-            </table>
-            <div class="form-group row">
-                <div class="col-md">
-                    <label>P.O. No.</label>
-                    <div class="input-group mb-0">
-                        <div class="form-control">
-                            <input type="hidden" name="SearchPONo" value="" />
-                        </div>
-                        <div class="input-group-append">
-                            <a href="javascript:void(0)" class="btn btn-success" id="browse">Select</a>
-
-                        </div>
-                    </div>
-                    <div>
-
-                    </div>
-
-
-                    @*@Html.DropDownList("SearchPONo", SelectItems.getPO(), new { @class = "form-control search-pono pc-selectpicker", data_pono_value = "-1", @id = "SearchPONo" })*@
-                    @*
-                        @Html.TextBox("SearchPONo", "", new { @class = "form-control" })
-                    *@
+            <div id="searchponotable" class="dt-responsive table-responsive">
+                <table id="searchponos" class="display table table-bordered table-striped table-list">
+                    <thead>
+                        <tr>
+                            <th>PO No</th>
+                            <th>PO Date</th>
+                            <th>PR No</th>
+                            <th>PR Date</th>
+                            <th>Supplier Name</th>
+                            <th>Delivery</th>
+                            <th>Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
                 </div>
-            </div>
-        }
+                <div class="form-group row">
+                    <div class="col-md">
+                        <label>P.O. No.</label>
+                        <div class="input-group mb-0">
+                            <div class="form-control" id="ponotext">
+                                <input type="hidden"  id="SearchPONo" name="SearchPONo" value="" />
+                            </div>
+                            <div class="input-group-append">
+                                <a href="javascript:void(0)" class="btn btn-success" id="browse">Select</a>
 
-        <div class="form-group row">
-            <div class="col-md">
-                @Html.LabelFor(model => model.ReceivedDate)
-                @Html.TextBoxFor(model => model.ReceivedDate, "{0:MM/dd/yyyy}", new { @class = "form-control datepicker" })
-            </div>
-        </div>
+                            </div>
+                        </div>
+                        <div>
 
-        <div class="form-group row">
-            <div class="col-md">
-                @Html.LabelFor(model => model.InvoiceNo)
-                @Html.TextBoxFor(model => model.InvoiceNo, new { @class = "form-control" })
-            </div>
-        </div>
+                        </div>
 
-        <div class="form-group row">
-            <div class="col-md">
-                @Html.LabelFor(model => model.InvoiceDate)
-                @Html.TextBoxFor(model => model.InvoiceDate, "{0:MM/dd/yyyy}", new { @class = "form-control datepicker" })
-            </div>
-        </div>
 
-        <div class="form-group row">
-            <div class="col-md">
-                @Html.LabelFor(model => model.DRNo)
-                @Html.TextBoxFor(model => model.DRNo, new { @class = "form-control" })
-            </div>
-        </div>
-
-        <div class="form-group row">
-            <div class="col-md">
-                <label>Office</label>
-
-                @{
-
-                    int? dval;
-                    if (Model._OfficeId != null)
-                    {
-                        dval = Model._OfficeId;
-                    }
-                    else
-                    {
-                        dval = -1;
-                    }
+                        @*@Html.DropDownList("SearchPONo", SelectItems.getPO(), new { @class = "form-control search-pono pc-selectpicker", data_pono_value = "-1", @id = "SearchPONo" })*@
+                        @*
+                            @Html.TextBox("SearchPONo", "", new { @class = "form-control" })
+                        *@
+                    </div>
+                </div>
                 }
-                @Html.DropDownList("searchOffice", SelectItems.getOffices(defaultValue: dval), new { @class = "form-control search-officeid pc-selectpicker", data_department = "#searchDepartment", data_department_value = "-1", @id = "ddlOffice", @onchange = "filterDepartment()" })
 
-            </div>
-        </div>
+                <div class="form-group row">
+                    <div class="col-md">
+                        @Html.LabelFor(model => model.ReceivedDate)
+                        @Html.TextBoxFor(model => model.ReceivedDate, "{0:MM/dd/yyyy}", new { @class = "form-control datepicker" })
+                    </div>
+                </div>
 
-        <div class="form-group row">
-            <div class="col-md">
-                <label>Department</label>
+                <div class="form-group row">
+                    <div class="col-md">
+                        @Html.LabelFor(model => model.InvoiceNo)
+                        @Html.TextBoxFor(model => model.InvoiceNo, new { @class = "form-control" })
+                    </div>
+                </div>
 
-                @Html.DropDownList("selectedDepartment", SelectItems.getDepartments(), new { @class = "form-control search-departmentid pc-selectpicker", data_department_value = "-1", @id = "ddlDepartment" })
-            </div>
-        </div>
+                <div class="form-group row">
+                    <div class="col-md">
+                        @Html.LabelFor(model => model.InvoiceDate)
+                        @Html.TextBoxFor(model => model.InvoiceDate, "{0:MM/dd/yyyy}", new { @class = "form-control datepicker" })
+                    </div>
+                </div>
 
-        <div class="form-group row">
-            <div class="col-md">
-                @Html.LabelFor(model => model.FundCluster)
-                @Html.TextBoxFor(model => model.FundCluster, new { @class = "form-control" })
-            </div>
-        </div>
+                <div class="form-group row">
+                    <div class="col-md">
+                        @Html.LabelFor(model => model.DRNo)
+                        @Html.TextBoxFor(model => model.DRNo, new { @class = "form-control" })
+                    </div>
+                </div>
 
-    }
-}
+                <div class="form-group row">
+                    <div class="col-md">
+                        <label>Office</label>
+
+                        @{
+
+                            int? dval;
+                            if (Model._OfficeId != null)
+                            {
+                                dval = Model._OfficeId;
+                            }
+                            else
+                            {
+                                dval = -1;
+                            }
+                        }
+                        @Html.DropDownList("searchOffice", SelectItems.getOffices(defaultValue: dval), new { @class = "form-control search-officeid pc-selectpicker", data_department = "#searchDepartment", data_department_value = "-1", @id = "ddlOffice", @onchange = "filterDepartment()" })
+
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-md">
+                        <label>Department</label>
+
+                        @Html.DropDownList("selectedDepartment", SelectItems.getDepartments(), new { @class = "form-control search-departmentid pc-selectpicker", data_department_value = "-1", @id = "ddlDepartment" })
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-md">
+                        @Html.LabelFor(model => model.FundCluster)
+                        @Html.TextBoxFor(model => model.FundCluster, new { @class = "form-control" })
+                    </div>
+                </div>
+
+                }
+                }

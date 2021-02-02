@@ -20,24 +20,54 @@
 @section Scripts {
     <script>
         function load(e) {
+            var searchpono = e.modal.find("#searchponos");
+            var inputSearchPONo = e.modal.find("#SearchPONo");
+            var ponotext = e.modal.find("#ponotext");
+            var searchponotable = e.modal.find("#searchponotable")
+            searchponotable.css({ display: "none" });
+            var searchponoTbody = e.modal.find('#searchponos tbody')
+            searchponoTbody.on('click', 'tr', function () {
+                if ($(this).hasClass('selected')) {
+                    $(this).removeClass('selected');
+                }
+                else {
+                    
+                    searchpono.dataTable().$('tr.selected').removeClass('selected');
+                    $(this).addClass('selected');
+                }
+                var attributes = searchpono.dataTable().$('tr.selected')[0].attributes
+                inputSearchPONo.val(attributes.name.value)
+                ponotext.val(attributes["data-name"].value)
+            });
+
             e.modal.find('#browse').unbind('click').bind('click', function (e) {
 
-                $("#searchpono").dataTable();
+               
+                $.ajax({
+                    type: "GET",
+                    url: "/SAM/PO/POs",
+                    datatype: JSON,
+                    success: function (response) {
+                        if (response.Success) {
+                            $("#searchponos tbody").empty()
+                            searchponotable.css({ display: "block" });
+                            var data = JSON.parse(response.model);
+                            $.each(data, function (index, item) {
+                                var row = "<tr data-name="+item.Item.PONo+" name=" + item.Item.Id +">" +
+                                    "<td>" + item.Item.PONo + "</td>" +
+                                    "<td>" + item.Item.PODate + "</td>" +
+                                    "<td>" + item.Item.PRNo + "</td>" +
+                                    "<td>" + item.Item.PRDate + "</td>" +
+                                    "<td>" + item.Item._SupplierName + "</td>" +
+                                    "<td>" + item.POModel.Status_Desc + "</td>" +
+                                    "<td>" + item.POModel.Amount + "</td>" + "</tr>"
+                                $("#searchponos tbody").append(row)
 
-                $.get("/SAM/PO/POs", function (data) {
-                    $.each(data, function (index, item) {
-                        var row = "<tr>" +
-                        "<td>" + item + "</td>" +
-                        "<td>" + item + "</td>" +
-                        "<td>" + item + "</td>" +
-                        "<td>" + item + "</td>" +
-                        "<td>" + item + "</td>" +
-                        "<td>" + item + "</td>" + "</tr>"
-                        $("#searchpono tbody").append(row)
-
-                    })
-
-                });
+                            })
+                        }
+                        
+                    }
+                }, "json")
             })
             if (e.viewType == 'view') {
 
