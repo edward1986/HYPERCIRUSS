@@ -20,7 +20,7 @@
 @section Scripts {
     <script>
         function load(e) {
-            var searchpono = e.modal.find("#searchponos");
+            e.modal.find("#searchponos").DataTable()
             var inputSearchPONo = e.modal.find("#SearchPONo");
             var savepotable = e.modal.find("#savepotable");
             var cancelpotable = e.modal.find("#closepotable");
@@ -29,42 +29,68 @@
             var searchponotable = e.modal.find("#searchponotable")
             searchponotable.css({ display: "none" });
             var searchponoTbody = e.modal.find('#searchponos tbody')
-            searchponoTbody.off('click').on('click', 'tr', function () {
+            e.modal.find('#savepotable')[0].disabled = true
+            var getposdata = ""
+            searchponoTbody.off("click").on('click', 'tr', function () {
+               
                 if ($(this).hasClass('selected')) {
                     $(this).removeClass('selected');
                 }
                 else {
                     
-                    searchpono.dataTable().$('tr.selected').removeClass('selected');
+                    e.modal.find("#searchponos").DataTable().$('tr.selected').removeClass('selected');
                     $(this).addClass('selected');
                 }
-                var attributes = searchpono.dataTable().$('tr.selected')[0].attributes
-                inputSearchPONo.val(attributes.name.value)
-                ponotext.text(attributes["data-name"].value)
+                var attributes = e.modal.find("#searchponos").DataTable().$('tr.selected')
+                if (attributes[0]) {
+                    getposdata = attributes[0].attributes["data-name"].value
+                    inputSearchPONo.val(attributes[0].attributes["data-name"].value)
+                    ponotext.text(attributes[0].attributes["data-name"].value)
+                } else {
+                    inputSearchPONo.val("")
+                    ponotext.text("")
+                }
+
+
+                if (inputSearchPONo.val().length) {
+                    e.modal.find('#savepotable')[0].disabled = false
+                } else {
+                    e.modal.find('#savepotable')[0].disabled = true
+                }
+                if (ponotext.text().length) {
+                    e.modal.find('#savepotable')[0].disabled = false
+                }else {
+                    e.modal.find('#savepotable')[0].disabled = true
+                }
+
             });
-            savepotable.unbind('click').bind('click', function (e) {
+           
+            savepotable.off('click').on('click', function (e) {
                 isSelectButtonVisible.css({ display: "block" });
                 searchponotable.css({ display: "none" });
             });
-            cancelpotable.unbind('click').bind('click', function (e) {
+            cancelpotable.off('click').on('click', function (e) {
+                inputSearchPONo.val("")
+                ponotext.text("")
                 isSelectButtonVisible.css({ display: "block" });
                 searchponotable.css({ display: "none" });
             })
-            e.modal.find('#browse').unbind('click').bind('click', function (e) {
-
+            e.modal.find('#browse').off('click').on('click', function (e) {
                
+                $("#searchponos").DataTable().clear();
+                $("#searchponos").DataTable().destroy();
                 $.ajax({
                     type: "GET",
                     url: "/SAM/PO/POs",
                     datatype: JSON,
                     success: function (response) {
                         if (response.Success) {
-                            $("#searchponos tbody").empty()
+                            searchponoTbody.empty()
                             isSelectButtonVisible.css({ display: "none" });
                             searchponotable.css({ display: "block" });
                             var data = JSON.parse(response.model);
                             $.each(data, function (index, item) {
-                                var row = "<tr data-name="+item.Item.PONo+" name=" + item.Item.Id +">" +
+                                var row = "<tr " + `class='${getposdata == item.Item.PONo ? "selected" : ""}'`  +" data-name="+item.Item.PONo+" name=" + item.Item.Id +">" +
                                     "<td>" + item.Item.PONo + "</td>" +
                                     "<td>" + item.Item.PODate + "</td>" +
                                     "<td>" + item.Item.PRNo + "</td>" +
@@ -72,13 +98,16 @@
                                     "<td>" + item.Item._SupplierName + "</td>" +
                                     "<td>" + item.POModel.Status_Desc + "</td>" +
                                     "<td>" + item.POModel.Amount + "</td>" + "</tr>"
-                                $("#searchponos tbody").append(row)
+                                searchponoTbody.append(row)
 
                             })
+                            $("#searchponos").DataTable();
                         }
                         
                     }
                 }, "json")
+               
+
             })
             if (e.viewType == 'view') {
 
