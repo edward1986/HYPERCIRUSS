@@ -95,9 +95,6 @@
                             isSelectButtonVisible.css({ display: "none" });
                             searchponotable.css({ display: "block" });
                             var data = JSON.parse(response.model);
-
-                            var i;
-
                             var i = 0;
                             while (i < data.length) {
                                 var item = data[i];
@@ -112,10 +109,6 @@
                                 searchponoTbody.append(row)
                                 i++;
                             }
-
-
-
-
                             $("#searchponos").DataTable();
                         }
                         
