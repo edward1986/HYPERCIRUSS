@@ -20,7 +20,25 @@
 @section Scripts {
     <script>
         function load(e) {
+            e.modal.find('#browse').unbind('click').bind('click', function (e) {
 
+                $("#searchpono").dataTable();
+
+                $.get("/SAM/PO/POs", function (data) {
+                    $.each(data, function (index, item) {
+                        var row = "<tr>" +
+                        "<td>" + item + "</td>" +
+                        "<td>" + item + "</td>" +
+                        "<td>" + item + "</td>" +
+                        "<td>" + item + "</td>" +
+                        "<td>" + item + "</td>" +
+                        "<td>" + item + "</td>" + "</tr>"
+                        $("#searchpono tbody").append(row)
+
+                    })
+
+                });
+            })
             if (e.viewType == 'view') {
 
                 var hasBeenSubmitted = $('#HasBeenSubmitted').val() == 'True';
@@ -30,7 +48,7 @@
 
                 var submitBtn = e.modal.find('.btn-submit');
                 var link = submitBtn.attr('data-link-tmp');
-
+                
                 submitBtn.unbind('click').bind('click', function (ee) {
                     ee.preventDefault();
 
@@ -79,6 +97,7 @@
 
             return e;
         }
+        
     </script>
 
     <script src="~/Assets/nextro/assets/js/plugins/bootstrap-datepicker.min.js"></script>

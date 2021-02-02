@@ -158,13 +158,39 @@
         }
         else
         {
+            <table id="searchpono" class="display">
+                <thead>
+                    <tr>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
             <div class="form-group row">
                 <div class="col-md">
                     <label>P.O. No.</label>
+                    <div class="input-group mb-0">
+                        <div class="form-control">
+                            <input type="hidden" name="SearchPONo" value="" />
+                        </div>
+                        <div class="input-group-append">
+                            <a href="javascript:void(0)" class="btn btn-success" id="browse">Select</a>
 
-                    @Html.DropDownList("SearchPONo", SelectItems.getPO(), new { @class = "form-control search-pono pc-selectpicker", data_pono_value = "-1", @id = "SearchPONo" })
+                        </div>
+                    </div>
+                    <div>
+
+                    </div>
+
+
+                    @*@Html.DropDownList("SearchPONo", SelectItems.getPO(), new { @class = "form-control search-pono pc-selectpicker", data_pono_value = "-1", @id = "SearchPONo" })*@
                     @*
-        @Html.TextBox("SearchPONo", "", new { @class = "form-control" })
+                        @Html.TextBox("SearchPONo", "", new { @class = "form-control" })
                     *@
                 </div>
             </div>
@@ -203,7 +229,7 @@
                 <label>Office</label>
 
                 @{
-                    
+
                     int? dval;
                     if (Model._OfficeId != null)
                     {
@@ -222,7 +248,7 @@
         <div class="form-group row">
             <div class="col-md">
                 <label>Department</label>
-               
+
                 @Html.DropDownList("selectedDepartment", SelectItems.getDepartments(), new { @class = "form-control search-departmentid pc-selectpicker", data_department_value = "-1", @id = "ddlDepartment" })
             </div>
         </div>

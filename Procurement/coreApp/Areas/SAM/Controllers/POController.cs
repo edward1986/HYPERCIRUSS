@@ -33,6 +33,23 @@ namespace coreApp.Areas.SAM.Controllers
             }
         }
 
+        public JsonResult POs()
+        {
+            using (samDataContext context = new samDataContext())
+            {
+                var model = context.tblPOs.Where(x => x.PODate.Year == Year).Select(item => new { POModel = POModel(item), Item = item })
+                    .ToList();
+                return Json(model, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        private object POModel(tblPO item)
+        {
+            coreApp.Areas.SAM.POModel poModel = new coreApp.Areas.SAM.POModel(item);
+            return poModel;
+
+        }
+
         public ActionResult Details(int? id)
         {
             if (id == null)

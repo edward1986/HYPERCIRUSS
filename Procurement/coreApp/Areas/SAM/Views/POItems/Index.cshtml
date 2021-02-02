@@ -57,9 +57,7 @@
         var chosenData = null
         var modalView = $('#modalView')
         modalView.on('shown.bs.modal', function () {
-            console.log("outside")
             if (modalView.find('.chosen-select').length) {
-                console.log("enter")
                 chosenObj.chosen({
                 no_results_text: "No result found. Press TAB to add "
             }).on('chosen:no_results', function (evt, data) {
