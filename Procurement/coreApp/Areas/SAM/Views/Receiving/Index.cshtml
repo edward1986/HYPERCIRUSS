@@ -70,10 +70,16 @@
                 searchponotable.css({ display: "none" });
             });
             cancelpotable.off('click').on('click', function (e) {
-                inputSearchPONo.val("")
-                ponotext.text("")
-                isSelectButtonVisible.css({ display: "block" });
-                searchponotable.css({ display: "none" });
+                if (getposdata) {
+                    isSelectButtonVisible.css({ display: "block" });
+                    searchponotable.css({ display: "none" });
+                } else {
+                    inputSearchPONo.val("")
+                    ponotext.text("")
+                    isSelectButtonVisible.css({ display: "block" });
+                    searchponotable.css({ display: "none" });
+                }
+               
             })
             e.modal.find('#browse').off('click').on('click', function (e) {
                
@@ -89,8 +95,13 @@
                             isSelectButtonVisible.css({ display: "none" });
                             searchponotable.css({ display: "block" });
                             var data = JSON.parse(response.model);
-                            $.each(data, function (index, item) {
-                                var row = "<tr " + `class='${getposdata == item.Item.PONo ? "selected" : ""}'`  +" data-name="+item.Item.PONo+" name=" + item.Item.Id +">" +
+
+                            var i;
+
+                            var i = 0;
+                            while (i < data.length) {
+                                var item = data[i];
+                                var row = "<tr " + `class='${getposdata == item.Item.PONo ? "selected" : ""}'` + " data-name=" + item.Item.PONo + " name=" + item.Item.Id + ">" +
                                     "<td>" + item.Item.PONo + "</td>" +
                                     "<td>" + item.Item.PODate + "</td>" +
                                     "<td>" + item.Item.PRNo + "</td>" +
@@ -99,8 +110,12 @@
                                     "<td>" + item.POModel.Status_Desc + "</td>" +
                                     "<td>" + item.POModel.Amount + "</td>" + "</tr>"
                                 searchponoTbody.append(row)
+                                i++;
+                            }
 
-                            })
+
+
+
                             $("#searchponos").DataTable();
                         }
                         
