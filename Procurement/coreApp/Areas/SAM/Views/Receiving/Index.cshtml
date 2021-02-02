@@ -22,11 +22,14 @@
         function load(e) {
             var searchpono = e.modal.find("#searchponos");
             var inputSearchPONo = e.modal.find("#SearchPONo");
+            var savepotable = e.modal.find("#savepotable");
+            var cancelpotable = e.modal.find("#closepotable");
+            var isSelectButtonVisible = e.modal.find(".isSelectButtonVisible");
             var ponotext = e.modal.find("#ponotext");
             var searchponotable = e.modal.find("#searchponotable")
             searchponotable.css({ display: "none" });
             var searchponoTbody = e.modal.find('#searchponos tbody')
-            searchponoTbody.on('click', 'tr', function () {
+            searchponoTbody.off('click').on('click', 'tr', function () {
                 if ($(this).hasClass('selected')) {
                     $(this).removeClass('selected');
                 }
@@ -37,9 +40,16 @@
                 }
                 var attributes = searchpono.dataTable().$('tr.selected')[0].attributes
                 inputSearchPONo.val(attributes.name.value)
-                ponotext.val(attributes["data-name"].value)
+                ponotext.text(attributes["data-name"].value)
             });
-
+            savepotable.unbind('click').bind('click', function (e) {
+                isSelectButtonVisible.css({ display: "block" });
+                searchponotable.css({ display: "none" });
+            });
+            cancelpotable.unbind('click').bind('click', function (e) {
+                isSelectButtonVisible.css({ display: "block" });
+                searchponotable.css({ display: "none" });
+            })
             e.modal.find('#browse').unbind('click').bind('click', function (e) {
 
                
@@ -50,6 +60,7 @@
                     success: function (response) {
                         if (response.Success) {
                             $("#searchponos tbody").empty()
+                            isSelectButtonVisible.css({ display: "none" });
                             searchponotable.css({ display: "block" });
                             var data = JSON.parse(response.model);
                             $.each(data, function (index, item) {
