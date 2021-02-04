@@ -57,13 +57,8 @@
         var chosenData = null
         var modalView = $('#modalView')
         modalView.on('shown.bs.modal', function () {
-            if (modalView.find('.chosen-select').length) {
-                chosenObj.chosen({
-                no_results_text: "No result found. Press TAB to add "
-            }).on('chosen:no_results', function (evt, data) {
-                jQuery(data.chosen.container).on('keydown', function(event) {
-                    if ($('#Procurement_ItemId').trigger("chosen:open") && 9 == event.keyCode && !jQuery(data.chosen.form_field).find('option[value="' + data.chosen.get_search_text() + '"]').length) {
-                        $("input#Name").val(data.chosen.get_search_text())
+            function add(event, data) {
+                $("input#Name").val(data.chosen.get_search_text())
                         chosenModal.modal("show");
                         chosenSaveRecord.off('click').on("click", function(event) {
                             var token = $("[name='__RequestVerificationToken']").val();
@@ -101,13 +96,27 @@
                                 }
                             });
                         });
-
-                    }
-                });
-            });
             }
 
+            function modal() {
+                chosenObj.chosen({
+                    no_results_text: "No result found. Press TAB to add "
+                }).on('chosen:no_results', function (evt, data) {
+                    jQuery(data.chosen.container).on('keydown', function (event) {
+                        if ($.find(".no-results").length && 9 == event.keyCode && !jQuery(data.chosen.form_field).find('option[value="' + data.chosen.get_search_text() + '"]').length) {
+                            add(event, data)
+                        }
+                    });
+                });
+            }
+            modal()
+
+            
+            
+
+
         });
+      
     </script>
 }
 <div style="z-index: 1100; position:absolute;top: -8rem;right: 1rem;">
