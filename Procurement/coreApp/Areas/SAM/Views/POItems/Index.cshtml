@@ -29,10 +29,12 @@
                 $('.modal-backdrop').not('.modal-stack').css('z-index', zIndex - 1).addClass('modal-stack');
             }, 0);
         });
-
-
+        var chosenModal = $('#chosenModal')
+        var chosenSaveRecord = $("#chosenSaveRecord")
+        var chosenToast = $('.toast-right');
+        var chosenData = null
+        var modalView = $('#modalView')
         function load(e) {
-
             if (e.viewType == 'view') {
 
                 var locked = e.modal.find('.modal-body #Locked').val() == 'True';
@@ -48,17 +50,8 @@
                 }
 
             }
+             function add() {
 
-            return e;
-        }
-        var chosenModal = $('#chosenModal')
-        var chosenSaveRecord = $("#chosenSaveRecord")
-        var chosenToast = $('.toast-right');
-        var chosenData = null
-        var modalView = $('#modalView')
-        modalView.on('shown.bs.modal', function () {
-            function add() {
-               
                         chosenModal.modal("show");
                         chosenSaveRecord.off('click').on("click", function(event) {
                             var token = $("[name='__RequestVerificationToken']").val();
@@ -103,7 +96,7 @@
                 chosenObj.chosen({
                     no_results_text: "No result found. Press TAB to add "
                 }).on('chosen:no_results', function (evt, data) {
-                    
+
                     jQuery(data.chosen.container).on('keydown', function (event) {
                         if ($.find(".no-results").length && 9 == event.keyCode && !jQuery(data.chosen.form_field).find('option[value="' + data.chosen.get_search_text() + '"]').length) {
                             $("input#Name").val(data.chosen.get_search_text())
@@ -117,12 +110,17 @@
                 })
             }
             modal()
+            return e;
+        }
+     
+        modalView.on('shown.bs.modal', function () {
 
 
-            
+
+
 
         });
-      
+
     </script>
 }
 <div style="z-index: 1100; position:absolute;top: -8rem;right: 1rem;">
