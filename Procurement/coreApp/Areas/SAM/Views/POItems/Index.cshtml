@@ -57,8 +57,8 @@
         var chosenData = null
         var modalView = $('#modalView')
         modalView.on('shown.bs.modal', function () {
-            function add(event, data) {
-                $("input#Name").val(data.chosen.get_search_text())
+            function add() {
+               
                         chosenModal.modal("show");
                         chosenSaveRecord.off('click').on("click", function(event) {
                             var token = $("[name='__RequestVerificationToken']").val();
@@ -99,21 +99,27 @@
             }
 
             function modal() {
+                chosenObj.chosen("destroy");
                 chosenObj.chosen({
                     no_results_text: "No result found. Press TAB to add "
                 }).on('chosen:no_results', function (evt, data) {
+                    
                     jQuery(data.chosen.container).on('keydown', function (event) {
                         if ($.find(".no-results").length && 9 == event.keyCode && !jQuery(data.chosen.form_field).find('option[value="' + data.chosen.get_search_text() + '"]').length) {
-                            add(event, data)
+                            $("input#Name").val(data.chosen.get_search_text())
+                            add()
                         }
                     });
                 });
+                $(".chosen-search").append("<button style='position: absolute;right: 1%;' id='add_item'>Add Item</button>");
+                $("#add_item").on('click', function () {
+                    add()
+                })
             }
             modal()
 
-            
-            
 
+            
 
         });
       
