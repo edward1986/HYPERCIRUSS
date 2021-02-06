@@ -757,6 +757,7 @@
     <Content Include="Assets\images\ustpWhite.png" />
     <Content Include="Assets\js\autoLogout.js" />
     <Content Include="Assets\js\file-manager.js" />
+    <Content Include="Assets\js\select-po.js" />
     <Content Include="Assets\js\page-script.js" />
     <Content Include="Assets\nextro\ac-datepicker-componant.html" />
     <Content Include="Assets\nextro\ac_alert.html" />
