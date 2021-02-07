@@ -30,7 +30,7 @@ function initPlugins(cont) {
     setSelect2();
     setChosen();
     setIntSpinner();
-    
+
 }
 
 $(document).ready(function () {
@@ -142,7 +142,7 @@ function setTinyMCE(cont) {
     if (obj.attr('data-height')) {
         opts.height = parseFloat(obj.attr('data-height'));
     }
-    
+
     if (obj.length > 0) {
         tinymce.init({
             selector: "textarea.tmce",
@@ -361,7 +361,7 @@ function setSelectAll(cont) {
 
 function setTables(cont, multiSelect, multiSelect_SelectEvent, multiSelect_DeselectEvent) {
     var obj;
-    
+
     if (cont) {
         obj = cont.find('.table').not('.static-table').not('.skiptable');
     } else {
@@ -432,8 +432,8 @@ function setTables(cont, multiSelect, multiSelect_SelectEvent, multiSelect_Desel
             });
         });
     }
-    
-    
+
+
     if (multiSelect) {
         table
             .on('select', function (e, dt, type, indexes) {
@@ -545,7 +545,7 @@ function setScroll(cont) {
     //    if (obj.attr('data-scroll-reltowinheight') != undefined) {
     //        obj.height($(window).height() * 0.7);
     //    }
-        
+
     //    obj.mCustomScrollbar({
     //        advanced: { autoScrollOnFocus: false },
     //        scrollInertia: 0
@@ -561,7 +561,7 @@ function setEffectivityCont(cont) {
     } else {
         obj = $('.effectivity-field');
     }
-        
+
     var select = obj.find('select');
     var hf = obj.find('.effectivity-field-hf');
 
@@ -572,15 +572,15 @@ function setEffectivityCont(cont) {
         hf.val(lastValue);
     };
 
-    
+
     select.change(function () {
-        if (select.val() == 'NEW') { 
+        if (select.val() == 'NEW') {
 
             modalEmpty('Set date', function (modal) {
 
                 var tb = $('<div />');
                 tb.addClass('datepicker');
-                
+
                 var body = modal.find('.modal-body');
                 body.empty().append(tb);
 

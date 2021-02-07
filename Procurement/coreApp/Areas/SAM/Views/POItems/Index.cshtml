@@ -17,6 +17,16 @@
 
 @section Styles {
     <link href="~/Areas/Procurement/Assets/css/common.less" rel="stylesheet" type="text/css">
+    <style>
+        .additem {
+            position: absolute;
+            right: 1.6%;
+            border: none;
+            outline: 1px solid #aaa;
+            bottom: 19%;
+        }
+    </style>
+    
 }
 
 @section Scripts {
@@ -51,7 +61,6 @@
 
             }
              function add() {
-
                         chosenModal.modal("show");
                         chosenSaveRecord.off('click').on("click", function(event) {
                             var token = $("[name='__RequestVerificationToken']").val();
@@ -96,7 +105,6 @@
                 chosenObj.chosen({
                     no_results_text: "No result found. Press TAB to add "
                 }).on('chosen:no_results', function (evt, data) {
-
                     jQuery(data.chosen.container).on('keydown', function (event) {
                         if ($.find(".no-results").length && 9 == event.keyCode && !jQuery(data.chosen.form_field).find('option[value="' + data.chosen.get_search_text() + '"]').length) {
                             $("input#Name").val(data.chosen.get_search_text())
@@ -104,7 +112,7 @@
                         }
                     });
                 });
-                $(".chosen-search").append("<button style='position: absolute;right: 1%;' id='add_item'>Add Item</button>");
+                $(".chosen-search").append("<button class='additem' id='add_item'>Add Item</button>");
                 $("#add_item").on('click', function () {
                     add()
                 })
@@ -112,7 +120,7 @@
             modal()
             return e;
         }
-     
+
 
     </script>
 }
@@ -126,183 +134,183 @@
             </button>
         </div>
         <div id="bodyToast" class="toast-body">
-           
+
         </div>
     </div>
-    </div>
+</div>
 
-    <div id="chosenModal" class="modal" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Create Items</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    @using (Html.BeginForm())
-                    {
-                        @Html.AntiForgeryToken()
-                        <div class="form-group row">
-                            <div class="col-md-3">
-                                <label for="Name">Name</label>
-                            </div>
-                            <div class="col-md-9">
-                                <input class="form-control" data-val="true" data-val-required="The Name field is required." id="Name" name="Name" type="text" value="">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-md-3">
-                                <label for="Description">Description</label>
-                            </div>
-                            <div class="col-md-9">
-                                <input class="form-control" id="Description" name="Description" type="text" value="">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-md-3">
-                                <label for="Category">Category</label>
-                            </div>
-                            <div class="col-md-9">
-                                @Html.DropDownList("CategoryId", coreApp.Areas.Procurement.SelectItems.getCategories(), new { @class = "form-control pc-selectpicker" })
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-md-3">
-                                <label for="Unit">Unit</label>
-                            </div>
-                            <div class="col-md-9">
-                                @Html.DropDownList("UnitId", coreApp.Areas.Procurement.SelectItems.getUnits(), new { @class = "form-control pc-selectpicker" })
-
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-md-3">
-                                <label for="InDBM">In DBM</label>
-                            </div>
-                            <div class="col-md-9">
-
-
-                                <div class="checkbox" style="display:inline-block">
-
-                                    <label>
-                                        <input id="InDBM" name="InDBM" class="form-check-input" type="checkbox" data-item="" data-text="" value="True">
-
-                                    </label>
-                                </div>
-
-                                <style>
-                                    .checkbox {
-                                        margin-left: 0;
-                                    }
-
-                                    .form-check-label {
-                                        margin-left: 1.5em;
-                                    }
-                                </style>
-
-
-
-
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-md-3">
-                                <label>Original Price</label>
-                            </div>
-                            <div class="col-md-9">
-                                <input class="form-control" data-val="true" data-val-number="The field OrigPrice must be a number." data-val-range="Invalid Price value" data-val-range-max="9999999999" data-val-range-min="1E-06" data-val-required="The OrigPrice field is required." id="OrigPrice" name="OrigPrice" type="text" value="0">
-                            </div>
-                        </div>
-                    }
-                </div>
-                <div class="modal-footer">
-                    <button type="button" id="chosenSaveRecord" class="btn btn-primary">Save changes</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                </div>
+<div id="chosenModal" class="modal" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Create Items</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
-        </div>
-    </div>
-    <div class="block">
-        <div class="card">
-            <div class="card-header">
-                <h5>@ViewBag.Title</h5>
-                <div class="card-header-right">
-                    <div class="btn-group card-option">
-                        @if (po.Locked)
-                        {
-                            <label><i class="fa fa-lock"></i> Imported</label>
-                        }
-                        else
-                        {
-                            <button class="btn btn-success btn-sm btn-create" onclick="$.fn.list('modalCreate', this)">Create</button>
-                        }
-
+            <div class="modal-body">
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="form-group row">
+                        <div class="col-md-3">
+                            <label for="Name">Name</label>
+                        </div>
+                        <div class="col-md-9">
+                            <input class="form-control" data-val="true" data-val-required="The Name field is required." id="Name" name="Name" type="text" value="">
+                        </div>
                     </div>
-                </div>
+                    <div class="form-group row">
+                        <div class="col-md-3">
+                            <label for="Description">Description</label>
+                        </div>
+                        <div class="col-md-9">
+                            <input class="form-control" id="Description" name="Description" type="text" value="">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-3">
+                            <label for="Category">Category</label>
+                        </div>
+                        <div class="col-md-9">
+                            @Html.DropDownList("CategoryId", coreApp.Areas.Procurement.SelectItems.getCategories(), new { @class = "form-control pc-selectpicker" })
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-3">
+                            <label for="Unit">Unit</label>
+                        </div>
+                        <div class="col-md-9">
+                            @Html.DropDownList("UnitId", coreApp.Areas.Procurement.SelectItems.getUnits(), new { @class = "form-control pc-selectpicker" })
+
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-3">
+                            <label for="InDBM">In DBM</label>
+                        </div>
+                        <div class="col-md-9">
+
+
+                            <div class="checkbox" style="display:inline-block">
+
+                                <label>
+                                    <input id="InDBM" name="InDBM" class="form-check-input" type="checkbox" data-item="" data-text="" value="True">
+
+                                </label>
+                            </div>
+
+                            <style>
+                                .checkbox {
+                                    margin-left: 0;
+                                }
+
+                                .form-check-label {
+                                    margin-left: 1.5em;
+                                }
+                            </style>
+
+
+
+
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-3">
+                            <label>Original Price</label>
+                        </div>
+                        <div class="col-md-9">
+                            <input class="form-control" data-val="true" data-val-number="The field OrigPrice must be a number." data-val-range="Invalid Price value" data-val-range-max="9999999999" data-val-range-min="1E-06" data-val-required="The OrigPrice field is required." id="OrigPrice" name="OrigPrice" type="text" value="0">
+                        </div>
+                    </div>
+                }
             </div>
-            <div class="card-body">
-                @Html.Partial("~/Areas/SAM/Views/Shared/poInfo.cshtml", "/SAM/PO/Items/Index/")
-                <div class="dt-responsive table-responsive">
-                    <table class="display table table-bordered table-striped table-list" cellspacing="0" width="100%"
-                           modal-target="#modalView" modal-start="view" modal-load-callback="load"
-                           modal-view-url="/SAM/PO/Items/Details/@po.Id/{0}" modal-edit-url="/SAM/PO/Items/Edit/@po.Id/{0}" modal-delete-url="/SAM/PO/Items/Delete/@po.Id" modal-create-url="/SAM/PO/Items/Create/@po.Id">
-                        <thead>
-                            <tr>
-                                <th class="idcol">Id</th>
-                                <th>Item Name</th>
-                                <th>Unit</th>
-                                <th>Category</th>
-                                <th>Category Type</th>
-                                <th>Qty</th>
-                                <th>Unit Cost</th>
-                                <th>Amount</th>
-                                <th>Delivered (Equiv.)</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (coreApp.Areas.SAM.POItemModel _item in Model)
-                            {
-                                coreApp.Areas.SAM.tblPOItem item = _item.Item;
+            <div class="modal-footer">
+                <button type="button" id="chosenSaveRecord" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="block">
+    <div class="card">
+        <div class="card-header">
+            <h5>@ViewBag.Title</h5>
+            <div class="card-header-right">
+                <div class="btn-group card-option">
+                    @if (po.Locked)
+                    {
+                        <label><i class="fa fa-lock"></i> Imported</label>
+                    }
+                    else
+                    {
+                        <button class="btn btn-success btn-sm btn-create" onclick="$.fn.list('modalCreate', this)">Create</button>
+                    }
 
-                                <tr record-id="@item.Id">
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Id)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.ItemName)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item._Unit)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item._Category)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.CategoryType_Desc)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Qty)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.UnitCost)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Amount)
-                                    </td>
-                                    <td>
-                                        @string.Format("{0} ({1})", _item.Delivered, _item.DeliveryEquiv.ToString("#,##0.00"))
-                                    </td>
-                                </tr>
-                            }
-                        </tbody>
-
-                    </table>
                 </div>
             </div>
         </div>
+        <div class="card-body">
+            @Html.Partial("~/Areas/SAM/Views/Shared/poInfo.cshtml", "/SAM/PO/Items/Index/")
+            <div class="dt-responsive table-responsive">
+                <table class="display table table-bordered table-striped table-list" cellspacing="0" width="100%"
+                       modal-target="#modalView" modal-start="view" modal-load-callback="load"
+                       modal-view-url="/SAM/PO/Items/Details/@po.Id/{0}" modal-edit-url="/SAM/PO/Items/Edit/@po.Id/{0}" modal-delete-url="/SAM/PO/Items/Delete/@po.Id" modal-create-url="/SAM/PO/Items/Create/@po.Id">
+                    <thead>
+                        <tr>
+                            <th class="idcol">Id</th>
+                            <th>Item Name</th>
+                            <th>Unit</th>
+                            <th>Category</th>
+                            <th>Category Type</th>
+                            <th>Qty</th>
+                            <th>Unit Cost</th>
+                            <th>Amount</th>
+                            <th>Delivered (Equiv.)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (coreApp.Areas.SAM.POItemModel _item in Model)
+                        {
+                            coreApp.Areas.SAM.tblPOItem item = _item.Item;
 
+                            <tr record-id="@item.Id">
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Id)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ItemName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item._Unit)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item._Category)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CategoryType_Desc)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Qty)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.UnitCost)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Amount)
+                                </td>
+                                <td>
+                                    @string.Format("{0} ({1})", _item.Delivered, _item.DeliveryEquiv.ToString("#,##0.00"))
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
     </div>
-    @Html.Partial("~/Views/Shared/modals/_ModalView.cshtml", "modalView")
+
+</div>
+@Html.Partial("~/Views/Shared/modals/_ModalView.cshtml", "modalView")
 
