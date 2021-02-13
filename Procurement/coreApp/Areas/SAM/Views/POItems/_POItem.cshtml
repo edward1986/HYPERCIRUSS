@@ -130,7 +130,14 @@
                     @Html.LabelFor(model => model.ItemName)
                 </div>
                 <div class="col-md-9">
-                    @Html.DropDownListFor(model => model.Procurement_ItemId, coreApp.Areas.Procurement.SelectItems.getProcurementItems(), new { @class = "form-control chosen-select", data_allows_new_values = "true", data_placeholder = "Choose an item..." })
+                    <div class="input-group mb-0">
+                        @Html.DropDownListFor(model => model.Procurement_ItemId, coreApp.Areas.Procurement.SelectItems.getProcurementItems("Choose an item..."), new { @class = "custom-select", data_allows_new_values = "true", data_placeholder = "Choose an item..." })
+                        <div class="input-group-append">
+                            <a href="javascript:void(0)" class="btn btn-success" id="browse">Select</a>
+
+                        </div>
+                    </div>
+                    
                 </div>
             </div>
         }
