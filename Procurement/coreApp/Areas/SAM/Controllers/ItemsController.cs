@@ -13,6 +13,8 @@ using coreApp.Areas.Procurement.Filters;
 using coreApp.Areas.Procurement.Interfaces;
 using coreLib.Extensions;
 using Module.Core;
+using Newtonsoft.Json;
+using System.Data.Linq;
 
 namespace coreApp.Areas.SAM.Controllers
 {
@@ -20,6 +22,8 @@ namespace coreApp.Areas.SAM.Controllers
     [UserAccessAuthorize(allowedAccess: "sam_settings")]
     public class ItemsController : SAMBaseController, IYearController
     {
+        
+
         public int Year { get; set; }
 
         public ActionResult Index()
@@ -31,6 +35,51 @@ namespace coreApp.Areas.SAM.Controllers
                     .ToList();
 
                 return View(model);
+            }
+        }
+        public JsonResult procurementItems(DataTablesParam param)
+        {
+
+           
+
+
+            using (procurementDataContext context = new procurementDataContext())
+            {
+                var model = context.tblItems;
+                var List = new object();
+
+                int pageNo = 1;
+
+                if (param.iDisplayStart >= param.iDisplayLength)
+                {
+
+                    pageNo = (param.iDisplayStart / param.iDisplayLength) + 1;
+
+                }
+
+                int totalCount = 0;
+                if (param.sSearch != null)
+                {
+                    totalCount = model.Where(x => x.Name.ToLower().Contains(param.sSearch.ToLower()) || x.Year == Year).Count();
+                    List = model.Where(x => x.Name.ToLower().Contains(param.sSearch.ToLower()) || x.Year == Year)
+                        .Skip((pageNo - 1) * param.iDisplayLength)
+                    .Take(param.iDisplayLength)
+                    .Select(item => new { Value = item.Id, Name = item.Name, Unit = item.Unit.Unit, Category = item.Category.Category })
+                    .ToList();
+                }
+                else{
+                    totalCount = model.Where(x => x.Year == Year).Count();
+                    List = model.Where(x => x.Year == Year).Skip((pageNo - 1) * param.iDisplayLength)
+                    .Take(param.iDisplayLength)
+                    .Select(item => new { Value = item.Id, Name = item.Name, Unit = item.Unit.Unit, Category = item.Category.Category })
+                    .ToList();
+                }
+                
+                return Json(new { Success = true,
+                    sEcho = param.sEcho,
+                    iTotalDisplayRecords = totalCount,
+                    iTotalRecords = totalCount, aaData = List
+                }, JsonRequestBehavior.AllowGet);
             }
         }
 

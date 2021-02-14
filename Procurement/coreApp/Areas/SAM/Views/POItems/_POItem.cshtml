@@ -130,14 +130,23 @@
                     @Html.LabelFor(model => model.ItemName)
                 </div>
                 <div class="col-md-9">
-                    <div class="input-group mb-0">
+                    @*<div class="input-group mb-0">
                         @Html.DropDownListFor(model => model.Procurement_ItemId, coreApp.Areas.Procurement.SelectItems.getProcurementItems("Choose an item..."), new { @class = "custom-select", data_allows_new_values = "true", data_placeholder = "Choose an item..." })
                         <div class="input-group-append">
                             <a href="javascript:void(0)" class="btn btn-success" id="browse">Select</a>
 
                         </div>
+                    </div>*@
+                    <div class="input-group mb-0">
+                        <div class="form-control">
+                            <span id="Procurement_Item" style="width: 232px; overflow: hidden; display: inline-block; text-overflow: ellipsis; white-space: nowrap;"></span>
+                            <input type="hidden" id="Procurement_ItemId" name="Procurement_ItemId" value="" />
+                        </div>
+                        <div class="input-group-append">
+                            <a href="javascript:void(0)" class="btn btn-success" id="browse">Select</a>
+
+                        </div>
                     </div>
-                    
                 </div>
             </div>
         }

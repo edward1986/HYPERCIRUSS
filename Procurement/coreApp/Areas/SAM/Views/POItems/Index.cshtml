@@ -26,12 +26,15 @@
             bottom: 19%;
         }
     </style>
-    
+
 }
 
 @section Scripts {
+    <script src="~/Assets/nextro/assets/js/plugins/dataTables.responsive.min.js"></script>
+    <script src="~/Assets/nextro/assets/js/plugins/dataTables.buttons.min.js"></script>
+    <script src="~/Assets/nextro/assets/js/plugins/buttons.bootstrap4.min.js"></script>
     <script>
-        $.fn.modal.Constructor.prototype.enforceFocus = function () { };
+
         $(document).on('show.bs.modal', '.modal', function (event) {
             var zIndex = 1040 + (10 * $('.modal:visible').length);
             $(this).css('z-index', zIndex);
@@ -39,12 +42,16 @@
                 $('.modal-backdrop').not('.modal-stack').css('z-index', zIndex - 1).addClass('modal-stack');
             }, 0);
         });
-        var chosenModal = $('#chosenModal')
-        var chosenSaveRecord = $("#chosenSaveRecord")
-        var chosenToast = $('.toast-right');
-        var chosenData = null
-        var modalView = $('#modalView')
+
         function load(e) {
+            var chosenModal = $('#chosenModal')
+            var chosenSaveRecord = $("#chosenSaveRecord")
+            var chosenToast = $('.toast-right');
+            var chosenData = null
+            var modalView = $('#modalView')
+            var SelectView = $('#SelectModal')
+            var dataName, dataValue;
+            var scrollFill
             if (e.viewType == 'view') {
 
                 var locked = e.modal.find('.modal-body #Locked').val() == 'True';
@@ -61,7 +68,7 @@
 
             }
 
-            
+
 
              function add() {
                         chosenModal.modal("show");
@@ -90,25 +97,100 @@
                                 $("#bodyToast").html(data.Err == "" ? data.Remarks : data.Err.replace(/\n/g, '<br/>'))
                                 $("#chosenHeader").text(data.Err == "" ? " Item Recorded" : " Something went wrong")
                                 chosenToast.toast('show')
-                                if (data.IsSuccessful) {
+                                    if (data.IsSuccessful) {
                                     $("[name='Name']").val("");
                                     $("[name='Description']").val("");
                                     $("[name='Year']").val("");
                                     $("[name='OrigPrice']").val("");
-                                    chosenModal.modal("hide")
-                                    $('#Procurement_ItemId').append('<option value="' + data.Data + '" selected="selected">' + Name + '</option>');
+                                        chosenModal.modal("hide")
+                                        SelectView.modal("hide");
+                                        $("#Procurement_Item").text(Name)
+                                        $("#Procurement_ItemId").val(data.Data)
+                                        $("select#UnitId option[value=" + UnitId +"]").attr('selected', 'selected')
+                                        $("select#CategoryId option[value=" + CategoryId+"]").attr('selected', 'selected')
+
+                                    //$('#Procurement_ItemId').append('<option value="' + data.Data + '" selected="selected">' + Name + '</option>');
                                     //$('#Procurement_ItemId').trigger("chosen:updated");
                                 }
                             });
                         });
             }
 
-
+           
             $("#browse").off('click').on('click', function () {
-                add()
+                SelectView.modal("show");
+                if ($.fn.DataTable.isDataTable('#scroll-fill')) {
+                    $('#scroll-fill').DataTable().destroy();
+                }
+                $("#scroll-fill").hide();
+                scrollFill = $('#scroll-fill').DataTable({
+                    "deferRender": true,
+                    "paging": true,
+                    processing: true,
+                    "bLengthChange": false,
+                    "bInfo": false,
+                    "bServerSide": true,
+                    "sAjaxSource": "/SAM/Items/procurementItems",
+                    "fnServerData": function (sSource, aoData, fnCallback) {
+                        $("#scroll-fill").show();
+                        $.ajax({
+
+                            type: "Get",
+                            data: aoData,
+                            url: sSource,
+                            success: fnCallback
+                        })
+
+                    },
+                    "rowCallback": function (row, data) {
+                        console.log(row)
+                        $(row).attr({
+                            "data-value": data.Value,
+                            "data-name": data.Name,
+                            "name": data.Value
+                        });
+                    },
+                    "aoColumns": [
+
+                        { "mData": "Name" },
+                        { "mData": "Unit" },
+                        { "mData": "Category" }
+
+
+                    ],
+                    dom: 'Bfrtip',
+                    buttons: [{
+                        text: 'Add Item',
+                        action: function (e, dt, node, config) {
+                            add()
+                        }
+                    }]
+
+                });
+
+                
+
+                $('#scroll-fill tbody').on('click', 'tr',  function () {
+
+                    if ($(this).hasClass('selected')) {
+                        $(this).removeClass('selected');
+                        
+                    }
+                    else if (!$(this).hasClass('child')){
+
+                        dataName = $(this).attr("data-name")
+                        dataValue = $(this).attr("data-value")
+                        $("#Procurement_Item").text(dataName)
+                        $("#Procurement_ItemId").val(dataValue)
+                        
+                        scrollFill.$('tr.selected').removeClass('selected');
+                        $(this).addClass('selected');
+                        SelectView.modal("hide");
+                    }
+                });
             })
 
-            
+
 
 
             return e;
@@ -131,7 +213,33 @@
         </div>
     </div>
 </div>
-
+<div id="SelectModal" class="modal fade" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Create Items</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="table-responsive">
+                    <table id="scroll-fill" class="display table table-striped table-hover dt-responsive nowrap" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Unit</th>
+                                <th>Category</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <div id="chosenModal" class="modal fade" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">

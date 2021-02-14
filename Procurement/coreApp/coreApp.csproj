@@ -456,6 +456,7 @@
     <Compile Include="Areas\Procurement\Models\tblNOA.cs" />
     <Compile Include="Areas\Procurement\Models\vTotalAllocation.cs" />
     <Compile Include="Areas\Procurement\ViewModels\CompanyAPPItemModels.cs" />
+    <Compile Include="Areas\SAM\Models\DataTablesParam.cs" />
     <Compile Include="Areas\User\Controllers\GroupMembersController.cs" />
     <Compile Include="Areas\User\Controllers\DepartmentsController.cs" />
     <Compile Include="Areas\User\Controllers\EmployeeGroupsController.cs" />
