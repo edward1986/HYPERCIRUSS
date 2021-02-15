@@ -17,16 +17,7 @@
 
 @section Styles {
     <link href="~/Areas/Procurement/Assets/css/common.less" rel="stylesheet" type="text/css">
-    <style>
-        .additem {
-            position: absolute;
-            right: 1.6%;
-            border: none;
-            outline: 1px solid #aaa;
-            bottom: 19%;
-        }
-    </style>
-
+    <link href="~/Assets/nextro/assets/css/plugins/responsive.bootstrap4.min.css" rel="stylesheet" />
 }
 
 @section Scripts {
@@ -42,7 +33,7 @@
                 $('.modal-backdrop').not('.modal-stack').css('z-index', zIndex - 1).addClass('modal-stack');
             }, 0);
         });
-
+        
         function load(e) {
             var chosenModal = $('#chosenModal')
             var chosenSaveRecord = $("#chosenSaveRecord")
@@ -116,14 +107,19 @@
                         });
             }
 
-           
+
             $("#browse").off('click').on('click', function () {
+                var selectModalClass = "table table-striped table-hover nowrap"
+                $("#scroll-fill").removeClass(selectModalClass);
                 SelectView.modal("show");
                 if ($.fn.DataTable.isDataTable('#scroll-fill')) {
+
+                    $('#scroll-fill').DataTable().clear();
                     $('#scroll-fill').DataTable().destroy();
                 }
                 $("#scroll-fill").hide();
                 scrollFill = $('#scroll-fill').DataTable({
+                    responsive: true,
                     "deferRender": true,
                     "paging": true,
                     processing: true,
@@ -142,8 +138,8 @@
                         })
 
                     },
+
                     "rowCallback": function (row, data) {
-                        console.log(row)
                         $(row).attr({
                             "data-value": data.Value,
                             "data-name": data.Name,
@@ -167,14 +163,14 @@
                     }]
 
                 });
+                $("#scroll-fill").addClass(selectModalClass); 
 
-                
 
                 $('#scroll-fill tbody').on('click', 'tr',  function () {
 
                     if ($(this).hasClass('selected')) {
                         $(this).removeClass('selected');
-                        
+
                     }
                     else if (!$(this).hasClass('child')){
 
@@ -182,7 +178,7 @@
                         dataValue = $(this).attr("data-value")
                         $("#Procurement_Item").text(dataName)
                         $("#Procurement_ItemId").val(dataValue)
-                        
+
                         scrollFill.$('tr.selected').removeClass('selected');
                         $(this).addClass('selected');
                         SelectView.modal("hide");
@@ -223,8 +219,8 @@
                 </button>
             </div>
             <div class="modal-body">
-                <div class="table-responsive">
-                    <table id="scroll-fill" class="display table table-striped table-hover dt-responsive nowrap" style="width:100%">
+                <div class="table-responsive dt-responsive">
+                    <table id="scroll-fill" style="width:100%">
                         <thead>
                             <tr>
                                 <th>Name</th>
@@ -232,7 +228,14 @@
                                 <th>Category</th>
                             </tr>
                         </thead>
+
                         <tbody>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+
                         </tbody>
                     </table>
                 </div>
