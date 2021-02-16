@@ -64,12 +64,14 @@
              function add() {
                         chosenModal.modal("show");
                         chosenSaveRecord.off('click').on("click", function(event) {
+                            var d = new Date();
+                            var n = d.getFullYear();
                             var token = $("[name='__RequestVerificationToken']").val();
                             var Name = $("[name='Name']").val();
                             var Description = $("[name='Description']").val();
                             var CategoryId = $("[name='CategoryId']").val();
                             var UnitId = $("[name='UnitId']").val();
-                            var Year = $("[name='Year']").val();
+                            var Year = n;
                             var InDBM = $("[name='InDBM']").val();
                             var OrigPrice = $("[name='OrigPrice']").val();
 

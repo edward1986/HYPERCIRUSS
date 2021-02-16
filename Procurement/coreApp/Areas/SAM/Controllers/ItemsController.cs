@@ -56,21 +56,21 @@ namespace coreApp.Areas.SAM.Controllers
                     pageNo = (param.iDisplayStart / param.iDisplayLength) + 1;
 
                 }
-
+                
                 int totalCount = 0;
                 if (param.sSearch != null)
                 {
-                    totalCount = model.Where(x => x.Name.ToLower().Contains(param.sSearch.ToLower()) || x.Year == Year).Count();
-                    List = model.Where(x => x.Name.ToLower().Contains(param.sSearch.ToLower()) || x.Year == Year)
+                    totalCount = model.Where(x => x.Name.ToLower().Contains(param.sSearch.ToLower()) ).Count();
+                    List = model.Where(x => x.Name.ToLower().Contains(param.sSearch.ToLower()) )
                         .Skip((pageNo - 1) * param.iDisplayLength)
                     .Take(param.iDisplayLength)
                     .Select(item => new { Value = item.Id, Name = item.Name, Unit = item.Unit.Unit, Category = item.Category.Category })
                     .ToList();
                 }
                 else{
-                    totalCount = model.Where(x => x.Year == Year).Count();
-                    List = model.Where(x => x.Year == Year).Skip((pageNo - 1) * param.iDisplayLength)
-                    .Take(param.iDisplayLength)
+                    totalCount = model.Count();
+                    List = model.Skip((pageNo - 1) * param.iDisplayLength)
+                    .Take(param.iDisplayLength).OrderBy(x => x.Name)
                     .Select(item => new { Value = item.Id, Name = item.Name, Unit = item.Unit.Unit, Category = item.Category.Category })
                     .ToList();
                 }
